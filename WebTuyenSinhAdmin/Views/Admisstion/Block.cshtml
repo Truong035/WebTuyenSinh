@@ -1,0 +1,264 @@
+﻿@model List<Block>
+@{
+
+}
+@using WebTuyenSinh.Data.Entityes;
+<div class="col-lg-12 grid-margin stretch-card" id="frm1">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Danh Sách Các Ngành</h4>
+                            <div class="ml-auto">
+                                <button class="btn btn-primary btn-round ml-auto"
+                                        data-toggle="modal"
+                                        data-target="#addRowModal">
+                                    <i class="ti-plus"></i>
+                                    Thêm Trường
+                                </button>
+                                <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
+                                    <i class="ti-export"></i>
+                                    Tải File
+                                </button>
+                                <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="data-table" class="display expandable-table" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    TỔ HỢP
+                                                </th>
+                                                <th>
+                                                    MÔ TẢ
+                                                </th>
+
+                                                <th>
+                                                    #
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.id
+                                                    </td>
+                                                    <td>
+                                                        @(item.Desscription!=null? item.Desscription : "Chưa Cập Nhật")
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="form-button-action">
+                                                            <button type="button" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                <i class="ti-pencil-alt"></i>
+                                                            </button>
+                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="col-lg-12 grid-margin stretch-card" id="frm2">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Danh Sách Tổ Hợp Upload File</h4>
+                            <div class="ml-auto">
+                                <button class="btn btn-primary btn-round ml-auto" id="btn-save">
+                                    <i class="ti-plus"></i>
+                                    Lưu
+                                </button>
+                                <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
+                                    <i class="ti-export"></i>
+                                    Tải File
+                                </button>
+                                <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                <button id="btnQuay" class="btn btn-primary btn-round ml-auto"
+                                        data-toggle="modal"
+                                        data-target="#addRowModal">
+                                    <i class="ti-plus"></i>
+                                    Quay Lại
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="add_row" class="display expandable-table" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Tổ Hợp
+                                                </th>
+                                                <th>
+                                                    Mô Tả
+                                                </th>
+
+
+                                                <th>
+                                                    #
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbbody">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        var arr = [];
+        $("#frm2").hide();
+        function readURL(event) {
+
+            var file = event.files[0];
+            var reader = new FileReader();
+            var excelData = [];
+            var maphong1 = event.title;
+
+
+            reader.onload = function (event) {
+                $("#txtFile").val("");
+                var data = event.target.result;
+                var workbook = XLSX.read(data, {
+                    type: 'binary'
+                });
+                workbook.SheetNames.forEach(function (sheetName) {
+                    // Here is your object
+                    var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+
+                    console.log(XL_row_object);
+                    arr = [];
+                    let cout = 0;
+                    for (var i = 1; i < XL_row_object.length; i++) {
+                        arr.push({
+                            id: XL_row_object[i]["__EMPTY"],
+                            Desscription: XL_row_object[i]["__EMPTY_1"],
+
+                        });
+                        var action = `<td>
+
+                                                            <div class="form-button-action">
+
+                                                                <button type="button" data-toggle="tooltip" title="" name = 'Delete' class="btn  btn-icon-text text-danger"  data-original-title="Edit Task">
+
+                                                                   <i class="ti-close"></i>
+
+                                                                </button>
+
+
+                                                            </div>
+
+                                                        </td>`;
+
+
+
+
+                    }
+                    arr.splice(0, 1);
+                    $('#add_row').dataTable().fnDeleteRow();
+                    for (var i = 0; i < arr.length; i++) {
+                        $('#add_row').dataTable().fnAddData([
+
+                            arr[i].id,
+                            arr[i].Desscription,
+                            action
+                        ]);
+                    }
+                    console.log(arr)
+                    $("#frm1").hide();
+
+                    $("#frm2").show();
+                })
+            }; reader.onerror = function (ex) {
+                console.log(ex);
+            };
+            reader.readAsBinaryString(file);
+
+        }
+
+        $(document).ready(function () {
+
+            $("#tbbody").show();
+            $(document).on('click', "button[name = 'Delete']", function () {
+                let id = $(this).closest('tr').find("td:eq(0)").text();
+
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].id === id) {
+                        arr.splice(i, 1);
+                        $('#add_row').dataTable().fnDeleteRow($(this).closest('tr'));
+                        break;
+                    }
+                }
+                console.log(arr)
+
+            });
+
+            $("#btnQuay").click(function () {
+                $("#frm1").show();
+
+                $("#frm2").hide();
+            })
+            $("#btn-save").click(function () {
+                if (arr.length > 0) {
+                    $.ajax({
+                        url: "/Admisstion/Import",
+                        type: 'POST',
+                        data: { ViewBlock: JSON.stringify(arr) },
+                        success: function (data) {
+                            //...
+                            window.location = "/Admisstion/Block"
+
+                        }
+                    });
+                }
+            })
+        })
+
+
+                    // Add Row
+
+
+
+    </script>
+}

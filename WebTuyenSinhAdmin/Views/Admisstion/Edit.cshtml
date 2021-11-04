@@ -1,0 +1,382 @@
+﻿@model Admisstion
+@{
+    AdmisstionData data = (AdmisstionData)ViewBag.data;
+}
+@using WebTuyenSinh_Application.Repository;
+@using WebTuyenSinh.Data.Entityes;
+<div class="col-lg-12 grid-margin stretch-card" id="frm1">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Thông Tin Xét Tuyển</h4>
+                            <div class="ml-auto">
+                                <button class="btn btn-primary btn-round ml-auto"
+                                        data-toggle="modal"
+                                        data-target="#addRowModal">
+                                    <i class="ti-plus"></i>
+                                    Thêm Trường
+                                </button>
+                                <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
+                                    <i class="ti-export"></i>
+                                    Tải File
+                                </button>
+                                <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="formadmisstion">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mb-3 row ">
+                                        <div class="col">
+                                            <label for="txtname" class="form-label">Nội Dung</label>
+                                            <input type="text" class="form-control" id="txtname" value="@Model.Name" required placeholder="Mời Nhập Thông Tin">
+                                        </div>
+                                        <div class="col">
+                                            <label for="txttype" class="form-label">Loại Xét Tuyển</label>
+                                            <select class="form-control" id="txttype" required>
+                                                <option value="">Chọn Loại Xét Tuyển</option>
+                                                @if (Model.Type == 1)
+                                                {
+                                                    <option value="1" selected>Xét Đánh Gía Năng Lực</option>
+                                                    <option value="2">Xét Học Bạ</option>
+                                                }
+
+                                                @if (Model.Type == 2)
+                                                {
+                                                    <option value="1">Xét Đánh Gía Năng Lực</option>
+                                                    <option value="2" selected>Xét Học Bạ</option>
+                                                }
+
+
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="txtdescription" class="form-label">Mô Tả</label>
+                                        <textarea class="form-control" id="txtdescription" rows="3"> @Model.Description</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col d-flex justify-content-between align-items-center">
+                                    <label class="w-50">Thời Gian Bắt Đầu</label>
+                                    <input type="datetime-local" value="@Model.OpenTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" required id="txtdatetimestart" class="form-control" />
+                                </div>
+                                <div class="col d-flex justify-content-between align-items-center">
+                                    <label class="w-50">Thời Gian Kết Thúc</label>
+                                    <input type="datetime-local" value="@Model.CloseTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" required id="txtdatetimeend" class="form-control" />
+                                </div>
+                            </div>
+
+
+
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table id="tbadmiss" class="display expandable-table" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Mã Ngành
+                                                    </th>
+                                                    <th style="width:35%">
+                                                        Tổ Hợp Môn
+                                                    </th>
+                                                    <th style="width:15%">
+                                                        Số Lượng
+                                                    </th>
+
+                                                    <th>
+                                                        #
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbbody">
+                                                @{
+                                                    var i = 0;
+                                                    @foreach (var item in Model.Admisstion_Major)
+                                                    {
+                                                        i++;
+                                                        <tr>
+                                                            <td>
+                                                                <select class="form-select-sm  col-12 selectmajor " required id="select@(i)">
+                                                                    <option value="">Chọn Ngành</option>
+                                                                    @foreach (var item1 in data.Majors)
+                                                                    {
+                                                                        if (item1.id.Equals(item.idMajor))
+                                                                        {
+                                                                            <option value="@item1.id" selected>@item1.Name</option>
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@item1.id">@item1.Name</option>
+
+                                                                        }
+
+                                                                    }
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select class="js-example-basic-multiple col-12 admisstion" required id="admisstion@(i)" multiple="multiple">
+                                                                    @foreach (var item2 in data.Blocks)
+                                                                    {
+                                                                        if (item.Addmisstion_Major_Block.ToList().Exists(x => x.idBlock.Equals(item2.id)))
+                                                                        {
+                                                                            <option value="@item2.id" selected>@item2.id</option>
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@item2.id">@item2.id</option>
+
+                                                                        }
+
+                                                                    }
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" min="0" value="0" class=" col-12 txtQuanty " id="txt@(i)" placeholder="Số luong dự kiến">
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-button-action">
+
+                                                                    <button hef="/DeleteShool"  id="@i" name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                                        <i class="ti-close"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    }
+
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" id="@i" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                <i class="ti-plus"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                        <td>
+                                                        </td>
+
+                                                    </tr>
+
+                                                }
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="d-flex justify-content-center"> <button type="submit" class="btn btn-inverse-primary" id="btnAdd">Tạo Mới</button> </div>
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        let arr = []
+        var data = null;
+        function LoadData(i) {
+
+            $("#admisstion0").select2();
+            let selectmajor = ` <select class="form-select-sm  col-12 selectmajor " required id="select${i}">
+     <option value="">Chọn Ngành</option>
+`;
+            $.each(data.majors, function (k, v) {
+                selectmajor += ` <option value="${v.id}">${v.name}</option>`
+            });
+            selectmajor += `</select>`
+
+            let selectblock = `<select class="js-example-basic-multiple col-12 admisstion" required id="admisstion${i}" multiple="multiple"> `
+            $.each(data.blocks, function (k, v) {
+                selectblock += ` <option value="${v.id}">${v.id}</option>`
+            });
+            selectblock += `</select>`
+            let tr = `  <tr>
+                                                    <td>
+                                                      ${selectmajor}
+                                                    </td>
+                                                    <td>
+                                                       ${selectblock}
+                                                    </td>
+                                                    <td>
+                                                        <input type="number" min="0" value="0"  class=" col-12 txtQuanty " id="txt${i}" placeholder="Số luong dự kiến">
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-button-action">
+
+                                                            <button hef="/DeleteShool"  id="${i}" name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>`
+
+            $("#tbbody").append(tr)
+            tr = `  <tr>               <td>   <button type="button" id="${i}" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                <i class="ti-plus"></i>
+                                                            </button>
+                                                    </td>
+                                                    <td>
+
+                                                    </td>
+                                                    <td>
+
+                                                    </td>
+                                                    <td>
+
+
+                                                    </td>
+
+                                                </tr>`
+
+            $("#tbbody").append(tr)
+            $("#admisstion" + i).select2();
+
+        }
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "/Admisstion/GetData",
+                type: 'GET',
+
+                success: function (req) {
+                    if (req.success) {
+                        data = req.data;
+                       // LoadData(0);
+                    }
+
+
+                }
+            });
+
+
+            $(document).on('click', "button[name = 'Delete']", function () {
+
+                $(this).closest('tr').remove();
+
+
+            })
+            $("#btnAdd").click(function () {
+
+                let cout = $("#tbadmiss").find("tr").length
+                let check = true;
+
+                for (var i = 0; i < $('.selectmajor').length; i++) {
+                    if ($($('.selectmajor').get(i)).val().length === 0) {
+                        $($('.selectmajor').get(i)).addClass("border-danger");
+                        check = false;
+                    }
+                    else {
+                        $($('.selectmajor').get(i)).removeClass("border-danger");
+                    }
+                    if ($($('.admisstion').get(i)).val().length === 0) {
+                        $($('.select2-selection').get(i)).addClass("border-danger");
+                        check = false;
+                    }
+                    else {
+
+                        $($('.select2-selection').get(i)).removeClass("border-danger");
+                    }
+
+                }
+                if (check === true) {
+
+                }
+
+            });
+            $('#formadmisstion').on('submit', function (e) {
+                e.preventDefault(); // Now nothing will happen
+                let Majors = [];
+                for (var i = 0; i < $('.selectmajor').length; i++) {
+                    var major = $($('.admisstion').get(i)).val()
+                    var a = String(major).split(",");
+                    Majors.push({
+                        idMajor: $($('.selectmajor').get(i)).val(),
+                        ListBlock: a,
+                        Quantity: $($('.txtQuanty').get(i)).val()
+                    });
+                    if ($($('.selectmajor').get(i)).val().length === 0) {
+                        $($('.selectmajor').get(i)).addClass("border-danger");
+                        check = false;
+                    }
+                    else {
+                        $($('.selectmajor').get(i)).removeClass("border-danger");
+                    }
+                    if ($($('.admisstion').get(i)).val().length === 0) {
+                        $($('.select2-selection').get(i)).addClass("border-danger");
+                        check = false;
+                    }
+                    else {
+
+                        $($('.select2-selection').get(i)).removeClass("border-danger");
+                    }
+
+                }
+
+
+                let AdmisstionCreate = {
+                    Name: $("#txtname").val(),
+                    Type: $("#txttype").val(),
+                    Description: $("#txtdescription").val(),
+                    OpenTime: $("#txtdatetimestart").val(),
+                    CloseTime: $("#txtdatetimeend").val(),
+                    Majors: Majors
+                };
+                console.log(AdmisstionCreate);
+                if (AdmisstionCreate) {
+                    $.ajax({
+                        url: "/Admisstion/Create",
+                        type: 'POST',
+                        data: { AdmisstionCreate: AdmisstionCreate },
+                        success: function (data) {
+                            //...
+                            window.location = "/Admisstion/Index"
+
+                        }
+                    });
+                }
+
+
+
+            });
+            $(document).on('click', "button[name = 'add']", function () {
+                let cout = $("#tbadmiss").find("tr").length
+                $(this).closest('tr').remove();
+                cout--;
+                console.log(cout);
+                $(this).hide();
+                LoadData(cout)
+                //   }
+
+
+
+            });
+
+
+        })
+
+    </script>
+}

@@ -1,0 +1,199 @@
+﻿@model List<School>
+@{
+
+}
+@using WebTuyenSinh.Data.Entityes;
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="m-3">
+            <div class="d-flex align-items-center">
+                <h4 class="card-title">Danh Sách Các Trường</h4>
+                <div class="ml-auto">
+                    <button class="btn btn-primary btn-round ml-auto"
+                            data-toggle="modal"
+                            data-target="#addRowModal">
+                        <i class="ti-plus"></i>
+                        Thêm Trường
+                    </button>
+                    <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
+                        <i class="ti-export"></i>
+                        Tải File
+                    </button>
+                    <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="multi-filter-select" class=" table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Mã Trường</th>
+                            <th>Tên Trường</th>
+                            <th>Quận Huyện</th>
+                            <th>Tỉnh</th>
+                            <th>Khu Vực</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Mã Trường</th>
+                            <th>Tên Trường</th>
+                            <th>Tỉnh</th>
+                            <th>Tỉnh</th>
+                            <th>Khu Vực</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody id="tbbody">
+                        @foreach (var item in Model)
+                        {
+
+                            @try
+                            {
+                                <tr>
+                                    <td>@item.idShool</td>
+                                    <td>@item.NameShool</td>
+                                    <td>@item.NameDistrict</td>
+                                    <td>@item.NameConscious</td>
+                                    <td>@item.Area</td>
+                                    <td>
+                                        <div class="form-button-action">
+                                            <button type="button" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                <i class="ti-pencil-alt"></i>
+                                            </button>
+                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                <i class="ti-close"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                            catch { }
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#tbbody").hide();
+        function readURL(event) {
+        
+            var file = event.files[0];
+            var reader = new FileReader();
+            var excelData = [];
+            var maphong1 = event.title;
+
+            reader.onload = function (event) {
+                var data = event.target.result;
+                var workbook = XLSX.read(data, {
+                    type: 'binary'
+                }); $("#tbbody").empty();
+                workbook.SheetNames.forEach(function (sheetName) {
+                    // Here is your object
+                    var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                    var arr = [];
+                    console.log(XL_row_object);
+                  
+                    for (var i = 1; i < XL_row_object.length; i++) {
+                        arr.push({
+                            idConscious: XL_row_object[i]["__EMPTY"],
+                            NameConscious: XL_row_object[i]["__EMPTY_1"],
+                            idDistrict: XL_row_object[i]["__EMPTY_2"],
+                            NameDistrict: XL_row_object[i]["__EMPTY_3"],
+                            NameShool: XL_row_object[i]["__EMPTY_5"],
+                            idShool: XL_row_object[i]["__EMPTY_4"],
+                            Adrees: (XL_row_object[i]["__EMPTY_6"] ? XL_row_object[i]["__EMPTY_6"] : ""),
+                            Area: XL_row_object[i]["__EMPTY_7"],
+                        })
+                 
+                  
+                    }
+                    if (arr.length > 2) {
+                        $.ajax({
+                            url: "/ManagerSchool/Import",
+                            type: 'POST',
+                            data: { ViewSchool: JSON.stringify(arr) },
+                            success: function (data) {
+                                //...
+                                window.location ="/ManagerSchool/ViewExcel"
+
+                            }
+                        });
+                    }
+                })
+            }; reader.onerror = function (ex) {
+                console.log(ex);
+            };
+            reader.readAsBinaryString(file);
+
+        }
+
+        $(document).ready(function () {
+            $("#tbbody").show();
+        })
+          
+            $('#multi-filter-select').DataTable({
+                "pageLength": 10,
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var select = $('<select class="form-control"><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
+
+            // Add Row
+  
+    
+       
+    </script>
+}
