@@ -32,7 +32,7 @@ namespace TuyenSinhAPI.Repository
                 admisstion.CloseTime = request.CloseTime;
                 admisstion.Description = request.Description;
                 admisstion.Delete = false;
-                admisstion.Statust = request.Statust;
+                admisstion.Statust = 0;
                 admisstion.Type = request.Type;
                 await _context.Admisstions.AddAsync(admisstion);
                 var id = await _context.SaveChangesAsync();
@@ -96,7 +96,6 @@ namespace TuyenSinhAPI.Repository
                     return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = null };
                 }
                 admisstion.Delete = false;
-                admisstion.Statust = false;
                 await _context.SaveChangesAsync();
                 _context.Admisstions.Remove(admisstion);
              await   _context.SaveChangesAsync();
@@ -137,7 +136,7 @@ namespace TuyenSinhAPI.Repository
             try
             {
               
-              List<Admisstion> admisstions = await _context.Admisstions.Where(x => x.Delete == false).Include(x=>x.Admisstion_Major).ToListAsync();
+              List<Admisstion> admisstions = await _context.Admisstions.Where(x => x.Delete == false && x.Statust<3).Include(x=>x.Admisstion_Major).ToListAsync();
                 return new ApiResult() { Success = true, Message = "Thành Công ", Data = admisstions };
             }
             catch (Exception E)
@@ -194,7 +193,7 @@ namespace TuyenSinhAPI.Repository
                 admisstion.Quantity = request.Quantity;
                 admisstion.CloseTime = request.CloseTime;
                 admisstion.Description = request.Description;
-                admisstion.Statust = request.Statust;
+
                 admisstion.Type = request.Type;
                 await _context.Admisstions.AddAsync(admisstion);
            

@@ -10,13 +10,12 @@
                 <div class="card">
                     <div class="m-3 border-bottom pb-3">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">Danh Sách Các Ngành</h4>
+                            <h4 class="card-title">Danh Sách Các Đợt Tuyển Sinh</h4>
                             <div class="ml-auto">
                                 <a class="btn btn-primary btn-round ml-auto"
-                                   href="/Admisstion/Create"
-                                   >
+                                   href="/Admisstion/Create">
                                     <i class="ti-plus"></i>
-                                    Thêm Trường
+                                    Thêm Mới
                                 </a>
                             </div>
                         </div>
@@ -52,34 +51,78 @@
 
                                             @foreach (var item in Model)
                                             {
-                                            <tr>
-                                                <td>
-                                                    @item.id
-                                                </td>
-                                                <td>
-                                                    @item.Name
-                                                </td>
-                                                <td>
-                                                    @(item.OpenTime!=null? item.OpenTime.ToString(): "Chưa cập nhật")
-                                                </td>
-                                                <td>
-                                                    @(item.CloseTime!=null? item.CloseTime.ToString(): "Chưa cập nhật")
-                                                </td>
-                                                <td>
-                                                    @(item.Statust==true ? "Đang Mở": "Đang Đóng")
-                                                </td>
-                                                <td>
-                                                    <div class="form-button-action">
-                                                        <a href="/Admisstion/Edit/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                            <i class="ti-pencil-alt"></i>
-                                                        </a>
-                                                        <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
-                                                            <i class="ti-close"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
+                                                <tr>
+                                                    <td>
+                                                        @item.id
+                                                    </td>
+                                                    <td>
+                                                        @item.Name
+                                                    </td>
+                                                    <td>
+                                                        @(item.OpenTime!=null? item.OpenTime.ToString(): "Chưa cập nhật")
+                                                    </td>
+                                                    <td>
+                                                        @(item.CloseTime!=null? item.CloseTime.ToString(): "Chưa cập nhật")
+                                                    </td>
+                                                    <td>
+                                                        @if (item.Statust == 0)
+                                                        {
+                                                            <label class="badge badge-info">
+                                                                Chưa diễn ra
 
-                                            </tr>
+                                                            </label>
+                                                        }
+                                                        @if (item.Statust == 1)
+                                                        {
+                                                            <label class="badge badge-success">
+                                                                Đang diễn ra
+
+                                                            </label>
+                                                        }
+                                                        @if (item.Statust == 2)
+                                                        {
+                                                            <label class="badge badge-warning">
+                                                                Cập nhật hồ sơ
+
+                                                            </label>
+                                                        }
+                                                        @if (item.Statust == 3)
+                                                        {
+                                                            <label class="badge badge-danger">
+                                                                Đã Đóng
+
+                                                            </label>
+                                                        }
+
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-button-action">
+                                                            <a href="/Admisstion/Detail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                <i class=" ti-eye"></i>
+                                                            </a>
+                                                            @if (item.Statust == 3)
+                                                            {
+                                                                <a href="EditResult/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                    <i class="ti-pencil-alt"></i>
+                                                                </a>
+                                                            }
+
+
+                                                            @if (item.Statust < 3)
+                                                            {
+                                                                <a href="/Admisstion/Edit/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                    <i class="ti-pencil-alt"></i>
+                                                                </a>
+                                                            }
+
+                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
                                             }
                                         </tbody>
                                     </table>

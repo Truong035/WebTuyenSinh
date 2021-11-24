@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
 }
 <div class="col-lg-12 grid-margin stretch-card" id="frm1">
@@ -12,17 +10,13 @@
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Thông Tin Xét Tuyển</h4>
                             <div class="ml-auto">
-                                <button class="btn btn-primary btn-round ml-auto"
-                                        data-toggle="modal"
-                                        data-target="#addRowModal">
-                                    <i class="ti-plus"></i>
-                                    Thêm Trường
-                                </button>
-                                <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
+
+                                <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-sm btn-primary btn-round ml-auto" data-target="#addRowModal">
                                     <i class="ti-export"></i>
                                     Tải File
                                 </button>
                                 <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                <a href="/Admisstion/Index" class="btn btn-primary btn-sm ">Quay Về</a>
                             </div>
                         </div>
                     </div>
@@ -110,8 +104,10 @@
 <script>
     let arr = []
     var data = null;
+    let cout = 10000;
+    let majorsnew = [];
+    let blocknew = [];
     function LoadData(i) {
-       
         $("#admisstion0").select2();
         let selectmajor = ` <select class="form-select-sm  col-12 selectmajor " required id="select${i}">
  <option value="">Chọn Ngành</option>
@@ -139,7 +135,7 @@
                                                 <td>
                                                     <div class="form-button-action">
 
-                                                        <button hef="/DeleteShool"  id="${i}" name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                        <button hef="/DeleteShool"   name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
                                                             <i class="ti-close"></i>
                                                         </button>
                                                     </div>
@@ -178,23 +174,26 @@
             success: function (req) {
                 if (req.success) {
                     data = req.data;
-                  LoadData(0);
+                    LoadData(cout);
+                    cout++;
                 }
          
 
             }
         });
 
-       
         $(document).on('click', "button[name = 'Delete']", function () {
-
             $(this).closest('tr').remove();
-     
+            if ($('.selectmajor').length == 0) {
+                $("#tbbody").empty()
+                cout = 1000;
+                LoadData(cout);
+                cout++;
+            }
            
         })
-        $("#btnAdd").click(function () {
 
-            let cout = $("#tbadmiss").find("tr").length
+        $("#btnAdd").click(function () {
             let check = true;
             
             for (var i = 0; i < $('.selectmajor').length; i++) {
@@ -258,12 +257,12 @@
                 CloseTime: $("#txtdatetimeend").val(),
                 Majors: Majors
             };
-            console.log(AdmisstionCreate);
+        
             if (AdmisstionCreate) {
                 $.ajax({
                     url: "/Admisstion/Create",
                     type: 'POST',
-                    data: { AdmisstionCreate: AdmisstionCreate },
+                    data: { AdmisstionCreate: AdmisstionCreate, blocknew: blocknew, majorsnew: majorsnew },
                     success: function (data) {
                         //...
                         window.location = "/Admisstion/Index"
@@ -275,21 +274,176 @@
       
 
         });
+
         $(document).on('click', "button[name = 'add']", function () {
-            let cout = $("#tbadmiss").find("tr").length
+           
             $(this).closest('tr').remove();
-            cout--;
-            console.log(cout);
+ 
             $(this).hide();
             LoadData(cout)
+            cout++;
          //   }
           
-
-
         });
       
 
     })
+    function readURL(event) {
+        var file = event.files[0];
+        var reader = new FileReader();
+        var excelData = [];
+        var maphong1 = event.title;
+        reader.onload = function (event) {
+            $("#txtFile").val("");
+            var data1 = event.target.result;
+            var workbook = XLSX.read(data1, {
+                type: 'binary'
+            });
+            workbook.SheetNames.forEach(function (sheetName) {
+                // Here is your object
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+
+                console.log(XL_row_object);
+                arr = [];
+           
+                for (var i = 1; i < XL_row_object.length; i++) {
+                    var major = XL_row_object[i]["__EMPTY_2"]
+                    var a = String(major).split(",");
+                    arr.push({
+                        idMajor: XL_row_object[i]["__EMPTY"],
+                        Name: XL_row_object[i]["__EMPTY_1"],
+                        Block: major,
+                        ListBlock:a,
+                        Quantity: XL_row_object[i]["__EMPTY_3"]
+                    });
+                }
+
+                arr.splice(0, 1);
+                console.log(arr)
+           
+                if (arr.length > 0) {
+                    @*$("#" + (cout - 1)).closest('tr').remove();*@
+                    $("#tbbody").empty();
+                    cout = 1000;
+                }
+
+       
+                $.each(arr, function (k, v) {
+                    $("#admisstion0").select2();
+                    let selectmajor = ` <select class="form-select-sm  col-12 selectmajor " required id="select${cout}">
+ <option value="">Chọn Ngành</option>
+`; var a = data.majors.find(e => e.id.trim() === v.idMajor.trim())
+            
+                    if (!a) {
+                        data.majors.push({
+                            id: v.idMajor,
+                            name: v.Name,
+                            description: ""
+                        })
+                        majorsnew.push({
+                            id: v.idMajor,
+                            name: v.Name,
+                            description: ""
+                        })
+                    }
+                    $.each(v.ListBlock, function (k1, v1) {
+                        var b = data.blocks.find(e => e.id.trim() === v1.trim())
+                        if (!b) {
+                            data.blocks.push({
+                                id: v1,
+                                description: ""
+                            })
+                            blocknew.push({
+                                id: v1,
+                                description: ""
+                            })
+                        }
+                    });
+
+                    $.each(data.majors, function (k1, v1) {
+
+                        
+                    
+
+                        if (v.idMajor.trim() === v1.id.trim()) {
+                            selectmajor += ` <option value="${v1.id}" selected>${v1.name}</option>`
+                        }
+                        else {
+                            selectmajor += ` <option value="${v1.id}" >${v1.name}</option>`
+                        }
+                          
+                       
+                    });
+                    selectmajor += `</select>`
+
+                    let selectblock = `<select class="js-example-basic-multiple col-12 admisstion" required id="admisstion${cout}" multiple="multiple"> `
+                    $.each(data.blocks, function (k1, v1) {
+                        console.log(v.ListBlock.includes(v1.id.trim()))
+                        if (v.ListBlock.includes(v1.id.trim())) {
+                            selectblock += ` <option value="${v1.id}" selected>${v1.id}</option>`
+                        }
+                        else {
+                            selectblock += ` <option value="${v1.id}">${v1.id}</option>`
+                        }
+                        
+                    });
+                    selectblock += `</select>`
+                    let tr = `  <tr>
+                                                <td>
+                                                  ${selectmajor}
+                                                </td>
+                                                <td>
+                                                   ${selectblock}
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" value="${v.Quantity}"  class=" col-12 txtQuanty "  placeholder="Số luong dự kiến">
+                                                </td>
+                                                <td>
+                                                    <div class="form-button-action">
+
+                                                        <button hef="/DeleteShool"   name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <i class="ti-close"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+
+                                            </tr>`
+
+                    $("#tbbody").append(tr)
+                    $("#admisstion" + cout).select2();
+                    cout++;
+                    
+
+                })
+                cout--;
+                let tr = `  <tr>               <td>   <button type="button" id="${cout}" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                            <i class="ti-plus"></i>
+                                                        </button>
+                                                </td>
+                                                <td>
+                                                 
+                                                </td>
+                                                <td>
+                                                 
+                                                </td>
+                                                <td>
+                                                      
+                                         
+                                                </td>
+
+                                            </tr>`
+                cout++;
+
+                $("#tbbody").append(tr)
+          
+            })
+        }; reader.onerror = function (ex) {
+            console.log(ex);
+        };
+        reader.readAsBinaryString(file);
+
+    }
+
  
 </script>
 }

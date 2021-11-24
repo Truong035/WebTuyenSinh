@@ -30,6 +30,7 @@ namespace WebTuyenSinh_Application.Modell
         public int? Quantity { get; set; }
         public DateTime? OpenTime { get; set; }
         public DateTime? CloseTime { get; set; }
+        public bool? Statust { get; set; }
         public List<string> ListBlock { get; set; } = new List<string>();
     }
     

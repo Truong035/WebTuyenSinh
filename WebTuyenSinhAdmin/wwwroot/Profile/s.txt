@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        * {
+            box-sizing: initial;
+        }
+
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman";
+            font-size: 100%;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #004174;
+            text-align: left;
+            margin: 0;
+        }
+
+        form {
+            font-size: 16px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+        }
+
+        body input,
+        body textarea {
+            outline: none;
+        }
+
+        button,
+        input {
+            overflow: visible;
+            color: #004174;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #004174;
+        }
+
+        input {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+            input[type="text" i] {
+                padding: 1px 2px;
+                height: 20px;
+                margin-top: 5px;
+            }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .flex-center {
+            justify-content: center;
+        }
+
+        .mt-1 {
+            margin-top: 5px;
+        }
+
+        .ml-3 {
+            margin-left: 5px;
+        }
+
+        .fl-left {
+            float: left;
+        }
+        /* header */
+        body div.a4-size {
+            width: 21cm;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 14px 0px rgb(0 0 0 / 30%);
+            padding: 30px 20px;
+            margin: 0 auto;
+        }
+
+            body div.a4-size div.educate {
+                position: relative;
+                padding-bottom: 5px;
+            }
+
+                body div.a4-size div.educate .educate-parent {
+                    font-size: 16px;
+                    text-align: center;
+                }
+
+                body div.a4-size div.educate .educate-child {
+                    font-weight: bold;
+                }
+
+                body div.a4-size div.educate .line-head-one {
+                    border: 1px solid black;
+                    position: absolute;
+                    bottom: 0;
+                    width: 30%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                body div.a4-size div.educate .line-head-custom {
+                    width: 48%;
+                }
+
+        .fw-bold {
+            font-weight: bold;
+        }
+
+        /* thông tin phiếu */
+        .justify-content-end {
+            justify-content: flex-end !important;
+        }
+
+        body div.a4-size div.form-title {
+            margin-top: 40px;
+        }
+
+        .form-title div:first-child {
+            max-width: 130px;
+            margin-right: 20px;
+        }
+
+        body div.a4-size div.student-avatar {
+            border: 1px solid #004174;
+            height: 150px;
+            width: 130px;
+        }
+
+        .student-avatar-size {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .student-avatar-note {
+            margin-top: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        body div.a4-size div.form-title > div > h6 {
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+            color: red;
+        }
+
+            body div.a4-size div.form-title > div > h6 > span {
+                display: block;
+                margin-top: 5px;
+            }
+
+        /* form info */
+        body div.a4-size div.student-form-info {
+            margin-left: 30px;
+            margin-top: 25px;
+        }
+
+            body div.a4-size div.student-form-info p > span {
+                font-weight: bold;
+            }
+
+            body
+            div.a4-size
+            div.student-form-info
+            div.full-name-box > div.full-name-validation {
+                width: 50%;
+            }
+
+        div.validation-parent {
+            position: relative;
+            display: inline-block;
+        }
+
+        body
+        div.a4-size
+        div.student-form-info
+        div.full-name-box > div.validation-parent > input.full-name-property {
+            border: none;
+            border-bottom: 1px dotted #004174;
+            width: 100%;
+            font-style: italic;
+            text-transform: uppercase;
+        }
+
+        /* chia col */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .col {
+            padding-left: 15px;
+            padding-right: 15px;
+            background-clip: content-box;
+        }
+
+        .c-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        .c-5 {
+            flex: 0 0 41.66667%;
+            max-width: 41.66667%;
+        }
+
+        .c-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .c-7 {
+            flex: 0 0 58.33333%;
+            max-width: 58.33333%;
+        }
+
+        .c-8 {
+            flex: 0 0 66.66667%;
+            max-width: 66.66667%;
+        }
+
+        .c-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a4-size bg-white">
+        <!-- header-top -->
+        <div class="row d-flex flex-center">
+            <div class="col c-6 educate">
+                <p class="educate-parent">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
+                <p class="educate-parent educate-child">TRƯỜNG ĐẠI HỌC GTVT PH TP.HCM</p>
+                <i class="line-head-one"></i>
+            </div>
+            <div class="col c-6 educate">
+                <p class="educate-parent educate-child">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                <p class="educate-parent fw-bold">Độc lập - Tự do - Hạnh phúc</p>
+                <i class="line-head-one line-head-custom"></i>
+            </div>
+        </div>
+
+        <!-- form-title -->
+        <div class="row form-title justify-content-end">
+            <div class="col c-3">
+                <div class="student-avatar">
+                    <p class="student-avatar-size">Ảnh 3x4</p>
+                    <p class="student-avatar-note">(Chụp kiểu CMND, không quá 6 tháng)</p>
+                </div>
+            </div>
+            <div class="col c-8" style="margin-top:50px;">
+                <h6>PHIẾU ĐĂNG KÝ HỌC LIÊN THÔNG<span>ĐẠI HỌC CHÍNH QUY</span></h6>
+            </div>
+        </div>
+
+        <!-- form info student -->
+        <div class="row student-form-info">
+            <form action="" id="student-form" method="POST" style="width:100%">
+                <div class="row mt-3">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>1. Họ và tên (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:65.5%">
+                                <input type="text" id="full_name" name="full_name" class="full-name-property ml-3"
+                                       placeholder="Nguyễn Văn A">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>2. Giới tính (*): </span>
+                            </p>
+                            <div class="ml-2 validation-parent  d-flex justify-content-around" style="width:48.5% ;margin-top:-3%">
+                                <div class="form-check">
+                                    <input name="sex" class="form-check-input" type="radio" value="" id="flexCheckCheckedDisabled">
+                                    <label for="flexCheckCheckedDisabled">
+                                        Nam
+                                    </label>
+
+                                </div>
+                                <div class="form-check">
+                                    <input name="sex" class="form-check-input" type="radio" value="" id="flexCheckCheckedDisabled">
+                                    <label for="flexCheckCheckedDisabled">
+                                        Nữ
+                                    </label>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>3. Ngày sinh (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:65%">
+                                <input type="date" required value="20" id="birthdate" name="birthdate" class="full-name-property ml-3"
+                                       placeholder="11/11/2011">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>4. Nơi Sinh (*): </span>
+                            </p>
+                            <div class="validation-parent">
+                                <input type="text" id="address" name="address" class="full-name-property ml-3"
+                                       placeholder="TP. Hồ Chí Minh">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>5. Số CMND/CCCD (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:49.5%">
+                                <input type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
+                                       placeholder="231308802">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>6. Nơi cấp (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:51%">
+                                <input type="text" id="noicap" name="noicap" class="full-name-property ml-3"
+                                       placeholder="Hà Nội">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>5. Dân tộc (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:69%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="11/11/2011">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="m d-flex">
+                                <span>6. Tôn giáo (*): </span>
+                            </p>
+                            <div class="validation-parent">
+                                <input type="text" id="tongiao" name="tongiao" class="full-name-property ml-3"
+                                       placeholder="TP. Hồ Chí Minh">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>7. Hộ khẩu thường trú (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:64.6%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="11e liên khu 25 quận 9">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>8. Địa chỉ liên lạc (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:68.6%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="11111111111111">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>10. Hiện làm việc tại (tên đơn vị công tác, địa chỉ)(*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:40.5%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="11111111111111">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>11. Nghề nghiệp(*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:58.5%">
+                                <input type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
+                                       placeholder="231308802">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>12. Chức vụ (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:47.4%">
+                                <input type="text" id="noicap" name="noicap" class="full-name-property ml-3"
+                                       placeholder="111">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col c-5">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>14. Điện thoại di động (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width: 35%;">
+                                <input type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
+                                       placeholder="0347689482">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-7">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>15. Email (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:59.4%">
+                                <input type="text" id="noicap" name="noicap" class="full-name-property ml-3"
+                                       placeholder="hoangvuong1225@gmail.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>16. Trường/Viện đã học và tốt nghiệp (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:51.2%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="Trường Đại học Bình Dương">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-5">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>17. Điểm TB tốt nghiệp (hệ 10) (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width: 15%;">
+                                <input type="text" id="cmnd" name="cmnd" style="text-align:center"
+                                       class="full-name-property ml-3" placeholder="9.0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-7">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>Điểm TB tốt nghiệp (hệ 4) (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:10%">
+                                <input type="text" id="noicap" name="noicap" style="text-align:center"
+                                       class="full-name-property ml-3" placeholder="3.8">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-5">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>18. Hình thức đào tạo (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width: 35.5%;">
+                                <input type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
+                                       placeholder="Chính quy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-7">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>19. Xếp hạng tốt nghiệp (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:36.1%">
+                                <input type="text" id="noicap" name="noicap" class="full-name-property ml-3"
+                                       placeholder="Tốt">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>20. Ngành học (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:60.5%">
+                                <input type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
+                                       placeholder="Công nghệ thông tin">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>21. Năm tốt nghiệp (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:34%">
+                                <input type="text" id="noicap" name="noicap" class="full-name-property ml-3"
+                                       placeholder="2021">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>22. Số hiệu bằng tốt nghiệp (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:40%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="11">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>23. Số vào sổ (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:30.8%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="12">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>24. Ngày ký cấp bằng tốt nghiệp (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:35.5%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="11/11/2011">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>25. Đăng ký học liên thông chuyên ngành (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:47.5%">
+                                <input type="text" id="dantoc" name="dantoc" class="full-name-property ml-3"
+                                       placeholder="Kinh doanh thương mại">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span style="font-weight:normal;margin-right: 75px;">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Tôi xin cam
+                                    đoan những lời
+                                    khai trên là đúng sự
+                                    thật.
+                                    Nếu có gì sai trái, tôi xin chịu trách
+                                    nhiệm và bị xử lý theo Quy chế tuyển sinh hiện hành của Bộ Giáo dục và Đào tạo.
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
+                            <p class="mt-1">
+                                <span style="font-weight:normal;">
+                                    <div class="validation-parent"
+                                         style="width:40%;justify-content: center;display: flex;margin-right:75px">
+                                        <input type="text" id="" name="" style="font-size: 13px; width: 500%;"
+                                               class="full-name-property ml-3">
+                                        <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
+                                        <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
+                                               class="full-name-property ml-3">
+                                        <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
+                                        <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
+                                               class="full-name-property ml-3">
+                                        <span style="margin-left: 10px;margin-top: 2px;">năm</span>
+                                        <input type="text" id="" name="" style="font-size: 13px;width:300%"
+                                               class="full-name-property ml-3">
+                                    </div>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit"> s</button>
+            </form>
+        </div>
+
+        <!-- xác nhận -->
+        <div class="confirm">
+            <div class="row d-flex flex-center">
+                <div class="col c-7 educate">
+                    <p class="educate-parent educate-child" style="position:relative">
+                        XÁC NHẬN CỦA UBND PHƯỜNG/XÃ<span style="color:red;font-size:12px;position: absolute;top:0;margin-left: 3px;">(**)</span>
+                    </p>
+                    <p class="educate-parent educate-child">HOẶC NƠI THÍ SINH ĐANG LÀM VIỆC/CÔNG TÁC</p>
+                    <p class="educate-parent" style="font-size:14px;font-style: italic;">
+                        (Đóng dấu
+                        mộc, ghi rõ họ tên,
+                        chức vụ,
+                        chữ ký của người xác
+                        nhận)
+                    </p>
+                </div>
+                <div class="col c-5 educate">
+                    <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
+                    <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                    <p class="educate-parent signature" style="margin-top: 50px;">
+                        Họ tên: <span>Phạm Trọng Trường</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- note -->
+        <div class="note" style="margin-left: 20px;margin-top: 20px;">
+            <p style="font-size:11px;position: relative;">
+                <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                <span style="margin-left: 15px;">: Đóng dấu giáp lai trên ảnh; Ảnh chụp kiểu CMND. </span>
+            </p>
+            <p style="font-size:11px;position: relative;">
+                <span style="color:red;position: absolute;top: -4px;">(**)</span>
+                <span style="margin-left: 20px;">
+                    : Đóng dấu xác nhận của UBND phường, xã hoặc cơ quan/doanh nghiệp nơi
+                    thí sinh hiện đang làm việc/công tác.
+                </span>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,1237 @@
+﻿@model ProfileView
+@{
+    Admisstion data = (Admisstion)ViewBag.data;
+}
+
+@using WebTuyenSinh_Application.Modell;
+@using WebTuyenSinh.Data.Entityes;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <style>
+        * {
+            box-sizing: initial;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center
+        }
+
+            td input {
+                width: 40px;
+                border: none
+            }
+
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Times New Roman";
+            font-size: 100%;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #004174;
+            text-align: left;
+            margin: 0;
+        }
+
+        form {
+            font-size: 16px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+        }
+
+        body input,
+        body textarea {
+            outline: none;
+        }
+
+        button,
+        input {
+            overflow: visible;
+            color: #004174;
+        }
+
+        ::-webkit-input-placeholder {
+            color: #004174;
+        }
+
+        input {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+            input[type="text" i] {
+                padding: 1px 2px;
+                height: 20px;
+                margin-top: 5px;
+            }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .flex-center {
+            justify-content: center;
+        }
+
+        .mt-1 {
+            margin-top: 5px;
+        }
+
+        .ml-3 {
+            margin-left: 5px;
+        }
+
+        .fl-left {
+            float: left;
+        }
+        /* header */
+        body div.a4-size {
+            width: 25cm;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 14px 0px rgb(0 0 0 / 30%);
+            padding: 30px 20px;
+            margin: 0 auto;
+        }
+
+            body div.a4-size div.educate {
+                position: relative;
+                padding-bottom: 5px;
+            }
+
+                body div.a4-size div.educate .educate-parent {
+                    font-size: 16px;
+                    text-align: center;
+                }
+
+                body div.a4-size div.educate .educate-child {
+                    font-weight: bold;
+                }
+
+                body div.a4-size div.educate .line-head-one {
+                    border: 1px solid black;
+                    position: absolute;
+                    bottom: 0;
+                    width: 30%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+
+                body div.a4-size div.educate .line-head-custom {
+                    width: 48%;
+                }
+
+        .fw-bold {
+            font-weight: bold;
+        }
+
+        /* thông tin phiếu */
+        .justify-content-end {
+            justify-content: flex-end !important;
+        }
+
+        body div.a4-size div.form-title {
+            margin-top: 40px;
+        }
+
+        .form-title div:first-child {
+            max-width: 130px;
+            margin-right: 20px;
+        }
+
+        body div.a4-size div.student-avatar {
+            border: 1px solid #004174;
+            height: 150px;
+            width: 130px;
+        }
+
+        .student-avatar-size {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .student-avatar-note {
+            margin-top: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        body div.a4-size div.form-title > div > h6 {
+            font-weight: bold;
+            text-align: center;
+            font-size: 18px;
+            color: red;
+        }
+
+            body div.a4-size div.form-title > div > h6 > span {
+                display: block;
+                margin-top: 5px;
+            }
+
+        /* form info */
+        body div.a4-size div.student-form-info {
+            margin-left: 30px;
+            margin-top: 25px;
+        }
+
+            body div.a4-size div.student-form-info p > span {
+                font-weight: bold;
+            }
+
+            body
+            div.a4-size
+            div.student-form-info
+            div.full-name-box > div.full-name-validation {
+                width: 50%;
+            }
+
+        div.validation-parent {
+            position: relative;
+            display: inline-block;
+        }
+
+        body
+        div.a4-size
+        div.student-form-info
+        div.full-name-box > div.validation-parent > input.full-name-property {
+            border: none;
+            border-bottom: 1px dotted #004174;
+            width: 100%;
+            font-style: italic;
+            text-transform: uppercase;
+        }
+
+        /* chia col */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .col {
+            padding-left: 15px;
+            padding-right: 15px;
+            background-clip: content-box;
+        }
+
+        .c-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        .c-4 {
+            flex: 0 0 35.66667%;
+            max-width: 35.66667%;
+        }
+
+        .c-5 {
+            flex: 0 0 41.66667%;
+            max-width: 41.66667%;
+        }
+
+        .c-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .c-7 {
+            flex: 0 0 58.33333%;
+            max-width: 58.33333%;
+        }
+
+        .c-8 {
+            flex: 0 0 66.66667%;
+            max-width: 66.66667%;
+        }
+
+        .c-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+        <div id="liveToast" class="toast hide bg-success text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+            Cập nhật thành công
+        </div>
+    </div>
+    <div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+        <div id="livefail" class="toast hide bg-danger text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+            Cập nhật thất bại
+        </div>
+    </div>
+    <form action="" id="student-form" style="width:100%">
+        <div class="a4-size bg-white">
+            <!-- header-top -->
+            <div class="row d-flex flex-center">
+                <div class="col c-6 educate">
+                    <p class="educate-parent">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
+                    <p class="educate-parent educate-child">TRƯỜNG ĐẠI HỌC GTVT PH TP.HCM</p>
+                    <i class="line-head-one"></i>
+                </div>
+                <div class="col c-6 educate">
+                    <p class="educate-parent educate-child">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                    <p class="educate-parent fw-bold">Độc lập - Tự do - Hạnh phúc</p>
+                    <i class="line-head-one line-head-custom"></i>
+                </div>
+            </div>
+
+            <!-- form-title -->
+            <div class="row form-title justify-content-end">
+                <div class="col c-3">
+                    <div class="student-avatar">
+                        <p class="student-avatar-size">Ảnh 3x4</p>
+                        <p class="student-avatar-note">(Chụp kiểu CMND, không quá 6 tháng)</p>
+                    </div>
+                </div>
+                <div class="col c-8" style="margin-top:50px;">
+                    <h6>PHIẾU ĐĂNG KÝ XÉT TUYỂN <span>ĐẠI HỌC CHÍNH QUY</span></h6>
+                </div>
+            </div>
+
+            <!-- form info student -->
+            <div class="row student-form-info">
+
+                <div class="row mt-3">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>1. Họ và tên (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:65.5%">
+                                <input type="text" required id="full_name" name="full_name" class="full-name-property ml-3"
+                                       value="Phạm Trọng Trường">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>2. Giới tính (*): </span>
+                            </p>
+                            <div class="ml-2 validation-parent  d-flex justify-content-around" style="width:48.5% ;margin-top:-3%">
+                                <div class="form-check">
+                                    <input required name="sex" class="form-check-input" type="radio" value="" id="checknam">
+                                    <label for="flexCheckCheckedDisabled">
+                                        Nam
+                                    </label>
+
+                                </div>
+                                <div class="form-check">
+                                    <input required name="sex" class="form-check-input" type="radio" value="" id="checknu">
+                                    <label for="flexCheckCheckedDisabled">
+                                        Nữ
+                                    </label>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>3. Ngày sinh (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:65%">
+                                <input required type="date" value="20" id="birthdate" name="birthdate" class="full-name-property ml-3"
+                                       placeholder="11/11/2011">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>4. Nơi Sinh (*): </span>
+                            </p>
+                            <div class="validation-parent">
+                                <input required type="text" id="fromBirthDay" name="address" class="full-name-property ml-3"
+                                       value="TP. Hồ Chí Minh" placeholder="TP. Hồ Chí Minh">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>5. Số CMND/CCCD (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:49.5%">
+                                <input required type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
+                                       value="231308802" placeholder="231308802">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-5">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <span class=" ml-3 mt-1 d-flex student-avatar-note full-name-box">
+                                <span>a)Ngày cấp:: </span>
+                            </span>
+
+
+                            <div class="validation-parent" style="width:49.5%">
+
+                                <input required type="date" value="2013-01-08" id="dateRange" name="cmnd" class="full-name-property ml-3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-7">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <span class=" ml-3 mt-1 d-flex student-avatar-note full-name-box">
+                                <span> b)Nơi cấp (*): </span>
+                            </span>
+                            <div class="validation-parent" style="width:51%">
+                                <input required type="text" id="noicap" name="noicap" class="full-name-property ml-3"
+                                       value="Hà Nội" placeholder="Hà Nội">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>6. Dân tộc (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:69%">
+                                <input required type="text" id="nation" value="KINH" name="dantoc" class="full-name-property ml-3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-6">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="m d-flex">
+                                <span>7. Tôn giáo (*): </span>
+                            </p>
+                            <div class="validation-parent">
+                                <input required type="text" value="KHÔNG" id="religion" name="tongiao" class="full-name-property ml-3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>8. Hộ khẩu thường trú (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:64.6%">
+                                <input required type="text" id="address" name="dantoc" class="full-name-property ml-3"
+                                       value="11e liên khu 25 quận 9">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>8. Địa chỉ liên lạc (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:68.6%">
+                                <input required type="text" id="fromTelePhone" name="dantoc" class="full-name-property ml-3"
+                                       value="11e liên khu 25 quận 9">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-5">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>9. Điện thoại di động (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width: 35%;">
+                                <input required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3"
+                                       value="0347689482">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col c-7">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>10. Email (*): </span>
+                            </p>
+                            <div class="validation-parent" style="width:59.4%">
+                                <input required type="email" id="Email" name="noicap" class="full-name-property ml-3"
+                                       value="hoangvuong1225@gmail.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span>11. Nơi học THPT hoặc tương đương: </span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col c-12">
+                        <div class="d-flex justify-content-around " style="width:100%">
+                            <div>
+                                <span class="  mt-1 d-flex student-avatar-note full-name-box">
+                                    <span> Ghi rõ tên trường và nơi trường đóng: huyện (quận), tỉnh (TP) </span>
+                                </span>
+                            </div>
+                            <div class="mr-5">
+                                <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                    Tên Quận
+                                </span>
+                            </div>
+
+                            <div class="mr-5">
+                                <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                    Tên Tỉnh
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ml-1 mt-1">
+                    <div class="col c-12">
+                        <div class=" d-flex" style="width:100%">
+                            <div class="d-flex day-of-birth full-name-box c-6">
+                                <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                    <span> Năm lớp 10:  </span>
+                                </span>
+                                <div class="validation-parent" style="width: 70%;">
+                                    <select required class="ml-2 form-select form-select-sm" id="School1" aria-label=" ml-3 ">
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="me-4 d-flex justify-content-between  c-6">
+                                <select class="form-select form-select-sm" id="district1" aria-label=".form-select-sm example">
+                                </select>
+                                <select class="ml-4 form-select form-select-sm" onchange="LoadConsciou()" id="Consciou1" aria-label=".form-select-sm example">
+                                </select>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row ml-1 mt-1">
+                    <div class="col c-12">
+                        <div class=" d-flex" style="width:100%">
+                            <div class="d-flex day-of-birth full-name-box c-6">
+                                <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                    <span> Năm lớp 11:  </span>
+                                </span>
+                                <div class="validation-parent" style="width: 70%;">
+                                    <select required class="ml-2 form-select form-select-sm" id="School2" aria-label="full-name-property ml-3 form-select-sm example">
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="me-4 d-flex justify-content-between  c-6">
+                                <select class="form-select form-select-sm" id="district2" aria-label=".form-select-sm example">
+                                </select>
+                                <select class="ml-4 form-select form-select-sm" id="Consciou2" aria-label=".form-select-sm example">
+                                </select>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row ml-1 mt-1">
+                    <div class="col c-12">
+                        <div class=" d-flex" style="width:100%">
+                            <div class="d-flex day-of-birth full-name-box c-6">
+                                <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                    <span> Năm lớp 12:  </span>
+                                </span>
+                                <div class="validation-parent" style="width: 70%;">
+                                    <select required class="ml-2 form-select form-select-sm" id="School3" aria-label="full-name-property ml-3 form-select-sm example">
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="me-4 d-flex justify-content-between  c-6">
+                                <select class="form-select form-select-sm" onchange="" id="district3" aria-label=".form-select-sm example">
+                                </select>
+                                <select class="ml-4 form-select form-select-sm" id="Consciou3" aria-label=".form-select-sm example">
+                                </select>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row  mt-1">
+                    <div class="row" style="width:100%">
+                        <div class="d-flex day-of-birth full-name-box" style=" width:30%">
+                            <span class="mt-2 d-flex student-avatar-note full-name-box" style="width:200px">
+                                <span> Năm tốt nghiệp:  </span>
+                            </span>
+                            <div class="validation-parent">
+                                <input type="text" id="year" name="cmnd" class="full-name-property ml-1" style="width:70px"
+                                       value="2018">
+                            </div>
+                        </div>
+                        <div class="d-flex day-of-birth full-name-box" style=" width:30%">
+                            <span class="mt-2 d-flex student-avatar-note full-name-box" style=" width: 70px">
+                                <span> Khu vực:  </span>
+                            </span>
+                            <div class="validation-parent">
+                                <input type="text" id="areas" name="cmnd" class="full-name-property" style="width:80px"
+                                       value=" KHU VỰC 1">
+                            </div>
+
+                        </div>
+
+                        <div class="d-flex day-of-birth full-name-box c-4">
+                            <span class="mt-2 d-flex student-avatar-note full-name-box">
+                                <span> Đối tượng ưu tiên (nếu có):  </span>
+                            </span>
+                            <div class="validation-parent" style="width: 30%;">
+                                <input type="text" id="priority_object" name="cmnd" class="full-name-property"
+                                       value=" KHÔNG CÓ">
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex" style="font-size:16px">
+                                <span>THÔNG TIN ĐĂNG KÝ XÉT TUYỂN </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col c-12">
+                        <div class=" " style="width:100%">
+                            <span class="student-avatar-note">
+                                <span>
+                                    Sau khi đã đọc và hiểu rõ các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi đăng ký xét
+                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành/ Chuyên ngành/ Nhóm chuyên ngành theo thứ tự ưu
+                                    tiên như bảng sau:
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col c-12">
+
+                        <table class="" disabled style="width:100%" dislayble>
+                            <tr>
+
+                                <th rowspan="4" style="width:20%">
+                                    Ngành/ Nhóm ngành/
+                                    Chuyên ngành/ Nhóm
+                                    chuyên ngành xét tuyển
+                                </th>
+                                <th rowspan="4" style="width:12%">
+                                    Tổ
+                                    hợp
+                                    xét
+                                    tuyể
+                                    n
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="9" style="width:65%;text-align:center">
+                                    Điểm trung bình 3 năm THPT
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="3">Môn 1</th>
+                                <th colspan="3">Môn 1</th>
+                                <th colspan="3">Môn 1</th>
+                            </tr>
+                            <tr>
+                                <th>Môn 1</th>
+                                <th>Môn 1</th>
+                                <th>Môn 1</th>
+                                <th>Môn 1</th>
+                                <th>Môn 1</th>
+                                <th>Môn 1</th>
+                                <th>Môn 1</th>
+                                <th>Môn 1</th>
+                                <th>Môn 1</th>
+                            </tr>
+
+
+                            <tbody id="tbbody">
+                                @{
+
+                                    foreach (var item in Model.Data.InforMationProflies)
+                                    {
+                                        <tr>
+
+                                            <td>
+
+                                                <select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+                                                    <option value="">Chọn Ngành</option>
+                                                    @foreach (var item1 in data.Admisstion_Major)
+                                                    {
+                                                        if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
+                                                        {
+                                                            <option value="@item.idMajor" selected>@item1.Major.Name</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.idMajor">@item1.Major.Name</option>
+                                                        }
+
+                                                    }
+
+
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
+
+                                                    @foreach (var item1 in data.Admisstion_Major)
+                                                    {
+                                                        if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
+                                                        {
+                                                            foreach (var item2 in item1.Addmisstion_Major_Block)
+                                                            {
+                                                                if (item.idBlock.Trim().Equals(item2.idBlock.Trim()))
+                                                                {
+                                                                    <option value="@item.idBlock" selected>@item.idBlock</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item2.idBlock">@item2.idBlock</option>
+                                                                }
+                                                            }
+
+                                                        }
+
+                                                    }
+
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
+                                            <td><input type="text" class="subject2" required value="@item.subject2" /></td>
+                                            <td><input type="text" class="subject3" required value="@item.subject3" /></td>
+                                            <td><input type="text" class="subject4" required value="@item.subject4" /></td>
+                                            <td><input type="text" class="subject5" required value="@item.subject5" /></td>
+                                            <td><input type="text" class="subject6" required value="@item.subject5" /></td>
+                                            <td><input type="text" class="subject7" required value="@item.subject7" /></td>
+                                            <td><input type="text" class="subject8" required value="@item.subject8" /></td>
+                                            <td><input type="text" class="subject9" required value="@item.subject9" /></td>
+                                            <td>
+                                                <div class="form-button-action">
+<input type="number" required value="@item.STT" />
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    } }
+
+                            </tbody>
+
+
+
+
+                        </table>
+
+                    </div>
+                </div>
+
+
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <p class="mt-1 d-flex">
+                                <span style="font-weight:normal;margin-right: 75px;">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    Tôi xin cam
+                                    đoan những lời
+                                    khai trên là đúng sự
+                                    thật.
+                                    Nếu có gì sai trái, tôi xin chịu trách
+                                    nhiệm và bị xử lý theo Quy chế tuyển sinh hiện hành của Bộ Giáo dục và Đào tạo.
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
+                            <p class="mt-1">
+                                <span style="font-weight:normal;">
+                                    <div class="validation-parent"
+                                         style="width:40%;justify-content: center;display: flex;margin-right:75px">
+                                        <input type="text" id="" name="" style="font-size: 13px; width: 500%;"
+                                               class="full-name-property ml-3">
+                                        <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
+                                        <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
+                                               class="full-name-property ml-3">
+                                        <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
+                                        <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
+                                               class="full-name-property ml-3">
+                                        <span style="margin-left: 10px;margin-top: 2px;">năm</span>
+                                        <input type="text" id="" name="" style="font-size: 13px;width:300%"
+                                               class="full-name-property ml-3">
+                                    </div>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- xác nhận -->
+            <div class="confirm">
+                <div class="row d-flex flex-center">
+                    <div class="col c-7 educate">
+                        <p class="educate-parent educate-child" style="position:relative">
+                            XÁC NHẬN CỦA UBND PHƯỜNG/XÃ<span style="color:red;font-size:12px;position: absolute;top:0;margin-left: 3px;">(**)</span>
+                        </p>
+                        <p class="educate-parent educate-child">HOẶC NƠI THÍ SINH ĐANG LÀM VIỆC/CÔNG TÁC</p>
+                        <p class="educate-parent" style="font-size:14px;font-style: italic;">
+                            (Đóng dấu
+                            mộc, ghi rõ họ tên,
+                            chức vụ,
+                            chữ ký của người xác
+                            nhận)
+                        </p>
+                    </div>
+                    <div class="col c-5 educate">
+                        <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
+                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                        <p class="educate-parent signature" style="margin-top: 50px;">
+                            Họ tên: <span>Phạm Trọng Trường</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- note -->
+            <div class="note" style="margin-left: 20px;margin-top: 20px;">
+                <p style="font-size:11px;position: relative;">
+                    <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                    <span style="margin-left: 15px;">: Đóng dấu giáp lai trên ảnh; Ảnh chụp kiểu CMND. </span>
+                </p>
+                <p style="font-size:11px;position: relative;">
+                    <span style="color:red;position: absolute;top: -4px;">(**)</span>
+                    <span style="margin-left: 20px;">
+                        : Đóng dấu xác nhận của UBND phường, xã hoặc cơ quan/doanh nghiệp nơi
+                        thí sinh hiện đang làm việc/công tác.
+                    </span>
+                </p>
+            </div>
+            <button class="btn btn-primary btn-sm" type="submit"> Lưu </button>
+        </div>
+
+    </form>
+</body>
+</html>
+@section Scripts{
+    <script>
+        let conscious = [];
+        let district = [];
+        let sChool = [];
+        let Profile;
+        let blocks = [];
+        let majors = [];
+        function CheckMart(e) {
+            try {
+                var mark = $(e).val()
+                var x = Number($(e).val())
+                alert(x)
+                if (x > 10 || x < 0) {
+                    $(e).val("")
+                }
+            } catch { $(e).val("") }
+
+
+        }
+        function Option(e) {
+            console.log($(e).val())
+            $(e).closest("tr").find("td:eq(1)").empty();
+            $.each(majors, function (k, v) {
+                if (v.idMajor.trim() === $(e).val().trim()) {
+
+                    let selectblock = ` <select class=" form-select form-select-sm block"  required aria-label=".form-select-sm example">
+                       `
+                    $.each(v.block, function (index, value) {
+                        selectblock += ` <option value="${value}">${value}</option>`
+                    })
+                    selectblock += `</select>`
+                    $(e).closest("tr").find("td:eq(1)").append(selectblock);
+                }
+
+            });
+        }
+
+    
+        $(document).ready(function () {
+
+            let id = window.location.href.split('/').pop();
+            $.ajax({
+                async: false,
+                url: "/Home/GETProfile/" + id,
+                type: 'GET',
+            }).done(
+                function (res) {
+                    console.log(res);
+                    if (res.success) {
+                        console.log(res.data)
+                        conscious = res.data.conscious;
+                        console.log(conscious);
+                        district = res.data.district
+                        console.log(district);
+                        sChool = res.data.sChool;
+                        console.log(sChool);
+                        Profile = res.data.data
+
+                        LoadProfile();
+                    }
+
+                }
+            );
+
+            $.ajax({
+                async: false,
+                url: "/Home/GetAdmisstionInfo/" + Profile.idAdmisstion,
+                type: 'GET',
+            }).done(function (res) {
+                console.log(res)
+                if (res.success) {
+                    majors = res.data;
+
+                }
+            });
+
+            $('#student-form').on('submit', function (e) {
+                e.preventDefault(); // Now nothing will happen
+                    Profile.name = $("#full_name").val();
+                Profile.birthDay = $("#birthdate").val();
+                Profile.adress = $("#address").val();
+                Profile.cmnd = $("#cmnd").val();
+                Profile.dateRange = $("#dateRange").val();
+                Profile.adressRange = $("#noicap").val();
+                Profile.nation = $("#nation").val();
+                Profile.religion = $("#religion").val();
+                Profile.fromBirthDay = $("#fromBirthDay").val();
+                Profile.fromTelePhone = $("#fromTelePhone").val();
+                Profile.teletephone = $("#teletephone").val();
+                Profile.email = $("#Email").val();
+                Profile.year = $("#year").val();
+                Profile.areas = $("#areas").val();
+                Profile.priority_object = $("#priority_object").val();
+                $.each(sChool, function (k, v) {
+
+                    if ($("#School1").val() == v.idSchool) {
+                        Profile.shoo1 = v.id
+                    }
+                    if ($("#School2").val() == v.idSchool) {
+                        Profile.shoo2 = v.id
+                    }
+                    if ($("#School3").val() == v.idSchool) {
+                        Profile.shoo3 = v.id
+                    }
+
+                });
+
+                var input = $(".subject1")
+                Profile.inforMationProflies = [];
+                $.each(input, function (k, v) {
+                    Profile.inforMationProflies.push({
+                        idBlock: $(v).closest("tr").find("select:eq(1)").val().trim(),
+                        idMajor: $(v).closest("tr").find("select:eq(0)").val().trim(),
+                        subject1: $(v).closest("tr").find("input:eq(0)").val().trim(),
+                        subject2: $(v).closest("tr").find("input:eq(1)").val().trim(),
+                        subject3: $(v).closest("tr").find("input:eq(2)").val().trim(),
+                        subject4: $(v).closest("tr").find("input:eq(3)").val().trim(),
+                        subject5: $(v).closest("tr").find("input:eq(4)").val().trim(),
+                        subject6: $(v).closest("tr").find("input:eq(5)").val().trim(),
+                        subject7: $(v).closest("tr").find("input:eq(6)").val().trim(),
+                        subject8: $(v).closest("tr").find("input:eq(7)").val().trim(),
+                        subject9: $(v).closest("tr").find("input:eq(8)").val().trim(),
+                        stt: $(v).closest("tr").find("input:eq(9)").val().trim(),
+                    })
+                })
+                if ($("#checknam").prop("checked")) {
+                    Profile.sex = 0;
+                } else {
+                    Profile.sex = 1;
+                }
+                //Profile.idAccount = token;
+                console.log(Profile)
+                if (Profile) {
+                    $.ajax({
+                        async: false,
+                        url: "https://localhost:44396/admisstion/createprofile",
+                        type: 'post',
+
+                        data: { profile: Profile },
+
+                    }).done(function (data) {
+                        console.log(data)
+                        if (data.success) {
+                            profile = data.data
+                            window.location = "/Home/EditProfile/" + id
+                         //   var link = document.createelement("a");
+                            // if you don't know the name or want to use
+                            // the webserver default set name = ''
+                            @*$(link).attr({
+                                target: '_blank',
+                                href: "https://localhost:44396/" + profile.url
+                            });
+                            link.click();
+                            link.remove();
+                            $("#livetoast").toast("show");*@
+                        }
+                        else {
+                            $("#livefail").toast("show");
+                        }
+
+                    }).fail(function () {
+
+                        $("#livefail").toast("show");
+                    });
+                }
+            });
+            $("#Consciou1").change(function () {
+                $("#district1").empty()
+                $.each(district, function (k, v) {
+                    if (v.idConscious == $("#Consciou1").val()) {
+                        let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                        $("#district1").append(option)
+                    }
+                })
+                $("#School1").empty()
+                $.each(sChool, function (k, v) {
+
+                    if (v.idConscious == $("#Consciou1").val()) {
+                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                        $("#School1").append(option)
+                    }
+                })
+            })
+            $("#district1").change(function () {
+
+                $("#School1").empty()
+                $("#Consciou1").val($("#district1").val().split('/').pop())
+                $.each(sChool, function (k, v) {
+
+                    if (v.idDistrict == $("#district1").val()) {
+                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                        $("#School1").append(option)
+                    }
+                })
+            })
+            $("#School1").change(function () {
+                $("#Consciou1").val($("#School1").val().split('/').pop())
+                $("#district1").val($("#School1").val().split('/')[1] + "/" + $("#School1").val().split('/').pop())
+            })
+            $("#Consciou2").change(function () {
+                $("#district2").empty()
+                $.each(district, function (k, v) {
+                    if (v.idConscious == $("#Consciou2").val()) {
+                        let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                        $("#district2").append(option)
+                    }
+                })
+                $("#School2").empty()
+                $.each(sChool, function (k, v) {
+
+                    if (v.idConscious == $("#Consciou1").val()) {
+                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                        $("#School2").append(option)
+                    }
+                })
+            })
+            $("#district2").change(function () {
+
+                $("#School2").empty()
+                $("#Consciou2").val($("#district2").val().split('/').pop())
+                $.each(sChool, function (k, v) {
+
+                    if (v.idDistrict == $("#district2").val()) {
+                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                        $("#School2").append(option)
+                    }
+                })
+            })
+            $("#School2").change(function () {
+                $("#Consciou2").val($("#School2").val().split('/').pop())
+                $("#district2").val($("#School2").val().split('/')[1] + "/" + $("#School2").val().split('/').pop())
+            })
+            $("#Consciou3").change(function () {
+                $("#district3").empty()
+                $.each(district, function (k, v) {
+                    if (v.idConscious == $("#Consciou3").val()) {
+                        let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                        $("#district3").append(option)
+                    }
+
+                })
+                $("#School3").empty()
+                $.each(sChool, function (k, v) {
+
+                    if (v.idConscious == $("#Consciou3").val()) {
+                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                        $("#School3").append(option)
+                    }
+                })
+
+
+            })
+            $("#district3").change(function () {
+                $("#School3").empty()
+                $("#Consciou3").val($("#district3").val().split('/').pop())
+                $.each(sChool, function (k, v) {
+
+                    if (v.idDistrict == $("#district3").val()) {
+                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                        $("#School3").append(option)
+                    }
+                })
+
+
+            })
+            $("#School3").change(function () {
+                $("#Consciou3").val($("#School3").val().split('/').pop())
+                $("#district3").val($("#School3").val().split('/')[1] + "/" + $("#School3").val().split('/').pop())
+            })
+        });
+
+
+        function LoadProfile() {
+
+            $("#full_name").val(Profile.name);
+            $("#birthdate").val(Profile.birthDay.split('T')[0]);
+            $("#address").val(Profile.adress);
+            $("#cmnd").val(Profile.cmnd);
+
+            $("#dateRange").val(Profile.dateRange.split('T')[0]);
+            $("#noicap").val(Profile.adressRange);
+
+            $("#nation").val(Profile.nation);
+            $("#religion").val(Profile.religion);
+            $("#fromBirthDay").val(Profile.fromBirthDay);
+            $("#fromTelePhone").val(Profile.fromTelePhone);
+            $("#teletephone").val(Profile.teletephone);
+            $("#Email").val(Profile.email);
+            $("#year").val(Profile.year);
+            $("#areas").val(Profile.areas);
+            $("#priority_object").val(Profile.priority_object);
+            if (Profile.sex === 0) {
+
+                $("#checknam").prop("checked", true);
+            }
+            else {
+                $("#checknu").prop("checked", true);
+            }
+
+            $.each(conscious, function (k, v) {
+                let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
+                $("#Consciou1").append(option)
+                $("#Consciou2").append(option)
+                $("#Consciou3").append(option)
+            })
+            $.each(district, function (k, v) {
+                let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                $("#district1").append(option)
+                $("#district2").append(option)
+                $("#district3").append(option)
+            })
+
+            let idshoo1 = "";
+            let idshoo2 = "";
+            let idshoo3 = "";
+            $.each(sChool, function (k, v) {
+
+                let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                $("#School1").append(option)
+                $("#School2").append(option)
+                $("#School3").append(option)
+                if (Profile.shoo1 == v.id) {
+                    idshoo1 = v.idSchool
+                    $("#district1").val(v.idDistrict)
+                    $("#Consciou1").val(v.idConscious)
+                }
+                if (Profile.shoo2 == v.id) {
+                    idshoo2 = v.idSchool
+                    $("#district2").append(v.idDistrict)
+                    $("#Consciou2").val(v.idConscious)
+                }
+                if (Profile.shoo3 == v.id) {
+                    idshoo3 = v.idSchool
+                    $("#district3").append(v.idDistrict)
+                    $("#Consciou3").val(v.idConscious)
+                }
+            })
+
+
+
+
+            $("#School1").val(idshoo1)
+            $("#School2").val(idshoo2)
+            $("#School3").val(idshoo3)
+
+
+
+
+            //    $("#teletephone").val(Profile.teletephone);
+        }
+
+    </script>
+}

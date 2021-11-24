@@ -19,6 +19,8 @@ namespace TuyenSinhAPI.Repository
         private string USER_CONTENT_FOLDER_NAME = "Document";
         private readonly string _userContentFolder;
         private readonly HeThongTuyenSinhDB _context;
+
+        [Obsolete]
         public ExcellService(IWebHostEnvironment webHostEnvironment, IHostingEnvironment hostingEnvironment, HeThongTuyenSinhDB context)
         {
             _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, USER_CONTENT_FOLDER_NAME);

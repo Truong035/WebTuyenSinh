@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +16,7 @@ using System.Threading.Tasks;
 using WebTuyenSinh.Data.Entityes;
 using WebTuyenSinh_Application.Interface;
 using WebTuyenSinh_Application.Repository;
+using WebTuyenSinh_Application.System;
 
 namespace WebTuyenSinhAdmin
 {
@@ -40,12 +44,28 @@ namespace WebTuyenSinhAdmin
             services.AddTransient<ISchoolService, SchoolService>();
             services.AddTransient<IManageMajorSevice, ManageMajorSevice>();
                  services.AddTransient<IAdmisstionService, AdmisstionService>();
+            services.AddTransient<IStorageService, FileStorageService>();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                builder => {
+                    builder.AllowAnyMethod(); builder.AllowAnyOrigin(); builder.AllowAnyHeader(); builder.WithMethods();
+                }
+                );
+            });
             services.AddSession(options =>
             {
                 options.Cookie.Name = "Token";
                 options.IdleTimeout = TimeSpan.FromMinutes(1000);
             });
             services.AddControllersWithViews();
+            services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+          .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
 
         }
 
@@ -66,7 +86,7 @@ namespace WebTuyenSinhAdmin
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
             app.UseSession();
             app.UseEndpoints(endpoints =>

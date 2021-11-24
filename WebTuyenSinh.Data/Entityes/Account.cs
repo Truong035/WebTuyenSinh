@@ -28,8 +28,6 @@ namespace WebTuyenSinh.Data.Entityes
         [StringLength(11)]
         public string Telephone { get; set; }
 
-        [StringLength(70)]
-        public string Email { get; set; }
 
         public DateTime? CreateDate { get; set; }
 

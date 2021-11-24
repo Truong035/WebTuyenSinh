@@ -1,0 +1,167 @@
+﻿@model Admisstion
+@{
+
+
+
+}
+@using WebTuyenSinh_Application.Repository;
+@using WebTuyenSinh.Data.Entityes;
+
+<div class="col-lg-12 grid-margin stretch-card" id="frm1">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Thông Tin Xét Tuyển</h4>
+                            <div class="ml-auto">
+                                <a href="/Admisstion/ListAll/@Model.id" class="btn btn-primary btn-sm ">Xem danh sách thí sinh</a>
+                                <a href="/Admisstion/Index" class="btn btn-primary btn-sm ">Quay Về</a>
+                            </div>
+                        </div>
+
+                    </div>
+                
+                        <div class="card-body">
+                            <form id="formadmisstion">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3 row ">
+                                            <div class="col">
+                                                <input type="text" class="form-control" id="txtid" hidden value="@Model.id" required placeholder="Mời Nhập Thông Tin">
+                                                <label for="txtname" class="form-label mr-2 fw-bold">Nội Dung :</label>
+                                                <label for="txtname" class="form-label">@Model.Name </label>
+
+
+                                            </div>
+                                            <div class="col">
+                                                <label for="txttype" class="form-label mr-2 fw-bold">Hình Thức Xét Tuyển</label>
+                                                <label for="txtname" class="form-label">@(Model.Type==1 ? "Xét Đánh Giá Năng Lực":"Xét Học Bạ") </label>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col d-flex justify-content-between align-items-center">
+                                        <label class="mr-2 fw-bold">Thời Gian Bắt Đầu</label>
+                                        <label class="w-50">@Model.OpenTime.Value.ToString("yyyy-MM-dd HH:mm:ss")</label>
+
+                                    </div>
+                                    <div class="col d-flex justify-content-between align-items-center">
+                                        <label class="mr-2 fw-bold">Thời Gian Kết Thúc</label>
+                                        <label class="w-50">@Model.CloseTime.Value.ToString("yyyy-MM-dd HH:mm:ss")</label>
+
+                                    </div>
+
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="data-table" class="expandable-table text-center" style="width:100%">
+                                                <thead>
+                                                    <tr class="">
+                                                        <th>
+                                                            Mã Ngành
+                                                        </th>
+                                                        <th>
+                                                            Tên Ngành
+                                                        </th>
+                                                        <th>
+                                                            Tổ Hợp Môn
+                                                        </th>
+                                                        <th>
+                                                            Số Lượng Dự Kiến
+                                                        </th>
+                                                        <th>
+                                                            Số Thí Sinh Tham Dự
+                                                        </th>
+                                                        <th>
+                                                            #
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbbody">
+                                                    @{
+                                                        var i = 0;
+                                                        @foreach (var item in Model.Admisstion_Major)
+                                                        {
+                                                            i++;
+                                                            <tr>
+                                                                <td>
+                                                                    @item.Major.id
+                                                                </td>
+                                                                <td>
+                                                                    @item.Major.Name
+                                                                </td>
+                                                                <td>
+                                                                    @foreach (var item1 in item.Addmisstion_Major_Block)
+                                                                    {
+                                                                        @(item1.idBlock.ToString()+" ,");
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    @item.Quantity
+
+                                                                </td>
+                                                                <td>
+                                                                    @item.Count
+
+                                                                </td>
+                                                                <td>
+                                                                    <a href="/Admisstion/ListProfile/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                        <i class=" ti-eye"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+
+                                                        }
+
+
+
+                                                        if (Model.Statust == 0)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    <button type="button" id="@i" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                        <i class="ti-plus"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        }
+
+
+
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    
+               
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

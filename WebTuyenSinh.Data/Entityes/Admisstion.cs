@@ -25,7 +25,7 @@ namespace WebTuyenSinh.Data.Entityes
 
         public DateTime? CreateDate { get; set; }
 
-        public bool? Statust { get; set; }
+        public int? Statust { get; set; }
 
         public bool? Delete { get; set; }
 

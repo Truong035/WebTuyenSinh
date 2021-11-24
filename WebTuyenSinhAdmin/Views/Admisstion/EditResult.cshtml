@@ -1,0 +1,280 @@
+﻿@model Admisstion
+@{
+    AdmisstionData data = (AdmisstionData)ViewBag.data;
+
+
+}
+@using WebTuyenSinh_Application.Repository;
+@using WebTuyenSinh.Data.Entityes;
+
+<div class="col-lg-12 grid-margin stretch-card" id="frm1">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Thông Tin Xét Tuyển</h4>
+                            <div class="ml-auto">
+                                @if (Model.Statust == 0)
+                                {
+                                    <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto btn-sm" data-target="#addRowModal">
+                                        <i class="ti-export"></i>
+                                        Tải File
+                                    </button>
+                                    <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                }
+                                <a href="/Admisstion/Index" class="btn btn-primary btn-sm ">Quay Về</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    @if (Model.Statust == 3)
+                    {
+                        <div class="card-body">
+                            <form id="formadmisstion">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3 row ">
+                                            <div class="col">
+                                                <input type="text" class="form-control" id="txtid" hidden value="@Model.id" required placeholder="Mời Nhập Thông Tin">
+                                                <label for="txtname" class="form-label">Nội Dung</label>
+                                                <input type="text" class="form-control" id="txtname" value="@Model.Name" required placeholder="Mời Nhập Thông Tin">
+                                            </div>
+                                            <div class="col">
+                                                <label for="txttype" class="form-label">Loại Xét Tuyển</label>
+                                                <select class="form-control" id="txttype" required>
+                                                    <option value="">Chọn Loại Xét Tuyển</option>
+                                                    @if (Model.Type == 1)
+                                                    {
+                                                        <option value="1" selected>Xét Đánh Gía Năng Lực</option>
+                                                        <option value="2">Xét Học Bạ</option>
+                                                    }
+
+                                                    @if (Model.Type == 2)
+                                                    {
+                                                        <option value="1">Xét Đánh Gía Năng Lực</option>
+                                                        <option value="2" selected>Xét Học Bạ</option>
+                                                    }
+
+
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="txtdescription" class="form-label">Mô Tả</label>
+                                            <textarea class="form-control" id="txtdescription" rows="3"> @Model.Description</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-between align-items-center">
+                                        <label class="w-50">Thời Gian Bắt Đầu</label>
+                                        <input type="datetime-local"  value="@Model.OpenTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" onchange="GETDATE()" required id="txtdatetimestart" class="form-control" />
+                                    </div>
+                                    <div class="col d-flex justify-content-between align-items-center">
+                                        <label class="w-50">Thời Gian Kết Thúc</label>
+                                        <input type="datetime-local" value="@Model.CloseTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" onchange="GETDATETO()" required id="txtdatetimeend" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="tbadmiss" class="display expandable-table" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Mã Ngành
+                                                        </th>
+                                                     
+                                                        <th style="width:15%">
+                                                            Số Lượng
+                                                        </th>
+                                                             <th style="width:15%">
+                                                            Số Lượng
+                                                        </th>
+
+                                                        <th>
+                                                            #
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbbody">
+                                                    @{
+                                                        var i = 0;
+                                                        @foreach (var item in Model.Admisstion_Major)
+                                                        {
+                                                            i++;
+                                                    <tr>
+                                                        <td>
+                                                            <select class="form-select-sm  col-12 selectmajor " disabled required id="select@(i)">
+                                                                <option value="">Chọn Ngành</option>
+                                                                @foreach (var item1 in data.Majors)
+                                                                {
+                                                                    if (item1.id.Equals(item.idMajor))
+                                                                    {
+                                                                        <option value="@item1.id" selected>@item1.Name</option>
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item1.id">@item1.Name</option>
+
+                                                                    }
+
+                                                                }
+                                                            </select>
+                                                        </td>
+                                            
+                                                        <td>
+                                                            <input type="datetime-local" value="@(item.OpenTime != null ? item.OpenTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ', 'T') : "")" required  name="txtfrom" class=" txtfrom form-control form-control-sm" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="datetime-local" value="@(item.CloseTime != null ? item.CloseTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ', 'T') : "")" required  class=" txtend form-control form-control-sm" />
+                                                        </td>
+                                                        <td>
+                                                            @{
+                                                                if (item.Statust == true || item.Statust == null)
+                                                                {
+
+                                                                    <div class="form-check form-switch  pl-4">
+                                                                        <input class="form-check-input txtcheckout" type="checkbox" id="flexSwitchCheckDefault" checked>
+                                                                    </div>
+                                                                    }
+                    else
+                    {
+                                                        <div class="form-check form-switch  pl-4">
+                                                            <input class="form-check-input txtcheckout" type="checkbox" id="flexSwitchCheckDefault" >
+                                                        </div>
+                    }
+                                                                }
+
+
+                                                            </td>
+                                                    </tr>
+
+                                                        }
+
+
+
+
+
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        <div class="d-flex justify-content-center"> <button type="submit" class="btn btn-inverse-primary" id="btnAdd">Lưu</button> </div>
+
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    }
+    =
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        let arr = []
+        var data = null;
+        let cout = 10000;
+        let majorsnew = [];
+        let blocknew = [];
+        function GETDATE() {
+            var date1 = $("#txtdatetimestart").val();
+            var date2 = $("#txtdatetimeend").val();
+            if (date1 > date2) {
+                $("#txtdatetimestart").addClass("border-danger");
+            }
+            else {
+                $("#txtdatetimestart").removeClass("border-danger");
+                $("#txtdatetimeend").removeClass("border-danger");
+                if (date1) {
+                    $(".txtfrom").val(date1)
+                    $(".txtend").val(date2)
+                }
+
+            }
+
+        }
+        function GETDATETO() {
+            var date1 = $("#txtdatetimestart").val();
+            var date2 = $("#txtdatetimeend").val();
+            if (date1 > date2) {
+                $("#txtdatetimeend").addClass("border-danger");
+            } else {
+                $("#txtdatetimeend").removeClass("border-danger");
+                $("#txtdatetimestart").removeClass("border-danger");
+                if (date2) {
+                    $(".txtfrom").val(date1)
+                    $(".txtend").val(date2)
+                }
+             
+            }
+           
+           
+        }
+        
+        $(document).ready(function () {
+
+        
+          
+            $('#formadmisstion').on('submit', function (e) {
+                e.preventDefault(); // Now nothing will happen
+                let Majors = [];
+                for (var i = 0; i < $('.selectmajor').length; i++) {
+               
+                    Majors.push({
+                        idMajor: $($('.selectmajor').get(i)).val(),
+                        OpenTime: $($('.txtfrom').get(i)).val(),
+                        CloseTime: $($('.txtend').get(i)).val(),
+                        Statust: $('.txtcheckout').get(i).checked,
+                    });
+                 
+                }
+
+
+                let AdmisstionCreate = {
+                    Name: $("#txtname").val(),
+                    Type: $("#txttype").val(),
+                    Description: $("#txtdescription").val(),
+                    OpenTime: $("#txtdatetimestart").val(),
+                    CloseTime: $("#txtdatetimeend").val(),
+                    Majors: Majors
+                };
+                  
+
+                if (AdmisstionCreate) {
+                    let id = $("#txtid").val();
+
+                    $.ajax({
+                        url: "/Admisstion/updateStatus/" + id,
+                        type: 'POST',
+                        data: { AdmisstionCreate: AdmisstionCreate, blocknew: blocknew, majorsnew: majorsnew },
+                        success: function (data) {
+                            //...
+                            window.location = "/Admisstion/Index"
+
+                        }
+                    });
+                }
+
+            });
+          
+        })
+  
+
+    </script>
+}

@@ -10,7 +10,7 @@ namespace WebTuyenSinh_Application.Interface
     public interface IExcellService
     {
         public Task<ApiResult> SaveFileAsync(Stream mediaBinaryStream, string fileName);
-        public Task<ApiResult> ImportAsync(Stream mediaBinaryStream, string fileName);
+    
         public Task DeleteFileAsync(string fileName);
     }
 }

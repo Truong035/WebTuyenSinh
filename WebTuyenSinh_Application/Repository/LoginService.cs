@@ -34,6 +34,7 @@ namespace WebTuyenSinh_Application.Repository
             _config = configuration;
         }
 
+
         public async Task<ApiResult> Login(LoginRequest request)
         {
             try
@@ -76,8 +77,36 @@ namespace WebTuyenSinh_Application.Repository
                 }
             }
 
-        
+        public async Task<ApiResult> LoginApi( string Email)
+        {
+            var account = _context.Accounts.SingleOrDefault(x => x.Email != null && x.Email.Trim().ToUpper().Equals(Email.ToUpper()));
+            if (account == null)
+            {
+                return new ApiResult() { Success = false, Message = "Email incorrest" };
+            }
+            else
+            {
+               
+                var user = await _userManager.FindByNameAsync(account.UserName);
 
+                var claims = new[] {
+                     new Claim("ID",account.Id),
+                new Claim(ClaimTypes.Email,account.Email),
+                 new Claim(ClaimTypes.Role, "SinhVien"),
+                new Claim(ClaimTypes.Name, account.UserName)
+            };
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                var token = new JwtSecurityToken(_config["Tokens:Issuer"],
+                    _config["Tokens:Issuer"],
+                    claims,
+                    expires: DateTime.Now.AddHours(3),
+                    signingCredentials: creds);
+
+                return new ApiResult() { Success = true, Message = "Login success", Data = (new JwtSecurityTokenHandler().WriteToken(token)) };
+            }      
+    }
         public async Task<ApiResult> Register(RegisterRequest request)
         {
             try

@@ -1,9 +1,12 @@
 ﻿@model Admisstion
 @{
     AdmisstionData data = (AdmisstionData)ViewBag.data;
+
+
 }
 @using WebTuyenSinh_Application.Repository;
 @using WebTuyenSinh.Data.Entityes;
+
 <div class="col-lg-12 grid-margin stretch-card" id="frm1">
     <div class="card">
         <div class="row">
@@ -13,178 +16,364 @@
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Thông Tin Xét Tuyển</h4>
                             <div class="ml-auto">
-                                <button class="btn btn-primary btn-round ml-auto"
-                                        data-toggle="modal"
-                                        data-target="#addRowModal">
-                                    <i class="ti-plus"></i>
-                                    Thêm Trường
-                                </button>
-                                <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
-                                    <i class="ti-export"></i>
-                                    Tải File
-                                </button>
-                                <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                @if (Model.Statust == 0)
+                                {
+                                    <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto btn-sm" data-target="#addRowModal">
+                                        <i class="ti-export"></i>
+                                        Tải File
+                                    </button>
+                                    <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                }
+                                <a href="/Admisstion/Index" class="btn btn-primary btn-sm ">Quay Về</a>
+
                             </div>
                         </div>
+                       
                     </div>
-                    <div class="card-body">
-                        <form id="formadmisstion">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-3 row ">
-                                        <div class="col">
-                                            <label for="txtname" class="form-label">Nội Dung</label>
-                                            <input type="text" class="form-control" id="txtname" value="@Model.Name" required placeholder="Mời Nhập Thông Tin">
-                                        </div>
-                                        <div class="col">
-                                            <label for="txttype" class="form-label">Loại Xét Tuyển</label>
-                                            <select class="form-control" id="txttype" required>
-                                                <option value="">Chọn Loại Xét Tuyển</option>
-                                                @if (Model.Type == 1)
-                                                {
-                                                    <option value="1" selected>Xét Đánh Gía Năng Lực</option>
-                                                    <option value="2">Xét Học Bạ</option>
-                                                }
-
-                                                @if (Model.Type == 2)
-                                                {
-                                                    <option value="1">Xét Đánh Gía Năng Lực</option>
-                                                    <option value="2" selected>Xét Học Bạ</option>
-                                                }
-
-
-
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="txtdescription" class="form-label">Mô Tả</label>
-                                        <textarea class="form-control" id="txtdescription" rows="3"> @Model.Description</textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col d-flex justify-content-between align-items-center">
-                                    <label class="w-50">Thời Gian Bắt Đầu</label>
-                                    <input type="datetime-local" value="@Model.OpenTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" required id="txtdatetimestart" class="form-control" />
-                                </div>
-                                <div class="col d-flex justify-content-between align-items-center">
-                                    <label class="w-50">Thời Gian Kết Thúc</label>
-                                    <input type="datetime-local" value="@Model.CloseTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" required id="txtdatetimeend" class="form-control" />
-                                </div>
-                            </div>
-
-
-
-                            <div class="row mt-5">
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table id="tbadmiss" class="display expandable-table" style="width:100%">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Mã Ngành
-                                                    </th>
-                                                    <th style="width:35%">
-                                                        Tổ Hợp Môn
-                                                    </th>
-                                                    <th style="width:15%">
-                                                        Số Lượng
-                                                    </th>
-
-                                                    <th>
-                                                        #
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbbody">
-                                                @{
-                                                    var i = 0;
-                                                    @foreach (var item in Model.Admisstion_Major)
+                    @if (Model.Statust == 0)
+                    {
+                        <div class="card-body">
+                            <form id="formadmisstion">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3 row ">
+                                            <div class="col">
+                                                <input type="text" class="form-control" id="txtid" hidden value="@Model.id" required placeholder="Mời Nhập Thông Tin">
+                                                <label for="txtname" class="form-label">Nội Dung</label>
+                                                <input type="text" class="form-control" id="txtname" value="@Model.Name" required placeholder="Mời Nhập Thông Tin">
+                                            </div>
+                                            <div class="col">
+                                                <label for="txttype" class="form-label">Loại Xét Tuyển</label>
+                                                <select class="form-control" id="txttype" required>
+                                                    <option value="">Chọn Loại Xét Tuyển</option>
+                                                    @if (Model.Type == 1)
                                                     {
-                                                        i++;
-                                                        <tr>
-                                                            <td>
-                                                                <select class="form-select-sm  col-12 selectmajor " required id="select@(i)">
-                                                                    <option value="">Chọn Ngành</option>
-                                                                    @foreach (var item1 in data.Majors)
-                                                                    {
-                                                                        if (item1.id.Equals(item.idMajor))
+                                                        <option value="1" selected>Xét Đánh Gía Năng Lực</option>
+                                                        <option value="2">Xét Học Bạ</option>
+                                                    }
+
+                                                    @if (Model.Type == 2)
+                                                    {
+                                                        <option value="1">Xét Đánh Gía Năng Lực</option>
+                                                        <option value="2" selected>Xét Học Bạ</option>
+                                                    }
+
+
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="txtdescription" class="form-label">Mô Tả</label>
+                                            <textarea class="form-control" id="txtdescription" rows="3"> @Model.Description</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-between align-items-center">
+                                        <label class="w-50">Thời Gian Bắt Đầu</label>
+                                        <input type="datetime-local" value="@Model.OpenTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" required id="txtdatetimestart" class="form-control" />
+                                    </div>
+                                    <div class="col d-flex justify-content-between align-items-center">
+                                        <label class="w-50">Thời Gian Kết Thúc</label>
+                                        <input type="datetime-local" value="@Model.CloseTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" required id="txtdatetimeend" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="tbadmiss" class="display expandable-table" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Mã Ngành
+                                                        </th>
+                                                        <th style="width:35%">
+                                                            Tổ Hợp Môn
+                                                        </th>
+                                                        <th style="width:15%">
+                                                            Số Lượng
+                                                        </th>
+
+                                                        <th>
+                                                            #
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbbody">
+                                                    @{
+                                                        var i = 0;
+                                                        @foreach (var item in Model.Admisstion_Major)
+                                                        {
+                                                            i++;
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-select-sm  col-12 selectmajor " disabled required id="select@(i)">
+                                                                        <option value="">Chọn Ngành</option>
+                                                                        @foreach (var item1 in data.Majors)
                                                                         {
-                                                                            <option value="@item1.id" selected>@item1.Name</option>
+                                                                            if (item1.id.Equals(item.idMajor))
+                                                                            {
+                                                                                <option value="@item1.id" selected>@item1.Name</option>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="@item1.id">@item1.Name</option>
+
+                                                                            }
 
                                                                         }
-                                                                        else
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <select class="js-example-basic-multiple col-12 admisstion" required id="admisstion@(i)" multiple="multiple">
+                                                                        @foreach (var item2 in data.Blocks)
                                                                         {
-                                                                            <option value="@item1.id">@item1.Name</option>
+                                                                            if (item.Addmisstion_Major_Block.ToList().Exists(x => x.idBlock.Equals(item2.id)))
+                                                                            {
+                                                                                <option value="@item2.id" selected>@item2.id</option>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="@item2.id">@item2.id</option>
+
+                                                                            }
 
                                                                         }
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="number" min="0" value="@item.Quantity" class=" col-12 txtQuanty " id="txt@(i)" placeholder="Số luong dự kiến">
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-button-action">
 
-                                                                    }
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <select class="js-example-basic-multiple col-12 admisstion" required id="admisstion@(i)" multiple="multiple">
-                                                                    @foreach (var item2 in data.Blocks)
-                                                                    {
-                                                                        if (item.Addmisstion_Major_Block.ToList().Exists(x => x.idBlock.Equals(item2.id)))
-                                                                        {
-                                                                            <option value="@item2.id" selected>@item2.id</option>
+                                                                        <button hef="/DeleteShool" id="@i" name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                                            <i class="ti-close"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
 
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <option value="@item2.id">@item2.id</option>
+                                                            </tr>
 
-                                                                        }
+                                                        }
 
-                                                                    }
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" min="0" value="0" class=" col-12 txtQuanty " id="txt@(i)" placeholder="Số luong dự kiến">
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-button-action">
 
-                                                                    <button hef="/DeleteShool"  id="@i" name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
-                                                                        <i class="ti-close"></i>
+
+                                                        if (Model.Statust == 0)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    <button type="button" id="@i" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                        <i class="ti-plus"></i>
                                                                     </button>
-                                                                </div>
-                                                            </td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
 
-                                                        </tr>
+                                                            </tr>
+
+                                                        }
+
+
 
                                                     }
 
-                                                    <tr>
-                                                        <td>
-                                                            <button type="button" id="@i" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                                <i class="ti-plus"></i>
-                                                            </button>
-                                                        </td>
-                                                        <td>
-                                                        </td>
-                                                        <td>
-                                                        </td>
-                                                        <td>
-                                                        </td>
+                                                </tbody>
+                                            </table>
 
-                                                    </tr>
+                                        </div>
 
-                                                }
+                                        <div class="d-flex justify-content-center"> <button type="submit" class="btn btn-inverse-primary" id="btnAdd">Lưu</button> </div>
 
-                                            </tbody>
-                                        </table>
 
                                     </div>
-                                    <div class="d-flex justify-content-center"> <button type="submit" class="btn btn-inverse-primary" id="btnAdd">Tạo Mới</button> </div>
 
                                 </div>
+                            </form>
+                        </div>
+                    }
+                    @if (Model.Statust >0)
+                    {
+                        <div class="card-body">
+                            <form id="formadmisstion">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3 row ">
+                                            <div class="col">
+                                                <input type="text" class="form-control" id="txtid" hidden value="@Model.id" disabled required placeholder="Mời Nhập Thông Tin">
+                                                <label for="txtname" class="form-label">Nội Dung</label>
+                                                <input type="text" class="form-control" id="txtname" value="@Model.Name"  required placeholder="Mời Nhập Thông Tin">
+                                            </div>
+                                            <div class="col">
+                                                <label for="txttype" class="form-label">Loại Xét Tuyển</label>
+                                                <select class="form-control" id="txttype" disabled required>
+                                                    <option value="">Chọn Loại Xét Tuyển</option>
+                                                    @if (Model.Type == 1)
+                                                    {
+                                                        <option value="1" selected>Xét Đánh Gía Năng Lực</option>
+                                                        <option value="2">Xét Học Bạ</option>
+                                                    }
 
-                            </div>
-                        </form>
-                    </div>
+                                                    @if (Model.Type == 2)
+                                                    {
+                                                        <option value="1">Xét Đánh Gía Năng Lực</option>
+                                                        <option value="2" selected>Xét Học Bạ</option>
+                                                    }
+
+
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="txtdescription" class="form-label">Mô Tả</label>
+                                            <textarea class="form-control" id="txtdescription"   rows="3"> @Model.Description</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col d-flex justify-content-between align-items-center">
+                                        <label class="w-50">Thời Gian Bắt Đầu</label>
+                                        <input type="datetime-local"disabled  value="@Model.OpenTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" required id="txtdatetimestart" class="form-control" />
+                                    </div>
+                                    <div class="col d-flex justify-content-between align-items-center">
+                                        <label class="w-50">Thời Gian Kết Thúc</label>
+                                        <input type="datetime-local"  value="@Model.CloseTime.Value.ToString("yyyy-MM-dd HH:mm:ss").Replace(' ','T')" required id="txtdatetimeend" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="tbadmiss" class="display expandable-table" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Mã Ngành
+                                                        </th>
+                                                        <th style="width:35%">
+                                                            Tổ Hợp Môn
+                                                        </th>
+                                                        <th style="width:15%">
+                                                            Số Lượng
+                                                        </th>
+
+                                                        <th>
+                                                            #
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbbody">
+                                                    @{
+                                                        var i = 0;
+                                                        @foreach (var item in Model.Admisstion_Major)
+                                                        {
+                                                            i++;
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-select-sm  col-12 selectmajor " disabled required id="select@(i)">
+                                                                        <option value="">Chọn Ngành</option>
+                                                                        @foreach (var item1 in data.Majors)
+                                                                        {
+                                                                            if (item1.id.Equals(item.idMajor))
+                                                                            {
+                                                                                <option value="@item1.id" selected>@item1.Name</option>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="@item1.id">@item1.Name</option>
+
+                                                                            }
+
+                                                                        }
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <select class="js-example-basic-multiple col-12 admisstion" disabled required id="admisstion@(i)" multiple="multiple">
+                                                                        @foreach (var item2 in data.Blocks)
+                                                                        {
+                                                                            if (item.Addmisstion_Major_Block.ToList().Exists(x => x.idBlock.Equals(item2.id)))
+                                                                            {
+                                                                                <option value="@item2.id" selected>@item2.id</option>
+
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <option value="@item2.id">@item2.id</option>
+
+                                                                            }
+
+                                                                        }
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    @if (Model.Statust == 1)
+                                                                    {
+                                                                        <input type="number" min="0" value="@item.Quantity" class=" col-12 txtQuanty " id="txt@(i)" placeholder="Số luong dự kiến">
+                                                                    }
+                                                                    @if (Model.Statust == 2)
+                                                                    {
+                                                                        <input type="number" min="0" disabled value="@item.Quantity" class=" col-12 txtQuanty " id="txt@(i)" placeholder="Số luong dự kiến">
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        }
+
+
+
+
+
+
+                                                        if (Model.Statust == 1)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    <button type="button" id="@i" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                        <i class="ti-plus"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+
+                                                            </tr>
+                                                        }
+
+
+
+
+
+
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                        <div class="d-flex justify-content-center"> <button type="submit" class="btn btn-inverse-primary" id="btnAdd">Lưu</button> </div>
+
+
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    }
+
+
 
                 </div>
             </div>
@@ -197,6 +386,9 @@
     <script>
         let arr = []
         var data = null;
+        let cout = 10000;
+        let majorsnew = [];
+        let blocknew = [];
         function LoadData(i) {
 
             $("#admisstion0").select2();
@@ -273,15 +465,19 @@
             });
 
 
+
             $(document).on('click', "button[name = 'Delete']", function () {
-
                 $(this).closest('tr').remove();
-
+                if ($('.selectmajor').length == 0) {
+                    $("#tbbody").empty()
+                    cout = 1000;
+                    LoadData(cout);
+                    cout++;
+                }
 
             })
-            $("#btnAdd").click(function () {
 
-                let cout = $("#tbadmiss").find("tr").length
+            $("#btnAdd").click(function () {
                 let check = true;
 
                 for (var i = 0; i < $('.selectmajor').length; i++) {
@@ -345,12 +541,14 @@
                     CloseTime: $("#txtdatetimeend").val(),
                     Majors: Majors
                 };
-                console.log(AdmisstionCreate);
+              
                 if (AdmisstionCreate) {
+                    let id = $("#txtid").val();
+           
                     $.ajax({
-                        url: "/Admisstion/Create",
+                        url: "/Admisstion/update/" + id,
                         type: 'POST',
-                        data: { AdmisstionCreate: AdmisstionCreate },
+                        data: { AdmisstionCreate: AdmisstionCreate, blocknew: blocknew, majorsnew: majorsnew },
                         success: function (data) {
                             //...
                             window.location = "/Admisstion/Index"
@@ -363,20 +561,171 @@
 
             });
             $(document).on('click', "button[name = 'add']", function () {
-                let cout = $("#tbadmiss").find("tr").length
+               // let cout = $("#tbadmiss").find("tr").length
                 $(this).closest('tr').remove();
-                cout--;
+            
                 console.log(cout);
                 $(this).hide();
                 LoadData(cout)
+                cout++;
                 //   }
-
-
-
             });
 
 
         })
+        function readURL(event) {
+            var file = event.files[0];
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                $("#txtFile").val("");
+                var data1 = event.target.result;
+                var workbook = XLSX.read(data1, {
+                    type: 'binary'
+                });
+                workbook.SheetNames.forEach(function (sheetName) {
+                    // Here is your object
+                    var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+
+                    console.log(XL_row_object);
+                    arr = [];
+
+                    for (var i = 1; i < XL_row_object.length; i++) {
+                        var major = XL_row_object[i]["__EMPTY_2"]
+                        var a = String(major).split(",");
+                        arr.push({
+                            idMajor: XL_row_object[i]["__EMPTY"],
+                            Name: XL_row_object[i]["__EMPTY_1"],
+                            Block: major,
+                            ListBlock: a,
+                            Quantity: XL_row_object[i]["__EMPTY_3"]
+                        });
+                    }
+
+                    arr.splice(0, 1);
+                    console.log(arr)
+
+                    if (arr.length > 0) {
+                        @* $("#" + (cout - 1)).closest('tr').remove();*@
+                        $("#tbbody").empty();
+                        cout = 1000;
+                    }
+
+
+                    $.each(arr, function (k, v) {
+                        $("#admisstion0").select2();
+                        let selectmajor = ` <select class="form-select-sm  col-12 selectmajor " required id="select${cout}">
+ <option value="">Chọn Ngành</option>
+`; var a = data.majors.find(e => e.id.trim() === v.idMajor.trim())
+
+                        if (!a) {
+                            data.majors.push({
+                                id: v.idMajor,
+                                name: v.Name,
+                                description: ""
+                            })
+                            majorsnew.push({
+                                id: v.idMajor,
+                                name: v.Name,
+                                description: ""
+                            })
+                        }
+                        $.each(v.ListBlock, function (k1, v1) {
+                            var b = data.blocks.find(e => e.id.trim() === v1.trim())
+                            if (!b) {
+                                data.blocks.push({
+                                    id: v1,
+                                    description: ""
+                                })
+                                blocknew.push({
+                                    id: v1,
+                                    description: ""
+                                })
+                            }
+                        });
+
+                        $.each(data.majors, function (k1, v1) {
+
+
+
+
+                            if (v.idMajor.trim() === v1.id.trim()) {
+                                selectmajor += ` <option value="${v1.id}" selected>${v1.name}</option>`
+                            }
+                            else {
+                                selectmajor += ` <option value="${v1.id}" >${v1.name}</option>`
+                            }
+
+
+                        });
+                        selectmajor += `</select>`
+
+                        let selectblock = `<select class="js-example-basic-multiple col-12 admisstion" required id="admisstion${cout}" multiple="multiple"> `
+                        $.each(data.blocks, function (k1, v1) {
+                            console.log(v.ListBlock.includes(v1.id.trim()))
+                            if (v.ListBlock.includes(v1.id.trim())) {
+                                selectblock += ` <option value="${v1.id}" selected>${v1.id}</option>`
+                            }
+                            else {
+                                selectblock += ` <option value="${v1.id}">${v1.id}</option>`
+                            }
+
+                        });
+                        selectblock += `</select>`
+                        let tr = `  <tr>
+                                                <td>
+                                                  ${selectmajor}
+                                                </td>
+                                                <td>
+                                                   ${selectblock}
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" value="${v.Quantity}"  class=" col-12 txtQuanty "  placeholder="Số luong dự kiến">
+                                                </td>
+                                                <td>
+                                                    <div class="form-button-action">
+
+                                                        <button hef="/DeleteShool"   name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <i class="ti-close"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+
+                                            </tr>`
+
+                        $("#tbbody").append(tr)
+                        $("#admisstion" + cout).select2();
+                        cout++;
+
+
+                    })
+                    cout--;
+                    let tr = `  <tr>               <td>   <button type="button" id="${cout}" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                            <i class="ti-plus"></i>
+                                                        </button>
+                                                </td>
+                                                <td>
+                                                 
+                                                </td>
+                                                <td>
+                                                 
+                                                </td>
+                                                <td>
+                                                      
+                                         
+                                                </td>
+
+                                            </tr>`
+                    cout++;
+
+                    $("#tbbody").append(tr)
+
+                })
+            }; reader.onerror = function (ex) {
+                console.log(ex);
+            };
+            reader.readAsBinaryString(file);
+
+        }
 
     </script>
 }

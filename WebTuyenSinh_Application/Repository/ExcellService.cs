@@ -48,47 +48,6 @@ namespace WebTuyenSinh_Application.Repository
 
         }
 
-        public async Task<ApiResult> ImportAsync(Stream mediaBinaryStream, string fileName)
-        {
-            //var filePath = Path.Combine(_userContentFolder, fileName);
-            //using var output = new FileStream(filePath, FileMode.Create);
-            //await mediaBinaryStream.CopyToAsync(output);
-
-            List<ExcellView> excellViews = new List<ExcellView>();
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            int cout  = 0;
-            using (var render = ExcelDataReader.ExcelReaderFactory.CreateReader(mediaBinaryStream))
-            {
-                while ( render.Read()&& cout<1000)
-                {  
-                    try
-                    {
-                        cout++;
-                        string address = "";
-                        try
-                        {
-                            address += render.GetValue(7).ToString();
-                        }
-                        catch { }
-                        excellViews.Add(new ExcellView()
-                        {
-                            idConscious = render.GetValue(1).ToString(),
-                            NameConscious = render.GetValue(2).ToString(),
-                            idDistrict = render.GetValue(3).ToString(),
-                            NameDistrict = render.GetValue(4).ToString(),
-                            idShool = render.GetValue(5).ToString(),
-                            NameShool = render.GetValue(6).ToString(),
-                            Area = render.GetValue(8).ToString(),
-                            Adrees = address,
-                        }); ;; ;
-                     
-                    }
-                    catch { }
-                }
-            }
-            try { excellViews.RemoveAt(0); } catch { }
-            return new ApiResult() { Success = false, Message = "Success", Data = excellViews };
-
-        }
+        
     }
 }

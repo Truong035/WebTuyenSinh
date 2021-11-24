@@ -23,7 +23,8 @@ namespace WebTuyenSinh.Data.Entityes
         public long? idAdmisstion { get; set; }
 
         public int? Quantity { get; set; }
-
+        public int? Count { get; set; }
+        
         public bool? Delete { get; set; }
 
         public DateTime? OpenTime { get; set; }

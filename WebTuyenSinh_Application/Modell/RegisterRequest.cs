@@ -15,7 +15,8 @@ namespace WebTuyenSinh_Application.Modell
         public string Password { get; set; }
         [Compare(otherProperty: "Password", ErrorMessage = "Password & confirm password does not match")]
         public string ConfirmPassword { get; set; }
-
+        [StringLength(200)]
+        public string UseName { get; set; }
         [StringLength(200)]
         public string LastName { get; set; }
 

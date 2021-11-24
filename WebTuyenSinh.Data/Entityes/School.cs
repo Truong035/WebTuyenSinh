@@ -13,13 +13,13 @@ namespace WebTuyenSinh.Data.Entityes
         [StringLength(500)]
         public string NameConscious { get; set; }
         [StringLength(12)]
-        public string? idConscious { get; set; }
+        public string idConscious { get; set; }
         [StringLength(500)]
         public string NameDistrict { get; set; }
         [StringLength(12)]
-        public string? idDistrict { get; set; }
+        public string idDistrict { get; set; }
         [StringLength(12)]
-        public string? idShool { get; set; }
+        public string idShool { get; set; }
 
         [StringLength(500)]
         public string NameShool { get; set; }

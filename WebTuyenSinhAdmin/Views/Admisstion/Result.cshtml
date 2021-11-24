@@ -1,0 +1,185 @@
+﻿@model List<Admisstion>
+@{
+
+}
+@using WebTuyenSinh.Data.Entityes;
+<div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+    <div id="liveToast" class="toast hide bg-success text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+        Cập nhật thành công
+    </div>
+</div>
+<div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mb-3" id="frmbody">
+
+                    <label for="exampleFormControlTextarea1" class="form-label">Thời gian nôp</label>
+                    <input type="datetime-local" class="form-control" id="textstart" />
+                    <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                    <textarea class="form-control" id="txtcom" rows="15"></textarea>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Hủy bỏ</button>
+                <button type="button" id="btnsubmit" class="btn btn-success btn-sm">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 grid-margin stretch-card" id="frm1">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">@ViewBag.Majo</h4>
+                            <select class="form-select col-4" id="selectAdmisstion" aria-label="Default select example">
+                                <option value="0">Vui Lòng Chọn Ngành </option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.id">@item.Name</option>
+                                }
+                            </select>
+
+                            <div class="ml-auto">
+                                <button id="btnExport" class="btn btn-sm btn-primary btn-round   " data-target="#addRowModal">
+                                    <i class="ti-export"></i>
+                                    Xuất File
+                                </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="data-table" class="display expandable-table text-center" style="width:100%">
+                                        <thead class="text-center">
+                                            <tr>
+                                        
+                                                <th>
+                                                    Họ và tên
+                                                </th>
+                                                <th>
+                                                    Email
+                                                </th>
+                                                <th>
+                                                    SĐT
+                                                </th>
+                                                <th>
+                                                    CMND
+                                                </th>
+                                                <th style="width:10px">
+                                                    Số Nguyện Vọng
+                                                </th>
+                                                <th>
+                                                    Ngày Nộp
+                                                </th>
+                                                <th>
+                                                   File
+                                                    
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbbody">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        let id = 0;
+        let button;
+
+        $(document).ready(function () {
+            $("#selectAdmisstion").change(function () {
+             id = $("#selectAdmisstion").val();
+                if (id) {
+       
+                    $.ajax({
+                        url: "/Admisstion/GetResult/" + id,
+                        type: 'GET',
+                        async: false,
+                    }).done(function (data) {
+
+                        if (data.success) {
+                            LoadData(data.data)
+                            console.log(data)
+                        }
+
+
+                    }).fail(function () {
+                    });}
+            });
+            $("#btnExport").click(function () {
+                $.ajax({
+                    url: "/Admisstion/Export/" + id,
+                    type: 'GET',
+                    async: false,
+                }).done(function (data) {
+
+                    if (data.success) {
+                        var link = document.createElement('a');
+                        link.href = data.data;
+                        link.download = "dulieu.xlsx";
+                        link.click();
+                        link.remove();
+                    }
+
+
+                }).fail(function () {
+                });
+            }
+            )
+
+
+        });
+        function LoadData(data) {
+            console.log(data)
+            $('#data-table').dataTable().fnDeleteRow();
+          
+            $.each(data, function (k, v) {
+                try {
+                    $('#data-table').dataTable().fnAddData([
+    
+                        v.name,
+                        v.email,
+                        v.teletephone,
+                        v.cmnd,
+                        v.quantity,
+                        v.createDate,
+                        `<a href="${v.url}" target="_blank">${v.name}.pdf</a>`
+                      
+                    ]); } catch {}
+              
+            
+            })
+         
+            
+          //  $("#data-table").dataTable();
+        }
+
+
+    </script>
+}
