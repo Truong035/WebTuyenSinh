@@ -247,8 +247,13 @@
                         data: { ViewBlock: JSON.stringify(arr) },
                         success: function (data) {
                             //...
-                            window.location = "/Admisstion/Block"
-
+                            if (data.success) {
+                                window.location = "/Admisstion/Block"
+                            }
+                            else {
+                                alert("Lỗi")
+                            }
+                          
                         }
                     });
                 }

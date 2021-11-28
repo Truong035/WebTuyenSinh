@@ -14,6 +14,7 @@ namespace WebTuyenSinh.Data.Migrations
                     Id = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(nullable: true),
                     NormalizedUserName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
                     NormalizedEmail = table.Column<string>(nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
@@ -29,7 +30,6 @@ namespace WebTuyenSinh.Data.Migrations
                     FirtName = table.Column<string>(maxLength: 200, nullable: true),
                     Adress = table.Column<string>(maxLength: 200, nullable: true),
                     Telephone = table.Column<string>(fixedLength: true, maxLength: 11, nullable: true),
-                    Email = table.Column<string>(maxLength: 70, nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: true),
                     BrithDay = table.Column<DateTime>(nullable: true),
                     Position = table.Column<string>(maxLength: 50, nullable: true)
@@ -48,7 +48,7 @@ namespace WebTuyenSinh.Data.Migrations
                     Name = table.Column<string>(maxLength: 200, nullable: true),
                     Description = table.Column<string>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: true),
-                    Statust = table.Column<bool>(nullable: true),
+                    Statust = table.Column<int>(nullable: true),
                     Delete = table.Column<bool>(nullable: true),
                     OpenTime = table.Column<DateTime>(nullable: true),
                     CloseTime = table.Column<DateTime>(nullable: true),
@@ -97,7 +97,7 @@ namespace WebTuyenSinh.Data.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(fixedLength: true, maxLength: 9, nullable: false),
-                    Desscription = table.Column<string>(maxLength: 100, nullable: true),
+                    Desscription = table.Column<string>(maxLength: 500, nullable: true),
                     Delete = table.Column<bool>(nullable: true)
                 },
                 constraints: table =>
@@ -164,7 +164,7 @@ namespace WebTuyenSinh.Data.Migrations
                 {
                     id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreateDate = table.Column<DateTime>(fixedLength: true, nullable: true, defaultValue: new DateTime(2021, 10, 31, 21, 22, 59, 151, DateTimeKind.Local).AddTicks(6848)),
+                    CreateDate = table.Column<DateTime>(fixedLength: true, nullable: true, defaultValue: new DateTime(2021, 11, 28, 16, 43, 41, 108, DateTimeKind.Local).AddTicks(5312)),
                     delete = table.Column<bool>(fixedLength: true, nullable: true),
                     Status = table.Column<bool>(fixedLength: true, nullable: true),
                     OpenTime = table.Column<DateTime>(fixedLength: true, nullable: true),
@@ -183,23 +183,30 @@ namespace WebTuyenSinh.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     idAccount = table.Column<string>(nullable: true),
                     Email = table.Column<string>(maxLength: 70, nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    FromTelePhone = table.Column<string>(maxLength: 300, nullable: true),
                     Adress = table.Column<string>(maxLength: 200, nullable: true),
                     Teletephone = table.Column<string>(unicode: false, fixedLength: true, maxLength: 11, nullable: true),
+                    Religion = table.Column<string>(nullable: true),
+                    CreateCMND = table.Column<DateTime>(nullable: true),
                     CreateDate = table.Column<DateTime>(nullable: true),
                     idAdmisstion = table.Column<long>(nullable: true),
-                    Note = table.Column<string>(maxLength: 500, nullable: true),
+                    Note = table.Column<string>(nullable: true),
                     Type = table.Column<int>(nullable: true),
                     imgavata = table.Column<string>(maxLength: 70, nullable: true),
-                    url = table.Column<string>(maxLength: 70, nullable: true),
-                    Statust = table.Column<bool>(nullable: true),
+                    url = table.Column<string>(maxLength: 300, nullable: true),
+                    Statust = table.Column<int>(nullable: true),
                     CMND = table.Column<string>(fixedLength: true, maxLength: 12, nullable: true),
                     Sex = table.Column<int>(nullable: true),
                     BirthDay = table.Column<DateTime>(type: "date", nullable: true),
                     FromBirthDay = table.Column<string>(maxLength: 200, nullable: true),
                     Year = table.Column<int>(nullable: true),
+                    Quantity = table.Column<int>(nullable: true),
                     DateRange = table.Column<DateTime>(nullable: true),
                     AdressRange = table.Column<string>(maxLength: 100, nullable: true),
+                    Areas = table.Column<string>(maxLength: 100, nullable: true),
                     Nation = table.Column<string>(maxLength: 50, nullable: true),
+                    Priority_object = table.Column<string>(maxLength: 100, nullable: true),
                     Shoo1 = table.Column<long>(nullable: true),
                     Shoo2 = table.Column<long>(nullable: true),
                     Shoo3 = table.Column<long>(nullable: true),
@@ -256,6 +263,7 @@ namespace WebTuyenSinh.Data.Migrations
                     idMajor = table.Column<string>(fixedLength: true, maxLength: 10, nullable: true),
                     idAdmisstion = table.Column<long>(nullable: true),
                     Quantity = table.Column<int>(nullable: true),
+                    Count = table.Column<int>(nullable: true),
                     Delete = table.Column<bool>(nullable: true),
                     OpenTime = table.Column<DateTime>(nullable: true),
                     CloseTime = table.Column<DateTime>(nullable: true),
@@ -284,11 +292,21 @@ namespace WebTuyenSinh.Data.Migrations
                 {
                     id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    idMajor = table.Column<DateTime>(nullable: true),
+                    idMajor = table.Column<string>(maxLength: 10, nullable: true),
                     idBlock = table.Column<string>(fixedLength: true, maxLength: 9, nullable: true),
                     idProfile = table.Column<long>(nullable: true),
                     Statust = table.Column<bool>(nullable: true),
-                    Year = table.Column<int>(nullable: true)
+                    Year = table.Column<int>(nullable: true),
+                    subject1 = table.Column<double>(nullable: true),
+                    subject2 = table.Column<double>(nullable: true),
+                    subject3 = table.Column<double>(nullable: true),
+                    subject4 = table.Column<double>(nullable: true),
+                    subject5 = table.Column<double>(nullable: true),
+                    subject6 = table.Column<double>(nullable: true),
+                    subject7 = table.Column<double>(nullable: true),
+                    subject8 = table.Column<double>(nullable: true),
+                    subject9 = table.Column<double>(nullable: true),
+                    STT = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

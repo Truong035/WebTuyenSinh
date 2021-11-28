@@ -8,10 +8,10 @@ namespace WebTuyenSinh_Application.Modell
 {
     public class RegisterRequest
     {
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid Password")]
+      
         [EmailAddress(ErrorMessage = "Please enter a valid email")]
         public string Email { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter a valid Password")]
+        [Required(ErrorMessage = "Please enter a valid Password")]
         public string Password { get; set; }
         [Compare(otherProperty: "Password", ErrorMessage = "Password & confirm password does not match")]
         public string ConfirmPassword { get; set; }

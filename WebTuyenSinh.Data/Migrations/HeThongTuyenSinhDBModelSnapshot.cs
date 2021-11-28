@@ -41,8 +41,7 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(70)")
-                        .HasMaxLength(70);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -156,8 +155,8 @@ namespace WebTuyenSinh.Data.Migrations
                     b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Statust")
-                        .HasColumnType("bit");
+                    b.Property<int?>("Statust")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Type")
                         .HasColumnType("int");
@@ -178,6 +177,9 @@ namespace WebTuyenSinh.Data.Migrations
 
                     b.Property<DateTime?>("CloseTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("Count")
+                        .HasColumnType("int");
 
                     b.Property<bool?>("Delete")
                         .HasColumnType("bit");
@@ -274,8 +276,8 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Desscription")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.HasKey("id");
 
@@ -347,6 +349,9 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("STT")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("Statust")
                         .HasColumnType("bit");
 
@@ -358,11 +363,39 @@ namespace WebTuyenSinh.Data.Migrations
                         .IsFixedLength(true)
                         .HasMaxLength(9);
 
-                    b.Property<DateTime?>("idMajor")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("idMajor")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.Property<long?>("idProfile")
                         .HasColumnType("bigint");
+
+                    b.Property<double?>("subject1")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("subject2")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("subject3")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("subject4")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("subject5")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("subject6")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("subject7")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("subject8")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("subject9")
+                        .HasColumnType("float");
 
                     b.HasKey("id");
 
@@ -459,6 +492,10 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<string>("Areas")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
                     b.Property<DateTime?>("BirthDay")
                         .HasColumnType("date");
 
@@ -468,6 +505,9 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasMaxLength(12);
 
                     b.Property<DateTime?>("CloseTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CreateCMND")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("CreateDate")
@@ -484,16 +524,33 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
+                    b.Property<string>("FromTelePhone")
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
                     b.Property<string>("Nation")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("Note")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("OpenTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Priority_object")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Religion")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Sex")
                         .HasColumnType("int");
@@ -507,8 +564,8 @@ namespace WebTuyenSinh.Data.Migrations
                     b.Property<long?>("Shoo3")
                         .HasColumnType("bigint");
 
-                    b.Property<bool?>("Statust")
-                        .HasColumnType("bit");
+                    b.Property<int?>("Statust")
+                        .HasColumnType("int");
 
                     b.Property<string>("Teletephone")
                         .HasColumnType("char(11)")
@@ -536,8 +593,8 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasMaxLength(70);
 
                     b.Property<string>("url")
-                        .HasColumnType("nvarchar(70)")
-                        .HasMaxLength(70);
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
 
                     b.HasKey("id");
 
@@ -612,7 +669,7 @@ namespace WebTuyenSinh.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .IsFixedLength(true)
-                        .HasDefaultValue(new DateTime(2021, 10, 31, 21, 22, 59, 151, DateTimeKind.Local).AddTicks(6848));
+                        .HasDefaultValue(new DateTime(2021, 11, 28, 16, 43, 41, 108, DateTimeKind.Local).AddTicks(5312));
 
                     b.Property<DateTime?>("OpenTime")
                         .HasColumnType("datetime2")

@@ -303,7 +303,7 @@ namespace WebTuyenSinhAdmin.Controllers
                 }
 
             }
-            catch { }
+            catch(Exception e)  {var a= e.Message; }
 
             return Ok("ok");
 

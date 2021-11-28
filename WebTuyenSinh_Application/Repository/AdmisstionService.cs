@@ -106,6 +106,7 @@ namespace WebTuyenSinh_Application.Repository
 
         public async Task<ApiResult> CreateListBlock(List<Block> request)
         {
+
             List<Block> blocks = new List<Block>();
             foreach (var item in request)
             {
@@ -195,11 +196,13 @@ namespace WebTuyenSinh_Application.Repository
                     if (item.CloseTime <= DateTime.Now)
                     {
                         item.Statust = 3;
+                        await CloseProifile(item.id);
                     }
         
                     else if (item.Statust == 3)
                     {
                         item.Statust = 2;
+                       await OpenProFile(item);
                     }
                     else if (item.Statust == 0)
                     {
@@ -208,16 +211,40 @@ namespace WebTuyenSinh_Application.Repository
                 }
                 await _context.SaveChangesAsync();
             } catch { }
-            
+          await CheckProFile();
         }
-        private async Task CheckProFile()
+
+        private async Task CloseProifile(long id)
         {
-            List<Admisstion> admisstions = await _context.Admisstions.Where(x => x.Statust==2 && x.Delete != true).ToListAsync();
-            foreach (var item in admisstions)
+            var Proifile = await _context.ProfileStudents.Where(X => X.idAdmisstion == id).ToListAsync();
+            foreach (var item in Proifile)
             {
-                //var admisstion=await _context.Admisstion_Major.Where(x=>x.Statust)
+                item.CloseTime = DateTime.Now;
 
             }
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task OpenProFile(Admisstion admisstion)
+        {
+            var Proifile = await _context.ProfileStudents.Where(X => X.idAdmisstion == admisstion.id).ToListAsync();
+            foreach (var item in Proifile)
+            {
+                item.CloseTime = admisstion.CloseTime;
+
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task CheckProFile()
+        {
+            List<Admisstion> admisstions = await _context.Admisstions.Where(x => x.Statust==2 && x.Delete != true && x.CloseTime.Value<=DateTime.Now).ToListAsync();
+            foreach (var item in admisstions)
+            {
+                item.CloseTime = DateTime.Now;
+                item.Statust = 0;
+            }
+            await _context.SaveChangesAsync();
         }
             public async Task<ApiResult> GetAll(int? status)
         {
@@ -269,9 +296,39 @@ namespace WebTuyenSinh_Application.Repository
                 {
                     return new ApiResult() { Success = false, Message = "id Not Found" , Data = null };
                 }
-                admisstion.Admisstion_Major = await _context.Admisstion_Major.Where(x => x.Delete != true && x.idAdmisstion==admisstion.id
-                ).Include(x=>x.Major).Include(x => x.Addmisstion_Major_Block).ToListAsync();
-                admisstion.Admisstion_Major.First();               
+
+           var Admisstion_Major = await _context.Admisstion_Major.Where(x => x.Delete != true && x.idAdmisstion == admisstion.id
+                ).ToListAsync();
+                var Proifile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id).ToListAsync();
+                var Info = await _context.InforMationProflies.ToListAsync();
+                var InfoProFile = (from p in Proifile
+                                   join i in Info on p.id equals i.idProfile
+                                   select new
+                                   {
+                                       i.id,
+                                       i.idBlock,
+                                       i.idMajor,
+                                   }).ToList();
+                var Major_Blocl = await _context.Addmisstion_Major_Block.ToListAsync();
+                var Major = await _context.Majors.ToListAsync();
+                admisstion.Admisstion_Major = (from m in Admisstion_Major
+                                               select new Admisstion_Major()
+                                               {
+                                                   id=m.id,
+                                                   CloseTime=m.CloseTime,
+                                                   OpenTime=m.CloseTime,
+                                                   Count= InfoProFile.Where(x=>x.idMajor.Trim().Equals(m.idMajor.Trim())).ToList().Count,
+                                                   Addmisstion_Major_Block= Major_Blocl.Where(x=>x.idAdmisstion==m.id).ToList(),
+                                                   idMajor=m.idMajor,
+                                                   Quantity=m.Quantity,
+                                                   Statust=m.Statust,
+                                                   Delete=m.Delete,
+                                                  
+                                                   Major=Major.SingleOrDefault(x=>x.id.Trim().Equals(m.idMajor.Trim()))
+                                               }
+
+                                              ).ToList();
+                        
                 return new ApiResult() { Success = true, Message = "Thành Công ", Data = admisstion };
             }
             catch (Exception E)
@@ -346,6 +403,11 @@ namespace WebTuyenSinh_Application.Repository
                 admisstion.Name = request.Name;
                 admisstion.OpenTime = request.OpenTime;
                 admisstion.Quantity = request.Quantity;
+                if (admisstion.CloseTime != null && admisstion.CloseTime > DateTime.Now)
+                {
+                    admisstion.CloseTime = request.CloseTime;
+                    await OpenProFile(admisstion);
+                }
                 admisstion.CloseTime = request.CloseTime;
                 admisstion.Description = request.Description;
                 admisstion.Type = request.Type;
@@ -469,12 +531,11 @@ namespace WebTuyenSinh_Application.Repository
             {
                 //  Admisstion admisstion1 = await _context.Admisstions.FindAsync(admisstion.idAdmisstion);
                 var profile = _context.ProfileStudents.Where(x => x.idAdmisstion == admisstion.idAdmisstion).ToList();
-                var infor = _context.InforMationProflies.ToList();
+                var infor = _context.InforMationProflies.Where(x=>x.idMajor==admisstion.idMajor).ToList();
                 List<Addmisstion_Major_Block> Blocks = _context.Addmisstion_Major_Block.Where(x => x.idAdmisstion == admisstion.id).ToList();
                 var listinfor = (from s in profile
                                  join i in infor on s.id equals i.idProfile
                                  join b in Blocks on i.idBlock equals b.idBlock
-                                 where i.idMajor==admisstion.idMajor
                                  select new ProfileStudentsView
                                  {
                                    id=   s.id,
@@ -534,28 +595,17 @@ namespace WebTuyenSinh_Application.Repository
                 }
                 admisstion.Name = admisstionCreate.Name;
                 admisstion.OpenTime = admisstionCreate.OpenTime;
+                if(admisstion.CloseTime!=null && admisstion.CloseTime > DateTime.Now)
+                {
+                    admisstion.CloseTime = admisstionCreate.CloseTime;
+                   await OpenProFile(admisstion);
+                }
                 admisstion.CloseTime = admisstionCreate.CloseTime;
                 admisstion.Description = admisstionCreate.Description;
                 await _context.SaveChangesAsync();
+                
 
-                foreach (var item in admisstionCreate.Majors)
-                {
-
-                        if (item.OpenTime < admisstion.OpenTime)
-                        {
-                            item.OpenTime = admisstion.OpenTime;
-                        }
-                        if (item.CloseTime > admisstion.CloseTime)
-                        {
-                            item.CloseTime = admisstion.CloseTime;
-                        }
-                        var major = _context.Admisstion_Major.SingleOrDefault(x => x.idMajor.Trim().Equals(item.idMajor.Trim()) && x.idAdmisstion == id && x.Delete != true);
-
-                        major.OpenTime = item.OpenTime;
-                        major.CloseTime = item.CloseTime;
-                        major.Statust = item.Statust;
-                        await _context.SaveChangesAsync();
-                }
+               
             }
             catch { }
                 return new ApiResult() { Success = true, Message = "Thành công", Data = null };
@@ -574,14 +624,15 @@ namespace WebTuyenSinh_Application.Repository
                 {
                     return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = null };
                 }
-
-
-
                 ProfileStudents.Statust = status;
                 ProfileStudents.CloseTime = date;
                 ProfileStudents.Note = comment;
+                if (status == 1)
+                {
+                    ProfileStudents.CloseTime = DateTime.Now;
+                }
                 await _context.SaveChangesAsync();
-                if (status == 2)
+                if (status == 2 && comment!=null&&comment.Length>0)
                 {
                     new EmailHelper().SendEmail(ProfileStudents.Email, comment, "Thông Báo Từ Đại học giao thông vận tải");
                 }
@@ -607,7 +658,6 @@ namespace WebTuyenSinh_Application.Repository
                 //  Admisstion admisstion1 = await _context.Admisstions.FindAsync(admisstion.idAdmisstion);
                 var profile = _context.ProfileStudents.Where(x => x.idAdmisstion == id).ToList();
              
-    
                 var listinfor = (from s in profile
                                  orderby s.CreateDate
                                  select new ProfileStudentsView
@@ -761,7 +811,14 @@ namespace WebTuyenSinh_Application.Repository
                 profileStudent = await _context.ProfileStudents.FindAsync(profile.id);
                 profileStudent.Updatedate = DateTime.Now;
                 var InforMationProflies = _context.InforMationProflies.Where(x => x.idProfile == profile.id);
-                profile.Statust = 3;
+                if (profile.CreateDate.Value.AddHours(1) < DateTime.Now)
+                {
+                    if (profile.Statust == 2)
+                    {
+                        profile.CloseTime = DateTime.Now;
+                    }
+                    profile.Statust = 3;
+                }
                 inforMations = inforMations.OrderBy(X => X.STT).ToList();
                 if (InforMationProflies != null)
                 {
@@ -996,6 +1053,7 @@ namespace WebTuyenSinh_Application.Repository
             {
                 return new ApiResult() { Success = false, Message = "ID không đc bỏ trống ", Data = null };
             }
+          await  CheckProFile();
             var profile = _context.ProfileStudents.Where(x => x.idAccount.Trim().Equals(uid.Trim())).ToList();
 
 
@@ -1012,8 +1070,9 @@ namespace WebTuyenSinh_Application.Repository
                                  Teletephone = s.Teletephone,
                                  url = s.url,
                                  CMND = s.CMND,
-                                 Statust = s.Statust,
-                                 Quantity = s.Quantity
+                                 Statust =s.Statust,
+                                 Quantity = s.Quantity,
+                                 CloseTime = (s.CloseTime!=null?s.CloseTime : DateTime.Now.AddHours(-5))
 
                              }).ToList();
 

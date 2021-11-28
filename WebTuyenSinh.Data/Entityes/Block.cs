@@ -19,7 +19,7 @@ namespace WebTuyenSinh.Data.Entityes
         [StringLength(9)]
         public string id { get; set; }
 
-        [StringLength(100)]
+        [StringLength(500)]
         public string Desscription { get; set; }
 
         public bool? Delete { get; set; }

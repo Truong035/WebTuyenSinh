@@ -29,9 +29,8 @@ namespace WebTuyenSinh_Application.ViewApi
         public string Areas { get; set; }
         public long? idAdmisstion { get; set; }
         public int? Year { get; set; }
-
+        public DateTime? CloseTime { get; set; }
         
-
  public string Nation { get; set; }
         public string AdressRange { get; set; }
         public string imgavata { get; set; }

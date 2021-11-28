@@ -8,7 +8,7 @@
 
     <div class="form-group">
         <label asp-for="Email"></label>
-        <input asp-for="Email" disabled class="form-control" />
+        <input asp-for="Email"  class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="UseName"></label>
@@ -30,11 +30,10 @@
         <label asp-for="Adress"></label>
         <input asp-for="Adress" class="form-control" />
     </div>
+    <div class="form-group">
+        <label asp-for="BrithDay"></label>
+        <input asp-for="BrithDay" type="date" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success"> Tạo</button>
 </form>
 
-<div style="background:#00ff90">
-    <h2>Important Links</h2>
-    <p><a href="/Admin" target="_blank">Admin</a></p>
-    <p><a href="/Role" target="_blank">Role</a></p>
-    <p><a href="/Claims" target="_blank">Claims</a></p>
-</div>

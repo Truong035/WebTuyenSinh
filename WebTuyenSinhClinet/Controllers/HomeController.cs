@@ -71,15 +71,19 @@ namespace WebTuyenSinhClinet.Controllers
                 ApiResult result = await _service.GetByProfile(id);
                 //await//ApiResult result = await _service.ListAll(id);
                 ProfileView view = (ProfileView)result.Data;
-                if (view.Data.Statust != 2)
-                {
-                    return View("ProfileDetail");
-                }
-                //ViewBag.Majo = result.Message;
                 result = await _service.GetByID(view.Data.idAdmisstion);
                 Admisstion Admisstion = (Admisstion)result.Data;
-                
                 ViewBag.data = Admisstion;
+                if (view.Data.Statust == 0)
+                {
+                    return View("UpdateProfile", view);
+                }
+                if (view.Data.Statust != 2)
+                {
+                    return View("ProfileDetail", view);
+                }
+                //ViewBag.Majo = result.Message;
+           
                 return View(view);
             }
             catch (Exception e)

@@ -1,10 +1,14 @@
-﻿@model ProfileView
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model ProfileView
 @{
     Admisstion data = (Admisstion)ViewBag.data;
 }
 
 @using WebTuyenSinh_Application.Modell;
 @using WebTuyenSinh.Data.Entityes;
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -328,7 +332,7 @@
                             </p>
                             <div class="validation-parent" style="width:65.5%">
                                 <input type="text" required id="full_name" name="full_name" class="full-name-property ml-3"
-                                       value="Phạm Trọng Trường">
+                                       placeholder="Nguyễn Văn A">
                             </div>
                         </div>
                     </div>
@@ -376,7 +380,7 @@
                             </p>
                             <div class="validation-parent">
                                 <input required type="text" id="fromBirthDay" name="address" class="full-name-property ml-3"
-                                       value="TP. Hồ Chí Minh" placeholder="TP. Hồ Chí Minh">
+                                       placeholder="TP. Hồ Chí Minh">
                             </div>
                         </div>
                     </div>
@@ -390,7 +394,7 @@
                             </p>
                             <div class="validation-parent" style="width:49.5%">
                                 <input required type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
-                                       value="231308802" placeholder="231308802">
+                                       placeholder="231308802">
                             </div>
                         </div>
                     </div>
@@ -416,7 +420,7 @@
                             </span>
                             <div class="validation-parent" style="width:51%">
                                 <input required type="text" id="noicap" name="noicap" class="full-name-property ml-3"
-                                       value="Hà Nội" placeholder="Hà Nội">
+                                       placeholder="Hà Nội">
                             </div>
                         </div>
                     </div>
@@ -428,7 +432,7 @@
                                 <span>6. Dân tộc (*): </span>
                             </p>
                             <div class="validation-parent" style="width:69%">
-                                <input required type="text" id="nation" value="KINH" name="dantoc" class="full-name-property ml-3">
+                                <input required type="text" id="nation" name="dantoc" class="full-name-property ml-3">
                             </div>
                         </div>
                     </div>
@@ -438,7 +442,7 @@
                                 <span>7. Tôn giáo (*): </span>
                             </p>
                             <div class="validation-parent">
-                                <input required type="text" value="KHÔNG" id="religion" name="tongiao" class="full-name-property ml-3">
+                                <input required type="text" id="religion" name="tongiao" class="full-name-property ml-3">
                             </div>
                         </div>
                     </div>
@@ -451,7 +455,7 @@
                             </p>
                             <div class="validation-parent" style="width:64.6%">
                                 <input required type="text" id="address" name="dantoc" class="full-name-property ml-3"
-                                       value="11e liên khu 25 quận 9">
+                                       placeholder="11e liên khu 25 quận 9">
                             </div>
                         </div>
                     </div>
@@ -464,7 +468,7 @@
                             </p>
                             <div class="validation-parent" style="width:68.6%">
                                 <input required type="text" id="fromTelePhone" name="dantoc" class="full-name-property ml-3"
-                                       value="11e liên khu 25 quận 9">
+                                       placeholder="11111111111111">
                             </div>
                         </div>
                     </div>
@@ -477,7 +481,7 @@
                             </p>
                             <div class="validation-parent" style="width: 35%;">
                                 <input required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3"
-                                       value="0347689482">
+                                       placeholder="0347689482">
                             </div>
                         </div>
                     </div>
@@ -488,7 +492,7 @@
                             </p>
                             <div class="validation-parent" style="width:59.4%">
                                 <input required type="email" id="Email" name="noicap" class="full-name-property ml-3"
-                                       value="hoangvuong1225@gmail.com">
+                                       placeholder="hoangvuong1225@gmail.com">
                             </div>
                         </div>
                     </div>
@@ -536,7 +540,7 @@
                                     <span> Năm lớp 10:  </span>
                                 </span>
                                 <div class="validation-parent" style="width: 70%;">
-                                    <select required class="ml-2 form-select form-select-sm" id="School1" aria-label=" ml-3 ">
+                                    <select required class="ml-2 form-select form-select-sm" id="School1" aria-label="full-name-property ml-3 form-select-sm example">
                                     </select>
                                 </div>
 
@@ -617,7 +621,7 @@
                             </span>
                             <div class="validation-parent">
                                 <input type="text" id="year" name="cmnd" class="full-name-property ml-1" style="width:70px"
-                                       value="2018">
+                                       placeholder="">
                             </div>
                         </div>
                         <div class="d-flex day-of-birth full-name-box" style=" width:30%">
@@ -626,7 +630,7 @@
                             </span>
                             <div class="validation-parent">
                                 <input type="text" id="areas" name="cmnd" class="full-name-property" style="width:80px"
-                                       value=" KHU VỰC 1">
+                                       placeholder="">
                             </div>
 
                         </div>
@@ -637,7 +641,7 @@
                             </span>
                             <div class="validation-parent" style="width: 30%;">
                                 <input type="text" id="priority_object" name="cmnd" class="full-name-property"
-                                       value=" KHÔNG CÓ">
+                                       placeholder="">
                             </div>
 
                         </div>
@@ -709,7 +713,6 @@
                                 <th>Môn 1</th>
                             </tr>
 
-
                             <tbody id="tbbody">
                                 @{
 
@@ -773,7 +776,10 @@
                                             <td><input type="text" class="subject9" required value="@item.subject9" /></td>
                                             <td>
                                                 <div class="form-button-action">
-<input type="number" required value="@item.STT" />
+
+                                                    <button style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                        <i class="ti-close"></i>
+                                                    </button>
                                                 </div>
                                             </td>
 
@@ -781,7 +787,6 @@
                                     } }
 
                             </tbody>
-
 
 
 
@@ -880,7 +885,6 @@
 
     </form>
 </body>
-</html>
 @section Scripts{
     <script>
         let conscious = [];
@@ -919,17 +923,64 @@
             });
         }
 
-    
+        function LoadData() {
+        
+            let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+         <option value="">Chọn Ngành</option>`
+            $.each(majors, function (k, v) {
+                selectmajor += ` <option value="${v.idMajor}">${v.name}</option>`
+            });
+            selectmajor += `</select>`
+            let selectblock = ` <select class=" form-select form-select-sm block" aria-label=".form-select-sm example">
+<option value="">Tổ Hợp </option>`
+            selectblock += `</select>`
+            let tr = `  <tr>
+
+                                                        <td>
+                                                          ${selectmajor}
+                                                        </td>
+                                                        <td>
+                                                           ${selectblock}
+                                                        </td>
+                                                        <td><input type="text" class="subject1" required value="" /></td>
+                                                    <td><input type="text" class="subject2" required value="" /></td>
+                                                    <td><input type="text" class="subject3" required value="" /></td>
+                                                    <td><input type="text" class="subject4" required value="" /></td>
+                                                    <td><input type="text" class="subject5" required value="" /></td>
+                                                    <td><input type="text" class="subject6" required value="" /></td>
+                                                    <td><input type="text" class="subject7" required value="" /></td>
+                                                    <td><input type="text" class="subject8" required value="" /></td>
+                                                    <td><input type="text" class="subject9" required value="" /></td>
+                                                    <td>
+                                                        <div class="form-button-action">
+
+                                                            <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+
+                                                    </tr>`
+
+            $("#tbbody").append(tr)
+            tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                    <i class="ti-plus"></i> Thêm
+                                                                </button>
+                                                        </td>
+                                                    </tr>`
+            $("#tbbody").append(tr)
+        }
+
         $(document).ready(function () {
 
             let id = window.location.href.split('/').pop();
             $.ajax({
                 async: false,
-                url: "/Home/GETProfile/" + id,
+                url: Url+"/Admisstion/GETProfile/" + id,
                 type: 'GET',
+
             }).done(
                 function (res) {
-                    console.log(res);
                     if (res.success) {
                         console.log(res.data)
                         conscious = res.data.conscious;
@@ -948,7 +999,7 @@
 
             $.ajax({
                 async: false,
-                url: "/Home/GetAdmisstionInfo/" + Profile.idAdmisstion,
+                url: Url+"/Admisstion/GetAdmisstionInfo/" + Profile.idAdmisstion,
                 type: 'GET',
             }).done(function (res) {
                 console.log(res)
@@ -957,15 +1008,16 @@
 
                 }
             });
-
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
-                    Profile.name = $("#full_name").val();
+                Profile.name = $("#full_name").val();
                 Profile.birthDay = $("#birthdate").val();
                 Profile.adress = $("#address").val();
                 Profile.cmnd = $("#cmnd").val();
+
                 Profile.dateRange = $("#dateRange").val();
                 Profile.adressRange = $("#noicap").val();
+
                 Profile.nation = $("#nation").val();
                 Profile.religion = $("#religion").val();
                 Profile.fromBirthDay = $("#fromBirthDay").val();
@@ -975,6 +1027,8 @@
                 Profile.year = $("#year").val();
                 Profile.areas = $("#areas").val();
                 Profile.priority_object = $("#priority_object").val();
+
+
                 $.each(sChool, function (k, v) {
 
                     if ($("#School1").val() == v.idSchool) {
@@ -1004,7 +1058,6 @@
                         subject7: $(v).closest("tr").find("input:eq(6)").val().trim(),
                         subject8: $(v).closest("tr").find("input:eq(7)").val().trim(),
                         subject9: $(v).closest("tr").find("input:eq(8)").val().trim(),
-                        stt: $(v).closest("tr").find("input:eq(9)").val().trim(),
                     })
                 })
                 if ($("#checknam").prop("checked")) {
@@ -1012,31 +1065,28 @@
                 } else {
                     Profile.sex = 1;
                 }
-                //Profile.idAccount = token;
-                console.log(Profile)
                 if (Profile) {
                     $.ajax({
                         async: false,
-                        url: Url+"/admisstion/createprofile",
-                        type: 'post',
-
-                        data: { profile: Profile },
+                        url: Url+"/Admisstion/CreateProfile/",
+                        type: 'POST',
+                        data: { Profile: Profile },
 
                     }).done(function (data) {
                         console.log(data)
                         if (data.success) {
-                            profile = data.data
-                            window.location = "/Home/EditProfile/" + id
-                         //   var link = document.createelement("a");
-                            // if you don't know the name or want to use
+                            Profile = data.data
+
+                            var link = document.createElement("a");
+                            // If you don't know the name or want to use
                             // the webserver default set name = ''
-                            @*$(link).attr({
+                            $(link).attr({
                                 target: '_blank',
-                                href: "https://localhost:44396/" + profile.url
+                                href: Url+ Profile.url
                             });
                             link.click();
                             link.remove();
-                            $("#livetoast").toast("show");*@
+                            $("#liveToast").toast("show");
                         }
                         else {
                             $("#livefail").toast("show");
@@ -1151,9 +1201,33 @@
                 $("#Consciou3").val($("#School3").val().split('/').pop())
                 $("#district3").val($("#School3").val().split('/')[1] + "/" + $("#School3").val().split('/').pop())
             })
+            let tr = `  <tr><td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                    <i class="ti-plus"></i>
+The
+                                                                </button>
+                                                        </td>
+                                                    </tr>`
+            $("#tbbody").append(tr)
+            $(document).on('click', "button[name = 'Delete']", function () {
+                $(this).closest('tr').remove();
+                if ($(".subject1").length == 0) {
+                    $("#tbbody").empty()
+                    LoadData();
+                }
+
+            })
+
+            $(document).on('click', "button[name = 'add']", function () {
+
+                $(this).closest('tr').remove();
+
+                $(this).hide();
+                LoadData()
+
+            });
+
+
         });
-
-
         function LoadProfile() {
 
             $("#full_name").val(Profile.name);
@@ -1232,6 +1306,6 @@
 
             //    $("#teletephone").val(Profile.teletephone);
         }
-
     </script>
 }
+</html>

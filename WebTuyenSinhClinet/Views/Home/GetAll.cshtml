@@ -155,6 +155,12 @@
                                                                 Edit
                                                             </a>
                                                         }
+                                                        else if ((item.CreateDate.Value.AddHours(1) > DateTime.Now && item.Statust==0) || (item.CloseTime.Value > DateTime.Now))
+                                                        {
+                                                    <a href="/Home/EditProfile/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                        Edit
+                                                    </a>
+                }
                 else
                 {
                                                     <a href="/Home/ProfileDetail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">

@@ -954,7 +954,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
         {
             try
             {
-                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id).ToListAsync();
+                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id|| x.Statust==3).ToListAsync();
                 var ProfileInfor = await _context.InforMationProflies.ToListAsync();
                 var School = await _context.Schools.ToListAsync();
                 var Major = await _context.Majors.ToListAsync();

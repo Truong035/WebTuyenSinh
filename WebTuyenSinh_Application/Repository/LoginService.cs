@@ -120,7 +120,7 @@ namespace WebTuyenSinh_Application.Repository
                 {
                     Account account = new Account();
                     account.Email = request.Email;
-                    account.UserName = request.FirtName + " " + request.LastName;
+                    account.UserName = request.UseName;
                     account.PasswordHash = new MD5().GetMD5(request.Password.Trim());
                     account.Telephone = request.Telephone;
                     account.Adress = request.Adress;
@@ -129,7 +129,7 @@ namespace WebTuyenSinh_Application.Repository
                     await _context.Accounts.AddAsync(account);
                     await _context.SaveChangesAsync();
                     var claims = new[] {
-                  new Claim("Id",account.Id),
+                    new Claim("ID",account.Id),
                 new Claim(ClaimTypes.Email,account.Email),
                 new Claim(ClaimTypes.Name, account.UserName),
                 new Claim(ClaimTypes.Role,"SinhVien")

@@ -713,7 +713,7 @@
                                 <th>Môn 1</th>
                             </tr>
 
-<tbody id="tbbody">
+                            <tbody id="tbbody">
                                 @{
 
                                     foreach (var item in Model.Data.InforMationProflies)
@@ -787,7 +787,7 @@
                                     } }
 
                             </tbody>
-                            
+
 
 
                         </table>
@@ -885,7 +885,6 @@
 
     </form>
 </body>
-</html>
 @section Scripts{
     <script>
         let conscious = [];
@@ -902,32 +901,32 @@
                 if (x > 10 || x < 0) {
                     $(e).val("")
                 }
-            } catch { $(e).val("")}
-    
-           
+            } catch { $(e).val("") }
+
+
         }
         function Option(e) {
             console.log($(e).val())
             $(e).closest("tr").find("td:eq(1)").empty();
             $.each(majors, function (k, v) {
                 if (v.idMajor.trim() === $(e).val().trim()) {
-                   
+
                     let selectblock = ` <select class=" form-select form-select-sm block"  required aria-label=".form-select-sm example">
-               `
+                   `
                     $.each(v.block, function (index, value) {
                         selectblock += ` <option value="${value}">${value}</option>`
                     })
                     selectblock += `</select>`
                     $(e).closest("tr").find("td:eq(1)").append(selectblock);
                 }
-              
+
             });
         }
 
         function LoadData() {
             $("#admisstion0").select2();
             let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
- <option value="">Chọn Ngành</option>`
+     <option value="">Chọn Ngành</option>`
             $.each(majors, function (k, v) {
                 selectmajor += ` <option value="${v.idMajor}">${v.name}</option>`
             });
@@ -937,38 +936,38 @@
             selectblock += `</select>`
             let tr = `  <tr>
 
+                                                    <td>
+                                                      ${selectmajor}
+                                                    </td>
+                                                    <td>
+                                                       ${selectblock}
+                                                    </td>
+                                                    <td><input type="text" class="subject1" required value="" /></td>
+                                                <td><input type="text" class="subject2" required value="" /></td>
+                                                <td><input type="text" class="subject3" required value="" /></td>
+                                                <td><input type="text" class="subject4" required value="" /></td>
+                                                <td><input type="text" class="subject5" required value="" /></td>
+                                                <td><input type="text" class="subject6" required value="" /></td>
+                                                <td><input type="text" class="subject7" required value="" /></td>
+                                                <td><input type="text" class="subject8" required value="" /></td>
+                                                <td><input type="text" class="subject9" required value="" /></td>
                                                 <td>
-                                                  ${selectmajor}
-                                                </td>
-                                                <td>
-                                                   ${selectblock}
-                                                </td>
-                                                <td><input type="text" class="subject1" required value="" /></td>
-                                            <td><input type="text" class="subject2" required value="" /></td>
-                                            <td><input type="text" class="subject3" required value="" /></td>
-                                            <td><input type="text" class="subject4" required value="" /></td>
-                                            <td><input type="text" class="subject5" required value="" /></td>
-                                            <td><input type="text" class="subject6" required value="" /></td>
-                                            <td><input type="text" class="subject7" required value="" /></td>
-                                            <td><input type="text" class="subject8" required value="" /></td>
-                                            <td><input type="text" class="subject9" required value="" /></td>
-                                            <td>
-                                                <div class="form-button-action">
+                                                    <div class="form-button-action">
 
-                                                    <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                        <i class="ti-close"></i>
-                                                    </button>
-                                                </div>
-                                            </td>
+                                                        <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <i class="ti-close"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
 
-                                            </tr>`
+                                                </tr>`
 
             $("#tbbody").append(tr)
             tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                            <i class="ti-plus"></i>
-                                                        </button>
-                                                </td>  
-                                            </tr>`
+                                                                <i class="ti-plus"></i>
+                                                            </button>
+                                                    </td>
+                                                </tr>`
             $("#tbbody").append(tr)
         }
 
@@ -979,7 +978,7 @@
                 async: false,
                 url: "/Admisstion/GETProfile/" + id,
                 type: 'GET',
-         
+
             }).done(
                 function (res) {
                     if (res.success) {
@@ -991,13 +990,13 @@
                         sChool = res.data.sChool;
                         console.log(sChool);
                         Profile = res.data.data
-                     
+
                         LoadProfile();
                     }
 
                 }
             );
-         
+
             $.ajax({
                 async: false,
                 url: "/Admisstion/GetAdmisstionInfo/" + Profile.idAdmisstion,
@@ -1006,27 +1005,27 @@
                 console.log(res)
                 if (res.success) {
                     majors = res.data;
-         
+
                 }
             });
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
-                Profile.name=  $("#full_name").val();
-                Profile.birthDay=$("#birthdate").val();
-                Profile.adress=  $("#address").val();
-                Profile.cmnd=$("#cmnd").val();
+                Profile.name = $("#full_name").val();
+                Profile.birthDay = $("#birthdate").val();
+                Profile.adress = $("#address").val();
+                Profile.cmnd = $("#cmnd").val();
 
-                Profile.dateRange=  $("#dateRange").val();
-                Profile.adressRange=  $("#noicap").val();
+                Profile.dateRange = $("#dateRange").val();
+                Profile.adressRange = $("#noicap").val();
 
-                Profile.nation=   $("#nation").val();
-                Profile.religion= $("#religion").val();
-                Profile.fromBirthDay=  $("#fromBirthDay").val();
-                Profile.fromTelePhone=  $("#fromTelePhone").val();
-                Profile.teletephone=   $("#teletephone").val();
+                Profile.nation = $("#nation").val();
+                Profile.religion = $("#religion").val();
+                Profile.fromBirthDay = $("#fromBirthDay").val();
+                Profile.fromTelePhone = $("#fromTelePhone").val();
+                Profile.teletephone = $("#teletephone").val();
                 Profile.email = $("#Email").val();
-                Profile.year= $("#year").val();
-                Profile.areas=   $("#areas").val();
+                Profile.year = $("#year").val();
+                Profile.areas = $("#areas").val();
                 Profile.priority_object = $("#priority_object").val();
 
 
@@ -1071,18 +1070,18 @@
                         async: false,
                         url: "/Admisstion/CreateProfile/",
                         type: 'POST',
-                        data: { Profile: Profile},
-                  
+                        data: { Profile: Profile },
+
                     }).done(function (data) {
                         console.log(data)
                         if (data.success) {
                             Profile = data.data
-                          
+
                             var link = document.createElement("a");
                             // If you don't know the name or want to use
                             // the webserver default set name = ''
                             $(link).attr({
-                              target: '_blank',
+                                target: '_blank',
                                 href: Profile.url
                             });
                             link.click();
@@ -1092,9 +1091,9 @@
                         else {
                             $("#livefail").toast("show");
                         }
-                     
+
                     }).fail(function () {
-                        
+
                         $("#livefail").toast("show");
                     });
                 }
@@ -1203,10 +1202,10 @@
                 $("#district3").val($("#School3").val().split('/')[1] + "/" + $("#School3").val().split('/').pop())
             })
             let tr = `  <tr><td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                            <i class="ti-plus"></i>
-                                                        </button>
-                                                </td>  
-                                            </tr>`
+                                                                <i class="ti-plus"></i>
+                                                            </button>
+                                                    </td>
+                                                </tr>`
             $("#tbbody").append(tr)
             $(document).on('click', "button[name = 'Delete']", function () {
                 $(this).closest('tr').remove();
@@ -1225,7 +1224,7 @@
                 LoadData()
 
             });
-    
+
 
         });
         function LoadProfile() {
@@ -1308,3 +1307,4 @@
         }
     </script>
 }
+</html>

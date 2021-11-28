@@ -96,6 +96,13 @@ namespace WebTuyenSinhClient.Controllers
             if (ModelState.IsValid)
             {
                ApiResult result = await _login.Register(request);
+                if (result.Success)
+                {
+
+                    await saveToken(result);
+
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
             return View("GoogleResponse", request);

@@ -37,7 +37,6 @@ namespace WebTuyenSinh.Data.Entityes
                 .IsFixedLength();
             modelBuilder.Entity<Account>()
                .HasKey(x => x.Id);
-
             modelBuilder.Entity<Account>()
                 .HasMany(e => e.ProfileStudents)
                 .WithOne(e => e.Account)
