@@ -340,6 +340,33 @@ namespace WebTuyenSinh.Data.Migrations
                     b.ToTable("CatergoryDetails");
                 });
 
+            modelBuilder.Entity("WebTuyenSinh.Data.Entityes.FileProfile", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<long?>("idProfile")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("url")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("id");
+
+                    b.HasIndex("idProfile");
+
+                    b.ToTable("FileProfile");
+                });
+
             modelBuilder.Entity("WebTuyenSinh.Data.Entityes.InforMationProflie", b =>
                 {
                     b.Property<long>("id")
@@ -669,7 +696,7 @@ namespace WebTuyenSinh.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .IsFixedLength(true)
-                        .HasDefaultValue(new DateTime(2021, 11, 28, 16, 43, 41, 108, DateTimeKind.Local).AddTicks(5312));
+                        .HasDefaultValue(new DateTime(2021, 12, 5, 19, 43, 29, 228, DateTimeKind.Local).AddTicks(196));
 
                     b.Property<DateTime?>("OpenTime")
                         .HasColumnType("datetime2")
@@ -740,6 +767,13 @@ namespace WebTuyenSinh.Data.Migrations
                     b.HasOne("WebTuyenSinh.Data.Entityes.Catergory", "Catergory")
                         .WithMany("CatergoryDetails")
                         .HasForeignKey("idCatergory");
+                });
+
+            modelBuilder.Entity("WebTuyenSinh.Data.Entityes.FileProfile", b =>
+                {
+                    b.HasOne("WebTuyenSinh.Data.Entityes.ProfileStudent", "ProfileStudent")
+                        .WithMany("FileProfiles")
+                        .HasForeignKey("idProfile");
                 });
 
             modelBuilder.Entity("WebTuyenSinh.Data.Entityes.InforMationProflie", b =>

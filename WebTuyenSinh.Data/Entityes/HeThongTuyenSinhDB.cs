@@ -127,9 +127,9 @@ namespace WebTuyenSinh.Data.Entityes
                 .HasForeignKey(e => e.idCategory);
 
 
-    
 
 
+            modelBuilder.Entity<FileProfile>().Property(e => e.id).UseIdentityColumn();
 
             modelBuilder.Entity<InforMationProflie>()
 .HasKey(e => e.id);
@@ -163,7 +163,7 @@ namespace WebTuyenSinh.Data.Entityes
                 .HasMany(e => e.files)
                 .WithOne(e => e.Post)
                 .HasForeignKey(e => e.idPost);
-
+      
             modelBuilder.Entity<ProfileStudent>()
 .HasKey(e => e.id);
             modelBuilder.Entity<ProfileStudent>().Property(e => e.id).UseIdentityColumn();
@@ -174,8 +174,11 @@ namespace WebTuyenSinh.Data.Entityes
             modelBuilder.Entity<ProfileStudent>()
                 .Property(e => e.CMND)
                 .IsFixedLength();
-  
 
+            modelBuilder.Entity<ProfileStudent>()
+       .HasMany(e => e.FileProfiles)
+       .WithOne(e => e.ProfileStudent)
+       .HasForeignKey(e => e.idProfile);
 
             modelBuilder.Entity<ProfileStudent>()
                 .HasMany(e => e.InforMationProflies)

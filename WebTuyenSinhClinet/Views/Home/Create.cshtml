@@ -1018,10 +1018,11 @@
                             // the webserver default set name = ''
                             $(link).attr({
                                 target: '_blank',
-                                href: "https://localhost:44396/"+Profile.url
+                                href: Url + Profile.url
                             });
                             link.click();
                             link.remove();
+                            window.location = "/Home/ResultProfile/" + Profile.id
                             $("#liveToast").toast("show");
                         }
                         else {

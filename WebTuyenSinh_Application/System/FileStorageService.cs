@@ -47,13 +47,13 @@ namespace WebTuyenSinh_Application.System
 
         public async Task DeleteFileAsync(string fileName)
         {
-            fileName= fileName.Replace(@"/", "\\");
-            var filePath = Path.Combine(_webHostEnvironment.WebRootPath, fileName.Substring(1));
+            //fileName= fileName.Replace(@"/", "\\");
+            //var filePath = Path.Combine(_webHostEnvironment.WebRootPath, fileName.Substring(1));
        
-            if (File.Exists(filePath))
-            {
-                await Task.Run(() => File.Delete(filePath));
-            }
+            //if (File.Exists(filePath))
+            //{
+            //    await Task.Run(() => File.Delete(filePath));
+            //}
         }
 
 

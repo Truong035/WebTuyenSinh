@@ -778,7 +778,7 @@
                                                 <div class="form-button-action">
 
                                                     <button style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                        <i class="ti-close"></i>
+                                                        <i class="ti-close"></i>x
                                                     </button>
                                                 </div>
                                             </td>
@@ -955,7 +955,7 @@
                                                         <div class="form-button-action">
 
                                                             <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                                <i class="ti-close"></i>
+                                                                <i class="ti-close"></i>x
                                                             </button>
                                                         </div>
                                                     </td>
@@ -1084,8 +1084,10 @@
                                 target: '_blank',
                                 href: Url+ Profile.url
                             });
+
                             link.click();
-                            link.remove();
+                            link.remove(); 
+                            window.location = "/Home/ResultProfile/" + Profile.id
                             $("#liveToast").toast("show");
                         }
                         else {
@@ -1201,12 +1203,11 @@
                 $("#Consciou3").val($("#School3").val().split('/').pop())
                 $("#district3").val($("#School3").val().split('/')[1] + "/" + $("#School3").val().split('/').pop())
             })
-            let tr = `  <tr><td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                                    <i class="ti-plus"></i>
-The
-                                                                </button>
-                                                        </td>
-                                                    </tr>`
+            let tr = ` <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                <i class="ti-plus"></i> +
+                                                            </button>
+                                                    </td>
+                                                </tr>`
             $("#tbbody").append(tr)
             $(document).on('click', "button[name = 'Delete']", function () {
                 $(this).closest('tr').remove();

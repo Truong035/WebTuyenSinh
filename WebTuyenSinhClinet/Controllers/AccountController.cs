@@ -61,27 +61,16 @@ namespace WebTuyenSinhClient.Controllers
         {
             if (ModelState.IsValid)
             {
-                Account appUser = await userManager.FindByEmailAsync(login.Email);
-                if (appUser != null)
+                LoginRequest request = new LoginRequest();
+                request.Email = login.Email;
+                request.Password = login.Password;
+           ApiResult apiResult  =   await  _login.Login(request);
+                if (apiResult.Success)
                 {
-                    await signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(appUser, login.Password, false, true);
-                    if (result.Succeeded)
-                        return Redirect(login.ReturnUrl ?? "/");
+                    await saveToken(apiResult);
 
-                    /*bool emailStatus = await userManager.IsEmailConfirmedAsync(appUser);
-                    if (emailStatus == false)
-                    {
-                        ModelState.AddModelError(nameof(login.Email), "Email is unconfirmed, please confirm it first");
-                    }*/
+                    return RedirectToAction("Index", "Home");
 
-                    /*if (result.IsLockedOut)
-                        ModelState.AddModelError("", "Your account is locked out. Kindly wait for 10 minutes and try again");*/
-
-                    if (result.RequiresTwoFactor)
-                    {
-                        return RedirectToAction("LoginTwoStep", new { appUser.Email, login.ReturnUrl });
-                    }
                 }
                 ModelState.AddModelError(nameof(login.Email), "Login Failed: Invalid Email or password");
             }
@@ -107,6 +96,14 @@ namespace WebTuyenSinhClient.Controllers
 
             return View("GoogleResponse", request);
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register()
+        {
+          
+            return View();
+        }
+
 
         [AllowAnonymous]
         public async Task<IActionResult> LoginTwoStep(string email, string returnUrl)

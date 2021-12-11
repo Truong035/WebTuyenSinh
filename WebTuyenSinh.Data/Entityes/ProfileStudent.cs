@@ -84,6 +84,7 @@ namespace WebTuyenSinh.Data.Entityes
         public virtual Account Account { get; set; }
         public virtual Admisstion Admisstion { get; set; }
         public virtual ICollection<InforMationProflie> InforMationProflies { get; set; }
+        public virtual ICollection<FileProfile> FileProfiles { get; set; }
         public DateTime? Updatedate { get; set; }
 
     }

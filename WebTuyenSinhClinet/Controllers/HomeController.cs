@@ -50,7 +50,11 @@ namespace WebTuyenSinhClinet.Controllers
                 return View("Error");
             }
         }
-
+        public IActionResult ResultProfile(long id)
+        {
+            ViewBag.url = id;
+            return View();
+        }
         public async Task<IActionResult> Index()
         {
              ApiResult result = await _service.GetAll(2);

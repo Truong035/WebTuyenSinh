@@ -11,18 +11,7 @@
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
-                    <div class="m-3 border-bottom pb-3">
-                        <div class="d-flex align-items-center">
-                            <h4 class="card-title">Danh Sách Các Ngành</h4>
-                            <div class="ml-auto">
-                                <a class="btn btn-primary btn-round ml-auto"
-                                   href="/Admisstion/Create">
-                                    <i class="ti-plus"></i>
-                                    Thêm Trường
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+               
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
@@ -30,9 +19,7 @@
                                     <table id="data-table" class="display expandable-table" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>
-                                                    Mã Xét Tuyển
-                                                </th>
+
                                                 <th>
                                                     Nôi Dung
                                                 </th>
@@ -41,6 +28,9 @@
                                                 </th>
                                                 <th>
                                                     Thời Gian kết Thúc
+                                                </th>
+                                                <th>
+                                                    Mô Tả
                                                 </th>
                                                 <th>
                                                     Trạng Thái
@@ -55,9 +45,7 @@
                                             @foreach (var item in Model)
                                             {
                                                 <tr>
-                                                    <td>
-                                                        @item.id
-                                                    </td>
+
                                                     <td>
                                                         @item.Name
                                                     </td>
@@ -68,30 +56,35 @@
                                                         @(item.CloseTime!=null? item.CloseTime.ToString(): "Chưa cập nhật")
                                                     </td>
                                                     <td>
+                                                        @item.Description
+
+                                                    </td>
+                                                    <td>
                                                         @if (item.Statust == 0)
                                                         {
-                                                            <label class="badge badge-info">
+                                                            <label class="badge bg-info">
                                                                 Chưa diễn ra
 
                                                             </label>
                                                         }
                                                         @if (item.Statust == 1)
                                                         {
-                                                            <label class="badge badge-success">
+
+                                                            <label class="badge bg-success">
                                                                 Đang diễn ra
 
                                                             </label>
                                                         }
                                                         @if (item.Statust == 2)
                                                         {
-                                                            <label class="badge badge-warning">
+                                                            <label class="badge bg-warning">
                                                                 Cập nhật hồ sơ
 
                                                             </label>
                                                         }
                                                         @if (item.Statust == 3)
                                                         {
-                                                            <label class="badge badge-danger">
+                                                            <label class="badge bg-danger">
                                                                 Đã Đóng
 
                                                             </label>
@@ -101,11 +94,11 @@
                                                     </td>
                                                     <td>
                                                         <div class="form-button-action">
-                                           
+
                                                             <a href="/Home/Create/@item.id">
                                                                 Đăng ký
                                                             </a>
-                                                          
+
                                                         </div>
                                                     </td>
 

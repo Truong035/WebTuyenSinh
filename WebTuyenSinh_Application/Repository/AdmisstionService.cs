@@ -811,7 +811,7 @@ namespace WebTuyenSinh_Application.Repository
                 profileStudent = await _context.ProfileStudents.FindAsync(profile.id);
                 profileStudent.Updatedate = DateTime.Now;
                 var InforMationProflies = _context.InforMationProflies.Where(x => x.idProfile == profile.id);
-                if (profile.CreateDate.Value.AddHours(1) < DateTime.Now)
+                if (profile.CreateDate.Value.AddHours(1) < DateTime.Now || profile.Statust==2)
                 {
                     if (profile.Statust == 2)
                     {
@@ -861,7 +861,7 @@ namespace WebTuyenSinh_Application.Repository
             profileStudent.CreateDate = profile.CreateDate;
             profileStudent.Priority_object = profile.Priority_object;
             profileStudent.Statust = profile.Statust;
-            profileStudent.url = await _storageService.CreatePdf(profile);
+        //    profileStudent.url = await _storageService.CreatePdf(profile);
             if ( profileStudent.id < 1)
             {
                await _context.ProfileStudents.AddAsync(profileStudent);

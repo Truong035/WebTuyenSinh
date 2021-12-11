@@ -164,7 +164,7 @@ namespace WebTuyenSinh.Data.Migrations
                 {
                     id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreateDate = table.Column<DateTime>(fixedLength: true, nullable: true, defaultValue: new DateTime(2021, 11, 28, 16, 43, 41, 108, DateTimeKind.Local).AddTicks(5312)),
+                    CreateDate = table.Column<DateTime>(fixedLength: true, nullable: true, defaultValue: new DateTime(2021, 12, 5, 19, 43, 29, 228, DateTimeKind.Local).AddTicks(196)),
                     delete = table.Column<bool>(fixedLength: true, nullable: true),
                     Status = table.Column<bool>(fixedLength: true, nullable: true),
                     OpenTime = table.Column<DateTime>(fixedLength: true, nullable: true),
@@ -282,6 +282,27 @@ namespace WebTuyenSinh.Data.Migrations
                         name: "FK_Admisstion_Major_Major_idMajor",
                         column: x => x.idMajor,
                         principalTable: "Major",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FileProfile",
+                columns: table => new
+                {
+                    id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    url = table.Column<string>(maxLength: 100, nullable: true),
+                    Name = table.Column<string>(maxLength: 1, nullable: true),
+                    idProfile = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FileProfile", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_FileProfile_ProfileStudent_idProfile",
+                        column: x => x.idProfile,
+                        principalTable: "ProfileStudent",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -421,6 +442,11 @@ namespace WebTuyenSinh.Data.Migrations
                 column: "idCatergory");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FileProfile_idProfile",
+                table: "FileProfile",
+                column: "idProfile");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_files_idPost",
                 table: "files",
                 column: "idPost");
@@ -461,6 +487,9 @@ namespace WebTuyenSinh.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppRole");
+
+            migrationBuilder.DropTable(
+                name: "FileProfile");
 
             migrationBuilder.DropTable(
                 name: "files");
