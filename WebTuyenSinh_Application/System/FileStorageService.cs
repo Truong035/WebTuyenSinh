@@ -35,20 +35,20 @@ namespace WebTuyenSinh_Application.System
             _webHostEnvironment= webHostEnvironment;
             _context = context;
         }
-        public async Task<string> CreatePdf(ProfileStudent profile)
+        public  string CreatePdf(ProfileStudent profile)
         {
-            if (profile.url!=null)
-            {
-                await DeleteFileAsync(profile.url.Trim());
-            }
-          return await CreateFileProfile(profile);
+            //if (profile.url!=null)
+            //{
+            //    await DeleteFileAsync(profile.url.Trim());
+            //}
+          return CreateFileProfile(profile);
           
         }
 
         public async Task DeleteFileAsync(string fileName)
         {
             //fileName= fileName.Replace(@"/", "\\");
-            //var filePath = Path.Combine(_webHostEnvironment.WebRootPath, fileName.Substring(1));
+            //var filePath = Path.Comne(_webHostEnvironment.WebRootPath, fileName.Substring(1));
        
             //if (File.Exists(filePath))
             //{
@@ -62,13 +62,11 @@ namespace WebTuyenSinh_Application.System
             throw new NotImplementedException();
         }
 
-        public Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
+ 
+     public string CreateFileProfile(ProfileStudent profile)
         {
-            throw new NotImplementedException();
-        }
+            try {
 
-     public async Task<string> CreateFileProfile(ProfileStudent profile)
-        {
             PdfDocument doc = new PdfDocument();
 
             // Create one page
@@ -85,16 +83,13 @@ namespace WebTuyenSinh_Application.System
                            font1,
                               new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                               35, height);
-
-
-
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 13f, FontStyle.Bold), true);
 
             page.Canvas.DrawString("CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM",
                            font1,
                               new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                               280, height);
-
+                    
             height += 12;
             page.Canvas.DrawString("PHÂN HIỆU TẠI TP. HỒ CHÍ MINH",
                            font1,
@@ -386,7 +381,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
 font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
 365, height);
             height += 22;
-            var school = await _context.Schools.FindAsync(profile.Shoo1);
+            var school =  _context.Schools.Find(profile.Shoo1);
             page.Canvas.DrawString("Năm lớp 10: "+school.NameShool.Trim(),
      font2,
         new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
@@ -445,7 +440,7 @@ font2,
 
 
             height += 5;
-            school = await _context.Schools.FindAsync(profile.Shoo2);
+            school =  _context.Schools.Find(profile.Shoo2);
             page.Canvas.DrawString("Năm lớp 11: "+school.NameShool.Trim(),
 font2,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
@@ -503,7 +498,7 @@ font2,
 
 
             height += 5;
-            school = await _context.Schools.FindAsync(profile.Shoo3);
+            school =  _context.Schools.Find(profile.Shoo3);
             page.Canvas.DrawString("Năm lớp 12: " + school.NameShool.Trim(),
 font2,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
@@ -752,7 +747,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                 ;
                 cout++;
                 weight = 30;
-                var major = await _context.Majors.FindAsync(item.idMajor);
+                var major =  _context.Majors.Find(item.idMajor);
                 string nganh = "";
                 page.Canvas.DrawString(major.Name.Trim(), font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)), new RectangleF(weight, height+2, 90, height+2), format1);
                 ;
@@ -948,6 +943,8 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             var filePath = Path.Combine(_webHostEnvironment.WebRootPath, fileName);
             doc.SaveToFile(filePath);
             return "/" + fileName;
+            }
+            catch (Exception e) { return e.Message; }
         }
 
         public async Task<ApiResult> ExportExcell(long? id)
@@ -1163,6 +1160,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             {
                 return new ApiResult() { Success = false, Message = "Lỗi server " + e.Message, Data = null };
             }
+        }
+
+        public Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

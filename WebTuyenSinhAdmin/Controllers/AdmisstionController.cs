@@ -63,10 +63,10 @@ namespace WebTuyenSinhAdmin.Controllers
             return Ok(result);
         }
         [HttpPost()]
-        public async Task<IActionResult> CreateProfile(ProfileStudent Profile)
+        public async Task<IActionResult> CreateProfile(ProfileStudent Profile,List<string> files)
         {
            
-            return Ok(await _service.CreateProfile(Profile));
+            return Ok(await _service.CreateProfile(Profile, files));
         }
         public async Task<IActionResult> ListAll(long? id)
         {

@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-
 using System.Threading.Tasks;
 using System.Security.Claims;
-
 using System.ComponentModel.DataAnnotations;
 using WebTuyenSinhClient.Models;
 using WebTuyenSinhClient.Email;
@@ -43,6 +41,7 @@ namespace WebTuyenSinhClient.Controllers
 
         public IActionResult Index()
         {
+      
             return View();
         }
 
@@ -139,11 +138,14 @@ namespace WebTuyenSinhClient.Controllers
             }
         }
 
+        [AllowAnonymous]
 
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            HttpContext.Session.Remove("ID");
+            HttpContext.Session.Remove("NAME");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
 
         public IActionResult AccessDenied()
@@ -236,16 +238,19 @@ namespace WebTuyenSinhClient.Controllers
 
         public async Task saveToken(ApiResult api)
         {
-            var id = this.ValidateToken((string)api.Data);
+            var userPrincipal = this.ValidateToken((string)api.Data, "ID");
             var authProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = false
+                IsPersistent = true
             };
-            HttpContext.Session.SetString("ID", id);
-            HttpContext.Session.SetString("Token", (string)api.Data);  
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
+            HttpContext.Session.SetString("Token", (string)api.Data);
+          
+        
         }
-        private string ValidateToken(string jwtToken)
+        private ClaimsPrincipal ValidateToken(string jwtToken,string Type)
         {
             IdentityModelEventSource.ShowPII = true;
 
@@ -260,7 +265,11 @@ namespace WebTuyenSinhClient.Controllers
 
             ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
             var id = principal.Claims.SingleOrDefault(x => x.Type == "ID");
-            return id.Value.ToString() ;
+         var name=   principal.Identity.Name;
+         //   var name = principal.Claims.SingleOrDefault(x => x.Type == "NAME");
+            HttpContext.Session.SetString("ID", id.Value.ToString());
+           HttpContext.Session.SetString("NAME", name.ToString());
+            return principal ;
         }
 
         //[AllowAnonymous]

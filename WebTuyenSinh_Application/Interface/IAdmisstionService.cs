@@ -29,7 +29,7 @@ namespace WebTuyenSinh_Application.Interface
         public Task<ApiResult> UpdateStatusAdmisstion(long? id, AdmisstionCreate admisstionCreate);
         public Task<ApiResult> UpdateStatusProfile(long? id, string comment, DateTime? date, int? status);
         public Task<ApiResult> GetByProfile(long? id);
-        public Task<ApiResult> CreateProfile(ProfileStudent profile);
+        public Task<ApiResult> CreateProfile(ProfileStudent profile, List<string> files);
         
         public Task<ApiResult> CreateProfile(long? id);
         public Task<ApiResult> GetAdmisstionInfo(long? id);

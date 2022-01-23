@@ -9,7 +9,7 @@ namespace WebTuyenSinh_Application.System
 {
   public class EmailHelper
     {
-        public  bool SendEmail(string userEmail, string confirmationLink, string Subject)
+        public  string SendEmail(string userEmail, string confirmationLink, string Subject)
         {
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
@@ -29,13 +29,14 @@ namespace WebTuyenSinh_Application.System
                    client.Send(mailMessage);
 
                 }
-                return true;
+                return "";
             }
             catch (Exception ex)
             {
+                return ex.Message;
                 // log exception
             }
-            return false;
+          
 
         }
 

@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor;
+@{
+
+}
+
+@{
+    if (HttpContextAccessor.HttpContext.Session.GetString("ID")!=null)
+    {
+    <div class="dropdown">
+        <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+
+            @HttpContextAccessor.HttpContext.Session.GetString("NAME")
+
+
+
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Thông Tin Tài Khoản</a></li>
+            <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="GetAll">Danh sách hồ sơ</a></li>
+            <li><a class="dropdown-item" href="/Account/Logout"  >Đăng xuất</a></li>
+        </ul>
+    </div>      
+    }
+    else
+    {
+
+        <a   href="/Account/Logout" class="btn btn-danger"
+             >
+            Đăng nhập
+        </a>
+    }
+
+}
+
+
+

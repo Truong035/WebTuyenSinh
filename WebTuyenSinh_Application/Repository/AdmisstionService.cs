@@ -613,6 +613,7 @@ namespace WebTuyenSinh_Application.Repository
 
         public async Task<ApiResult> UpdateStatusProfile(long? id, string comment, DateTime? date, int? status)
         {
+            string mess = "";
             try
             {
                 if (id == null)
@@ -634,12 +635,12 @@ namespace WebTuyenSinh_Application.Repository
                 await _context.SaveChangesAsync();
                 if (status == 2 && comment!=null&&comment.Length>0)
                 {
-                    new EmailHelper().SendEmail(ProfileStudents.Email, comment, "Thông Báo Từ Đại học giao thông vận tải");
+                    mess=   new EmailHelper().SendEmail(ProfileStudents.Email, comment, "Thông Báo Từ Đại học giao thông vận tải");
                 }
            
             }
             catch { }
-            return new ApiResult() { Success = true, Message = "Thành công", Data = null };
+            return new ApiResult() { Success = true, Message = mess, Data = null };
         }
 
         public async Task<ApiResult> ListAll(long? id)
@@ -696,6 +697,7 @@ namespace WebTuyenSinh_Application.Repository
                 return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = null };
             }
             student.InforMationProflies = await _context.InforMationProflies.Where(x => x.idProfile == id).ToListAsync();
+            student.FileProfiles= await _context.FileProfiles.Where(x => x.idProfile == id).ToListAsync();
             var School = _context.Schools.Select(x => x).ToList();
             var Shool1 = (from c in School
                           select new SChool
@@ -780,10 +782,11 @@ namespace WebTuyenSinh_Application.Repository
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = view };
         }
 
-        public async Task<ApiResult> CreateProfile(ProfileStudent profile)
+        public async Task<ApiResult> CreateProfile(ProfileStudent profile,List<string> files)
         {
             ProfileStudent profileStudent = new ProfileStudent();
 
+            try {
             List<InforMationProflie> inforMations = new List<InforMationProflie>();
             foreach (var item in profile.InforMationProflies)
             {
@@ -861,12 +864,34 @@ namespace WebTuyenSinh_Application.Repository
             profileStudent.CreateDate = profile.CreateDate;
             profileStudent.Priority_object = profile.Priority_object;
             profileStudent.Statust = profile.Statust;
-        //    profileStudent.url = await _storageService.CreatePdf(profile);
+            profileStudent.url =  _storageService.CreatePdf(profile);
             if ( profileStudent.id < 1)
             {
                await _context.ProfileStudents.AddAsync(profileStudent);
             }
             await _context.SaveChangesAsync();
+                if(files!=null && files.Count > 0)
+                {
+                    var fileProfiles = await _context.FileProfiles.Where(x => x.idProfile == profileStudent.id).ToListAsync();
+                    if (fileProfiles != null && fileProfiles.Count > 0)
+                    {
+                        _context.FileProfiles.RemoveRange(fileProfiles);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            foreach (var item in files)
+            {
+             
+                FileProfile fileProfile = new FileProfile();
+                fileProfile.idProfile = profileStudent.id;
+                fileProfile.url = item;
+              //  fileProfile.Name = profile.Name;
+              await  _context.FileProfiles.AddAsync(fileProfile);
+               await _context.SaveChangesAsync();
+
+            }
+
+           
 
             if (inforMations.Count > 0)
             {
@@ -886,6 +911,9 @@ namespace WebTuyenSinh_Application.Repository
               await  _context.SaveChangesAsync();
             }
             return new ApiResult() { Success = true, Message = "Thành Công", Data = profileStudent };
+            }
+            catch (Exception e) { var a = e.Message; }
+            return new ApiResult() { Success = false, Message = "Thành Công", Data = profileStudent };
         }
 
         public async Task<ApiResult> GetAdmisstionInfo(long? id)

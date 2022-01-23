@@ -45,22 +45,24 @@ namespace WebTuyenSinhClient
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IAdmisstionService, AdmisstionService>();
             services.AddTransient<IStorageService, FileStorageService>();
-            services.AddHttpClient();
+ 
 
 
- services.AddAuthentication()
-      .AddGoogle(opts =>
-      {
-          opts.ClientId = "629196263507-biua7lt1p1vgpcti39un2p3unltpb42s.apps.googleusercontent.com";
-       opts.ClientSecret = "ru8sBjQS_O8pj7BFChZicgpx";
-       opts.SignInScheme = IdentityConstants.ExternalScheme;
-   });
+            services.AddAuthentication()
+                 .AddGoogle(opts =>
+                 {
+                     opts.ClientId = "629196263507-biua7lt1p1vgpcti39un2p3unltpb42s.apps.googleusercontent.com";
+                     opts.ClientSecret = "ru8sBjQS_O8pj7BFChZicgpx";
+                     opts.SignInScheme = IdentityConstants.ExternalScheme;
+                 });
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {
-                options.LoginPath = "/Account/Index";
+                options.LoginPath = "/Account/Login";
                 // options.AccessDeniedPath = "/User/Forbidden/";
+
             });
-            services.AddControllersWithViews();
+ 
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
           .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.Configure<FormOptions>(o => {
@@ -73,7 +75,7 @@ namespace WebTuyenSinhClient
                 options.Cookie.Name = "ID";
                 options.IdleTimeout = TimeSpan.FromMinutes(1000);
             });
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             if (environment == Environments.Development)
@@ -95,10 +97,11 @@ namespace WebTuyenSinhClient
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+     
             app.UseStaticFiles();
-            app.UseAuthentication();
+       
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
             app.UseEndpoints(endpoints =>

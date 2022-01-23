@@ -16,4 +16,7 @@
     <ProjectReference Include="..\WebTuyenSinh.Data\WebTuyenSinh.Data.csproj" />
     <ProjectReference Include="..\WebTuyenSinh_Application\WebTuyenSinh_Application.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
+  </ItemGroup>
 </Project>

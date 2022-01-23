@@ -13,7 +13,7 @@ namespace WebTuyenSinh_Application.System
     {
         string GetFileUrl(string fileName);
         Task SaveFileAsync(Stream mediaBinaryStream, string fileName);
-         Task<string> CreatePdf(ProfileStudent profile);
+         string CreatePdf(ProfileStudent profile);
         Task DeleteFileAsync(string fileName);
         Task<ApiResult> ExportExcell(long? id);
 

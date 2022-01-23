@@ -205,7 +205,8 @@
                         url: "/Admisstion/UpdateProfile/" + id,
                         type: 'POST',
                         data: { comment: comment, date: date, status: a },
-                        success:  function (data) {
+                        success: function (data) {
+                            console.log(data);
                             if (a === "0") {
                                 $(button).text("Chưa duyệt")
                                 $(button).removeClass("badge-success badge-warning")
@@ -223,8 +224,6 @@
                                 $(button).addClass("badge-warning");
                             }
                             $("#staticBackdrop").modal("hide");
-                       
-
                         }
                     });
                 }

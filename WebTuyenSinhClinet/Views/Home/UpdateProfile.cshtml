@@ -20,7 +20,20 @@
         * {
             box-sizing: initial;
         }
+        .content p {
+            color: #004174 !important;
+        }
+        .img {
+            width: 130px;
+            height: 160px;
+            overflow: hidden;
+        }
 
+        .the-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
@@ -169,9 +182,10 @@
 
         body div.a4-size div.student-avatar {
             border: 1px solid #004174;
-            height: 150px;
+            height: 160px;
             width: 130px;
         }
+
 
         .student-avatar-size {
             font-size: 14px;
@@ -308,10 +322,13 @@
                 </div>
             </div>
 
+            <input class="adAvt" multiple id="filesAvt" hidden type='file' onchange="readAvataURL(this);" accept="application/pdf,image/*" />
             <!-- form-title -->
             <div class="row form-title justify-content-end">
                 <div class="col c-3">
-                    <div class="student-avatar">
+                    <div class="student-avatar img" id="logo" onclick="$('.adAvt').trigger( 'click' )">
+
+                        <!--<img src="data:image/jpeg;base64,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" width="130" height="160" alt="...">-->
                         <p class="student-avatar-size">Ảnh 3x4</p>
                         <p class="student-avatar-note">(Chụp kiểu CMND, không quá 6 tháng)</p>
                     </div>
@@ -624,13 +641,18 @@
                                        placeholder="">
                             </div>
                         </div>
-                        <div class="d-flex day-of-birth full-name-box" style=" width:30%">
+                        <div class="d-flex day-of-birth full-name-box" style=" width:26%">
                             <span class="mt-2 d-flex student-avatar-note full-name-box" style=" width: 70px">
                                 <span> Khu vực:  </span>
                             </span>
                             <div class="validation-parent">
-                                <input type="text" id="areas" name="cmnd" class="full-name-property" style="width:80px"
-                                       placeholder="">
+
+                                <select id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:80px">
+                                    <option value="KV0"> KV0</option>
+                                    <option value="KV0"> KV0</option>
+                                    <option value="KV0"> KV0</option>
+                                    <option value="KV0"> KV0</option>
+                                </select>
                             </div>
 
                         </div>
@@ -639,12 +661,33 @@
                             <span class="mt-2 d-flex student-avatar-note full-name-box">
                                 <span> Đối tượng ưu tiên (nếu có):  </span>
                             </span>
-                            <div class="validation-parent" style="width: 30%;">
+                            <div class="validation-parent" style="width: 40%;">
                                 <input type="text" id="priority_object" name="cmnd" class="full-name-property"
                                        placeholder="">
                             </div>
 
                         </div>
+
+
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <div class=" form-group ml-2">
+                                <div class="mr-3">
+                                    <button class="btn btn-primary btn-sm btn-option" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn ảnh </button>
+
+                                </div>
+
+                                <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" mt-2 form-group ml-5">
+                    <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
 
                     </div>
@@ -867,7 +910,7 @@
             </div>
 
             <!-- note -->
-            <div class="note" style="margin-left: 20px;margin-top: 20px;">
+            <div class="" style="margin-left: 20px;margin-top: 20px;">
                 <p style="font-size:11px;position: relative;">
                     <span style="color:red;position: absolute;top: -4px;">(*)</span>
                     <span style="margin-left: 15px;">: Đóng dấu giáp lai trên ảnh; Ảnh chụp kiểu CMND. </span>
@@ -880,7 +923,9 @@
                     </span>
                 </p>
             </div>
-            <button class="btn btn-primary btn-sm" type="submit"> Lưu </button>
+            <div class="container mt-5">
+                <button class="btn btn-primary ml-auto" type="submit">Lưu </button>
+            </div>
         </div>
 
     </form>
@@ -893,6 +938,7 @@
         let Profile;
         let blocks = [];
         let majors = [];
+        let fileUrl = [];
         function CheckMart(e) {
             try {
                 var mark = $(e).val()
@@ -978,7 +1024,6 @@
                 async: false,
                 url: Url+"/Admisstion/GETProfile/" + id,
                 type: 'GET',
-
             }).done(
                 function (res) {
                     if (res.success) {
@@ -990,10 +1035,8 @@
                         sChool = res.data.sChool;
                         console.log(sChool);
                         Profile = res.data.data
-
                         LoadProfile();
-                    }
-
+                    }   
                 }
             );
 
@@ -1070,7 +1113,8 @@
                         async: false,
                         url: Url+"/Admisstion/CreateProfile/",
                         type: 'POST',
-                        data: { Profile: Profile },
+
+                        data: { Profile: Profile, files: fileUrl },
 
                     }).done(function (data) {
                         console.log(data)
@@ -1255,7 +1299,31 @@
             else {
                 $("#checknu").prop("checked", true);
             }
+            var img = $('#logo');
+            img.empty();
+            var let = `<div class="img">
+                    <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
+                </div>`;
 
+         
+            $(img).append(let);
+            var img1 = $('#file-upload-content');
+            $.each(Profile.fileProfiles, function (k, v) {
+                console.log(v);
+                if (v.url.endsWith("pdf")) {
+                    var let = `<div class="col-2">
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+                }
+                else {
+                    var let = `<div class="col-2">
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+                </div>`;
+                }
+
+                $(img1).append(let);
+            })
             $.each(conscious, function (k, v) {
                 let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
                 $("#Consciou1").append(option)
@@ -1307,6 +1375,93 @@
 
             //    $("#teletephone").val(Profile.teletephone);
         }
+        function readAvataURL(input) {
+            var fileUpload = $("#filesAvt").get(0);
+            var files = fileUpload.files;
+            var img = $('#logo');
+            // Create  a FormData object
+            var fileData = new FormData();
+
+            // if there are multiple files , loop through each files
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding more keys/values here if need
+            fileData.append('Test', "Test Object values");
+
+            $.ajax({
+                url: Url + "/File/AddReplyDetails",
+                type: "POST", //as we will be posting files and other method POST is used
+                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
+                contentType: false,
+                dataType: "json",
+                data: fileData,
+                success: function (result) {
+  
+                    $(img).empty();
+                    $.each(result, function (k, v) {
+                        var let = `<div class="img">
+                    <img  class="the-img"  src="${Url}/${v}"   alt="...">
+                </div>`;
+
+                        Profile.imgavata = v
+                        $(img).append(let);
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+        function readURL(input) {
+            var fileUpload = $("#files").get(0);
+            var files = fileUpload.files;
+            var img = $('#file-upload-content');
+            // Create  a FormData object
+            var fileData = new FormData();
+
+            // if there are multiple files , loop through each files
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding more keys/values here if need
+            fileData.append('Test', "Test Object values");
+
+            $.ajax({
+                url: Url + "/File/AddReplyDetails",
+                type: "POST", //as we will be posting files and other method POST is used
+                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
+                contentType: false,
+                dataType: "json",
+                data: fileData,
+                success: function (result) {
+                    fileUrl = result;
+                    $(img).empty();
+                    $.each(result, function (k, v) {
+
+                        if (v.endsWith("pdf")) {
+                            var let = `<div class="col-2">
+<a href ="${Url}/${v}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+                        }
+                        else {
+                            var let = `<div class="col-2">
+                    <img src="${Url}/${v}" class="img-thumbnail" alt="...">
+                </div>`;
+                        }
+
+                        $(img).append(let);
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+
     </script>
 }
 </html>

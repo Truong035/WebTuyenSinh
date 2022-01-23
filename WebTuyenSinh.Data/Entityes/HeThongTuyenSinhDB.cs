@@ -17,7 +17,8 @@ namespace WebTuyenSinh.Data.Entityes
         public virtual DbSet<Block> Blocks { get; set; }
         public virtual DbSet<Catergory> Catergories { get; set; }
         public virtual DbSet<CatergoryDetail> CatergoryDetails { get; set; }
-
+        
+         public virtual DbSet<FileProfile> FileProfiles { get; set; }
         public virtual DbSet<file> files { get; set; }
         public virtual DbSet<InforMationProflie> InforMationProflies { get; set; }
         public virtual DbSet<Major> Majors { get; set; }
@@ -82,7 +83,8 @@ namespace WebTuyenSinh.Data.Entityes
                 .WithOne(e => e.Admisstion_Major)
                 .HasForeignKey(e => e.idAdmisstion);
 
-         
+            modelBuilder.Entity<FileProfile>()
+.HasKey(e => e.id);
 
             modelBuilder.Entity<Advise>()
 .HasKey(e => e.id);

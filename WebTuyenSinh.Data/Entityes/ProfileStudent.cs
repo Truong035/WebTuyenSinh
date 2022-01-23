@@ -13,6 +13,7 @@ namespace WebTuyenSinh.Data.Entityes
         public ProfileStudent()
         {
             InforMationProflies = new HashSet<InforMationProflie>();
+            FileProfiles=new HashSet<FileProfile>();
         }
 
         public long id { get; set; }
@@ -41,7 +42,7 @@ namespace WebTuyenSinh.Data.Entityes
         
         public int? Type { get; set; }
 
-        [StringLength(70)]
+        [StringLength(500)]
         public string imgavata { get; set; }
 
         [StringLength(300)]

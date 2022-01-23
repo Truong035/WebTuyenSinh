@@ -29,43 +29,191 @@ a {
 html {
   font-size: 14px;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@1,100&family=Saira+Condensed:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Libre Franklin', sans-serif;
+    font-family: 'Saira Condensed', sans-serif;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.row-content img {
+    width: 80%;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.row-content {
+    font-size: 20px;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+
+
+a {
+    text-decoration:none !important
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+.active-element {
+    animation-name: scrollEvent;
+    animation-duration: 2.8s;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+@keyframes scrollEvent {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+@media only screen and (min-width: 600px) {
+    .row-content {
+        height: 800px;
+    }
+
+    div.search-bar {
+        position: absolute;
+        right: 0px;
+        top: 100px;
+        width: 200px;
+    }
+
+    .notice {
+        height: 800px;
+    }
+
+    .brand {
+        width: 300px;
+    }
+
+    .navbar-nav {
+      
+        font-size: 23px;
+        text-align:center
+    }
+
+    .btn-gototop {
+        position: fixed;
+        right: 10px;
+        top: 90%;
+        z-index: 9999;
+    }
+
+    .btn-group-vertical {
+        position: fixed;
+        right: 10px;
+        top: 70%;
+    }
+
+    .admission .admission-content {
+        font-size: 40px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .row-content {
+        height: 800px;
+    }
+
+    .notice {
+        height: 2000px;
+    }
+
+    .brand {
+        width: 220px;
+    }
+
+    .navbar-nav {
+        font-size: 18px;
+    }
+
+    .btn-gototop {
+        position: fixed;
+        right: 10px;
+        top: 90%;
+        z-index: 9999;
+    }
+
+    .btn-group-vertical {
+        position: fixed;
+        right: 10px;
+        top: 60%;
+    }
+
+    .admission .admission-content {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .img-respon {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1500px) {
+
+
+    h3.title {
+        position: relative;
+    }
+
+        h3.title::after {
+            content: "";
+            position: absolute;
+            display: block;
+            height: 10px;
+            width: 500px;
+            background-color: #cfa267;
+            left: 350px;
+            top: 50px;
+        }
+
+    .carosel-event-school {
+        position: relative;
+        height: 1000px;
+    }
+
+        .carosel-event-school:after {
+            content: "";
+            position: absolute;
+            display: block;
+            height: 10px;
+            width: 500px;
+            background-color: #cfa267;
+            left: 515px;
+            top: 100px;
+        }
+}
+
+.content p {
+    color: #fab101;
+}
+
+
+footer {
+    background-color: #3f3424 !important;
+    color: #FFEB3B;
+}
+
+
+.carousel-item {
+    columns: red;
+}
+
+.notice img {
+    width: 80%;
+}
+
+.admission img {
+    width: 100%;
+}
+.User{
+    white-space: nowrap;
+    width: 10px !important;
+    border: 1px solid #000000;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -57,12 +57,25 @@ namespace WebTuyenSinhClinet.Controllers
         }
         public async Task<IActionResult> Index()
         {
-             ApiResult result = await _service.GetAll(2);
+          
+            return View();
+        }
+
+        public async Task<IActionResult> Addmission()
+        {
+            ApiResult result = await _service.GetAll(2);
+            List<Admisstion> Admisstion = (List<Admisstion>)result.Data;
+            return View(Admisstion);
+        }
+        public async Task<IActionResult> Home()
+        {
+            ApiResult result = await _service.GetAll(2);
             List<Admisstion> Admisstion = (List<Admisstion>)result.Data;
             return View(Admisstion);
         }
         
-       public async Task<IActionResult> EditProfile(long? id)
+
+        public async Task<IActionResult> EditProfile(long? id)
         {
             string uid = _httpContextAccessor.HttpContext.Session.GetString("ID");
             if (uid == null || id==null)
@@ -70,8 +83,7 @@ namespace WebTuyenSinhClinet.Controllers
                 return RedirectToAction("Index");
             }
             try
-            {
-               
+            {   
                 ApiResult result = await _service.GetByProfile(id);
                 //await//ApiResult result = await _service.ListAll(id);
                 ProfileView view = (ProfileView)result.Data;
@@ -86,15 +98,13 @@ namespace WebTuyenSinhClinet.Controllers
                 {
                     return View("ProfileDetail", view);
                 }
-                //ViewBag.Majo = result.Message;
-           
+                //ViewBag.Majo = result.Message; 
                 return View(view);
             }
             catch (Exception e)
             {
                 return View("Error");
             }
-     
         }
         public async Task<IActionResult> GETProfile(long? id)
         {
@@ -108,10 +118,10 @@ namespace WebTuyenSinhClinet.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateProfile(ProfileStudent id)
+        public async Task<IActionResult> CreateProfile(ProfileStudent id, List<string> files)
         {
 
-            ApiResult result = await _service.CreateProfile(id);
+            ApiResult result = await _service.CreateProfile(id, files);
 
             return Ok(result);
         }
