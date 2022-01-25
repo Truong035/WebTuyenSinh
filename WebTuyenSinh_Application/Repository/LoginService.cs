@@ -13,7 +13,7 @@ using WebTuyenSinh_Application.System;
 using WebTuyenSinh_Application.ViewApi;
 using WebTuyenSinh.Data.Entityes;
 using WebTuyenSinh_Application.Interface;
-
+using Microsoft.EntityFrameworkCore;
 namespace WebTuyenSinh_Application.Repository
 {
     public class LoginService : ILoginService
@@ -88,7 +88,6 @@ namespace WebTuyenSinh_Application.Repository
             {
                
                 var user = await _userManager.FindByNameAsync(account.UserName);
-
                 var claims = new[] {
                      new Claim("ID",account.Id),
                 new Claim(ClaimTypes.Email,account.Email),
@@ -107,6 +106,32 @@ namespace WebTuyenSinh_Application.Repository
                 return new ApiResult() { Success = true, Message = "Login success", Data = (new JwtSecurityTokenHandler().WriteToken(token)) };
             }      
     }
+
+        public async Task<ApiResult> LoginUse(LoginRequest request)
+        {
+            try
+            {
+                var Users = await _context.Users.ToListAsync();
+                var account = Users.Where(x => x.Email != null && x.Email.Trim().ToUpper().Equals(request.Email.ToUpper())).FirstOrDefault();
+                if (account == null)
+                {
+                    return new ApiResult() { Success = false, Message = "Email incorrest" };
+                }
+                else
+                {
+                    account = Users.Where(x => x.Email.Trim().ToUpper().Equals(request.Email.Trim().ToUpper()) && x.Pass.Trim().Equals(new MD5().GetMD5(request.Password.Trim()))).FirstOrDefault(); ;
+                    if (account == null)
+                    {
+                        return new ApiResult() { Success = false, Message = "Password incorrest" };
+                    }
+                    return new ApiResult() { Success = true, Message = "Login success", Data = Users };
+                }
+            }
+            catch
+            {
+                return new ApiResult() { Success = false, Message = "Server Internal", Data = null };
+            }
+        }
         public async Task<ApiResult> Register(RegisterRequest request)
         {
             try

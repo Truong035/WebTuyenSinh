@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WebTuyenSinh_Application.Interface;
 using WebTuyenSinhAdmin.Models;
 
 namespace WebTuyenSinhAdmin.Controllers
@@ -12,15 +13,21 @@ namespace WebTuyenSinhAdmin.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private IStatisticalService _statistical;
+        public HomeController(ILogger<HomeController> logger , IStatisticalService statistical)
         {
             _logger = logger;
+            _statistical = statistical;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? year)
         {
-            return View();
+            if (year == null)
+            {
+                year = DateTime.Now.Year;
+            }
+            string cookieValueFromReq = Request.Cookies["Token"];
+            return View(await _statistical.StatisticalHome(year.Value));
         }
 
         public IActionResult Privacy()

@@ -9,7 +9,8 @@ namespace WebTuyenSinh_Application.Interface
 {
    public interface IStatisticalService
     {
-        public Task<StatisticalHome> StatisticalHome();
+        public Task<StatisticalHome> StatisticalHome(int Year);
+        public Task<Statistical> Statistical(DateTime? fromDate,DateTime? toDate,long? Admisstion, string idMajor);
 
     }
 }

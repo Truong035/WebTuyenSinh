@@ -1,0 +1,234 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model UserView
+@{
+
+}
+@using WebTuyenSinh_Application.Modell;
+<div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="use-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông Tin Tài Khoản</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="UserName">Họ Tên</label>
+                        <input required type="text" class="form-control" id="UserName" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input required type="email" class="form-control" id="Email" placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idRole">Chức vụ</label>
+                        <select required class="form-control form-control-sm" id="idRole">
+                            <option value="">Vui lòng chọn </option>
+                            @foreach (var item in Model.Role)
+                            {
+                                <option value="@item.id"> @item.Name </option>
+                            }
+                        </select>
+                    </div>
+
+         
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-lg-12 grid-margin stretch-card" id="frm1">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Danh Sách Các Ngành</h4>
+                            <div class="ml-auto">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="ti-plus"></i>
+                                    Thêm Mới
+                                </button>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="data-table" class="display expandable-table" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    MaNV
+                                                </th>
+                                                <th>
+                                                    Tên
+                                                </th>
+                                                <th>
+                                                    Email
+                                                </th>
+                                                <th>
+                                                    Chức vụ
+                                                </th>
+
+                                                <th>
+                                                    #
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model.User)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.id
+                                                    </td>
+                                                    <td>
+                                                        @item.UserName
+                                                    </td>
+                                                    <td>
+                                                        @(item.Email!=null? item.Email : "Chưa cập nhật")
+                                                    </td>
+                                                    <td id="@item.idRole">
+                                                        @item.Role.Name
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-button-action">
+                                                            <button name="Edit" type="button" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                <i class="ti-pencil-alt"></i>
+                                                            </button>
+                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+            <div id="liveToast" class="toast hide bg-success text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+                Cập nhật thành công
+            </div>
+        </div>
+        <div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+            <div id="livefail" class="toast hide bg-danger text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+                Cập nhật thất bại
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{ 
+<script>
+    $(document).ready(function () {
+
+        let id = 0;
+        $('#use-form').on('submit', function (e) {
+            e.preventDefault();
+
+            var data = {
+                id: id,
+                UserName: $("#UserName").val(),
+                Email: $("#Email").val(),
+                idRole: $("#idRole").val()
+            }
+            $.ajax({
+                async: false,
+                url: "/Use/Create",
+                type: "POST",
+                data: { use: data}
+            }).done(
+                function (res) {
+                    if (res.success) {
+                        $("#exampleModal").modal("hide")
+                        $("#liveToast").empty();
+                        $("#liveToast").append(res.message);
+                        $("#liveToast").toast("show");
+                        setTimeout( myGreeting, 2000);
+                       
+                    }
+                    else {
+                        console.log(res)
+                        $("#livefail").empty();
+                        $("#livefail").append(res.message);
+                        $("#livefail").toast("show");
+                    }
+
+                }
+            );
+
+         
+        });
+
+        $(document).on('click', "button[name = 'Edit']", function () {
+            id =$(this).closest('tr').find("td:eq(0)").text().trim()
+            ;
+            $("#idRole").val($(this).closest('tr').find("td:eq(3)").attr("id"))
+            console.log(id);
+            $("#UserName").val($(this).closest('tr').find("td:eq(1)").text().trim());
+            $("#Email").val($(this).closest('tr').find("td:eq(2)").text().trim());
+            $("#exampleModal").modal("show")
+            @*$.ajax({
+                async: false,
+                url: "/Use/GetRole/" + $(this).closest('tr').find("td:eq(0)").text().trim(),
+                type: "GET",
+
+            }).done(
+                function (res) {
+                    if (res.success) {
+
+                        $("#Name").val(res.data.name),
+                            $("#Description").val(res.data.description),
+                            $.each(res.data.role_Permisstion, function (k, v) {
+                                var Check = $(".form-check-input")
+                                $.each(Check, function (k, v1) {
+                                    if ($(v1).val() == v.idPermisstion) {
+                                        $(v1).prop("checked", true)
+                                    }
+                                });
+                            });
+
+                       
+                    }
+                    else {
+
+                    }
+
+                }
+            );*@
+
+
+        });
+    })
+    function myGreeting() {
+        window.location = "/Use/Index"
+    }
+</script>
+}

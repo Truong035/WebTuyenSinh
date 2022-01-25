@@ -9,13 +9,10 @@ namespace WebTuyenSinh.Data.Entityes
     [Table("Account")]
     public partial class Account:IdentityUser
     {
-
         public Account()
         {
             ProfileStudents = new HashSet<ProfileStudent>();
-        }
-
-    
+        } 
         [StringLength(200)]
         public string LastName { get; set; }
 
@@ -27,7 +24,6 @@ namespace WebTuyenSinh.Data.Entityes
 
         [StringLength(11)]
         public string Telephone { get; set; }
-
 
         public DateTime? CreateDate { get; set; }
 

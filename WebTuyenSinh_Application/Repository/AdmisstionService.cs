@@ -37,6 +37,7 @@ namespace WebTuyenSinh_Application.Repository
                 admisstion.OpenTime = request.OpenTime;
                 admisstion.Quantity = request.Quantity;
                 admisstion.CloseTime = request.CloseTime;
+                admisstion.CreateDate = DateTime.Now;
                 admisstion.Description = request.Description;
                 admisstion.Statust = 0;
                 admisstion.Delete = false;

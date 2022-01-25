@@ -45,6 +45,9 @@ namespace WebTuyenSinhAdmin
             services.AddTransient<IManageMajorSevice, ManageMajorSevice>();
                  services.AddTransient<IAdmisstionService, AdmisstionService>();
             services.AddTransient<IStorageService, FileStorageService>();
+            services.AddTransient<IStatisticalService, StatisticalService>();
+            services.AddTransient<IUserService, UserService>();
+            
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -93,7 +96,7 @@ namespace WebTuyenSinhAdmin
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Index}/{id?}");
             });
         }
     }

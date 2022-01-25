@@ -12,5 +12,6 @@ namespace WebTuyenSinh_Application.Interface
         public Task<ApiResult> Login(LoginRequest request);
         public Task<ApiResult> Register(RegisterRequest request);
         public Task<ApiResult> LoginApi(string Email);
+        public Task<ApiResult> LoginUse(LoginRequest request);
     }
 }

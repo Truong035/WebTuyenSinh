@@ -26,8 +26,10 @@ namespace WebTuyenSinh.Data.Entityes
         public virtual DbSet<ProfileStudent> ProfileStudents { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<Silde> Sildes { get; set; }
-
-
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Role_Permisstion> Role_Permisstions { get; set; }
+        public virtual DbSet<Permisstion> Permisstions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -55,6 +57,7 @@ namespace WebTuyenSinh.Data.Entityes
 
             modelBuilder.Entity<Admisstion>()
      .HasKey(e => e.id);
+
             modelBuilder.Entity<Admisstion>()
            .Property(e => e.id).UseIdentityColumn();
             modelBuilder.Entity<Admisstion>()
@@ -85,7 +88,36 @@ namespace WebTuyenSinh.Data.Entityes
 
             modelBuilder.Entity<FileProfile>()
 .HasKey(e => e.id);
+            modelBuilder.Entity<User>()
+.HasKey(e => e.id);
+            modelBuilder.Entity<User>()
+.Property(e => e.id).UseIdentityColumn();
+            modelBuilder.Entity<Role>()
+           .HasMany(e => e.Users)
+           .WithOne(e => e.Role)
+           .HasForeignKey(e => e.idRole);
+            modelBuilder.Entity<Role>()
+.HasKey(e => e.id);
+            modelBuilder.Entity<Role>()
+.Property(e => e.id).UseIdentityColumn();
 
+            modelBuilder.Entity<Role_Permisstion>()
+.HasKey(e => e.id);
+            modelBuilder.Entity<Role_Permisstion>()
+.Property(e => e.id).UseIdentityColumn();
+
+            modelBuilder.Entity<Permisstion>()
+.HasKey(e => e.id);
+            modelBuilder.Entity<Permisstion>()
+.Property(e => e.id).UseIdentityColumn();
+            modelBuilder.Entity<Permisstion>()
+    .HasMany(e => e.Role_Permisstion)
+    .WithOne(e => e.Permisstion)
+    .HasForeignKey(e => e.idPermisstion);
+            modelBuilder.Entity<Role>()
+.HasMany(e => e.Role_Permisstion)
+.WithOne(e => e.Role)
+.HasForeignKey(e => e.idRole);
             modelBuilder.Entity<Advise>()
 .HasKey(e => e.id);
             modelBuilder.Entity<Advise>()
