@@ -13,10 +13,17 @@ namespace WebTuyenSinh_Application.Modell
         public long StatisticalWeek { get; set; }
         public long StatisticalMonth { get; set; }
         public long StatisticalYear { get; set; }
-        public List <int> Year { get; set; }
+        public List <AdmissisionValue> AdmisstionValue { get; set; }=new List<AdmissisionValue>();
         public List<TopMajor> TopMajors { get; set; } = new List<TopMajor>();
         public List<MajorStatistical> Majors { get; set; } = new List<MajorStatistical>();
     }
+    public class AdmissisionValue
+    {
+        public string Name { get; set; }
+        public long Value { get; set; }
+
+    }
+
 
     public class Statistical
     {
@@ -61,6 +68,7 @@ namespace WebTuyenSinh_Application.Modell
     {
         public List<string> Name { get; set; } = new List<string>();
         public List<int> Values { get; set; } = new List<int>();
+        public object Data { get; set; }
     }
 
     public class StatisticalYear
@@ -77,6 +85,7 @@ namespace WebTuyenSinh_Application.Modell
     {
         public List<string> Name { get; set; } = new List<string>();
         public List<int> Values { get; set; } = new List<int>();
+        public object Data { get; set; }
     }
 
     public class TopMajor

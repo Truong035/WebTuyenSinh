@@ -1,0 +1,147 @@
+﻿@model List<Admisstion>
+@{
+
+}
+@using WebTuyenSinh.Data.Entityes;
+<style>
+    .show {
+        z-index: 1000;
+        position: absolute;
+        display: block;
+        margin: 0;
+        list-style-type: none;
+        list-style: none;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .show li {
+        list-style: none;
+    }
+
+    .show a {
+        border: 0 !important;
+        text-decoration: none;
+    }
+
+        .show a:hover {
+            text-decoration: underline !important;
+        }
+</style>
+
+<div class="hide" id="rmenu">
+
+</div>
+<div class="col-lg-12 grid-margin stretch-card" id="frm1">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Quản Lý Hồ Sơ  </h4>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-2 text-center">
+                                    <a class="" href="/Admisstion/ListAllProfile/@item.id">
+                                        <img class="rounded mx-auto d-block test" id="@item.id" width="100" src="~/images/pngtree-vector-folder-icon-png-image_555545.jpg" />
+
+                                        @(item.Name)
+                                    </a>
+                                </div>
+
+
+                            }
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        if ($("#test").addEventListener) {
+            $("#test").addEventListener('contextmenu', function (e) {
+                e.preventDefault();
+            }, false);
+        } else {
+
+            //document.getElementById("test").attachEvent('oncontextmenu', function() {
+            //$(".test").bind('contextmenu', function() {
+            $('body').on('contextmenu', 'img.test', function (e) {
+                //alert("contextmenu"+event);
+                document.getElementById("rmenu").className = "show";
+                document.getElementById("rmenu").style.top = mouseY(event) + 'px';
+                document.getElementById("rmenu").style.left = mouseX(event) + 'px';
+                $("#rmenu").empty();
+                $("#rmenu").append(`<div class="list-group">
+                    <a href="/Admisstion/ListAllProfile/${e.target.id}" class="list-group-item list-group-item-action">  <i class="ti-eye"></i></a>
+                    <button name="Dowload" id="${e.target.id}" class="list-group-item list-group-item-action"><i class="ti-download"></i></button>
+                </div>`);
+
+                window.event.returnValue = false;
+            });
+        }
+
+    });
+
+    // this is from another SO post...
+    $(document).bind("click", function (event) {
+        document.getElementById("rmenu").className = "hide";
+    });
+
+    function mouseX(evt) {
+        if (evt.pageX) {
+            return evt.pageX;
+        } else if (evt.clientX) {
+            return evt.clientX + (document.documentElement.scrollLeft ?
+                document.documentElement.scrollLeft :
+                document.body.scrollLeft);
+        } else {
+            return null;
+        }
+    }
+
+    function mouseY(evt) {
+        if (evt.pageY) {
+            return evt.pageY;
+        } else if (evt.clientY) {
+            return evt.clientY + (document.documentElement.scrollTop ?
+                document.documentElement.scrollTop :
+                document.body.scrollTop);
+        } else {
+            return null;
+        }
+    }
+</script>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', "button[name = 'Dowload']", function () {
+                let id = $(this).attr("id")
+                $.ajax({
+                    async: false,
+                    url: "/Admisstion/Dowload/" + id,
+                    type: 'POST',
+                    data: { id: id, type:1}
+                }).done(function (res) {
+
+                })
+         
+            });
+        })
+    </script>
+}

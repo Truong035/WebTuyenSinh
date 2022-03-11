@@ -13,7 +13,7 @@ namespace WebTuyenSinh_Application.Interface
         public Task<ApiResult> Create(School request);
         public Task<ApiResult> ListCreate(List<School> request);
         public Task<ApiResult> Update(string id, School request);
-        public Task<ApiResult> Delete(string id);
+        public Task<ApiResult> Delete(long id);
         public Task<List<School>> GetAll();
         public Task<ApiResult> GetByID(long ? id);
 

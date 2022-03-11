@@ -30,6 +30,7 @@ namespace WebTuyenSinh_Application.Modell
         public List<District> District { get; set; } = new List<District>();
         public List<SChool> SChool { get; set; } = new List<SChool>();
         public ProfileStudent Data { get; set; }
+        public object Block { get; set; }
     }
     public class InforProfileView
     {

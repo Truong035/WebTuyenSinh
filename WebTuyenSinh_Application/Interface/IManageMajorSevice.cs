@@ -11,5 +11,7 @@ namespace WebTuyenSinh_Application.Interface
     {
         public Task<List<Major>> GetAll();
         public Task<ApiResult> CreateList(List<Major> listMajor);
+        public Task<ApiResult> Update(string id, Major request);
+        public Task<ApiResult> Delete(string id);
     }
 }

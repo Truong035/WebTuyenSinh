@@ -10,6 +10,7 @@ namespace WebTuyenSinh_Application.Interface
 {
     public interface IAdmisstionService
     {
+        public Task<ApiResult> DeleteBlock(string id);
         public Task<ApiResult> CreateAdmisstion(AdmisstionCreate request);
         public Task<ApiResult> UpdateAdmisstion(long? id, AdmisstionCreate request);
         public Task<ApiResult> DeleteAdmisstion(long? id);
@@ -29,7 +30,7 @@ namespace WebTuyenSinh_Application.Interface
         public Task<ApiResult> UpdateStatusAdmisstion(long? id, AdmisstionCreate admisstionCreate);
         public Task<ApiResult> UpdateStatusProfile(long? id, string comment, DateTime? date, int? status);
         public Task<ApiResult> GetByProfile(long? id);
-        public Task<ApiResult> CreateProfile(ProfileStudent profile, List<string> files);
+        public Task<ApiResult> CreateProfile(ProfileStudent profile, List<FileProfileView> files);
         
         public Task<ApiResult> CreateProfile(long? id);
         public Task<ApiResult> GetAdmisstionInfo(long? id);
@@ -37,5 +38,7 @@ namespace WebTuyenSinh_Application.Interface
         public Task<ApiResult> ExportExcell(long? id);
         public Task<ApiResult> CheckProFile(long id, string uid);
         public Task<ApiResult> GetAllProFileStudent(string uid);
+        public Task<ApiResult> DowloadFile(long? id,int type);
+        
     }
 }

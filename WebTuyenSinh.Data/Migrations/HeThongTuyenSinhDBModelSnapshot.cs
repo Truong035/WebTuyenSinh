@@ -350,15 +350,15 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<long?>("idProfile")
                         .HasColumnType("bigint");
 
                     b.Property<string>("url")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.HasKey("id");
 
@@ -468,6 +468,24 @@ namespace WebTuyenSinh.Data.Migrations
                     b.ToTable("Major");
                 });
 
+            modelBuilder.Entity("WebTuyenSinh.Data.Entityes.Permisstion", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("id");
+
+                    b.ToTable("Permisstion");
+                });
+
             modelBuilder.Entity("WebTuyenSinh.Data.Entityes.Post", b =>
                 {
                     b.Property<long>("id")
@@ -555,6 +573,17 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
+                    b.Property<string>("IdBlock")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("Identification")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<double?>("Mark")
+                        .HasColumnType("float");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
@@ -616,8 +645,8 @@ namespace WebTuyenSinh.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("imgavata")
-                        .HasColumnType("nvarchar(70)")
-                        .HasMaxLength(70);
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<string>("url")
                         .HasColumnType("nvarchar(300)")
@@ -630,6 +659,55 @@ namespace WebTuyenSinh.Data.Migrations
                     b.HasIndex("idAdmisstion");
 
                     b.ToTable("ProfileStudent");
+                });
+
+            modelBuilder.Entity("WebTuyenSinh.Data.Entityes.Role", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<bool?>("delete")
+                        .HasColumnType("bit");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Role");
+                });
+
+            modelBuilder.Entity("WebTuyenSinh.Data.Entityes.Role_Permisstion", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("idPermisstion")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("idRole")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("idPermisstion");
+
+                    b.HasIndex("idRole");
+
+                    b.ToTable("Role_Permisstion");
                 });
 
             modelBuilder.Entity("WebTuyenSinh.Data.Entityes.School", b =>
@@ -696,7 +774,7 @@ namespace WebTuyenSinh.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .IsFixedLength(true)
-                        .HasDefaultValue(new DateTime(2021, 12, 5, 19, 43, 29, 228, DateTimeKind.Local).AddTicks(196));
+                        .HasDefaultValue(new DateTime(2022, 3, 8, 21, 4, 12, 789, DateTimeKind.Local).AddTicks(9900));
 
                     b.Property<DateTime?>("OpenTime")
                         .HasColumnType("datetime2")
@@ -713,6 +791,43 @@ namespace WebTuyenSinh.Data.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Silde");
+                });
+
+            modelBuilder.Entity("WebTuyenSinh.Data.Entityes.User", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Pass")
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
+                    b.Property<bool?>("delete")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("idRole")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("idRole");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("WebTuyenSinh.Data.Entityes.file", b =>
@@ -803,6 +918,24 @@ namespace WebTuyenSinh.Data.Migrations
                     b.HasOne("WebTuyenSinh.Data.Entityes.Admisstion", "Admisstion")
                         .WithMany("ProfileStudents")
                         .HasForeignKey("idAdmisstion");
+                });
+
+            modelBuilder.Entity("WebTuyenSinh.Data.Entityes.Role_Permisstion", b =>
+                {
+                    b.HasOne("WebTuyenSinh.Data.Entityes.Permisstion", "Permisstion")
+                        .WithMany("Role_Permisstion")
+                        .HasForeignKey("idPermisstion");
+
+                    b.HasOne("WebTuyenSinh.Data.Entityes.Role", "Role")
+                        .WithMany("Role_Permisstion")
+                        .HasForeignKey("idRole");
+                });
+
+            modelBuilder.Entity("WebTuyenSinh.Data.Entityes.User", b =>
+                {
+                    b.HasOne("WebTuyenSinh.Data.Entityes.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("idRole");
                 });
 
             modelBuilder.Entity("WebTuyenSinh.Data.Entityes.file", b =>

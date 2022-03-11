@@ -16,5 +16,8 @@ namespace WebTuyenSinh_Application.Interface
         Task<ApiResult> RoleCreate(Role use);
         Task<RoleView> GetAllRole();
         Task<ApiResult> GetRoleByid(long id);
+
+        Task<ApiResult> DeleteRole(long id);
+        Task<ApiResult> DeleteUse(long id);
     }
 }

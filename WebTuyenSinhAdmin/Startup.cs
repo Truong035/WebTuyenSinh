@@ -47,6 +47,7 @@ namespace WebTuyenSinhAdmin
             services.AddTransient<IStorageService, FileStorageService>();
             services.AddTransient<IStatisticalService, StatisticalService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IValidateTokenService, ValidateTokenService>();
             
             services.AddCors(options =>
             {

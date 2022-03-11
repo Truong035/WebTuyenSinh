@@ -2,6 +2,47 @@
 @{
 
 }
+<div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+    <div id="liveToast" class="toast hide bg-success text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+        Cập nhật thành công
+    </div>
+</div>
+<div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+    <div id="livefail" class="toast hide bg-danger text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+        Cập nhật thất bại
+    </div>
+</div>
+<div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="major-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông Tin Ngành</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="IdMajor">Mã Ngành</label>
+                        <input required class="form-control" id="IdMajor">
+                    </div>
+                    <div class="form-group">
+                        <label for="Name">Tên Ngành</label>
+                        <input required type="text" class="form-control" id="Name" >
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Mô Tả</label>
+                        <input required class="form-control" id="Description">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @using WebTuyenSinh.Data.Entityes;
 <div class="col-lg-12 grid-margin stretch-card" id="frm1">
     <div class="card">
@@ -11,17 +52,19 @@
                     <div class="m-3 border-bottom pb-3">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Danh Sách Các Ngành</h4>
-                            <div class="ml-auto">   
-                                <button class="btn btn-primary btn-round ml-auto"
-                                        data-toggle="modal"
-                                        data-target="#addRowModal">
+                            <div class="ml-auto">
+                                <button type="button" class="btn btn-primary" id="btnAddfrm">
                                     <i class="ti-plus"></i>
-                                    Thêm Trường
+                                    Thêm Mới
                                 </button>
                                 <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
                                     <i class="ti-export"></i>
                                     Tải File
                                 </button>
+                                <a  class="btn btn-primary btn-round ml-auto" href="~/dowload/Nganh.xlsx" download>
+                                    <i class="ti-download"></i>
+                                    Dowload File
+                                </a>
                                 <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                             </div>
                         </div>
@@ -64,12 +107,12 @@
                                                     </td>
                                                     <td>
                                                         <div class="form-button-action">
-                                                            <button type="button"  data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                            <button type="button" name="UpdateMajor" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
                                                                 <i class="ti-pencil-alt"></i>
                                                             </button>
-                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <button type="button"  name="DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
                                                                 <i class="ti-close"></i>
-                                                            </a>
+                                                            </button>
                                                         </div>
                                                     </td>
 
@@ -84,7 +127,7 @@
                 </div>
             </div>
         </div>
-      
+
     </div>
 </div>
 <div class="col-lg-12 grid-margin stretch-card" id="frm2">
@@ -96,8 +139,7 @@
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Danh Sách Các Ngành Upload File</h4>
                             <div class="ml-auto">
-                                <button class="btn btn-primary btn-round ml-auto" id="btn-save"
-                                     >
+                                <button class="btn btn-primary btn-round ml-auto" id="btn-save">
                                     <i class="ti-plus"></i>
                                     Lưu
                                 </button>
@@ -179,56 +221,54 @@
 @section Scripts{
     <script>
         var arr = [];
+        let id = "";
+        let checkUpdate = false;
         $("#frm2").hide();
-                                                function readURL(event) {
+        function readURL(event) {
+            var file = event.files[0];
+            var reader = new FileReader();
+            var excelData = [];
+            var maphong1 = event.title;
+            reader.onload = function (event) {
+                $("#txtFile").val("");
+                var data = event.target.result;
+                var workbook = XLSX.read(data, {
+                    type: 'binary'
+                });
+                workbook.SheetNames.forEach(function (sheetName) {
+                    // Here is your object
+                    var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
 
-                                                    var file = event.files[0];
-                                                    var reader = new FileReader();
-                                                    var excelData = [];
-                                                    var maphong1 = event.title;
-
-
-                                                    reader.onload = function (event) {
-                                                        $("#txtFile").val("");
-                                                        var data = event.target.result;
-                                                        var workbook = XLSX.read(data, {
-                                                        type: 'binary'
-                                                        });
-                                                workbook.SheetNames.forEach(function (sheetName) {
-                                                    // Here is your object
-                                                    var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-
-                                                    console.log(XL_row_object);
-                                                    arr = [];
-                                                    let cout = 0;
-                                                    for (var i = 1; i < XL_row_object.length; i++) {
-                                                        arr.push({
-                                                        id: XL_row_object[i]["__EMPTY"],
+                    arr = [];
+                    let cout = 0;
+                    for (var i = 1; i < XL_row_object.length; i++) {
+                        arr.push({
+                            id: XL_row_object[i]["__EMPTY"],
                             Name: XL_row_object[i]["__EMPTY_1"],
 
                         });
-                                                    var action = `<td>
-                            
-                                                        <div class="form-button-action">
-                            
-                                                            <button type="button" data-toggle="tooltip" title="" name = 'Delete' class="btn  btn-icon-text text-danger"  data-original-title="Edit Task">
-                            
-                                                               <i class="ti-close"></i>
-                            
-                                                            </button>
-                            
+                        var action = `<td>
 
-                                                        </div>
-                            
-                                                    </td>`;
-                    
-                    
-                  
+                                                                <div class="form-button-action">
+
+                                                                    <button type="button" data-toggle="tooltip" title="" name = 'Delete' class="btn  btn-icon-text text-danger"  data-original-title="Edit Task">
+
+                                                                       <i class="ti-close"></i>
+
+                                                                    </button>
+
+
+                                                                </div>
+
+                                                            </td>`;
+
+
+
 
                     }
                     arr.splice(0, 1);
                     $('#add_row').dataTable().fnDeleteRow();
-                                            for (var i = 0; i < arr.length; i++) {
+                    for (var i = 0; i < arr.length; i++) {
                         $('#add_row').dataTable().fnAddData([
 
                             arr[i].id,
@@ -237,7 +277,7 @@
                             action
                         ]);
                     }
-                    console.log(arr)
+
                     $("#frm1").hide();
 
                     $("#frm2").show();
@@ -250,27 +290,164 @@
         }
 
         $(document).ready(function () {
-         
+
             $("#tbbody").show();
+            $("#btnAddfrm").click(function () {
+                $("#exampleModal").modal("show")
+                $("#IdMajor").val(""),
+                    $("#Name").val(""),
+                    $("#Description").val("");
+                $("#IdMajor").prop('disabled', false);
+                checkUpdate = false;
+            });
             $(document).on('click', "button[name = 'Delete']", function () {
                 let id = $(this).closest('tr').find("td:eq(0)").text();
-  
+
                 for (var i = 0; i < arr.length; i++) {
                     if (arr[i].id === id) {
-                        arr.splice(i, 1);              
+                        arr.splice(i, 1);
                         $('#add_row').dataTable().fnDeleteRow($(this).closest('tr'));
                         break;
                     }
                 }
-                console.log(arr)
-         
+
             });
-           
+
             $("#btnQuay").click(function () {
                 $("#frm1").show();
 
                 $("#frm2").hide();
             })
+            $(document).on('click', "button[name = 'DeleteShool']", function () {
+                let id = $(this).closest('tr').find("td:eq(0)").text().trim();
+
+                let tr = $(this).closest('tr');
+                swal({
+                    title: 'Bạn có chắn chắn xóa hay không ?',
+                    text: "Nếu bạn xóa dữ liệu sẽ không được khôi phục lại được !",
+                    type: 'warning',
+                    buttons: {
+                        cancel: {
+                            visible: true,
+                            text: 'Hủy bỏ',
+                            className: 'btn btn-danger'
+                        },
+                        confirm: {
+                            text: 'Đồng ý',
+                            className: 'btn btn-success'
+                        }
+                    }
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            async: false,
+                            url: "/Major/Delete/" + id,
+                            type: 'GET',
+                        }).done(function (res) {
+                            console.log(res)
+                            if (res.success) {
+                                $(tr).empty()
+                                swal("Xóa thành công", {
+                                    icon: "success",
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                swal("Thất bại!", res.message, {
+                                    icon: "error",
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    },
+                                });
+                            }
+                        });
+
+                    }
+                });
+
+            });
+            $(document).on('click', "button[name = 'UpdateMajor']", function () {
+                let id = $(this).closest('tr').find("td:eq(0)").text().trim();
+                $("#exampleModal").modal("show")
+                let tr = $(this).closest('tr');
+                $("#IdMajor").val($(this).closest('tr').find("td:eq(0)").text().trim()),
+                    $("#Name").val($(this).closest('tr').find("td:eq(1)").text().trim()),
+                    $("#Description").val($(this).closest('tr').find("td:eq(2)").text().trim());
+                $("#IdMajor").prop('disabled', true);
+                checkUpdate = true;
+            });
+
+            $('#major-form').on('submit', function (e) {
+                e.preventDefault();
+                arr = [];
+                arr.push({
+                    id: $("#IdMajor").val(),
+                    Name: $("#Name").val(),
+                    Description: $("#Description").val()
+                });
+                if (arr.length > 0) {
+                    $.ajax({
+                        async: false,
+                        url: "/Major/Import",
+                        type: 'POST',
+                        data: { ViewMajor: JSON.stringify(arr) },
+                    }).done(
+                        function (res) {
+                            if (res.success) {
+                                $("#exampleModal").modal("hide")
+                                $("#liveToast").empty();
+                                $("#liveToast").append(res.message);
+                                $("#liveToast").toast("show");
+                                if (checkUpdate) {
+                                    setTimeout(myGreeting, 1000);
+
+                                }
+                                else {
+                                    $('#data-table').dataTable().fnAddData([
+                                        $("#IdMajor").val(),
+                                        $("#Name").val(),
+                                        $("#Description").val(),
+                                        `<td>
+                                                                <div class="form-button-action">
+                  <button type="button" name="UpdateMajor" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                <i class="ti-pencil-alt"></i>
+                                                            </button>
+                                                                    <button type="button" data-toggle="tooltip" title="" name = 'Delete' class="btn  btn-icon-text text-danger"  data-original-title="Edit Task">
+
+                                                                       <i class="ti-close"></i>
+
+                                                                    </button>
+
+
+                                                                </div>
+
+                                                            </td>`
+                                    ]);
+                                    $("#IdMajor").val("");
+                                    $("#Name").val("");
+                                    $("#Description").val("");
+                                }
+                             
+
+                            }
+                            else {
+                                console.log(res)
+                                $("#livefail").empty();
+                                $("#livefail").append(res.message);
+                                $("#livefail").toast("show");
+                            }
+
+                        }
+                    );
+                }
+            });
+
             $("#btn-save").click(function () {
                 if (arr.length > 0) {
                     $.ajax({
@@ -287,8 +464,10 @@
             })
         })
 
-    
-                // Add Row
+        function myGreeting() {
+            window.location = "/Major/Index"
+        }
+                        // Add Row
 
 
 

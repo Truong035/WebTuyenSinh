@@ -126,9 +126,9 @@
                                                             <button type="button" name="Edit" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
                                                                 <i class="ti-pencil-alt"></i>
                                                             </button>
-                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <button name="Delete" class="btn  btn-icon-text text-danger">
                                                                 <i class="ti-close"></i>
-                                                            </a>
+                                                            </button>
                                                         </div>
                                                     </td>
 
@@ -206,7 +206,60 @@
 
 
         });
+            $(document).on('click', "button[name = 'Delete']", function () {
+                let id = $(this).closest('tr').find("td:eq(0)").text().trim();
+                let tr = $(this).closest('tr');
+                swal({
+                    title: 'Bạn có chắn chắn xóa hay không ?',
+                    text: "Nếu bạn xóa hồ sợ của đợt tuyển sinh này sẽ bị xóa đi!",
+                    type: 'warning',
+                    buttons: {
+                        cancel: {
+                            visible: true,
+                            text: 'Hủy bỏ',
+                            className: 'btn btn-danger'
+                        },
+                        confirm: {
+                            text: 'Đồng ý',
+                            className: 'btn btn-success'
+                        }
+                    }
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        console.log(id);
+                        $.ajax({
+                            async: false,
+                            url: "/Use/DeleteRole/" + id,
+                            type: 'GET',
+                        }).done(function (res) {
+                            console.log(res)
+                            if (res.success) {
+                                $(tr).empty()
+                                swal("Xóa thành công", {
+                                    icon: "success",
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                swal("Thất bại!", res.message, {
+                                    icon: "error",
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    },
+                                });
+                            }
+                        });
 
+                    }
+                });
+
+            });
         $(document).on('click', "button[name = 'Edit']", function () {
             console.log($(this).closest('tr').find("td:eq(0)").text().trim())
             id = $(this).closest('tr').find("td:eq(0)").text().trim();

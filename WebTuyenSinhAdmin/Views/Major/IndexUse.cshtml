@@ -1,0 +1,61 @@
+﻿@model List<Major>
+@{
+
+}
+@using WebTuyenSinh.Data.Entityes;
+<div class="col-lg-12 grid-margin stretch-card" id="frm1">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="m-3 border-bottom pb-3">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Danh Sách Các Ngành</h4>
+               
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table id="data-table" class="display expandable-table" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Mã Ngành
+                                                </th>
+                                                <th>
+                                                    Tên Ngành
+                                                </th>
+                                                <th>
+                                                    Mô Tả
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item.id
+                                                    </td>
+                                                    <td>
+                                                        @item.Name
+                                                    </td>
+                                                    <td>
+                                                        @(item.Description!=null? item.Description:"Chưa cập nhật")
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

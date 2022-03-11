@@ -3,6 +3,43 @@
 
 }
 @using WebTuyenSinh.Data.Entityes;
+<div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+    <div id="liveToast" class="toast hide bg-success text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+        Cập nhật thành công
+    </div>
+</div>
+<div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+    <div id="livefail" class="toast hide bg-danger text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+        Cập nhật thất bại
+    </div>
+</div>
+<div class="modal " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="major-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông Tin Ngành</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="IdBlock">Tổ Hợp</label>
+                        <input required class="form-control" id="IdBlock">
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Mô Tả</label>
+                        <textarea rows="3" required type="text" class="form-control" id="Description"></textarea></div>
+        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="col-lg-12 grid-margin stretch-card" id="frm1">
     <div class="card">
         <div class="row">
@@ -10,13 +47,11 @@
                 <div class="card">
                     <div class="m-3 border-bottom pb-3">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">Danh Sách Các Ngành</h4>
+                            <h4 class="card-title">Danh Sách Tổ Hợp</h4>
                             <div class="ml-auto">
-                                <button class="btn btn-primary btn-round ml-auto"
-                                        data-toggle="modal"
-                                        data-target="#addRowModal">
+                                <button type="button" class="btn btn-primary" id="btnAddfrm">
                                     <i class="ti-plus"></i>
-                                    Thêm Trường
+                                    Thêm Mới
                                 </button>
                                 <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
                                     <i class="ti-export"></i>
@@ -59,12 +94,15 @@
 
                                                     <td>
                                                         <div class="form-button-action">
-                                                            <button type="button" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                            <button name="UpdateBlock" type="button" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
                                                                 <i class="ti-pencil-alt"></i>
                                                             </button>
-                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <button type="button" data-toggle="tooltip" title="" name='DeleteBlock' class="btn  btn-icon-text text-danger" data-original-title="Edit Task">
+
                                                                 <i class="ti-close"></i>
-                                                            </a>
+
+                                                            </button>
+
                                                         </div>
                                                     </td>
 
@@ -100,7 +138,12 @@
                                     <i class="ti-export"></i>
                                     Tải File
                                 </button>
+
                                 <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                <a class="btn btn-primary btn-round ml-auto" href="~/dowload/TohopMon.xlsx" download>
+                                    <i class="ti-download"></i>
+                                    Dowload File
+                                </a>
                                 <button id="btnQuay" class="btn btn-primary btn-round ml-auto"
                                         data-toggle="modal"
                                         data-target="#addRowModal">
@@ -149,6 +192,11 @@
     <script>
         var arr = [];
         $("#frm2").hide();
+
+        // Add Row
+
+        let id = "";
+        let checkUpdate = false;
         function readURL(event) {
 
             var file = event.files[0];
@@ -178,18 +226,18 @@
                         });
                         var action = `<td>
 
-                                                            <div class="form-button-action">
+                                                                    <div class="form-button-action">
 
-                                                                <button type="button" data-toggle="tooltip" title="" name = 'Delete' class="btn  btn-icon-text text-danger"  data-original-title="Edit Task">
+                                                                        <button type="button" data-toggle="tooltip" title="" name = 'Delete' class="btn  btn-icon-text text-danger"  data-original-title="Edit Task">
 
-                                                                   <i class="ti-close"></i>
+                                                                           <i class="ti-close"></i>
 
-                                                                </button>
+                                                                        </button>
 
 
-                                                            </div>
+                                                                    </div>
 
-                                                        </td>`;
+                                                                </td>`;
 
 
 
@@ -253,15 +301,200 @@
                             else {
                                 alert("Lỗi")
                             }
-                          
                         }
                     });
                 }
             })
         })
 
+        $(document).ready(function () {
 
-                    // Add Row
+            $("#tbbody").show();
+            $("#btnAddfrm").click(function () {
+                $("#exampleModal").modal("show")
+                $("#IdBlock").val(""),
+                    $("#Description").val("");
+                $("#IdBlock").prop('disabled', false);
+                checkUpdate = false;
+            });
+            $(document).on('click', "button[name = 'Delete']", function () {
+                let id = $(this).closest('tr').find("td:eq(0)").text();
+
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].id === id) {
+                        arr.splice(i, 1);
+                        $('#add_row').dataTable().fnDeleteRow($(this).closest('tr'));
+                        break;
+                    }
+                }
+
+            });
+
+            $("#btnQuay").click(function () {
+                $("#frm1").show();
+
+                $("#frm2").hide();
+            })
+            $(document).on('click', "button[name = 'DeleteBlock']", function () {
+                let id = $(this).closest('tr').find("td:eq(0)").text().trim();
+                let tr = $(this).closest('tr');
+                swal({
+                    title: 'Bạn có chắn chắn xóa hay không ?',
+                    text: "Nếu bạn xóa dữ liệu sẽ không được khôi phục lại được !",
+                    type: 'warning',
+                    buttons: {
+                        cancel: {
+                            visible: true,
+                            text: 'Hủy bỏ',
+                            className: 'btn btn-danger'
+                        },
+                        confirm: {
+                            text: 'Đồng ý',
+                            className: 'btn btn-success'
+                        }
+                    }
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            async: false,
+                            url: "/Admisstion/DeleteBlock/" + id,
+                            type: 'GET',
+                        }).done(function (res) {
+                            console.log(res)
+                            if (res.success) {
+                                $(tr).empty()
+                                swal("Xóa thành công", {
+                                    icon: "success",
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                swal("Thất bại!", res.message, {
+                                    icon: "error",
+                                    buttons: {
+                                        confirm: {
+                                            className: 'btn btn-success'
+                                        }
+                                    },
+                                });
+                            }
+                        });
+
+                    }
+                });
+
+            });
+            $(document).on('click', "button[name = 'UpdateBlock']", function () {
+                let id = $(this).closest('tr').find("td:eq(0)").text().trim();
+                $("#exampleModal").modal("show")
+                let tr = $(this).closest('tr');
+                $("#IdBlock").val($(this).closest('tr').find("td:eq(0)").text().trim()), 
+                    $("#Description").val($(this).closest('tr').find("td:eq(1)").text().trim());
+                $("#IdBlock").prop('disabled', true);
+                checkUpdate = true;
+            });
+
+            $('#major-form').on('submit', function (e) {
+                e.preventDefault();
+                arr = [];
+                arr.push({
+                    id: $("#IdBlock").val(),
+                    Desscription: $("#Description").val()
+                });
+                
+                if (arr.length > 0) {
+                    $.ajax({
+                        async: false,
+                        url: "/Admisstion/Import",
+                        type: 'POST',
+                        data: { ViewBlock: JSON.stringify(arr) },
+                    }).done(
+                        function (res) {
+                            if (res.success) {
+                                $("#exampleModal").modal("hide")
+                                $("#liveToast").empty();
+                                $("#liveToast").append(res.message);
+                                $("#liveToast").toast("show");
+                                if (checkUpdate) {
+                                    setTimeout(myGreeting, 1000);
+
+                                }
+                                else {
+                                    $('#data-table').dataTable().fnAddData([
+                                        $("#IdBlock").val(),
+                                        $("#Description").val(),
+                                        `<td>
+                                                                    <div class="form-button-action">
+                      <button type="button" name="UpdateBlock" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                    <i class="ti-pencil-alt"></i>
+                                                                </button>
+                                                                        <button type="button" data-toggle="tooltip" title="" name = 'DeleteBlock' class="btn  btn-icon-text text-danger"  data-original-title="Edit Task">
+
+                                                                           <i class="ti-close"></i>
+
+                                                                        </button>
+
+
+                                                                    </div>
+
+                                                                </td>`
+                                    ]);
+                                    $("#IdMajor").val("");
+                                    $("#Name").val("");
+                                    $("#Description").val("");
+                                }
+
+
+                            }
+                            else {
+                                console.log(res)
+                                $("#livefail").empty();
+                                $("#livefail").append(res.message);
+                                $("#livefail").toast("show");
+                            }
+
+                        }
+                    );
+                }
+            });
+
+            $("#btn-save").click(function () {
+                if (arr.length > 0) {
+                    $.ajax({
+                        async: false,
+                        url: "/Admisstion/Import",
+                        type: 'POST',
+                        data: { ViewBlock: JSON.stringify(arr) },
+                    }).done(
+                        function (res) {
+                            if (res.success) {
+                                $("#exampleModal").modal("hide")
+                                $("#liveToast").empty();
+                                $("#liveToast").append(res.message);
+                                $("#liveToast").toast("show");
+                                setTimeout(myGreeting, 1000);
+                            }
+                            else {
+                                console.log(res)
+                                $("#livefail").empty();
+                                $("#livefail").append(res.message);
+                                $("#livefail").toast("show");
+                            }
+
+                        }
+                    );
+                }
+            })
+        })
+
+        function myGreeting() {
+            window.location = "/Admisstion/Block"
+        }
+                            // Add Row
 
 
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using WebTuyenSinh_Application.Modell;
 
 namespace WebTuyenSinhAdmin.Controllers
 {
@@ -23,16 +24,19 @@ namespace WebTuyenSinhAdmin.Controllers
         public async Task<IActionResult> AddReplyDetails()
         {
             var files = Request.Form.Files;
-            List<string> url = new List<string>();
+            List<FileProfileView> url = new List<FileProfileView>();
                 foreach (IFormFile photo in files)
                 {
                 string name = GetUniqueFileName(photo.FileName);
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Profile", name);
                     var stream = new FileStream(path, FileMode.Create);
                    await photo.CopyToAsync(stream);
-                url.Add("Profile/"+ name);
+                url.Add(new FileProfileView()
+                {
+                    Url = "Profile/" + name,
+                    Name = photo.FileName
+                }) ;
                 }
-           
             return Ok(url);
         }
         private string GetUniqueFileName(string fileName)

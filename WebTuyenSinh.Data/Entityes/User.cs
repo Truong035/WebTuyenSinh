@@ -23,7 +23,7 @@ namespace WebTuyenSinh.Data.Entityes
 
         public DateTime? CreateDate { get; set; }
         public long? idRole { get; set; }
-
+        public bool? delete { get; set; }
         public Role Role { get; set; }
 
     }

@@ -41,14 +41,9 @@
                     <div class="m-3 border-bottom pb-3">
                         <div class="d-flex align-items-center">
                             <h4 class="card-title">Ngành : @ViewBag.Majo</h4>
-                            <div class="ml-auto">
-                                <a class="btn btn-primary btn-round ml-auto"
-                                   href="/Admisstion/Create">
-                                    <i class="ti-plus"></i>
-                                    Thêm Trường
-                                </a>
-                            </div>
+
                         </div>
+                     
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -140,7 +135,7 @@
                                                     <td>
                                                         <div class="form-button-action">
 
-                                                            <a href="/Admisstion/ProfileDetail/@item.id"data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                            <a href="/Admisstion/ProfileDetail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
                                                                 <i class="ti-pencil-alt"></i>
                                                             </a>
                                                             <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
@@ -160,7 +155,16 @@
                 </div>
             </div>
         </div>
+        <div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+            <div id="liveToast" class="toast hide bg-success text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
 
+            </div>
+        </div>
+        <div class="position-fixed end-0 mt-5 pt-2 " style="z-index: 11">
+            <div id="livefail" class="toast hide bg-danger text-white p-2" role="alert" aria-live="assertive" aria-atomic="true">
+                Cập nhật thất bại
+            </div>
+        </div>
     </div>
 </div>
 @section Scripts{
@@ -205,23 +209,33 @@
                         url: "/Admisstion/UpdateProfile/" + id,
                         type: 'POST',
                         data: { comment: comment, date: date, status: a },
-                        success: function (data) {
-                            console.log(data);
-                            if (a === "0") {
-                                $(button).text("Chưa duyệt")
-                                $(button).removeClass("badge-success badge-warning")
-                                $(button).addClass("badge badge-info");
+                        success: function (res) {
+                            if (res.success) {
+                                $("#liveToast").empty();
+                                $("#liveToast").append(res.message);
+                                $("#liveToast").toast("show");
+                                if (a === "0") {
+                                    $(button).text("Chưa duyệt")
+                                    $(button).removeClass("badge-success badge-warning")
+                                    $(button).addClass("badge badge-info");
+                                }
+                                if (a === "1") {
+                                    $(button).text(" Đã duyệt")
+                                    $(button).removeClass("badge-info badge-warning")
+                                    $(button).addClass("badge badge-success");
+
+                                }
+                                if (a === "2") {
+                                    $(button).removeClass("badge-info badge-warning")
+                                    $(button).text("Đang cập nhật")
+                                    $(button).addClass("badge-warning");
+                                }
+                             
                             }
-                            if (a === "1") {
-                                $(button).text(" Đã duyệt")
-                                $(button).removeClass("badge-info badge-warning")
-                                $(button).addClass("badge badge-success");
-                               
-                            }
-                            if (a === "2") {
-                                $(button).removeClass("badge-info badge-warning")
-                                $(button).text("Đang cập nhật")
-                                $(button).addClass("badge-warning");
+                            else {
+                                $("#livefail").empty();
+                                $("#livefail").append(res.message);
+                                $("#livefail").toast("show");
                             }
                             $("#staticBackdrop").modal("hide");
                         }

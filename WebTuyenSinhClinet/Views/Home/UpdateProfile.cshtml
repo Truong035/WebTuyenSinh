@@ -410,7 +410,7 @@
                                 <span>5. Số CMND/CCCD (*): </span>
                             </p>
                             <div class="validation-parent" style="width:49.5%">
-                                <input required type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
+                                <input onchange="CheckCMND(this)" required type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
                                        placeholder="231308802">
                             </div>
                         </div>
@@ -420,7 +420,7 @@
                     <div class="col c-5">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <span class=" ml-3 mt-1 d-flex student-avatar-note full-name-box">
-                                <span>a)Ngày cấp:: </span>
+                                <span>a)Ngày cấp: </span>
                             </span>
 
 
@@ -897,13 +897,15 @@
                             chức vụ,
                             chữ ký của người xác
                             nhận)
+
+                            
                         </p>
                     </div>
                     <div class="col c-5 educate">
                         <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
                         <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
                         <p class="educate-parent signature" style="margin-top: 50px;">
-                            Họ tên: <span>Phạm Trọng Trường</span>
+                            @*Họ tên: <span>Phạm Trọng Trường</span>*@
                         </p>
                     </div>
                 </div>
@@ -943,16 +945,34 @@
             try {
                 var mark = $(e).val()
                 var x = Number($(e).val())
-                alert(x)
-                if (x > 10 || x < 0) {
+
+                if (x > 0 && x < 11) {
+
+                }
+                else {
                     $(e).val("")
                 }
+
             } catch { $(e).val("") }
-
-
         }
+        function CheckCMND(e) {
+            try {
+                var mark = $(e).val()
+                var x = Number($(e).val())
+
+                console.log(mark);
+                if (x > 0 && (mark.length == 9 || mark.length == 12)) {
+
+                }
+                else {
+                    $(e).val("")
+                }
+
+            } catch { $(e).val("") }
+        }
+
         function Option(e) {
-            console.log($(e).val())
+         
             $(e).closest("tr").find("td:eq(1)").empty();
             $.each(majors, function (k, v) {
                 if (v.idMajor.trim() === $(e).val().trim()) {
@@ -988,22 +1008,22 @@
                                                         <td>
                                                            ${selectblock}
                                                         </td>
-                                                        <td><input type="text" class="subject1" required value="" /></td>
-                                                    <td><input type="text" class="subject2" required value="" /></td>
-                                                    <td><input type="text" class="subject3" required value="" /></td>
-                                                    <td><input type="text" class="subject4" required value="" /></td>
-                                                    <td><input type="text" class="subject5" required value="" /></td>
-                                                    <td><input type="text" class="subject6" required value="" /></td>
-                                                    <td><input type="text" class="subject7" required value="" /></td>
-                                                    <td><input type="text" class="subject8" required value="" /></td>
-                                                    <td><input type="text" class="subject9" required value="" /></td>
+                                                        <td><input type="text"  onchange="CheckMart(this)" class="subject1" required value="" /></td>
+                                                <td><input type="text"  onchange="CheckMart(this)" class="subject2" required value="" /></td>
+                                                <td><input type="text"  onchange="CheckMart(this)" class="subject3" required value="" /></td>
+                                                <td><input type="text"  onchange="CheckMart(this)" class="subject4" required value="" /></td>
+                                                <td><input type="text"  onchange="CheckMart(this)" class="subject5" required value="" /></td>
+                                                <td><input type="text"  onchange="CheckMart(this)" class="subject6" required value="" /></td>
+                                                <td><input type="text"  onchange="CheckMart(this)" class="subject7" required value="" /></td>
+                                                <td><input type="text"  onchange="CheckMart(this)" class="subject8" required value="" /></td>
+                                                <td><input type="text"  onchange="CheckMart(this)" class="subject9" required value="" /></td>
                                                     <td>
-                                                        <div class="form-button-action">
+                                                       
 
-                                                            <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <button  style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" >
                                                                 <i class="ti-close"></i>x
                                                             </button>
-                                                        </div>
+                                                   
                                                     </td>
 
                                                     </tr>`
@@ -1053,6 +1073,21 @@
             });
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
+                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                var mobile = $("#teletephone").val();
+                if (mobile !== '') {
+                    if (vnf_regex.test(mobile) == false) {
+                        $("#livefail").text("Số điện thoại của bạn không đúng định dạng!")
+                        $("#livefail").toast("show");
+                        $("#teletephone").focus();
+                        return;
+                    }
+                } else {
+                    $("#livefail").text("Bạn chưa điền số điện thoại!")
+                    $("#livefail").toast("show");
+                    $("#teletephone").focus();
+                    return;
+                }
                 Profile.name = $("#full_name").val();
                 Profile.birthDay = $("#birthdate").val();
                 Profile.adress = $("#address").val();
@@ -1117,7 +1152,7 @@
                         data: { Profile: Profile, files: fileUrl },
 
                     }).done(function (data) {
-                        console.log(data)
+       
                         if (data.success) {
                             Profile = data.data
 
@@ -1227,8 +1262,6 @@
                         $("#School3").append(option)
                     }
                 })
-
-
             })
             $("#district3").change(function () {
                 $("#School3").empty()
@@ -1240,8 +1273,6 @@
                         $("#School3").append(option)
                     }
                 })
-
-
             })
             $("#School3").change(function () {
                 $("#Consciou3").val($("#School3").val().split('/').pop())
@@ -1259,13 +1290,10 @@
                     $("#tbbody").empty()
                     LoadData();
                 }
-
             })
 
             $(document).on('click', "button[name = 'add']", function () {
-
                 $(this).closest('tr').remove();
-
                 $(this).hide();
                 LoadData()
 
@@ -1309,21 +1337,32 @@
             $(img).append(let);
             var img1 = $('#file-upload-content');
             $.each(Profile.fileProfiles, function (k, v) {
-                console.log(v);
                 if (v.url.endsWith("pdf")) {
-                    var let = `<div class="col-2">
+                    var let = `<div class="col-2  text-center">
 <a href ="${Url}/${v.url}" target="_blank" >
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-               </a> </div>`;
+       
+<span>${v.name}</span>
+        </a>
+</div>`;
                 }
                 else {
-                    var let = `<div class="col-2">
+                    var let = `<div class="col-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" >
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span>${v.name}</span>
+   </a>
                 </div>`;
                 }
 
+
                 $(img1).append(let);
             })
+            let = `<div class="col-2">
+<a href ="${Url}/${Profile.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+            $(img1).append(let);
             $.each(conscious, function (k, v) {
                 let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
                 $("#Consciou1").append(option)
@@ -1375,45 +1414,6 @@
 
             //    $("#teletephone").val(Profile.teletephone);
         }
-        function readAvataURL(input) {
-            var fileUpload = $("#filesAvt").get(0);
-            var files = fileUpload.files;
-            var img = $('#logo');
-            // Create  a FormData object
-            var fileData = new FormData();
-
-            // if there are multiple files , loop through each files
-            for (var i = 0; i < files.length; i++) {
-                fileData.append(files[i].name, files[i]);
-            }
-
-            // Adding more keys/values here if need
-            fileData.append('Test', "Test Object values");
-
-            $.ajax({
-                url: Url + "/File/AddReplyDetails",
-                type: "POST", //as we will be posting files and other method POST is used
-                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
-                contentType: false,
-                dataType: "json",
-                data: fileData,
-                success: function (result) {
-  
-                    $(img).empty();
-                    $.each(result, function (k, v) {
-                        var let = `<div class="img">
-                    <img  class="the-img"  src="${Url}/${v}"   alt="...">
-                </div>`;
-
-                        Profile.imgavata = v
-                        $(img).append(let);
-                    });
-                },
-                error: function (err) {
-                    alert(err.statusText);
-                }
-            });
-        }
         function readURL(input) {
             var fileUpload = $("#files").get(0);
             var files = fileUpload.files;
@@ -1440,19 +1440,66 @@
                     fileUrl = result;
                     $(img).empty();
                     $.each(result, function (k, v) {
-
-                        if (v.endsWith("pdf")) {
-                            var let = `<div class="col-2">
-<a href ="${Url}/${v}" target="_blank" >
+                        if (v.url.endsWith("pdf")) {
+                            var let = `<div class="col-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" >
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-               </a> </div>`;
+       
+<span>${v.name}</span>
+        </a>
+</div>`;
                         }
                         else {
-                            var let = `<div class="col-2">
-                    <img src="${Url}/${v}" class="img-thumbnail" alt="...">
+                            var let = `<div class="col-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span>${v.name}</span>
+   </a>
                 </div>`;
                         }
 
+
+                        $(img).append(let);
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+
+        function readAvataURL(input) {
+            var fileUpload = $("#filesAvt").get(0);
+            var files = fileUpload.files;
+            var img = $('#logo');
+            // Create  a FormData object
+            var fileData = new FormData();
+
+            // if there are multiple files , loop through each files
+
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding more keys/values here if need
+            fileData.append('Test', "Test Object values");
+
+            $.ajax({
+                url: Url + "/File/AddReplyDetails",
+                type: "POST", //as we will be posting files and other method POST is used
+                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
+                contentType: false,
+                dataType: "json",
+                data: fileData,
+                success: function (result) {
+
+                    $(img).empty();
+                    $.each(result, function (k, v) {
+                        var let = `<div class="col-2">
+                    <img src="${Url}/${v.url}" width="130" height="160"  alt="...">
+                </div>`;
+
+                        Profile.imgavata = v.url
                         $(img).append(let);
                     });
                 },

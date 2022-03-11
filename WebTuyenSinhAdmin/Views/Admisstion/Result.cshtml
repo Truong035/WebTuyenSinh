@@ -55,8 +55,11 @@
                                     <i class="ti-export"></i>
                                     Xuất File
                                 </button>
+                                <button id="btnExportOne" class="btn btn-sm btn-primary btn-round   " data-target="#addRowModal">
+                                    <i class="ti-export"></i>
+                                    Xuất File Thống Kê
+                                </button>
                             </div>
-                            
                         </div>
                     </div>
                     <div class="card-body">
@@ -139,6 +142,26 @@
                     async: false,
                 }).done(function (data) {
 
+                    if (data.success) {
+                        var link = document.createElement('a');
+                        link.href = data.data;
+                        link.download = "dulieu.xlsx";
+                        link.click();
+                        link.remove();
+                    }
+
+
+                }).fail(function () {
+                });
+            }
+            )
+
+            $("#btnExportOne").click(function () {
+                $.ajax({
+                    url: "/Admisstion/ExportExcellOne/" + id,
+                    type: 'GET',
+                    async: false,
+                }).done(function (data) {
                     if (data.success) {
                         var link = document.createElement('a');
                         link.href = data.data;

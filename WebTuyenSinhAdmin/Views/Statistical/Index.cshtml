@@ -4,6 +4,55 @@
 @{
 }
 <div class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Tìm kiếm</h4>
+                    <form id="" action="/Statistical/Index" method="get">
+                        <div class="row d-flex">
+                            <div class=" ml-2 col-4 d-flex justify-content-center">
+
+                                <label for="staticEmail" class="col-form-label w-25 mr-2">Từ</label>
+                                <input name="textfrom" type="date" class="form-control  form-control-sm" id="textfrom">
+                                <label for="staticEmail" class="col-form-label w-25  mr-2">-</label>
+
+                                <input name="textTo" type="date" class="form-control  form-control-sm" id="textTo">
+
+                            </div>
+                            <div class=" col-3 d-flex justify-content-center">
+                                <label for="staticEmail" class="col-form-label w-50">Loại Form</label>
+
+                                <select id="txtType" name="txtType" class="form-control  form-control-sm">
+                                    <option value="">Tất cả</option>
+                                    <option value="1">Xét Đánh Gía Năng Lực</option>
+                                    <option value="2">Xét Học Bạ</option>
+                                </select>
+
+                            </div>
+                            <div class=" col  d-flex justify-content-center">
+                                <label for="staticEmail" class="col-form-label mr-2">Ngành</label>
+
+                                <select name="major" class=" col-6 form-control form-control-sm" id="major">
+                                    <option value="">Tất cả</option>
+
+                                </select>
+                                <div class="col">
+                                    <button type="submit" id="btnSearch" class="btn btn-primary btn-search btn-sm"> Tìm kiếm</button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
     <div class="row mb-4">
         <div class="col-lg-4 grid-margin grid-margin-lg-0 stretch-card">
             <div class="card">
@@ -31,24 +80,86 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Thông kê theo đợt tuyển sinh</h4>
-                    <canvas id="lineChart"></canvas>
+    <div class="card mb-3">
+        <div class="row ">
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Thông kê theo đợt tuyển sinh</h4>
+                        <canvas id="lineChart"></canvas>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Thông kê theo ngành</h4>
-                    <canvas id="areaChart"></canvas>
-                </div>
-            </div>
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Thông kê theo đợt tuyển sinh</h4>
+                        <div class="table-responsive mb-3 mb-md-0 mt-3" style="height:300px">
+                            <table id="tbAdmisstion" class="table table-borderless report-table">
 
+
+                                <tr hidden>
+                                    <td>"sss"</td>
+                                    <td class="w-100 px-0">
+                                        <div class="progress progress-md mx-4">
+                                            <div class="progress-bar bg-warning " role="progressbar" style="width:16%" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                    </td>
+                                    <td><h5 class="font-weight-bold mb-0">hahha</h5></td>
+                                </tr>
+
+
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
+
+    </div>
+    <div class="card mb-3">
+        <div class="row ">
+            <div class="col-lg-5 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Thông kê theo ngành</h4>
+                        <div class="table-responsive mb-3 mb-md-0 mt-3" style="height:300px">
+                            <table id="tbMajor" class="table table-borderless report-table">
+
+                                
+                                <tr hidden>
+                                    <td>"sss"</td>
+                                    <td class="w-100 px-0">
+                                        <div class="progress progress-md mx-4">
+                                            <div class="progress-bar bg-warning " role="progressbar" style="width:16%" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                    </td>
+                                    <td><h5 class="font-weight-bold mb-0">hahha</h5></td>
+                                </tr>
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Thông kê theo ngành</h4>
+                        <canvas id="areaChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <div class="row">
@@ -95,24 +206,86 @@
 </div>
 
 <script>
-
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    function LoadMajor(data) {
+ 
+        $.each(data, function (k, v) {
+            $("#major").append(`<option value="${v.id.trim()}">${v.name}</option>`)
+        });
+    }
     $(document).ready(function () {
+        var textfrom = getParameterByName('textfrom'); // "lorem"
+        var textTo = getParameterByName('textTo'); // "" (present with empty value)
+        var txtType = getParameterByName('txtType'); // "" (present with no value)
+        var idMajor = getParameterByName('major');
+   
+      
         $.ajax({
             async: false,
             url: "/Statistical/Statistical",
             type: 'GET',
+            data: { fromDate: textfrom, toDate: textTo, Type: txtType, idMajor: idMajor }
         }).done(function (res) {
-            console.log(res)
+           // console.log(res)
             LoadData(res)
          
         });
+  
 
+        $.ajax({
+            async: false,
+            url: "/Major/GETALL",
+            type: 'GET',
+        }).done(function (res) {
+            if (res.success) {
+                LoadMajor(res.data);
+            }
+
+        });    
+        $("#textfrom").val(textfrom);
+        $("#textTo").val(textTo);
+        $("#txtType").val(txtType);
+        $("#major").val(idMajor);
     })
    function LoadData (res) {
         /* ChartJS
          * -------
          * Data and config for chartjs
          */
+  
+       $.each(res.statisticalAdmisstion.data, function (k, v) {
+           $("#tbAdmisstion").append(`<tr>
+                                    <td >${v.name}</td>
+                                    <td class="w-100 px-0">
+                                        <div class="progress progress-md mx-4">
+                                            <div class="progress-bar ${v.bg} " role="progressbar" style="width:${v.percent}%" aria-valuenow="${v.percent}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                    </td>
+                                    <td><h5 class="font-weight-bold mb-0">${v.value}</h5></td>
+                                </tr>`)
+       })
+       $.each(res.statisticalMajor.data, function (k, v) {
+           $("#tbMajor").append(`<tr>
+                                    <td >${v.name}</td>
+                                    <td class="w-100 px-0">
+                                        <div class="progress progress-md mx-4">
+                                            <div class="progress-bar ${v.bg} " role="progressbar" style="width:${v.percent}%" aria-valuenow="${v.percent}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                    </td>
+                                    <td><h5 class="font-weight-bold mb-0">${v.value}</h5></td>
+                                </tr>`)
+       })
+
         'use strict';
         var data = {
             labels: res.statisticalYear.name,
@@ -196,7 +369,7 @@
        var dataAdmisstion = {
            labels: res.statisticalAdmisstion.name,
            datasets: [{
-               label: 'Thông kê các ngành',
+               label: 'Số lượng hồ sơ',
                data: res.statisticalAdmisstion.values,
                backgroundColor: [
                   
@@ -209,8 +382,7 @@
                    'rgba(75, 192, 192, 0.2)',
                ],
                borderColor: [
-                
-                  
+               
                    'rgba(153, 102, 255, 1)',
                    'rgba(255, 159, 64, 1)',
                    'rgba(255,99,132,1)',
@@ -222,37 +394,7 @@
                fill: false
            }]
        };
-        var multiLineData = {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: 'Dataset 1',
-                data: [12, 19, 3, 5, 2, 3],
-                borderColor: [
-                    '#587ce4'
-                ],
-                borderWidth: 2,
-                fill: false
-            },
-            {
-                label: 'Dataset 2',
-                data: [5, 23, 7, 12, 42, 23],
-                borderColor: [
-                    '#ede190'
-                ],
-                borderWidth: 2,
-                fill: false
-            },
-            {
-                label: 'Dataset 3',
-                data: [15, 10, 21, 32, 12, 33],
-                borderColor: [
-                    '#f44252'
-                ],
-                borderWidth: 2,
-                fill: false
-            }
-            ]
-        };
+        
         var options = {
             scales: {
                 yAxes: [{
@@ -262,11 +404,11 @@
                 }]
             },
             legend: {
-                display: false
+                display: true
             },
             elements: {
                 point: {
-                    radius: 0
+                    radius: 4
                 }
             }
 
@@ -414,7 +556,8 @@
                 filler: {
                     propagate: true
                 }
-            }
+            },
+          
         }
 
 
@@ -484,7 +627,8 @@
                 }]
             }
         }
-        // Get context with jQuery - using jQuery's .get() method.
+       // Get context with jQuery - using jQuery's .get() method
+ 
         if ($("#barChart").length) {
             var barChartCanvas = $("#barChart").get(0).getContext("2d");
             // This will get the first returned node in the jQuery collection.
@@ -532,12 +676,13 @@
             });
         }
 
-        if ($("#areachart-multi").length) {
-            var multiAreaCanvas = $("#areachart-multi").get(0).getContext("2d");
+        if ($("#areachart").length) {
+            var multiAreaCanvas = $("#areachart").get(0).getContext("2d");
             var multiAreaChart = new Chart(multiAreaCanvas, {
-                type: 'line',
-                data: multiAreaData,
-                options: multiAreaOptions
+            //    type: 'line',
+                type: 'bar',
+                data: dataAdmisstion,
+                options: options
             });
         }
 
@@ -576,12 +721,12 @@
                 options: areaOptions
             });
        }
-       if ($("#areaChart").length) {
+      if ($("#areaChart").length) {
            var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
            var areaChart = new Chart(areaChartCanvas, {
-               type: 'line',
+               type: 'bar',
                data: areaData,
-               options: areaOptions
+               options: options
            });
        }
        

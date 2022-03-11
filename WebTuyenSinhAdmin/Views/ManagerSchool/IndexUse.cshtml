@@ -1,0 +1,192 @@
+﻿
+@{
+
+}
+@model IEnumerable<School>
+@using WebTuyenSinh.Data.Entityes;
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="m-3">
+            <div class="d-flex align-items-center">
+                <h4 class="card-title">Danh Sách Các Trường</h4>
+
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <form method="get" asp-controller="ManagerSchool" asp-action="Index">
+                    <div class="d-flex align-items-center">
+                        <div class="ml-auto">
+                            <input type="text" value="@ViewBag.Search" name="ShoolName" class="form-control" placeholder="Tim kiếm" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+                    <table id="" class="table-striped  table-hover display expandable-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Mã Trường</th>
+                                <th>Tên Trường</th>
+                                <th>Quận Huyện</th>
+                                <th>Tỉnh</th>
+                                <th>Khu Vực</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbbody">
+                            @foreach (var item in Model)
+                            {
+
+                                @try
+                                {
+                                    <tr>
+                                        <td>@item.idShool</td>
+                                        <td>@item.NameShool</td>
+                                        <td>@item.NameDistrict</td>
+                                        <td>@item.NameConscious</td>
+                                        <td>@item.Area</td>
+                        
+                                    </tr>
+                                }
+                                catch { }
+
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                    <div class="d-flex align-items-center">
+                        <div class="ml-auto">
+                            <ul class="pagination">
+                                @{
+                                    int numberPage = ViewBag.numberPage;
+                                    int pageCurrent = ViewBag.pageCurrent;
+                                    int offset = 2;//number display page
+
+
+                                    //config FirstLink
+                                    if (pageCurrent > 1)
+                                    {
+                                        int prevPage = pageCurrent - 1;
+                                        var PrevLink = new Dictionary<string, string> { { "page", prevPage.ToString() } };
+                                        <li><a asp-controller="ManagerSchool" asp-action="Index" asp-all-route-data="PrevLink">Prev Link</a></li>
+                                    }
+
+                                    int from = pageCurrent - offset;
+                                    int to = pageCurrent + offset;
+                                    if (from <= 0)
+                                    {
+                                        from = 1;
+                                        to = offset * 2;
+                                    }
+
+
+                                    if (to > numberPage)
+                                    {
+                                        to = numberPage;
+                                    }
+
+                                    int i;
+                                    for (i = from; i <= to; i++)
+                                    {
+                                        var parms = new Dictionary<string, string>
+                                                                                                                                                {
+                        { "page",i.ToString()},{"ShoolName",ViewBag.Search}
+                            };
+                                        if (pageCurrent == i)
+                                        {
+                                            <li class="active"><a asp-controller="ManagerSchool" asp-action="Index" asp-all-route-data="parms">@i</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-controller="ManagerSchool" asp-action="Index" asp-all-route-data="parms">@i</a></li>
+                                        }
+
+                                    }
+
+                                    if (pageCurrent < numberPage - (to / 2))
+                                    {
+                                        <li><a>...</a></li>
+                                        var LastLink = new Dictionary<string, string> { { "page", numberPage.ToString() } };
+                                        <li><a asp-controller="ManagerSchool" asp-action="Index" asp-all-route-data="LastLink">Last Link</a></li>
+                                    }
+
+                                    if (pageCurrent < numberPage)
+                                    {
+                                        int nextPage = pageCurrent + 1;
+                                        var NextLink = new Dictionary<string, string> { { "page", nextPage.ToString() } };
+                                        <li><a asp-controller="ManagerSchool" asp-action="Index" asp-all-route-data="NextLink">Next Link</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#tbbody").hide();
+
+        $(document).ready(function () {
+            $("#tbbody").show();
+        })
+
+        $('#multi-filter-select').DataTable({
+            "pageLength": 10,
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+
+    </script>
+}

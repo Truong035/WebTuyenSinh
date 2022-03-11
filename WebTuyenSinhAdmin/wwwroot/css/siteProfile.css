@@ -1,0 +1,602 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+@media only screen and (min-width: 600px) {
+    .row-content {
+        height: 800px;
+    }
+
+    div.search-bar {
+        position: absolute;
+        right: 0px;
+        top: 100px;
+        width: 200px;
+    }
+
+    .notice {
+        height: 800px;
+    }
+
+    .brand {
+        width: 300px;
+    }
+
+    .navbar-nav {
+        font-size: 23px;
+        text-align: center;
+    }
+
+    .btn-gototop {
+        position: fixed;
+        right: 10px;
+        top: 90%;
+        z-index: 9999;
+    }
+
+    .btn-group-vertical {
+        position: fixed;
+        right: 10px;
+        top: 70%;
+    }
+
+    .admission .admission-content {
+        font-size: 40px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .row-content {
+        height: 800px;
+    }
+
+    .notice {
+        height: 2000px;
+    }
+
+    .brand {
+        width: 220px;
+    }
+
+    .navbar-nav {
+        font-size: 18px;
+    }
+
+    .btn-gototop {
+        position: fixed;
+        right: 10px;
+        top: 90%;
+        z-index: 9999;
+    }
+
+    .btn-group-vertical {
+        position: fixed;
+        right: 10px;
+        top: 60%;
+    }
+
+    .admission .admission-content {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .img-respon {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1500px) {
+    h3.title {
+        position: relative;
+    }
+
+        h3.title::after {
+            content: "";
+            position: absolute;
+            display: block;
+            height: 10px;
+            width: 500px;
+            background-color: #cfa267;
+            left: 350px;
+            top: 50px;
+        }
+
+    .carosel-event-school {
+        position: relative;
+        height: 1000px;
+    }
+
+        .carosel-event-school:after {
+            content: "";
+            position: absolute;
+            display: block;
+            height: 10px;
+            width: 500px;
+            background-color: #cfa267;
+            left: 515px;
+            top: 100px;
+        }
+}
+
+.content p {
+    color: #fab101;
+}
+
+
+
+.carousel-item {
+    columns: red;
+}
+
+.notice img {
+    width: 80%;
+}
+
+.admission img {
+    width: 100%;
+}
+
+.User {
+    white-space: nowrap;
+    width: 10px !important;
+    border: 1px solid #000000;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+* {
+    box-sizing: initial;
+}
+
+.content p {
+    color: #004174 !important;
+}
+
+.img {
+    width: 130px;
+    height: 160px;
+    overflow: hidden;
+}
+
+.the-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+    td input {
+        width: 40px;
+        border: none;
+    }
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Times New Roman";
+    font-size: 100%;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #004174 !important;
+    text-align: left;
+    margin: 0;
+}
+
+form {
+    font-size: 16px;
+}
+
+p {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+body input,
+body textarea {
+    outline: none;
+}
+
+button,
+input {
+    overflow: visible;
+    color: #004174;
+}
+
+::-webkit-input-placeholder {
+    color: #004174;
+}
+
+input {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+    input[type="text" i] {
+        padding: 1px 2px;
+        height: 20px;
+        margin-top: 5px;
+    }
+
+.d-flex {
+    display: flex;
+}
+
+.flex-center {
+    justify-content: center;
+}
+
+.mt-1 {
+    margin-top: 5px;
+}
+
+.ml-3 {
+    margin-left: 5px;
+}
+
+.fl-left {
+    float: left;
+}
+/* header */
+body div.a4-size {
+    width: 25cm;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 14px 0px rgb(0 0 0 / 30%);
+    padding: 30px 20px;
+    margin: 0 auto;
+}
+
+    body div.a4-size div.educate {
+        position: relative;
+        padding-bottom: 5px;
+    }
+
+        body div.a4-size div.educate .educate-parent {
+            font-size: 16px;
+            text-align: center;
+        }
+
+        body div.a4-size div.educate .educate-child {
+            font-weight: bold;
+        }
+
+        body div.a4-size div.educate .line-head-one {
+            border: 1px solid black;
+            position: absolute;
+            bottom: 0;
+            width: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        body div.a4-size div.educate .line-head-custom {
+            width: 48%;
+        }
+
+.fw-bold {
+    font-weight: bold;
+}
+
+/* thông tin phiếu */
+.justify-content-end {
+    justify-content: flex-end !important;
+}
+
+body div.a4-size div.form-title {
+    margin-top: 40px;
+}
+
+.form-title div:first-child {
+    max-width: 130px;
+    margin-right: 20px;
+}
+
+body div.a4-size div.student-avatar {
+    border: 1px solid #004174;
+    height: 160px;
+    width: 130px;
+}
+
+.student-avatar-size {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.student-avatar-note {
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+body div.a4-size div.form-title > div > h6 {
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    color: red;
+}
+
+    body div.a4-size div.form-title > div > h6 > span {
+        display: block;
+        margin-top: 5px;
+    }
+
+/* form info */
+body div.a4-size div.student-form-info {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 25px;
+}
+
+    body div.a4-size div.student-form-info p > span {
+        font-weight: bold;
+    }
+
+    body
+    div.a4-size
+    div.student-form-info
+    div.full-name-box > div.full-name-validation {
+        width: 50%;
+    }
+
+div.validation-parent {
+    position: relative;
+    display: inline-block;
+    flex: 1;
+}
+
+body
+div.a4-size
+div.student-form-info
+div.full-name-box > div.validation-parent > input.full-name-property {
+    border: none;
+    border-bottom: 1px dotted #004174;
+    width: 100%;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+/* chia col */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.col {
+    padding-left: 15px;
+    padding-right: 15px;
+    background-clip: content-box;
+}
+
+.c-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.c-4 {
+    flex: 0 0 35.66667%;
+    max-width: 35.66667%;
+}
+
+.c-5 {
+    flex: 0 0 41.66667%;
+    max-width: 41.66667%;
+}
+
+.c-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.c-7 {
+    flex: 0 0 58.33333%;
+    max-width: 58.33333%;
+}
+
+.c-8 {
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+}
+
+.c-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.selected-gender {
+    justify-content: space-around;
+}
+
+.ml-7 {
+    margin-left: 7%;
+}
+
+.width-select {
+    width: 340px;
+}
+
+.mobile-width-select {
+    width: 66%;
+    margin-left: 10px;
+    gap: 10px;
+}
+
+.camdoan {
+    margin-right: 75px;
+}
+
+@media only screen and (max-width: 600px) {
+    body div.a4-size {
+        width: auto;
+    }
+
+    .content {
+        margin-top: 60px !important;
+    }
+
+    .row {
+        margin-right: 0 !important;
+    }
+
+    .student-form-info {
+        display: flex;
+        justify-content: center;
+    }
+
+    .mobile-container {
+        padding: 10px !important;
+    }
+
+    .form-title div:first-child {
+        margin-right: 0 !important;
+    }
+
+    body div.a4-size div.educate .educate-parent {
+        font-size: 17px !important;
+    }
+
+    body div.a4-size div.form-title {
+        margin-top: 20px !important;
+    }
+
+    body div.a4-size div.student-avatar {
+        height: 140px !important;
+        width: 110px !important;
+    }
+
+    .student-avatar-size {
+        margin-top: 20px !important;
+    }
+
+    body div.a4-size div.form-title > div > h6 {
+        font-size: 15px !important;
+    }
+
+    .form-title div:first-child {
+        /* max-width: auto !important; */
+    }
+
+    body div.a4-size div.student-form-info {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+    }
+
+    form {
+        font-size: 15px;
+    }
+
+    .c-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .selected-gender {
+        justify-content: flex-start !important;
+        gap: 20px;
+        margin-left: 10px;
+        transform: translateY(5px);
+    }
+
+    .c-5, .c-7 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .c-12, .c-5, .c-7 {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .mt-2 {
+        margin-top: 0 !important;
+    }
+
+    .mt-1 {
+        margin-top: 0 !important;
+    }
+
+    .validation-parent {
+        transform: translateY(-4px);
+    }
+
+    .mobile-column {
+        flex-direction: column !important;
+    }
+
+    .mobile-width-select {
+        width: 100% !important;
+        margin-left: 0;
+        margin-bottom: 5px;
+    }
+
+    .ml-7 {
+        margin-left: 0 !important;
+    }
+
+    .width-select {
+        width: 100% !important;
+    }
+
+    .mobile-column-full {
+        width: 100% !important;
+    }
+
+    .c-4 {
+        flex: unset;
+        max-width: unset;
+    }
+
+    .camdoan {
+        margin-right: 0 !important;
+    }
+
+    .hide-on-mobile {
+        display: none;
+    }
+
+    .mobile-table {
+        overflow: hidden !important;
+    }
+
+    .moible-table-width {
+        overflow: auto !important;
+    }
+
+        .moible-table-width::-webkit-scrollbar {
+            display: none;
+        }
+
+        .moible-table-width table {
+            min-width: 750px;
+        }
+
+    .note-mobile {
+        width: 171px;
+    }
+}

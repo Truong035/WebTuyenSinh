@@ -9,6 +9,7 @@ using WebTuyenSinh_Application.ViewApi;
 
 using WebTuyenSinh.Data.Entityes;
 using WebTuyenSinh_Application.System;
+using System.IO;
 
 namespace WebTuyenSinh_Application.Repository
 {
@@ -44,6 +45,12 @@ namespace WebTuyenSinh_Application.Repository
                 admisstion.Type = request.Type;
                 await _context.Admisstions.AddAsync(admisstion);
                 var id = await _context.SaveChangesAsync();
+                // If directory does not exist, create it
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Admisstion", id.ToString());
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
                 return await CreateAdmisstion_Major(request.Majors, admisstion.id);
 
             }
@@ -147,14 +154,12 @@ namespace WebTuyenSinh_Application.Repository
                 {
                     return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = null };
                 }
-                admisstion.Delete = false;
-            //    admisstion.Statust = false;
-                await _context.SaveChangesAsync();
-                _context.Admisstions.Remove(admisstion);
-             await   _context.SaveChangesAsync();
-                return new ApiResult() { Success = true, Message = " ", Data = admisstion };
+                admisstion.Delete = true;
+                        await _context.SaveChangesAsync();
+
+                return new ApiResult() { Success = true, Message = "Xóa thành công", Data = admisstion };
             } catch {
-                return new ApiResult() { Success = true, Message = " ", Data = admisstion };
+                return new ApiResult() { Success = false, Message = "Lỗi server", Data = admisstion };
             }
 
         }
@@ -304,11 +309,13 @@ namespace WebTuyenSinh_Application.Repository
                 var Info = await _context.InforMationProflies.ToListAsync();
                 var InfoProFile = (from p in Proifile
                                    join i in Info on p.id equals i.idProfile
+                                   where p.idAdmisstion==id
                                    select new
                                    {
                                        i.id,
                                        i.idBlock,
                                        i.idMajor,
+                                       p.idAdmisstion
                                    }).ToList();
                 var Major_Blocl = await _context.Addmisstion_Major_Block.ToListAsync();
                 var Major = await _context.Majors.ToListAsync();
@@ -318,7 +325,7 @@ namespace WebTuyenSinh_Application.Repository
                                                    id=m.id,
                                                    CloseTime=m.CloseTime,
                                                    OpenTime=m.CloseTime,
-                                                   Count= InfoProFile.Where(x=>x.idMajor.Trim().Equals(m.idMajor.Trim())).ToList().Count,
+                                                   Count= InfoProFile.Where(x=>x.idMajor.Trim().Equals(m.idMajor.Trim())&& x.idAdmisstion==m.idAdmisstion).ToList().Count,
                                                    Addmisstion_Major_Block= Major_Blocl.Where(x=>x.idAdmisstion==m.id).ToList(),
                                                    idMajor=m.idMajor,
                                                    Quantity=m.Quantity,
@@ -334,7 +341,7 @@ namespace WebTuyenSinh_Application.Repository
             }
             catch (Exception E)
             {
-                return new ApiResult() { Success = true, Message = "Lỗi server " + E.Message, Data = null };
+                return new ApiResult() { Success = false, Message = "Lỗi server " + E.Message, Data = null };
             }
         }
 
@@ -487,7 +494,7 @@ namespace WebTuyenSinh_Application.Repository
                 admisstion.OpenTime = updateStatus.OpenTime;
                 admisstion.CloseTime = updateStatus.CloseTime;
                 await _context.SaveChangesAsync();
-                return new ApiResult() { Success = false, Message = "Thành Công" , Data = admisstion };
+                return new ApiResult() { Success = true, Message = "Thành Công" , Data = admisstion };
             }
             catch (Exception e) {
                 return new ApiResult() { Success = false, Message = "Lỗi Server "+e.Message, Data = null };
@@ -530,7 +537,7 @@ namespace WebTuyenSinh_Application.Repository
             }
             try
             {
-                //  Admisstion admisstion1 = await _context.Admisstions.FindAsync(admisstion.idAdmisstion);
+            
                 var profile = _context.ProfileStudents.Where(x => x.idAdmisstion == admisstion.idAdmisstion).ToList();
                 var infor = _context.InforMationProflies.Where(x=>x.idMajor==admisstion.idMajor).ToList();
                 List<Addmisstion_Major_Block> Blocks = _context.Addmisstion_Major_Block.Where(x => x.idAdmisstion == admisstion.id).ToList();
@@ -608,9 +615,9 @@ namespace WebTuyenSinh_Application.Repository
 
                
             }
-            catch { }
-                return new ApiResult() { Success = true, Message = "Thành công", Data = null };
-            }
+            catch {   }
+            return new ApiResult() { Success = true, Message = "Thành công", Data = null };
+        }
 
         public async Task<ApiResult> UpdateStatusProfile(long? id, string comment, DateTime? date, int? status)
         {
@@ -641,7 +648,7 @@ namespace WebTuyenSinh_Application.Repository
            
             }
             catch { }
-            return new ApiResult() { Success = true, Message = mess, Data = null };
+            return new ApiResult() { Success = true, Message = "Cập nhật thành công", Data = null };
         }
 
         public async Task<ApiResult> ListAll(long? id)
@@ -657,7 +664,6 @@ namespace WebTuyenSinh_Application.Repository
             }
             try
             {
-                //  Admisstion admisstion1 = await _context.Admisstions.FindAsync(admisstion.idAdmisstion);
                 var profile = _context.ProfileStudents.Where(x => x.idAdmisstion == id).ToList();
              
                 var listinfor = (from s in profile
@@ -726,11 +732,24 @@ namespace WebTuyenSinh_Application.Repository
                                  idDistrict = g.Key.idDistrict.Trim()+"/" + g.Key.idConscious.Trim(),
                                  idConscious= g.Key.idConscious.Trim()
                              });
-          
+            var block = _context.Addmisstion_Major_Block.Select(X => new { X.id, X.idBlock, X.idAdmisstion }).ToList();
+            var Majors = _context.Majors.Where(x => x.delete != true).Select(X => new { X.id, X.Name }).ToList();
+            var Admisstion_Major = await _context.Admisstion_Major.Where(x => x.idAdmisstion == student.idAdmisstion).ToListAsync();
+            var Block = (from c in Admisstion_Major
+                         join b in block on c.id equals b.idAdmisstion
+                         join m in Majors on c.idMajor equals m.id
+                         group m by new { b.idBlock } into g
+                         select new
+                         {
+                             id = g.Key.idBlock,
+                             Majors = g
+                         }).ToList();
+
             ProfileView view = new ProfileView();
             view.Conscious = Conscious.ToList();
             view.District = District.ToList();
             view.SChool = Shool1.ToList();
+            view.Block = Block;
             view.Data = student;
 
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = view };
@@ -774,18 +793,37 @@ namespace WebTuyenSinh_Application.Repository
                               idSchool = c.idShool,
 
                           });
+            var block = _context.Addmisstion_Major_Block.Select(X => new { X.id, X.idBlock, X.idAdmisstion }).ToList();
+            var Majors = _context.Majors.Where(x => x.delete != true).Select(X => new { X.id, X.Name }).ToList();
+            var Admisstion_Major = await _context.Admisstion_Major.Where(x => x.idAdmisstion == id).ToListAsync();
+            var Block = (from c in Admisstion_Major
+                         join b in block on c.id equals b.idAdmisstion
+                         join m in Majors on c.idMajor equals m.id
+                         group m by new { b.idBlock } into g
+                         select new
+                         {
+                             id = g.Key.idBlock,
+                             Majors = g
+                         }).ToList();
             ProfileView view = new ProfileView();
             view.Conscious = Conscious.ToList();
             view.District = District.ToList();
             view.SChool = Shool1.ToList();
+            view.Block = Block;
             view.Data = student;
 
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = view };
         }
 
-        public async Task<ApiResult> CreateProfile(ProfileStudent profile,List<string> files)
+        public async Task<ApiResult> CreateProfile(ProfileStudent profile,List<FileProfileView> files)
         {
             ProfileStudent profileStudent = new ProfileStudent();
+
+            Admisstion admisstion = _context.Admisstions.Where(x => x.id == profile.idAdmisstion).FirstOrDefault();
+            if (admisstion == null)
+            {
+                return new ApiResult() { Success = false, Message = "Không Tìm Thấy Đợt Tuyển Sinh", Data = profileStudent };
+            }
 
             try {
             List<InforMationProflie> inforMations = new List<InforMationProflie>();
@@ -796,33 +834,30 @@ namespace WebTuyenSinh_Application.Repository
                     inforMations.Add(new InforMationProflie() { 
                     idBlock=item.idBlock,
                     idMajor=item.idMajor,
-                        subject1 = item.subject1,
-                        subject2 = item.subject2,
-                        subject3 = item.subject3,
-                        subject4 = item.subject4,
-                        subject5 = item.subject5,
-                        subject6 = item.subject6,
-                        subject7 = item.subject7,
-                        subject8 = item.subject8,
-                        subject9 = item.subject9,
-                        STT=item.STT,
-                    });;
+                        subject1 = (item.subject1!=null? Math.Round(item.subject1.Value, 2) : 0) ,
+                        subject2 = (item.subject2 != null ? Math.Round(item.subject2.Value, 2) : 0),
+                        subject3 = (item.subject3 != null ? Math.Round(item.subject3.Value, 2) : 0),
+                        subject4 = (item.subject4 != null ? Math.Round(item.subject4.Value, 2) : 0),
+                        subject5 = (item.subject5 != null ? Math.Round(item.subject5.Value, 2) : 0),
+                        subject6 = (item.subject6 != null ? Math.Round(item.subject6.Value, 2) : 0),
+                        subject7 = (item.subject7 != null ? Math.Round(item.subject7.Value, 2) : 0),
+                        subject8 = (item.subject8 != null ? Math.Round(item.subject8.Value, 2) : 0),
+                        subject9 = (item.subject9 != null ? Math.Round(item.subject9.Value, 2) : 0),
+                        STT =item.STT,
+                    });
                 }
-
             }
+            
             if (profile.id > 0)
             {
                 profileStudent = await _context.ProfileStudents.FindAsync(profile.id);
                 profileStudent.Updatedate = DateTime.Now;
                 var InforMationProflies = _context.InforMationProflies.Where(x => x.idProfile == profile.id);
-                if (profile.CreateDate.Value.AddHours(1) < DateTime.Now || profile.Statust==2)
-                {
                     if (profile.Statust == 2)
                     {
-                        profile.CloseTime = DateTime.Now;
+                        profileStudent.CloseTime = DateTime.Now;
                     }
                     profile.Statust = 3;
-                }
                 inforMations = inforMations.OrderBy(X => X.STT).ToList();
                 if (InforMationProflies != null)
                 {
@@ -830,12 +865,12 @@ namespace WebTuyenSinh_Application.Repository
                    await _context.SaveChangesAsync();
                    
                 }
-            }
+                    profile.InforMationProflies = inforMations.OrderBy(x => x.STT).ToList();
+                }
             if (profile.id == 0)
             {
                 profile.CreateDate = DateTime.Now;
                 profile.Statust = 0;
-                var admisstion = _context.Admisstions.FindAsync(profile.idAdmisstion);
                 
             }
             profileStudent.idAccount = profile.idAccount;
@@ -857,7 +892,6 @@ namespace WebTuyenSinh_Application.Repository
             profileStudent.imgavata = profile.imgavata;
             profileStudent.Sex = profile.Sex;
             profileStudent.idAccount = profile.idAccount;
-            profileStudent.Type = profile.Type;
             profileStudent.Shoo1 = profile.Shoo1;
             profileStudent.Shoo2 = profile.Shoo2;
             profileStudent.Shoo3 = profile.Shoo3;
@@ -865,7 +899,11 @@ namespace WebTuyenSinh_Application.Repository
             profileStudent.CreateDate = profile.CreateDate;
             profileStudent.Priority_object = profile.Priority_object;
             profileStudent.Statust = profile.Statust;
-            profileStudent.url =  _storageService.CreatePdf(profile);
+            profileStudent.Mark = profile?.Mark;
+            profileStudent.Identification = profile?.Identification;
+           profileStudent.Type = admisstion.Type;
+            profileStudent.IdBlock = profile.IdBlock;
+            profileStudent.url= "/Admisstion/" + profile.idAdmisstion + "/" + profile.CMND.Trim() + "/" + profile.CMND.Trim()+"_" +profile.Name.Trim() + "_" + profile.idAdmisstion + ".pdf";  
             if ( profileStudent.id < 1)
             {
                await _context.ProfileStudents.AddAsync(profileStudent);
@@ -879,22 +917,46 @@ namespace WebTuyenSinh_Application.Repository
                         _context.FileProfiles.RemoveRange(fileProfiles);
                         await _context.SaveChangesAsync();
                     }
+                    var path1 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Admisstion/"+admisstion.id,profile.CMND.Trim());
+                    if (Directory.Exists(path1))
+                    {
+                        string[] files1 = Directory.GetFiles(path1);
+                        foreach (string file in files1)
+                        {
+                            File.SetAttributes(file, FileAttributes.Normal);
+                            File.Delete(file);
+                        }
+
+                        Directory.Delete(path1);
+                    }
+                    Directory.CreateDirectory(path1);
+                    foreach (var item in files)
+                    {
+
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/" + item.Url.ToString());
+                        FileInfo fi = new FileInfo(path);
+                        path1 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Admisstion/" + admisstion.id.ToString() + "/" + profile.CMND.Trim(), fi.Name);
+                       
+                        if (!Directory.Exists(path1))
+                        {
+                            File.Copy(path, path1, true);
+                        }
+                        else
+                        {
+                            File.SetAttributes(path1, FileAttributes.Normal);
+                            File.Delete(path1);
+                        }       
+                        FileProfile fileProfile = new FileProfile();
+                        fileProfile.idProfile = profileStudent.id;
+                        fileProfile.url = "Admisstion/" + admisstion.id.ToString() + "/" + profile.CMND.Trim() + "/" + fi.Name;
+                        fileProfile.Name = item.Name;
+                        
+                        await _context.FileProfiles.AddAsync(fileProfile);
+                        await _context.SaveChangesAsync();
+                    }
                 }
-            foreach (var item in files)
-            {
-             
-                FileProfile fileProfile = new FileProfile();
-                fileProfile.idProfile = profileStudent.id;
-                fileProfile.url = item;
-              //  fileProfile.Name = profile.Name;
-              await  _context.FileProfiles.AddAsync(fileProfile);
-               await _context.SaveChangesAsync();
-
-            }
-
-           
-
-            if (inforMations.Count > 0)
+                profileStudent.url=(admisstion?.Type == 1 ? _storageService.CreateTypeTwoPdf(profile) : _storageService.CreatePdf(profile));
+                if (inforMations.Count > 0)
             {
                 for (int i = 0; i < inforMations.Count; i++)
                 {
@@ -906,15 +968,15 @@ namespace WebTuyenSinh_Application.Repository
                     try {
                         Admisstion_Major major =  await _context.Admisstion_Major.SingleOrDefaultAsync(x => x.Major.delete != true && x.idMajor.Equals(item.idMajor) && x.idAdmisstion == profileStudent.idAdmisstion);
                      major.Count=(major.Count!=null?major.Count++:1);
-                    } catch { }
+                    } catch {  }
                 }
                 await _context.InforMationProflies.AddRangeAsync(inforMations);
               await  _context.SaveChangesAsync();
             }
             return new ApiResult() { Success = true, Message = "Thành Công", Data = profileStudent };
             }
-            catch (Exception e) { var a = e.Message; }
-            return new ApiResult() { Success = false, Message = "Thành Công", Data = profileStudent };
+            catch (Exception e) { return new ApiResult() { Success = false, Message = "Thật bại" + e.Message, Data = profileStudent }; }
+          
         }
 
         public async Task<ApiResult> GetAdmisstionInfo(long? id)
@@ -962,6 +1024,7 @@ namespace WebTuyenSinh_Application.Repository
                 return new ApiResult() { Success = false, Message = "ID không đc bỏ trống ", Data = null };
             }
     
+            
             var School = _context.Schools.Select(x => x).ToList();
             var Shool1 = (from c in School
                           select new SChool
@@ -988,12 +1051,27 @@ namespace WebTuyenSinh_Application.Repository
                                 idDistrict = g.Key.idDistrict.Trim() + "/" + g.Key.idConscious.Trim(),
                                 idConscious = g.Key.idConscious.Trim()
                             });
+            var block = _context.Addmisstion_Major_Block.Select(X => new { X.id, X.idBlock,X.idAdmisstion}).ToList();
+            var Majors = _context.Majors.Where(x => x.delete != true).Select(X => new { X.id,X.Name}).ToList();
+            var Admisstion_Major = await _context.Admisstion_Major.Where(x => x.idAdmisstion == id).ToListAsync();
+            var Block = (from c in Admisstion_Major
+                                  join b in block on c.id equals b.idAdmisstion
+                                  join m in Majors on c.idMajor equals m.id
+                                  group m by new {  b.idBlock } into g
+                                  select new
+                                  {
+                                      id = g.Key.idBlock,
+                                      Majors = g
+                                  }).ToList();
+
+
             ProfileStudent student = new ProfileStudent();
             ProfileView view = new ProfileView();
             view.Conscious = Conscious.ToList();
             view.District = District.ToList();
             view.SChool = Shool1.ToList();
             view.Data = student;
+            view.Block = Block;
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = view };
         }
 
@@ -1013,41 +1091,39 @@ namespace WebTuyenSinh_Application.Repository
             try
             {
                 var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust == 1).ToListAsync();
-                var ProfileInfor = await _context.InforMationProflies.ToListAsync();
-                var School = await _context.Schools.ToListAsync();
-                var Major = await _context.Majors.ToListAsync();
-                var Block = await _context.Blocks.ToListAsync();
-
-                var result = (from p in Profile
-                              join I in ProfileInfor on p.id equals I.idProfile
+               // var ProfileInfor = await _context.InforMationProflies.ToListAsync();
+             //   var Major = await _context.Majors.ToListAsync();
+               // var Block = await _context.Blocks.ToListAsync();
+                //var result = (from p in Profile
+                //              join I in ProfileInfor on p.id equals I.idProfile
                            
-                              select new
-                              {
-                                  SBD = "GSA" + I.id,
-                                  CMND = p.CMND,
-                                  HOTEN = p.Name,
-                                  NGAYSINH = p.BirthDay.Value.ToShortDateString(),
-                                  KHUVUA = p.Areas,
-                                  DOITUONG = (p.Priority_object != null ? p.Priority_object : ""),
-                                  MANGANH = I.idMajor,
-                                  TENNGANH = Major.SingleOrDefault(x=>x.id==I.idMajor).Name,
-                                  MATOHOP=I.idBlock,
-                                  TENTOHOP= Block.SingleOrDefault(x => x.id == I.idBlock).Desscription,
-                                  L10_Mon1=I.subject1,
-                                  L10_Mon2 = I.subject2,
-                                  L10_Mon3 = I.subject3,
+                //              select new
+                //              {
+                //                  SBD = "GSA" + I.id,
+                //                  CMND = p.CMND,
+                //                  HOTEN = p.Name,
+                //                  NGAYSINH = p.BirthDay.Value.ToShortDateString(),
+                //                  KHUVUA = p.Areas,
+                //                  DOITUONG = (p.Priority_object != null ? p.Priority_object : ""),
+                //                  MANGANH = I.idMajor,
+                //                  TENNGANH = Major.SingleOrDefault(x=>x.id==I.idMajor).Name,
+                //                  MATOHOP=I.idBlock,
+                //                  TENTOHOP= Block.SingleOrDefault(x => x.id == I.idBlock).Desscription,
+                //                  L10_Mon1=I.subject1,
+                //                  L10_Mon2 = I.subject2,
+                //                  L10_Mon3 = I.subject3,
                               
-                                  L11_Mon1 = I.subject4,
-                                  L11_Mon2 = I.subject5,
-                                  L11_Mon3 = I.subject6,
-                                  L12_Mon1 = I.subject7,
-                                  L12_Mon2 = I.subject8,
-                                  L12_Mon3 = I.subject9,
-                                  SUM = ((double)((I.subject1+I.subject4+I.subject7)/3)+ ((I.subject2 + I.subject5 + I.subject8) / 3)+ ((I.subject3 + I.subject6 + I.subject9) / 3)),
-                                  STTNV=I.STT
+                //                  L11_Mon1 = I.subject4,
+                //                  L11_Mon2 = I.subject5,
+                //                  L11_Mon3 = I.subject6,
+                //                  L12_Mon1 = I.subject7,
+                //                  L12_Mon2 = I.subject8,
+                //                  L12_Mon3 = I.subject9,
+                //                  SUM = ((double)((I.subject1+I.subject4+I.subject7)/3)+ ((I.subject2 + I.subject5 + I.subject8) / 3)+ ((I.subject3 + I.subject6 + I.subject9) / 3)),
+                //                  STTNV=I.STT
 
 
-                              });
+                //              });
 
 
 
@@ -1062,14 +1138,14 @@ namespace WebTuyenSinh_Application.Repository
 
         public async Task<ApiResult> CheckProFile(long id ,string uid)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return new ApiResult() { Success = false, Message = "ID không đc bỏ trống ", Data = null };
             }
             var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.idAccount.Trim().Equals(uid.Trim())).ToListAsync();
             if(Profile.Count > 0)
             {
-                return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = Profile };
+                return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = Profile.FirstOrDefault().id };
             }
 
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data =null };
@@ -1084,7 +1160,7 @@ namespace WebTuyenSinh_Application.Repository
             }
           await  CheckProFile();
             var profile = _context.ProfileStudents.Where(x => x.idAccount.Trim().Equals(uid.Trim())).ToList();
-
+           
 
             var listinfor = (from s in profile
                              orderby s.CreateDate descending
@@ -1101,11 +1177,28 @@ namespace WebTuyenSinh_Application.Repository
                                  CMND = s.CMND,
                                  Statust =s.Statust,
                                  Quantity = s.Quantity,
-                                 CloseTime = (s.CloseTime!=null?s.CloseTime : DateTime.Now.AddHours(-5))
+                                 CloseTime = (s.CloseTime)
 
                              }).ToList();
 
             return new ApiResult() { Success = true, Message = "Danh Sách Hồ Sơ", Data = listinfor };
+        }
+
+        public async Task<ApiResult> DeleteBlock(string id)
+        {
+            var Block = await _context.Blocks.FindAsync(id);
+            if (Block == null)
+            {
+                return new ApiResult() { Message = "Không tìm thấy",Data=null,Success=false};
+            }
+            Block.Delete = true;
+          await  _context.SaveChangesAsync();
+            return new ApiResult() { Message = "Xóa thành công", Data = null, Success = true };
+        }
+
+        public Task<ApiResult> DowloadFile(long? id, int type)
+        {
+            throw new NotImplementedException();
         }
     }
 }

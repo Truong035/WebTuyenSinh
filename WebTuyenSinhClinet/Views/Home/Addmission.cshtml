@@ -23,6 +23,9 @@
                                             Nôi Dung
                                         </th>
                                         <th>
+                                            Hình thức tuyển sinh
+                                        </th>
+                                        <th>
                                             Thời Gian Bắt Đầu
                                         </th>
                                         <th>
@@ -43,65 +46,79 @@
 
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
+                                    <tr>
 
-                                            <td>
-                                                @item.Name
-                                            </td>
-                                            <td>
-                                                @(item.OpenTime!=null? item.OpenTime.ToString(): "Chưa cập nhật")
-                                            </td>
-                                            <td>
-                                                @(item.CloseTime!=null? item.CloseTime.ToString(): "Chưa cập nhật")
-                                            </td>
-                                            <td>
-                                                @item.Description
+                                        <td>
+                                            @item.Name
+                                        </td>
+                                        <th>
+                                            @(item?.Type==1?"Đánh giá năng lực":"Đánh giá học bạ")
+                                        </th>
+                                        <td>
+                                            @(item.OpenTime!=null? item.OpenTime.ToString(): "Chưa cập nhật")
+                                        </td>
+                                        <td>
+                                            @(item.CloseTime!=null? item.CloseTime.ToString(): "Chưa cập nhật")
+                                        </td>
+                                        <td>
+                                            @item.Description
 
-                                            </td>
-                                            <td>
-                                                @if (item.Statust == 0)
-                                                {
-                                                    <label class="badge bg-info">
-                                                        Chưa diễn ra
+                                        </td>
+                                        <td>
+                                            @if (item.Statust == 0)
+                                            {
+                                                <label class="badge bg-info">
+                                                    Chưa diễn ra
 
-                                                    </label>
-                                                }
-                                                @if (item.Statust == 1)
-                                                {
+                                                </label>
+                                            }
+                                            @if (item.Statust == 1)
+                                            {
 
-                                                    <label class="badge bg-success">
-                                                        Đang diễn ra
+                                                <label class="badge bg-success">
+                                                    Đang diễn ra
 
-                                                    </label>
-                                                }
-                                                @if (item.Statust == 2)
-                                                {
-                                                    <label class="badge bg-warning">
-                                                        Cập nhật hồ sơ
+                                                </label>
+                                            }
+                                            @if (item.Statust == 2)
+                                            {
+                                                <label class="badge bg-warning">
+                                                    Cập nhật hồ sơ
+                                                </label>
+                                            }
+                                            @if (item.Statust == 3)
+                                            {
+                                                <label class="badge bg-danger">
+                                                    Đã Đóng
 
-                                                    </label>
-                                                }
-                                                @if (item.Statust == 3)
-                                                {
-                                                    <label class="badge bg-danger">
-                                                        Đã Đóng
-
-                                                    </label>
-                                                }
+                                                </label>
+                                            }
 
 
-                                            </td>
-                                            <td>
+                                        </td>
+                                        <td>
+                                            @if (item.Statust == 1)
+                                            {
                                                 <div class="form-button-action">
 
                                                     <a href="/Home/Create/@item.id">
                                                         Đăng ký
                                                     </a>
-
                                                 </div>
-                                            </td>
+                                            }
+                                            @if (item.Statust == 2)
+                                            {
+                                                <div class="form-button-action">
+                                                    <a href="/Home/Create/@item.id">
+                                                        Cập nhật Hồ Sơ
+                                                    </a>
+                                                </div>
+                                            }
 
-                                        </tr>
+
+                                        </td>
+
+                                    </tr>
                                     }
                                 </tbody>
                             </table>

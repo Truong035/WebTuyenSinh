@@ -40,11 +40,11 @@
                                             <div class="col">
                                                 <input type="text" class="form-control" id="txtid" hidden value="@Model.id" required placeholder="Mời Nhập Thông Tin">
                                                 <label for="txtname" class="form-label">Nội Dung</label>
-                                                <input type="text" class="form-control" id="txtname" value="@Model.Name" required placeholder="Mời Nhập Thông Tin">
+                                                <input disabled type="text" class="form-control" id="txtname" value="@Model.Name" required placeholder="Mời Nhập Thông Tin">
                                             </div>
                                             <div class="col">
                                                 <label for="txttype" class="form-label">Loại Xét Tuyển</label>
-                                                <select class="form-control" id="txttype" required>
+                                                <select disabled class="form-control" id="txttype" required>
                                                     <option value="">Chọn Loại Xét Tuyển</option>
                                                     @if (Model.Type == 1)
                                                     {

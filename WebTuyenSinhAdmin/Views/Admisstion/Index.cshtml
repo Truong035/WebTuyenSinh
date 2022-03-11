@@ -34,6 +34,9 @@
                                                     Nôi Dung
                                                 </th>
                                                 <th>
+                                                    Hình thức tuyển sinh
+                                                </th>
+                                                <th>
                                                     Thời Gian Bắt Đầu
                                                 </th>
                                                 <th>
@@ -51,78 +54,81 @@
 
                                             @foreach (var item in Model)
                                             {
-                                                <tr>
-                                                    <td>
-                                                        @item.id
-                                                    </td>
-                                                    <td>
-                                                        @item.Name
-                                                    </td>
-                                                    <td>
-                                                        @(item.OpenTime!=null? item.OpenTime.ToString(): "Chưa cập nhật")
-                                                    </td>
-                                                    <td>
-                                                        @(item.CloseTime!=null? item.CloseTime.ToString(): "Chưa cập nhật")
-                                                    </td>
-                                                    <td>
-                                                        @if (item.Statust == 0)
-                                                        {
-                                                            <label class="badge badge-info">
-                                                                Chưa diễn ra
+                                            <tr>
+                                                <td>
+                                                    @item.id
+                                                </td>
+                                                <td>
+                                                    @item.Name
+                                                </td>
+                                                <td>
+                                                    @(item?.Type==1?"Đánh giá năng lực":"Đánh giá học bạ")
+                                                </td>
+                                                <td>
+                                                    @(item.OpenTime!=null? item.OpenTime.ToString(): "Chưa cập nhật")
+                                                </td>
+                                                <td>
+                                                    @(item.CloseTime!=null? item.CloseTime.ToString(): "Chưa cập nhật")
+                                                </td>
+                                                <td>
+                                                    @if (item.Statust == 0)
+                                                    {
+                                                        <label class="badge badge-info">
+                                                            Chưa diễn ra
 
-                                                            </label>
-                                                        }
-                                                        @if (item.Statust == 1)
-                                                        {
-                                                            <label class="badge badge-success">
-                                                                Đang diễn ra
+                                                        </label>
+                                                    }
+                                                    @if (item.Statust == 1)
+                                                    {
+                                                        <label class="badge badge-success">
+                                                            Đang diễn ra
 
-                                                            </label>
-                                                        }
-                                                        @if (item.Statust == 2)
-                                                        {
-                                                            <label class="badge badge-warning">
-                                                                Cập nhật hồ sơ
+                                                        </label>
+                                                    }
+                                                    @if (item.Statust == 2)
+                                                    {
+                                                        <label class="badge badge-warning">
+                                                            Cập nhật hồ sơ
 
-                                                            </label>
-                                                        }
+                                                        </label>
+                                                    }
+                                                    @if (item.Statust == 3)
+                                                    {
+                                                        <label class="badge badge-danger">
+                                                            Đã Đóng
+
+                                                        </label>
+                                                    }
+
+
+                                                </td>
+                                                <td>
+                                                    <div class="form-button-action">
+                                                        <a href="/Admisstion/Detail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                            <i class=" ti-eye"></i>
+                                                        </a>
                                                         @if (item.Statust == 3)
                                                         {
-                                                            <label class="badge badge-danger">
-                                                                Đã Đóng
-
-                                                            </label>
+                                                            <a href="EditResult/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                <i class="ti-pencil-alt"></i>
+                                                            </a>
                                                         }
 
 
-                                                    </td>
-                                                    <td>
-                                                        <div class="form-button-action">
-                                                            <a href="/Admisstion/Detail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                                <i class=" ti-eye"></i>
+                                                        @if (item.Statust < 3)
+                                                        {
+                                                            <a href="/Admisstion/Edit/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                <i class="ti-pencil-alt"></i>
                                                             </a>
-                                                            @if (item.Statust == 3)
-                                                            {
-                                                                <a href="EditResult/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
-                                                                    <i class="ti-pencil-alt"></i>
-                                                                </a>
-                                                            }
+                                                        }
 
+                                                        <button  name="Delete" class="btn  btn-icon-text text-danger">
+                                                            <i class="ti-close"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
 
-                                                            @if (item.Statust < 3)
-                                                            {
-                                                                <a href="/Admisstion/Edit/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
-                                                                    <i class="ti-pencil-alt"></i>
-                                                                </a>
-                                                            }
-
-                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
-                                                                <i class="ti-close"></i>
-                                                            </a>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
+                                            </tr>
                                             }
                                         </tbody>
                                     </table>
@@ -133,6 +139,67 @@
                 </div>
             </div>
         </div>
+        @section Scripts{
+            <script>
+                $(document).ready(function () {
+                    $(document).on('click', "button[name = 'Delete']", function () {
+                        let id = $(this).closest('tr').find("td:eq(0)").text().trim();
+                        let tr = $(this).closest('tr');
+                        swal({
+                            title: 'Bạn có chắn chắn xóa hay không ?',
+                            text: "Nếu bạn xóa hồ sợ của đợt tuyển sinh này sẽ bị xóa đi!",
+                            type: 'warning',
+                            buttons: {
+                                cancel: {
+                                    visible: true,
+                                    text: 'Hủy bỏ',
+                                    className: 'btn btn-danger'
+                                },
+                                confirm: {
+                                    text: 'Đồng ý',
+                                    className: 'btn btn-success'
+                                }
+                            }
+                        }).then((willDelete) => {
+                            if (willDelete) {
+                                console.log(id);
+                                $.ajax({
+                                    async: false,
+                                    url: "/Admisstion/DeleteAdmisstion/" + id,
+                                    type: 'GET',
+                                }).done(function (res) {
+                                    console.log(res)
+                                    if (res.success) {
+                                        $(tr).empty()
+                                        swal("Xóa thành công", {
+                                            icon: "success",
+                                            buttons: {
+                                                confirm: {
+                                                    className: 'btn btn-success'
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        swal("Thất bại!", res.message, {
+                                            icon: "error",
+                                            buttons: {
+                                                confirm: {
+                                                    className: 'btn btn-success'
+                                                }
+                                            },
+                                        });
+                                    }
+                                });
+                          
+                            }
+                        });
+
+                    });
+                })
+                </script>
+                }
+   
 
     </div>
 </div>

@@ -14,7 +14,7 @@ namespace WebTuyenSinh.Data.Entityes
         [StringLength(500)]
         public string url { get; set; }
 
-        [StringLength(100)]
+        [StringLength(200)]
         public string Name { get; set; }
 
         public long? idProfile { get; set; }

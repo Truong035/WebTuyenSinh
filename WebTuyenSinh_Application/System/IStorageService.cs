@@ -16,6 +16,7 @@ namespace WebTuyenSinh_Application.System
          string CreatePdf(ProfileStudent profile);
         Task DeleteFileAsync(string fileName);
         Task<ApiResult> ExportExcell(long? id);
-
+        Task<ApiResult> ExportExcellOne(long? id);
+        string CreateTypeTwoPdf(ProfileStudent profile);
     }
 }

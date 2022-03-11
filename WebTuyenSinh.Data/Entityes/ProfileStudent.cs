@@ -72,7 +72,13 @@ namespace WebTuyenSinh.Data.Entityes
         public string Areas { get; set; }
         [StringLength(50)]
         public string Nation { get; set; }
-        
+
+        [StringLength(20)]
+        public string Identification { get; set; }
+
+        public double? Mark { get; set; }
+        [StringLength(10)]
+        public string IdBlock { get; set; }
         [StringLength(100)]
         public string Priority_object { get; set; }
         public long? Shoo1 { get; set; }

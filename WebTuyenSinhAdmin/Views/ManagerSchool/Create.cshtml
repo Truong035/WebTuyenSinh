@@ -1,0 +1,281 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="m-3">
+            <div class="d-flex align-items-center">
+                <h4 class="card-title">Danh Sách Các Trường</h4>
+                <div class="ml-auto">
+
+                    <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
+                        <i class="ti-export"></i>
+                        Tải File
+                    </button>
+                    <a class="btn btn-primary btn-round ml-auto" href="~/dowload/BieuMauTruong.xls" download>
+                        <i class="ti-download"></i>
+                        Dowload File
+                    </a>
+                    <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                </div>
+            </div>
+        </div>
+        <form id="formshool">
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table id="" class=" text-center display expandable-table" style="width:2500px">
+                        <thead>
+                            <tr>
+                                <th>Mã Tỉnh/TP</th>
+                                <th>Tên Tỉnh/TP </th>
+                                <th>Mã Quận/Huyện</th>
+                                <th>Tên Quận/Huyện</th>
+                                <th>Mã Trường</th>
+                                <th>Tên Trường</th>
+                                <th>Địa Chỉ</th>
+                                <th>Khu Vực</th>
+                                <th>Trường DTNT</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbbody">
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+            </div>
+
+            <div class="col-12 text-center">
+                <button type="submit" asp-controller="ManagerSchool" asp-action="Create" class="col-1 btn btn-primary">
+                    Lưu
+                </button>
+            </div>
+        </form>
+      
+
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+    let arr = []
+    var data = null;
+    let cout = 10000;
+    let majorsnew = [];
+    let blocknew = [];
+    function LoadData(i) {
+        let tr =`    <tr>
+                            <td style="width:150px">
+                                <input class="idConscious form-control" required  />
+                            </td>
+                            <td style="width:400px">
+                                <input required class="NameConscious form-control" />
+                            </td>
+                            <td style="width:150px">
+                                <input required class=" idDistrict form-control" />
+                            </td>
+                            <td style="width:400px">
+                                <input required class=" NameDistrict form-control" />
+                            </td>
+                            <td style="width:150px">
+                                <input required class=" idSchool  form-control" />
+                            </td>
+                            <td style="width:400px">
+                                <input required class=" NameSchool form-control" />
+                            </td>
+                            <td style="width:400px">
+                                <input required class="adress form-control" />
+                            </td>
+                            <td style="width:150px">
+                                <select required  class=" Area form-control">
+                                     <option value="KV1"> KV1</option>
+                                <option value="KV2"> KV2</option>
+                                <option value="KV3"> KV3</option>
+                                <option value="KV4"> 2NT</option>
+
+                                </select>
+                            </td>
+                            <td>
+                                <input required class=" SchoolDTNT form-control" />
+                            </td>
+                       <td>
+                                                    <div class="form-button-action">
+
+                                                        <button hef="/DeleteShool"   name="Delete" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <i class="ti-close"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+
+                        </tr>`
+
+        $("#tbbody").append(tr)
+
+        tr = ` <tr>
+                            <td>
+                                <button type="button" id="${i}" name="add" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                    <i class="ti-plus"></i>
+                                </button>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>`
+
+        $("#tbbody").append(tr)
+    }
+        $(document).ready(function () {
+            $("#tbbody").empty();
+        LoadData(cout);
+        $(document).on('click', "button[name = 'Delete']", function () {
+            $(this).closest('tr').remove();
+            if ($('.idConscious').length == 0) {
+                $("#tbbody").empty()
+                cout = 1000;
+                LoadData(cout);
+                cout++;
+            }
+
+        })
+
+        $("#btnAdd").click(function () {
+        
+
+        });
+        $('#formshool').on('submit', function (e) {
+            e.preventDefault(); // Now nothing will happen
+            let check = true;
+            arr = [];
+            arr.push({
+                idConscious: "",
+                NameConscious: "",
+                idDistrict: "",
+                NameDistrict: "",
+                NameShool: "",
+                idShool: "",
+                Adrees: "",
+                Area: "",
+            })
+            for (var i = 0; i < $('.idConscious').length; i++) {
+                arr.push({
+                    idConscious: $($('.idConscious')[i]).val(),
+                    NameConscious: $($('.NameConscious ')[i]).val(),
+                    idDistrict: $($('.idDistrict')[i]).val(),
+                    NameDistrict: $($('.NameDistrict')[i]).val(),
+                    idShool: $($('.idSchool')[i]).val(),
+                    NameShool: $($('.NameSchool ')[i]).val(),
+                    Adrees: ($($('.adress')[i]).val() ? $($('.idConscious')[i]).val() : ""),
+                    Area: $($('.Area')[i]).val(),
+                })
+                if (arr.length > 0) {
+                    $.ajax({
+                        url: "/ManagerSchool/Import",
+                        type: 'POST',
+                        data: { ViewSchool: JSON.stringify(arr) },
+                        success: function (data) {
+                            //...
+                            window.location = "/ManagerSchool/ViewExcel"
+
+                        }
+                    });
+                }
+
+            }
+
+           
+
+        });
+
+        $(document).on('click', "button[name = 'add']", function () {
+
+            $(this).closest('tr').remove();
+
+            $(this).hide();
+            LoadData(cout)
+            cout++;
+         //   }
+
+        });
+
+
+    })
+
+    </script>
+    <script>
+        $("#tbbody").hide();
+        function readURL(event) {
+
+            var file = event.files[0];
+            var reader = new FileReader();
+            var excelData = [];
+            var maphong1 = event.title;
+
+            reader.onload = function (event) {
+                var data = event.target.result;
+                var workbook = XLSX.read(data, {
+                    type: 'binary'
+                }); $("#tbbody").empty();
+                workbook.SheetNames.forEach(function (sheetName) {
+                    // Here is your object
+                    var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+                    var arr = [];
+                    console.log(XL_row_object);
+       
+                    for (var i = 1; i < XL_row_object.length; i++) {
+                        arr.push({
+                            idConscious: XL_row_object[i]["__EMPTY"],
+                            NameConscious: XL_row_object[i]["__EMPTY_1"],
+                            idDistrict: XL_row_object[i]["__EMPTY_2"],
+                            NameDistrict: XL_row_object[i]["__EMPTY_3"],
+                            NameShool: XL_row_object[i]["__EMPTY_5"],
+                            idShool: XL_row_object[i]["__EMPTY_4"],
+                            Adrees: (XL_row_object[i]["__EMPTY_6"] ? XL_row_object[i]["__EMPTY_6"] : ""),
+                            Area: XL_row_object[i]["__EMPTY_7"],
+                        })
+
+
+                    }
+                    if (arr.length > 2) {
+                        $.ajax({
+                            url: "/ManagerSchool/Import",
+                            type: 'POST',
+                            data: { ViewSchool: JSON.stringify(arr) },
+                            success: function (data) {
+                                //...
+                                window.location = "/ManagerSchool/ViewExcel"
+
+                            }
+                        });
+                    }
+                })
+            }; reader.onerror = function (ex) {
+                console.log(ex);
+            };
+            reader.readAsBinaryString(file);
+
+        }
+
+        $(document).ready(function () {
+            $("#tbbody").show();
+        })
+
+
+                            // Add Row
+
+
+
+    </script>
+}

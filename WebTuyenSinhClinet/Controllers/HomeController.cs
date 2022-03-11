@@ -37,9 +37,7 @@ namespace WebTuyenSinhClinet.Controllers
                     return View("Error");
                 }
                 ApiResult result = await _service.GetByProfile(id);
-                //await//ApiResult result = await _service.ListAll(id);
                 ProfileView view = (ProfileView)result.Data;
-                //ViewBag.Majo = result.Message;
                 result = await _service.GetByID(view.Data.idAdmisstion);
                 Admisstion Admisstion = (Admisstion)result.Data;
                 ViewBag.data = Admisstion;
@@ -55,25 +53,18 @@ namespace WebTuyenSinhClinet.Controllers
             ViewBag.url = id;
             return View();
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-          
             return View();
         }
 
         public async Task<IActionResult> Addmission()
         {
-            ApiResult result = await _service.GetAll(2);
+            ApiResult result = await _service.GetAll(4);
             List<Admisstion> Admisstion = (List<Admisstion>)result.Data;
             return View(Admisstion);
         }
-        public async Task<IActionResult> Home()
-        {
-            ApiResult result = await _service.GetAll(2);
-            List<Admisstion> Admisstion = (List<Admisstion>)result.Data;
-            return View(Admisstion);
-        }
-        
+       
 
         public async Task<IActionResult> EditProfile(long? id)
         {
@@ -85,21 +76,27 @@ namespace WebTuyenSinhClinet.Controllers
             try
             {   
                 ApiResult result = await _service.GetByProfile(id);
-                //await//ApiResult result = await _service.ListAll(id);
                 ProfileView view = (ProfileView)result.Data;
                 result = await _service.GetByID(view.Data.idAdmisstion);
                 Admisstion Admisstion = (Admisstion)result.Data;
                 ViewBag.data = Admisstion;
-                if (view.Data.Statust == 0)
+                if (view.Data.Statust == 2 || ((view.Data.CloseTime != null) && (view.Data.CloseTime.Value > DateTime.Now)))
                 {
-                    return View("UpdateProfile", view);
+                    if (Admisstion.Type == 1)
+                    {
+                        return View("FormCapacityEdit", view);
+                    }
+                    else
+                    {
+                        return View(view);
+                    }
                 }
-                if (view.Data.Statust != 2)
+
+                if (Admisstion.Type == 1)
                 {
-                    return View("ProfileDetail", view);
+                    return View("FormCapacityDetail", view);
                 }
-                //ViewBag.Majo = result.Message; 
-                return View(view);
+                return View("ProfileDetail", view);
             }
             catch (Exception e)
             {
@@ -118,7 +115,7 @@ namespace WebTuyenSinhClinet.Controllers
             return Ok(result);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateProfile(ProfileStudent id, List<string> files)
+        public async Task<IActionResult> CreateProfile(ProfileStudent id, List<FileProfileView> files)
         {
 
             ApiResult result = await _service.CreateProfile(id, files);
@@ -146,8 +143,10 @@ namespace WebTuyenSinhClinet.Controllers
             }
             catch
             {
+                return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
+
         }
             public async Task<IActionResult> Create(long id)
         {
@@ -158,18 +157,31 @@ namespace WebTuyenSinhClinet.Controllers
             }
             try {
                 ApiResult result = await _service.CheckProFile(id, uid);
-            
-                if (result.Success)
-                {
-                   
-                    return View();
-                }
-            } catch
-            {
-
+                //if (result.Success)
+                //{
+                     result = await _service.GetByID(id);
+                    Admisstion admisstion = (Admisstion)result.Data;
+                    if (admisstion.Statust == 1) {
+                        if (admisstion.Type == 1)
+                        {
+                            return View("FormCapacity");
+                        }
+                        return View();
+                    }
+                    else
+                    {
+                        return View("expireAdmisstion");
+                    }                
+               // }
+                ViewBag.Url = "/Home/EditProfile/"+(long)result.Data;
             }
-            return RedirectToAction("Index");
-    }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+       
+            return View("Notification");
+        }
         [HttpGet()]
         public async Task<IActionResult> GetAdmisstionInfo(long? id)
         {

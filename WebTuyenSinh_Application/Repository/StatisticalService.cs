@@ -18,33 +18,48 @@ namespace WebTuyenSinh_Application.Repository
             _context = context;
         }
 
-        public  async Task<Statistical> Statistical(DateTime? fromDate, DateTime? toDate, long? Admisstion, string idMajor)
+        public  async Task<Statistical> Statistical(DateTime? fromDate, DateTime? toDate, int? Type, string idMajor)
         {
-            var admisstion = await _context.Admisstions.Where(x => x.CreateDate != null).ToListAsync();
+            var admisstion = await _context.Admisstions.Where(x => x.CreateDate != null && x.Delete != true).ToListAsync();
+
+            if (fromDate !=null && toDate != null) admisstion = admisstion.Where(x => x.CreateDate.Value.Date >= fromDate.Value.Date && x.CreateDate.Value.Date <= toDate.Value.Date).ToList();
+
+            if (Type != null) admisstion= admisstion.Where(x => x.Type==Type).ToList();
             var admisstionInfo = await _context.Admisstion_Major.ToListAsync();
             var ProfileInfor = await _context.InforMationProflies.ToListAsync();
-           var Major = await _context.Majors.ToListAsync();
+            if (idMajor != null && idMajor.Length > 0) {
+                admisstionInfo = admisstionInfo.Where(x => x.idMajor.Equals(idMajor)).ToList();
+                ProfileInfor = ProfileInfor.Where(x => x.idMajor.Trim().Equals(idMajor.Trim())).ToList();
+                    };
+
+           
+            var Profile = await _context.ProfileStudents.ToListAsync();
+            var Major = await _context.Majors.ToListAsync();
             var data = (from ad in admisstion
-                        join adi in admisstionInfo on ad.id equals adi.idAdmisstion
-                        join PI in ProfileInfor on adi.idMajor.Trim() equals PI.idMajor
+                        join p in Profile on ad.id equals p.idAdmisstion 
+                        join PI in ProfileInfor on p.id equals PI.idProfile
                         select new
                         {
+                            ad.id,
                             ad.Name,
                             ad.CreateDate
                         }).ToList();
             Statistical statistical = new Statistical();
 
             var gr = (from c in data
-                      group data by new { c.Name } into g
+                      group data by new {c.id, c.Name } into g
                       select new
                       {
                           g.Key.Name,
-                          value = g.Count()
+                          value = g.Count(),
+                          Bg = new MajorStatistical().Bg,
+                          Percent = Math.Round(((double)g.Count() / (double)data.Count) * (double)100, 1),
                       }).ToList();
             statistical.StatisticalAdmisstion = new StatisticalAdmisstion()
             {
                 Values = gr.Select(x => x.value).ToList(),
                 Name = gr.Select(x => x.Name).ToList(),
+                Data= gr
             };
           var   grYear = (from c in data
                       group data by new { c.Name, c.CreateDate.Value.Year } into g
@@ -61,21 +76,23 @@ namespace WebTuyenSinh_Application.Repository
             };
 
              var dataMajor = (from ad in admisstion
-                        join adi in admisstionInfo on ad.id equals adi.idAdmisstion
-                        join M in Major on adi.idMajor equals M.id
-                        join PI in ProfileInfor on M.id.Trim() equals PI.idMajor  
-                        select new
+                              join p in Profile on ad.id equals p.idAdmisstion
+                              join PI in ProfileInfor on p.id equals PI.idProfile
+                              join M in Major on PI.idMajor.Trim() equals M.id.Trim()
+                              select new
                         {
-                            adi.idMajor,
+                             idMajor=  M.id,
                             M.Name,
                             PI.STT,
                         }).ToList();
+
             var grMajor = (from c in dataMajor
                            group data by new { c.Name, idMajor } into g
                           select new
                           {
                               name = ""+ g.Key.Name,
-
+                              Bg= new MajorStatistical().Bg,
+                              Percent= Math.Round(((double)g.Count() / (double)dataMajor.Count) * (double)100, 1),
                               value = g.Count()
                           }).ToList();
             var grWish = (from c in dataMajor
@@ -106,6 +123,7 @@ namespace WebTuyenSinh_Application.Repository
             {
                 Values = grMajor.Select(x => x.value).ToList(),
                 Name = grMajor.Select(x => x.name).ToList(),
+                Data = grMajor
             };
             var grDate = (from c in data
                       group data by new {c.CreateDate} into g
@@ -147,17 +165,27 @@ namespace WebTuyenSinh_Application.Repository
             return statistical;
         }
 
-        public async Task<StatisticalHome> StatisticalHome(int year)
+        public async Task<StatisticalHome> StatisticalHome(long? idAdmisstion)
         {
-            var admisstion = await _context.Admisstions.Where(x=>x.CreateDate!=null).ToListAsync();
+            var admisstion = await _context.Admisstions.Where(x=>x.CreateDate!=null &&x.Delete!=true).ToListAsync();
             var admisstionInfo = await _context.Admisstion_Major.ToListAsync();
             var ProfileInfor = await _context.InforMationProflies.ToListAsync();
+            if (idAdmisstion == null)
+            {
+                idAdmisstion = (admisstion.FirstOrDefault() != null ? admisstion.FirstOrDefault().id : 0);
+            }
+            if (idAdmisstion == null || idAdmisstion == 0)
+            {
+                return new StatisticalHome();
+
+            }
+
             var Major = await _context.Majors.ToListAsync();
-            var data = (from ad in admisstion
-                        join adi in admisstionInfo on ad.id equals adi.idAdmisstion
+            var data = (
+                        from adi in admisstionInfo 
                         join M in Major on adi.idMajor equals M.id
                         join PI in ProfileInfor on M.id.Trim() equals PI.idMajor
-                        where  ad.CreateDate.Value.Year == year
+                        where adi.idAdmisstion== idAdmisstion
                         select new
                         {
                             adi.idMajor,
@@ -166,18 +194,16 @@ namespace WebTuyenSinh_Application.Repository
                         }).ToList();
                        ;
             StatisticalHome home = new StatisticalHome();
-            home.Message = "Năm " + year;
-            home.Year = admisstion.Select(x => x.CreateDate.Value.Year).Distinct().ToList();
+            home.Message = " " + admisstion.Where(x=>x.id==idAdmisstion).FirstOrDefault().Name;
+            home.AdmisstionValue = admisstion.Select(x => new AdmissisionValue() {Value=x.id,Name=x.Name}).Distinct().ToList();
             home.TopMajors = (from c in data
-                              group data by new { c.idMajor, c.Name, c.STT } into g
+                              group data by new { c.idMajor, c.Name } into g
                               select new TopMajor
                               {
                                   id = g.Key.idMajor,
                                   Name = g.Key.Name.Trim(),
                                   NumberProfile = g.Count(),
-                                  Wish =g.Key.STT,
                                   Number= Math.Round(((double)g.Count() / (double)data.Count) * (double)100,2),
-
                               }).Take(4).OrderBy(x=>x.Wish).ToList();
             home.Majors=(from c in data
                         group data by new { c.idMajor, c.Name } into g

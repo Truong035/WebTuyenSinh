@@ -59,7 +59,7 @@
                 <div class="card">
                     <div class="m-3 border-bottom pb-3">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">Danh Sách Các Ngành</h4>
+                            <h4 class="card-title">Danh Sách Người Dùng</h4>
                             <div class="ml-auto">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <i class="ti-plus"></i>
@@ -116,9 +116,9 @@
                                                             <button name="Edit" type="button" data-toggle="tooltip" title="" class="btn  btn-icon-text text-primary  " data-original-title="Edit Task">
                                                                 <i class="ti-pencil-alt"></i>
                                                             </button>
-                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <button name="Delete" class="btn  btn-icon-text text-danger">
                                                                 <i class="ti-close"></i>
-                                                            </a>
+                                                            </button>
                                                         </div>
                                                     </td>
 
@@ -152,7 +152,6 @@
         let id = 0;
         $('#use-form').on('submit', function (e) {
             e.preventDefault();
-
             var data = {
                 id: id,
                 UserName: $("#UserName").val(),
@@ -175,7 +174,6 @@
                        
                     }
                     else {
-                        console.log(res)
                         $("#livefail").empty();
                         $("#livefail").append(res.message);
                         $("#livefail").toast("show");
@@ -183,8 +181,6 @@
 
                 }
             );
-
-         
         });
 
         $(document).on('click', "button[name = 'Edit']", function () {
@@ -195,35 +191,55 @@
             $("#UserName").val($(this).closest('tr').find("td:eq(1)").text().trim());
             $("#Email").val($(this).closest('tr').find("td:eq(2)").text().trim());
             $("#exampleModal").modal("show")
-            @*$.ajax({
-                async: false,
-                url: "/Use/GetRole/" + $(this).closest('tr').find("td:eq(0)").text().trim(),
-                type: "GET",
-
-            }).done(
-                function (res) {
-                    if (res.success) {
-
-                        $("#Name").val(res.data.name),
-                            $("#Description").val(res.data.description),
-                            $.each(res.data.role_Permisstion, function (k, v) {
-                                var Check = $(".form-check-input")
-                                $.each(Check, function (k, v1) {
-                                    if ($(v1).val() == v.idPermisstion) {
-                                        $(v1).prop("checked", true)
-                                    }
-                                });
-                            });
-
-                       
+        });
+        $(document).on('click', "button[name = 'Delete']", function () {
+            let id = $(this).closest('tr').find("td:eq(0)").text().trim();
+            let tr = $(this).closest('tr');
+            swal({
+                title: 'Bạn có chắn chắn xóa hay không ?',
+                text: "Nếu bạn xóa hồ sợ của đợt tuyển sinh này sẽ bị xóa đi!",
+                type: 'warning',
+                buttons: {
+                    cancel: {
+                        text: 'Hủy bỏ',
+                        className: 'btn btn-danger'
+                    },
+                    confirm: {
+                        text: 'Đồng ý',
+                        className: 'btn btn-success'
                     }
-                    else {
-
-                    }
-
                 }
-            );*@
-
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        async: false,
+                        url: "/Use/DeleteUse/" + id,
+                        type: 'GET',
+                    }).done(function (res) {
+                        if (res.success) {
+                            $(tr).empty()
+                            swal("Xóa thành công", {
+                                icon: "success",
+                                buttons: {
+                                    confirm: {
+                                        className: 'btn btn-success'
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            swal("Thất bại!", res.message, {
+                                icon: "error",
+                                buttons: {
+                                    confirm: {
+                                        className: 'btn btn-success'
+                                    }
+                                },
+                            });
+                        }
+                    });
+                }
+            });
 
         });
     })

@@ -302,622 +302,621 @@
             Cập nhật thất bại
         </div>
     </div>
-    <form action="" id="student-form" style="width:100%">
-        <div class="a4-size bg-white">
-            <!-- header-top -->
-            <div class="row d-flex flex-center">
-                <div class="col c-6 educate">
-                    <p class="educate-parent">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
-                    <p class="educate-parent educate-child">TRƯỜNG ĐẠI HỌC GTVT PH TP.HCM</p>
-                    <i class="line-head-one"></i>
-                </div>
-                <div class="col c-6 educate">
-                    <p class="educate-parent educate-child">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
-                    <p class="educate-parent fw-bold">Độc lập - Tự do - Hạnh phúc</p>
-                    <i class="line-head-one line-head-custom"></i>
-                </div>
-            </div>
+    <div id="note" class="a4-size bg-white">
+     
 
-            <!-- form-title -->
-            <input class="adAvt" multiple id="filesAvt" hidden type='file' onchange="readAvataURL(this);" accept="application/pdf,image/*" />
-            <!-- form-title -->
-            <div class="row form-title justify-content-end">
-                <div class="col c-3">
-                    <div class="student-avatar img" id="logo" onclick="$('.adAvt').trigger( 'click' )">
-
-                        <!--<img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUWFRgVFRUZGBgWGBgZGBgYGBgYGBIYGBgZGhgYGhgcIS4lHB4rHxgYJjgmKy80NTU1GiQ7QDs0Py40NTEBDAwMEA8QHhISGjQrIyQ0NDQ0NDQ0NDQ0NDQ0NDE0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0MTQ0NDQ0NDQ0NP/AABEIARMAtwMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAAAgMBBAUGB//EADoQAAIBAgMFBgQFAwQDAQAAAAABAgMRBCExBRJBUWEicYGRofAGMrHBE0JS0eEUcvEjYoKSM8LSFf/EABoBAQACAwEAAAAAAAAAAAAAAAABAgMEBQb/xAAwEQACAQIEAgkDBQEAAAAAAAAAAQIDEQQSITEFQRNRYXGBkaGx0SIy8CNCUsHhFf/aAAwDAQACEQMRAD8A5IAPdnKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABRWr7t+SzfQxVKsacc03ZFoxcnZF4OdW2vTjbO9+Wdu8rp7cpvWMl5P6Gv/ANDCp26RGToKn8Tqg0cJtKE3uq6fKStc3zYp1oVY5oSTXYY5QlHSSsYABlKgAAAAAAAAAAAAAAAAAAAAAAEAweW2piajk437KeiSR6eUjze0MPuz7M3aS0Xaafj1ONxnP0SyvS+utr/Jt4VrM7o06GFc8118H1NzD0YL53Z8ufcQUpQzUlfqrP0Rr4ibms9VxWh5k6SkuR3IQhB8G0lbqnl+5s4SaXZUt6Oi424pHk577sk7+j45ep1diKalZ879yRt4GpOniIZObS70Y66jKm78j0gMmD2hxgACQAAAAAAAAAAAAAAAAAADn7Qx+52IZyflEtx+K3I5avJdOpxIKUm+vHpzb9TjcT4g6P6VN/VzfUvlm3h6Gf6pbe5coTnnOXZXBcfAtnTyslb3zNujRyXv2yc4csjzMpObzSd2dKMVFaHCrU7d/PXyNWaZ3K+HWvPT9zm4qjYoWkjQ3nfIupVbZW99xh0vUhJWLblGjsYXaEo6PeXJ8ujOzQrqauteKPIU52zOvgZvWPP2mdPBcRnRajN3j527vjY16uHjNXWjO8CFKakrr/BM9XGSkrrY5jVtwACxAAAAAAAAAAAAAAIVJWTfJXKtpask4+Nlvzkr5Rsl9yUIpZe/f7FNOeTnLVtt+KZVGrfvk/Re2eFrVXVqSqPm2/j0O3CKhFROpCV7fQ2Io5lKpn3HRU8lH2l/kxFyM/V6dDT/AKbek3wj6t55m7vXfvwJTjlZcdSCyOO6V5N8tDUnSO1XhwXv3n5mpKF/fAEtHJ/Dz98DbwM92TXB5eWaJ1KVr+RnD0b++guUcTr4eeeWjWfeuJunGouz6KS8mdeLPV8Iq5qGV/tdv7OVio2nfrJAA65qgAAAAAAAAAAAA1dpO0H4fU2ijGxThJPka+Lv0E7fxfsZKX3rvR5vFVbRtcjhp8XwXv7EcXDNL3qRgsvTvPDcjtczboVLtLlm+r1S+/gjoRrZX56dEsvP9ziQuX4ebbz0Xr/AJOzRnvZ8PryNi/vmadGd9PM2ZSSWb/kgsiE+vEqXP37yE3d9/ojE3fu+/QEmvUjfIlSe7n7zaLaEN6ShGyb4vRdWzo7U2VuQTim4/qatvdf2Kt62LW0ujh71p9G0vU70eDPOU4tvx+h6OGngek4G/pmu1f2cnG7omAD0BogAAAAAAAAAAAA18d8j8PqbBTiob0JLoYMRBzpTiuaa9C8HaSZwatO8n5GpXlFdm+nJHTxMbK/T6lex9jTru9rR58+iPCvR9x3N9uZzqKTfE6uH2ZOecYtrwsdeGBUN9Qpq8IuW9NP/AFGtVBfc6Pw3tCpPec4RtCMG7xjG7nootSaeT6dUhe6LKNnZnIo7IrPJQfgvudTD/Cldq9oxfOTcn5LJHtMNuNRlFZSXvI7caPZvYgs1Y+WT+GK0Xm1N9xdS+EsRPPsrq7tnvMU3CLko3k3ZL1uzyeJxWO/HdNKe46kYxnBbsFB2blJWvazed1YWbJdkieB+GNyzkldNO97tnT2/hU8NPLSLfkrmzs78ffcZpzin2ZrK66p5rzZu7aof6E1zhL6FbEtnxfDril19DvRNTZ2EX4Km1+bd7s1b6SN1HpuCR/SnLrdvJf6cjG/el2GQAd1GiAASAAAAAAAAAAGAQDh4yDlJR5tLzsj6rsjZkIQjCKSSSR84qU7yeXOz5SVmvufUdk4lThCa/NFPuutDxGNpdHiJR8V4ncw881NPwNlbOi9YryL44JLRJdysbNJmxwNdIztnMqYfTodOEOwjRqS7VvM6EflCIkVOimiH9KTjOzLkwrB3RRGjY52252pTfKEvozrVWcPbfahufrdvDj6XIlZBanzpxcKEYPVznJ+Df7lCRdtOopVGou6i3a2ltXbxuVI9bwuk6eHSe71fjr7WOPi556rfh5EgAdNGqAASAAAAAAAAAAACGDXnrbqvD3Y9p8KV96nbLsyasuHH7njpQ7S65eh2/hfFbtTcekll4Xt6X9Di8SwqnSlNLVa+C39NfA3cLVyzUb6P8R9AozNpPI0KTL5VbRuzzVzqmhj51UpKlubzd1KcZSiu9Rad/EysTWlDdjFKdtWm4J87XTfdcS2pS/Wn3NM2I7UpJX3lfldFS6UraIngFVaSqbra1cU4p/8AFt28zccrHMlt6ho5pPq0bUaykrolMiSaeqsXTmeP+McRaEYp6y9Enf7Hp6krHz74ixf4lZ2+WPZXf+Z+eXgdHhlJ1cTF8o6vw29beRqYueWk116HFku13P65FkSD1fgixHq4LfvOQzIAMpUAAAAAAAAAAAAAAAjIzTk0007NO6fJ6p+aEjBja1JPfbD2mq0L6TWU48nzXRnWvdHi9gU3CWbtKUd5R5RTWbXVs9XRrX6M8VjIUoV5QpO8V+W8HzO5QcpU05bmlidj0295Qjrf5UVw2bBP5IeMUdqDL4xiauVM3IYipFWTOZhtnxTu4xXGySRut2LJyRqVanBEmKU3J3Zy/iTaTp0+z80nZP8ATk7vvtoeGR7jalCE5Qp1L2qz3FNawm4ycZLytbjc8ftPAyozlTku1G2a0lF6SXRo9JwWpT6KUY/du+3q8tu/vOTjYyzpvY1EtOruWEbZ93v7EjtxjY0mAAXIAAAAAAAAAAAAABbh8NOct2EJSlyir27+S7yG7K7JKWjt/DuynOUakl2IyVr/AJpfsn+3M6uyfhNpqVez4qCd1/ya17ly1PTwwySSSsk0klkkrpWSOJjeIxyunRe+7+Pnl7bVKg75pHhMC5Sx+IlJ6P8ADj0jG31bbPURpnGWG3MZWy1nf/skz0MYnmObOxskVxlJdSbqSJ7hJUySDXak9X5F1KnYsUC1RAOPt6jem2l2oWnH+6D3o+qRsfEWxf6mlCUbKpFdm+SlFptxb71dfyW7QheLXPLzyPQ06dlFcv8A5aNjC1JU554vVGGvFOKTPi2Iw84ScJwlGS1jJWf8rqQPs+JwVOonGpCM1ykk7d3I83tH4FpSzoylTf6XecPXtLzfcejo8WpS0qKz818+jOZLDyW2p88B1dp/DmIoXcob0V+en24+Ns4+KRyjqQnGavB3XYa7TTswAC5AAAAAOnsjYVbEPsRtC9nOWUFzt+p9F6FJ1Iwjmk7IlJt2RzDo7P2JXrW3IPdf55dmHhJ6+Fz3eyfhShStKS/EmvzTXZT/ANsNF43Z6GMDj1uLJaUo+L+N/O3cbMcM95M8fs34JpxtKvJzf6YdmHi/mfoeiwmDhBbsIRhFcIpLxfM3JonGNkcqtXqVvvlf28tjZjCMdka0oZozGH1+5e4mIRz8WYC6PMbXwm7XU1pNesX/ACbVNZHS2th96N/0tP7fc0KUTWnG0mbUHeKJRiWKJmMCSiQtCxBIy0TUSW4Aak4XlBc5x9Hf7Hdtoc2jRbnF2yjfzat9zpvQzU1oYKr1sSsGrmQZDCUtWZzNo/D2HrXc6aUn+aHYl3trXxudeUbkS8Jyg7xdn2ENJqzR8/2j8Czjd0JqS/TPsz8JLsv0PK4vBzpS3KkJQlykrX7no11R9p4dxrY3BQqwcKkVKL4Ph1T1T6o6VHitSOlRXXk/h/mpgnh4v7dD4yDr/EOxZYapxlTlfcl/6y/3L115pDvU6sakVOGqZqNOLszZ+GPh913vzTVKL00dRrgv9vN+Hd9HoUlGKSSUUrJJWUUuSK8JQjCMYRVoxSSS4JZG4lkeWxWJliJ3ey2XV/p0KdNQViSRlIjReXdkSbNUyEYxu78iUkalarUV1FRtwbu2aH4dWWU5t9OHkiRY38TtCEdXfpHP+Dn1dsS/JT4vOT8NF+5s0sBHd0M/0itoLE6G6rTgnwlH6o5bpOLs/wDJfhq+52ZfLwf6f4NutSUo3jZvg1x6GOcbl4SyvU0YIt3SmLL4swozsiok4oMlh43lfhH6kpXdiG7K5fCNsiTaWbNXEY2MXa28+S4d5VKcp5PJclx72bFjW1NT/wDYmpPsqUbvd1TtfK77uhtU9tQ/NGUX/wBl+/oTjglyMVtnprQmw0NrD46nP5Zpvlo/Jl7Rxo7KRsUqc4NLebXJ5ixBuvRgi32WZQINLaOBhWg6dSO9FtO3Jp3TXLj5mDd494Lxq1IK0ZNdzZVxT3RFRs+8tSIN9rwsWFCxCjq11LWVQ+Z9UXEBkXEioIsMAFcUZcREnYkk0q1C9yvBycLx1V9P2Og4lFSnZ38wSirEQV9+Oj16MhE2XHyZQ42MM42ZnpyurMxNl8Vuxtx49/Eqoq8v7frwLJSu7Fqa5lKj5GvGhd71tTbhTsShEsMlzEYsCM5EVUb4cfQFWyQRV+Llk09dGnwy0JQqZXeWdvEkXtuZqfKzMEYqO8WYUiCSNZ5oEarzQALJq6uSpTujFJ3iu4ri7PvALGrTXVFxrzlmi9MMGTDMkGyAIEyESZLAIyjcyCCSMVl3Gtio2zNpriQxEN6LREldWJi7O5r0FaHV5llKBKEPJZIsSLLRWIbu7mSqpN6IsIwhndgq7vRFe64pu+evS4m1bPR3XhZ39C1lTptfLpyZO42fYV0aEYvK2duHBF+T1RB3fDP6E4O+YtYOTk9X5mvXi0ss19OJKErozidDFLQXCVhW0QElkCrLE8O8vMjVjxGGeveWVFkSSVyejNiJpt5dxt0nkCpMrZYyu4QJIyQuSAJAiBYErlc3yJkUr3IJM09EZMoiSDJBVCZB35Agxv8AvvMuXHkYd+Qv0JIMRmjLmvLUrWpCpbJc7+uo0GpVVq3la/BeNy6noaG8vxLc3bvtG5v0wSiQIggkxhtWbDACJNWXE2aGgAKk2QQBIMhAAEgAQAFxMAgFhWASiTJIAMgAAgFfArkAWBy8T/5af90vpE6FPiAQSSRgAA//2Q==" width="130" height="160" alt="...">-->
-                        <p class="student-avatar-size">Ảnh 3x4</p>
-                        <p class="student-avatar-note">(Chụp kiểu CMND, không quá 6 tháng)</p>
+    </div>
+        <form action="" id="student-form" style="width:100%">
+            <div class="a4-size bg-white">
+                <!-- header-top -->
+                <div class="row d-flex flex-center">
+                    <div class="col c-6 educate">
+                        <p class="educate-parent">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
+                        <p class="educate-parent educate-child">TRƯỜNG ĐẠI HỌC GTVT PH TP.HCM</p>
+                        <i class="line-head-one"></i>
+                    </div>
+                    <div class="col c-6 educate">
+                        <p class="educate-parent educate-child">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                        <p class="educate-parent fw-bold">Độc lập - Tự do - Hạnh phúc</p>
+                        <i class="line-head-one line-head-custom"></i>
                     </div>
                 </div>
-                <div class="col c-8" style="margin-top:50px;">
-                    <h6>PHIẾU ĐĂNG KÝ XÉT TUYỂN <span>ĐẠI HỌC CHÍNH QUY</span></h6>
-                </div>
-            </div>
 
-            <!-- form info student -->
-            <div class="row student-form-info">
+                <!-- form-title -->
+                <input class="adAvt" multiple id="filesAvt" hidden type='file' onchange="readAvataURL(this);" accept="application/pdf,image/*" />
+                <!-- form-title -->
+                <div class="row form-title justify-content-end">
+                    <div class="col c-3">
+                        <div class="student-avatar img" id="logo" onclick="$('.adAvt').trigger( 'click' )">
 
-                <div class="row mt-3">
-                    <div class="col c-6">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>1. Họ và tên (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:65.5%">
-                                <input type="text" required id="full_name" name="full_name" class="full-name-property ml-3"
-                                       value="Phạm Trọng Trường">
-                            </div>
+                            <!--<img src="data:image/jpeg;base64,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" width="130" height="160" alt="...">-->
+                            <p class="student-avatar-size">Ảnh 3x4</p>
+                            <p class="student-avatar-note">(Chụp kiểu CMND, không quá 6 tháng)</p>
                         </div>
                     </div>
-                    <div class="col c-6">
-                        <div class="day-of-birth full-name-box d-flex d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>2. Giới tính (*): </span>
-                            </p>
-                            <div class="ml-2 validation-parent  d-flex justify-content-around" style="width:48.5% ;margin-top:-3%">
-                                <div class="form-check">
-                                    <input required name="sex" class="form-check-input" type="radio" value="" id="checknam">
-                                    <label for="flexCheckCheckedDisabled">
-                                        Nam
-                                    </label>
+                    <div class="col c-8" style="margin-top:50px;">
+                        <h6>PHIẾU ĐĂNG KÝ XÉT TUYỂN <span>ĐẠI HỌC CHÍNH QUY</span></h6>
+                    </div>
+                </div>
+
+                <!-- form info student -->
+                <div class="row student-form-info">
+
+                    <div class="row mt-3">
+                        <div class="col c-6">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>1. Họ và tên (*): </span>
+                                </p>
+                                <div class="validation-parent" style="width:65.5%">
+                                    <input type="text" required id="full_name" name="full_name" class="full-name-property ml-3"
+                                           value="Phạm Trọng Trường">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col c-6">
+                            <div class="day-of-birth full-name-box d-flex d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>2. Giới tính (*): </span>
+                                </p>
+                                <div class="ml-2 validation-parent  d-flex justify-content-around" style="width:48.5% ;margin-top:-3%">
+                                    <div class="form-check">
+                                        <input required name="sex" class="form-check-input" type="radio" value="" id="checknam">
+                                        <label for="flexCheckCheckedDisabled">
+                                            Nam
+                                        </label>
+
+                                    </div>
+                                    <div class="form-check">
+                                        <input required name="sex" class="form-check-input" type="radio" value="" id="checknu">
+                                        <label for="flexCheckCheckedDisabled">
+                                            Nữ
+                                        </label>
+                                    </div>
+
 
                                 </div>
-                                <div class="form-check">
-                                    <input required name="sex" class="form-check-input" type="radio" value="" id="checknu">
-                                    <label for="flexCheckCheckedDisabled">
-                                        Nữ
-                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col c-6">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>3. Ngày sinh (*): </span>
+                                </p>
+                                <div class="validation-parent" style="width:65%">
+                                    <input required type="date" value="20" id="birthdate" name="birthdate" class="full-name-property ml-3"
+                                           placeholder="11/11/2011">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col c-6">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>4. Nơi Sinh (*): </span>
+                                </p>
+                                <div class="validation-parent">
+                                    <input required type="text" id="fromBirthDay" name="address" class="full-name-property ml-3"
+                                           value="TP. Hồ Chí Minh" placeholder="TP. Hồ Chí Minh">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col c-6">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>5. Số CMND/CCCD (*): </span>
+                                </p>
+                                <div class="validation-parent" style="width:49.5%">
+                                    <input required type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
+                                          onchange="CheckCMND(this)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">  
+                        <div class="col c-5">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <span class=" ml-3 mt-1 d-flex student-avatar-note full-name-box">
+                                    <span>a)Ngày cấp:: </span>
+                                </span>
+
+
+                                <div class="validation-parent" style="width:49.5%">
+
+                                    <input required type="date" value="2013-01-08" id="dateRange" name="cmnd" class="full-name-property ml-3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col c-7">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <span class=" ml-3 mt-1 d-flex student-avatar-note full-name-box">
+                                    <span> b)Nơi cấp (*): </span>
+                                </span>
+                                <div class="validation-parent" style="width:51%">
+                                    <input required type="text" id="noicap" name="noicap" class="full-name-property ml-3"
+                                           value="Hà Nội" placeholder="Hà Nội">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col c-6">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>6. Dân tộc (*): </span>
+                                </p>
+                                <div class="validation-parent" style="width:69%">
+                                    <input required type="text" id="nation" value="KINH" name="dantoc" class="full-name-property ml-3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col c-6">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="m d-flex">
+                                    <span>7. Tôn giáo (*): </span>
+                                </p>
+                                <div class="validation-parent">
+                                    <input required type="text" value="KHÔNG" id="religion" name="tongiao" class="full-name-property ml-3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col c-12">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>8. Hộ khẩu thường trú (*): </span>
+                                </p>
+                                <div class="validation-parent" style="width:64.6%">
+                                    <input required type="text" id="address" name="dantoc" class="full-name-property ml-3"
+                                          >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col c-12">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>8. Địa chỉ liên lạc (*): </span>
+                                </p>
+                                <div class="validation-parent" style="width:68.6%">
+                                    <input required type="text" id="fromTelePhone" name="dantoc" class="full-name-property ml-3"
+                                        >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col c-5">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>9. Điện thoại di động (*): </span>
+                                </p>
+                                <div class="validation-parent" style="width: 35%;">
+                                    <input required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3"
+                                      >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col c-7">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>10. Email (*): </span>
+                                </p>
+                                <div class="validation-parent" style="width:59.4%">
+                                    <input required type="email" id="Email" name="noicap" class="full-name-property ml-3"
+                                           >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col c-12">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span>11. Nơi học THPT hoặc tương đương: </span>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col c-12">
+                            <div class="d-flex justify-content-around " style="width:100%">
+                                <div>
+                                    <span class="  mt-1 d-flex student-avatar-note full-name-box">
+                                        <span> Ghi rõ tên trường và nơi trường đóng: huyện (quận), tỉnh (TP) </span>
+                                    </span>
+                                </div>
+                                <div class="mr-5">
+                                    <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                        Tên Quận
+                                    </span>
                                 </div>
 
+                                <div class="mr-5">
+                                    <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                        Tên Tỉnh
+                                    </span>
+                                </div>
 
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-1">
-                    <div class="col c-6">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>3. Ngày sinh (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:65%">
-                                <input required type="date" value="20" id="birthdate" name="birthdate" class="full-name-property ml-3"
-                                       placeholder="11/11/2011">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col c-6">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>4. Nơi Sinh (*): </span>
-                            </p>
-                            <div class="validation-parent">
-                                <input required type="text" id="fromBirthDay" name="address" class="full-name-property ml-3"
-                                       value="TP. Hồ Chí Minh" placeholder="TP. Hồ Chí Minh">
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row mt-2">
-                    <div class="col c-6">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>5. Số CMND/CCCD (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:49.5%">
-                                <input required type="text" id="cmnd" name="cmnd" class="full-name-property ml-3"
-                                       value="231308802" placeholder="231308802">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col c-5">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <span class=" ml-3 mt-1 d-flex student-avatar-note full-name-box">
-                                <span>a)Ngày cấp:: </span>
-                            </span>
+                    <div class="row ml-1 mt-1">
+                        <div class="col c-12">
+                            <div class=" d-flex" style="width:100%">
+                                <div class="d-flex day-of-birth full-name-box c-6">
+                                    <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                        <span> Năm lớp 10:  </span>
+                                    </span>
+                                    <div class="validation-parent" style="width: 70%;">
+                                        <select required class="ml-2 form-select form-select-sm" id="School1" aria-label=" ml-3 ">
+                                        </select>
+                                    </div>
 
+                                </div>
 
-                            <div class="validation-parent" style="width:49.5%">
-
-                                <input required type="date" value="2013-01-08" id="dateRange" name="cmnd" class="full-name-property ml-3">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col c-7">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <span class=" ml-3 mt-1 d-flex student-avatar-note full-name-box">
-                                <span> b)Nơi cấp (*): </span>
-                            </span>
-                            <div class="validation-parent" style="width:51%">
-                                <input required type="text" id="noicap" name="noicap" class="full-name-property ml-3"
-                                       value="Hà Nội" placeholder="Hà Nội">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col c-6">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>6. Dân tộc (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:69%">
-                                <input required type="text" id="nation" value="KINH" name="dantoc" class="full-name-property ml-3">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col c-6">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="m d-flex">
-                                <span>7. Tôn giáo (*): </span>
-                            </p>
-                            <div class="validation-parent">
-                                <input required type="text" value="KHÔNG" id="religion" name="tongiao" class="full-name-property ml-3">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>8. Hộ khẩu thường trú (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:64.6%">
-                                <input required type="text" id="address" name="dantoc" class="full-name-property ml-3"
-                                       value="11e liên khu 25 quận 9">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>8. Địa chỉ liên lạc (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:68.6%">
-                                <input required type="text" id="fromTelePhone" name="dantoc" class="full-name-property ml-3"
-                                       value="11e liên khu 25 quận 9">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col c-5">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>9. Điện thoại di động (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width: 35%;">
-                                <input required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3"
-                                       value="0347689482">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col c-7">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>10. Email (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:59.4%">
-                                <input required type="email" id="Email" name="noicap" class="full-name-property ml-3"
-                                       value="hoangvuong1225@gmail.com">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>11. Nơi học THPT hoặc tương đương: </span>
-                            </p>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-1">
-                    <div class="col c-12">
-                        <div class="d-flex justify-content-around " style="width:100%">
-                            <div>
-                                <span class="  mt-1 d-flex student-avatar-note full-name-box">
-                                    <span> Ghi rõ tên trường và nơi trường đóng: huyện (quận), tỉnh (TP) </span>
-                                </span>
-                            </div>
-                            <div class="mr-5">
-                                <span class="mt-1 d-flex student-avatar-note full-name-box">
-                                    Tên Quận
-                                </span>
-                            </div>
-
-                            <div class="mr-5">
-                                <span class="mt-1 d-flex student-avatar-note full-name-box">
-                                    Tên Tỉnh
-                                </span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row ml-1 mt-1">
-                    <div class="col c-12">
-                        <div class=" d-flex" style="width:100%">
-                            <div class="d-flex day-of-birth full-name-box c-6">
-                                <span class="mt-1 d-flex student-avatar-note full-name-box">
-                                    <span> Năm lớp 10:  </span>
-                                </span>
-                                <div class="validation-parent" style="width: 70%;">
-                                    <select required class="ml-2 form-select form-select-sm" id="School1" aria-label=" ml-3 ">
+                                <div class="me-4 d-flex justify-content-between  c-6">
+                                    <select class="form-select form-select-sm" id="district1" aria-label=".form-select-sm example">
+                                    </select>
+                                    <select class="ml-4 form-select form-select-sm" onchange="LoadConsciou()" id="Consciou1" aria-label=".form-select-sm example">
                                     </select>
                                 </div>
 
-                            </div>
 
-                            <div class="me-4 d-flex justify-content-between  c-6">
-                                <select class="form-select form-select-sm" id="district1" aria-label=".form-select-sm example">
-                                </select>
-                                <select class="ml-4 form-select form-select-sm" onchange="LoadConsciou()" id="Consciou1" aria-label=".form-select-sm example">
-                                </select>
                             </div>
-
 
                         </div>
-
                     </div>
-                </div>
 
-                <div class="row ml-1 mt-1">
-                    <div class="col c-12">
-                        <div class=" d-flex" style="width:100%">
-                            <div class="d-flex day-of-birth full-name-box c-6">
-                                <span class="mt-1 d-flex student-avatar-note full-name-box">
-                                    <span> Năm lớp 11:  </span>
-                                </span>
-                                <div class="validation-parent" style="width: 70%;">
-                                    <select required class="ml-2 form-select form-select-sm" id="School2" aria-label="full-name-property ml-3 form-select-sm example">
+                    <div class="row ml-1 mt-1">
+                        <div class="col c-12">
+                            <div class=" d-flex" style="width:100%">
+                                <div class="d-flex day-of-birth full-name-box c-6">
+                                    <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                        <span> Năm lớp 11:  </span>
+                                    </span>
+                                    <div class="validation-parent" style="width: 70%;">
+                                        <select required class="ml-2 form-select form-select-sm" id="School2" aria-label="full-name-property ml-3 form-select-sm example">
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="me-4 d-flex justify-content-between  c-6">
+                                    <select class="form-select form-select-sm" id="district2" aria-label=".form-select-sm example">
+                                    </select>
+                                    <select class="ml-4 form-select form-select-sm" id="Consciou2" aria-label=".form-select-sm example">
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row ml-1 mt-1">
+                        <div class="col c-12">
+                            <div class=" d-flex" style="width:100%">
+                                <div class="d-flex day-of-birth full-name-box c-6">
+                                    <span class="mt-1 d-flex student-avatar-note full-name-box">
+                                        <span> Năm lớp 12:  </span>
+                                    </span>
+                                    <div class="validation-parent" style="width: 70%;">
+                                        <select required class="ml-2 form-select form-select-sm" id="School3" aria-label="full-name-property ml-3 form-select-sm example">
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="me-4 d-flex justify-content-between  c-6">
+                                    <select class="form-select form-select-sm" onchange="" id="district3" aria-label=".form-select-sm example">
+                                    </select>
+                                    <select class="ml-4 form-select form-select-sm" id="Consciou3" aria-label=".form-select-sm example">
                                     </select>
                                 </div>
 
-                            </div>
 
-                            <div class="me-4 d-flex justify-content-between  c-6">
-                                <select class="form-select form-select-sm" id="district2" aria-label=".form-select-sm example">
-                                </select>
-                                <select class="ml-4 form-select form-select-sm" id="Consciou2" aria-label=".form-select-sm example">
-                                </select>
                             </div>
-
 
                         </div>
-
                     </div>
-                </div>
-
-
-                <div class="row ml-1 mt-1">
-                    <div class="col c-12">
-                        <div class=" d-flex" style="width:100%">
-                            <div class="d-flex day-of-birth full-name-box c-6">
-                                <span class="mt-1 d-flex student-avatar-note full-name-box">
-                                    <span> Năm lớp 12:  </span>
+                    <div class="row  mt-1">
+                        <div class="row" style="width:100%">
+                            <div class="d-flex day-of-birth full-name-box" style=" width:30%">
+                                <span class="mt-2 d-flex student-avatar-note full-name-box" style="width:200px">
+                                    <span> Năm tốt nghiệp:  </span>
                                 </span>
-                                <div class="validation-parent" style="width: 70%;">
-                                    <select required class="ml-2 form-select form-select-sm" id="School3" aria-label="full-name-property ml-3 form-select-sm example">
-                                    </select>
+                                <div class="validation-parent">
+                                    <input type="text" id="year" name="cmnd" class="full-name-property ml-1" style="width:70px"
+                                           value="2018">
+                                </div>
+                            </div>
+                            <div class="d-flex day-of-birth full-name-box" style=" width:30%">
+                                <span class="mt-2 d-flex student-avatar-note full-name-box" style=" width: 70px">
+                                    <span> Khu vực:  </span>
+                                </span>
+                                <div class="validation-parent">
+                                    <input type="text" id="areas" name="cmnd" class="full-name-property" style="width:80px"
+                                           value=" KHU VỰC 1">
                                 </div>
 
                             </div>
 
-                            <div class="me-4 d-flex justify-content-between  c-6">
-                                <select class="form-select form-select-sm" onchange="" id="district3" aria-label=".form-select-sm example">
-                                </select>
-                                <select class="ml-4 form-select form-select-sm" id="Consciou3" aria-label=".form-select-sm example">
-                                </select>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="row  mt-1">
-                    <div class="row" style="width:100%">
-                        <div class="d-flex day-of-birth full-name-box" style=" width:30%">
-                            <span class="mt-2 d-flex student-avatar-note full-name-box" style="width:200px">
-                                <span> Năm tốt nghiệp:  </span>
-                            </span>
-                            <div class="validation-parent">
-                                <input type="text" id="year" name="cmnd" class="full-name-property ml-1" style="width:70px"
-                                       value="2018">
-                            </div>
-                        </div>
-                        <div class="d-flex day-of-birth full-name-box" style=" width:30%">
-                            <span class="mt-2 d-flex student-avatar-note full-name-box" style=" width: 70px">
-                                <span> Khu vực:  </span>
-                            </span>
-                            <div class="validation-parent">
-                                <input type="text" id="areas" name="cmnd" class="full-name-property" style="width:80px"
-                                       value=" KHU VỰC 1">
-                            </div>
-
-                        </div>
-
-                        <div class="d-flex day-of-birth full-name-box c-4">
-                            <span class="mt-2 d-flex student-avatar-note full-name-box">
-                                <span> Đối tượng ưu tiên (nếu có):  </span>
-                            </span>
-                            <div class="validation-parent" style="width: 30%;">
-                                <input type="text" id="priority_object" name="cmnd" class="full-name-property"
-                                       value=" KHÔNG CÓ">
-                            </div>
-
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
-                                    <button class="btn btn-primary btn-sm btn-option" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn ảnh </button>
-
+                            <div class="d-flex day-of-birth full-name-box c-4">
+                                <span class="mt-2 d-flex student-avatar-note full-name-box">
+                                    <span> Đối tượng ưu tiên (nếu có):  </span>
+                                </span>
+                                <div class="validation-parent" style="width: 30%;">
+                                    <input type="text" id="priority_object" name="cmnd" class="full-name-property"
+                                           value=" KHÔNG CÓ">
                                 </div>
 
-                                <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
+                            </div>
 
+
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col c-12">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <div class=" form-group ml-2">
+                                    <div class="mr-3">
+                                        <button class="btn btn-primary btn-sm btn-option" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn ảnh </button>
+
+                                    </div>
+
+                                    <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class=" mt-2 form-group ml-5">
-                    <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
+                    <div class=" mt-2 form-group ml-5">
+                        <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
 
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex" style="font-size:16px">
-                                <span>THÔNG TIN ĐĂNG KÝ XÉT TUYỂN </span>
-                            </p>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-1">
-                    <div class="col c-12">
-                        <div class=" " style="width:100%">
-                            <span class="student-avatar-note">
-                                <span>
-                                    Sau khi đã đọc và hiểu rõ các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi đăng ký xét
-                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành/ Chuyên ngành/ Nhóm chuyên ngành theo thứ tự ưu
-                                    tiên như bảng sau:
+                    <div class="row mt-2">
+                        <div class="col c-12">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex" style="font-size:16px">
+                                    <span>THÔNG TIN ĐĂNG KÝ XÉT TUYỂN </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col c-12">
+                            <div class=" " style="width:100%">
+                                <span class="student-avatar-note">
+                                    <span>
+                                        Sau khi đã đọc và hiểu rõ các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi đăng ký xét
+                                        tuyển vào trình độ Đại học các Ngành/ Nhóm ngành/ Chuyên ngành/ Nhóm chuyên ngành theo thứ tự ưu
+                                        tiên như bảng sau:
+                                    </span>
                                 </span>
-                            </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-1">
-                    <div class="col c-12">
+                    <div class="row mt-1">
+                        <div class="col c-12">
 
-                        <table class="" disabled style="width:100%" dislayble>
-                            <tr>
+                            <table class="" disabled style="width:100%" dislayble>
+                                <tr>
 
-                                <th rowspan="4" style="width:20%">
-                                    Ngành/ Nhóm ngành/
-                                    Chuyên ngành/ Nhóm
-                                    chuyên ngành xét tuyển
-                                </th>
-                                <th rowspan="4" style="width:12%">
-                                    Tổ
-                                    hợp
-                                    xét
-                                    tuyể
-                                    n
-                                </th>
-                            </tr>
-                            <tr>
-                                <th colspan="9" style="width:65%;text-align:center">
-                                    Điểm trung bình 3 năm THPT
-                                </th>
-                            </tr>
+                                    <th rowspan="4" style="width:20%">
+                                        Ngành/ Nhóm ngành/
+                                        Chuyên ngành/ Nhóm
+                                        chuyên ngành xét tuyển
+                                    </th>
+                                    <th rowspan="4" style="width:12%">
+                                        Tổ
+                                        hợp
+                                        xét
+                                        tuyể
+                                        n
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="9" style="width:65%;text-align:center">
+                                        Điểm trung bình 3 năm THPT
+                                    </th>
+                                </tr>
 
-                            <tr>
-                                <th colspan="3">Môn 1</th>
-                                <th colspan="3">Môn 1</th>
-                                <th colspan="3">Môn 1</th>
-                            </tr>
-                            <tr>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                            </tr>
+                                <tr>
+                                    <th colspan="3">Môn 1</th>
+                                    <th colspan="3">Môn 1</th>
+                                    <th colspan="3">Môn 1</th>
+                                </tr>
+                                <tr>
+                                    <th>Môn 1</th>
+                                    <th>Môn 1</th>
+                                    <th>Môn 1</th>
+                                    <th>Môn 1</th>
+                                    <th>Môn 1</th>
+                                    <th>Môn 1</th>
+                                    <th>Môn 1</th>
+                                    <th>Môn 1</th>
+                                    <th>Môn 1</th>
+                                </tr>
 
 
-                            <tbody id="tbbody">
-                                @{
+                                <tbody id="tbbody">
+                                    @{
 
-                                    foreach (var item in Model.Data.InforMationProflies)
-                                    {
-                                        <tr>
+                                        foreach (var item in Model.Data.InforMationProflies)
+                                        {
+                                            <tr>
 
-                                            <td>
+                                                <td>
 
-                                                <select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
-                                                    <option value="">Chọn Ngành</option>
-                                                    @foreach (var item1 in data.Admisstion_Major)
-                                                    {
-                                                        if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
+                                                    <select disabled class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+                                                        <option value="">Chọn Ngành</option>
+                                                        @foreach (var item1 in data.Admisstion_Major)
                                                         {
-                                                            <option value="@item.idMajor" selected>@item1.Major.Name</option>
-                                                        }
-                                                        else
-                                                        {
-                                                            <option value="@item.idMajor">@item1.Major.Name</option>
-                                                        }
-
-                                                    }
-
-
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
-
-                                                    @foreach (var item1 in data.Admisstion_Major)
-                                                    {
-                                                        if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
-                                                        {
-                                                            foreach (var item2 in item1.Addmisstion_Major_Block)
+                                                            if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
                                                             {
-                                                                if (item.idBlock.Trim().Equals(item2.idBlock.Trim()))
-                                                                {
-                                                                    <option value="@item.idBlock" selected>@item.idBlock</option>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <option value="@item2.idBlock">@item2.idBlock</option>
-                                                                }
+                                                                <option value="@item.idMajor" selected>@item1.Major.Name</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.idMajor">@item1.Major.Name</option>
                                                             }
 
                                                         }
 
-                                                    }
 
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
-                                            <td><input type="text" class="subject2" required value="@item.subject2" /></td>
-                                            <td><input type="text" class="subject3" required value="@item.subject3" /></td>
-                                            <td><input type="text" class="subject4" required value="@item.subject4" /></td>
-                                            <td><input type="text" class="subject5" required value="@item.subject5" /></td>
-                                            <td><input type="text" class="subject6" required value="@item.subject5" /></td>
-                                            <td><input type="text" class="subject7" required value="@item.subject7" /></td>
-                                            <td><input type="text" class="subject8" required value="@item.subject8" /></td>
-                                            <td><input type="text" class="subject9" required value="@item.subject9" /></td>
-                                            <td>
-                                                <div class="form-button-action">
-                                                    <input type="number" required value="@item.STT" />
-                                                </div>
-                                            </td>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
 
-                                        </tr>
-                                    } }
+                                                        @foreach (var item1 in data.Admisstion_Major)
+                                                        {
+                                                            if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
+                                                            {
+                                                                foreach (var item2 in item1.Addmisstion_Major_Block)
+                                                                {
+                                                                    if (item.idBlock.Trim().Equals(item2.idBlock.Trim()))
+                                                                    {
+                                                                        <option value="@item.idBlock" selected>@item.idBlock</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@item2.idBlock">@item2.idBlock</option>
+                                                                    }
+                                                                }
 
-                            </tbody>
+                                                            }
+
+                                                        }
+
+                                                    </select>
+                                                </td>
+                                                <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
+                                                <td><input type="text" class="subject2" onchange="CheckMart(this)" required value="@item.subject2" /></td>
+                                                <td><input type="text" class="subject3" onchange="CheckMart(this)" required value="@item.subject3" /></td>
+                                                <td><input type="text" class="subject4" onchange="CheckMart(this)" required value="@item.subject4" /></td>
+                                                <td><input type="text" class="subject5" onchange="CheckMart(this)" required value="@item.subject5" /></td>
+                                                <td><input type="text" class="subject6" onchange="CheckMart(this)" required value="@item.subject5" /></td>
+                                                <td><input type="text" class="subject7" onchange="CheckMart(this)" required value="@item.subject7" /></td>
+                                                <td><input type="text" class="subject8" onchange="CheckMart(this)" required value="@item.subject8" /></td>
+                                                <td><input type="text" class="subject9" onchange="CheckMart(this)" required value="@item.subject9" /></td>
+                                                <td>
+                                                    <div class="form-button-action">
+                                                        <input type="number" required value="@item.STT" />
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        } }
+
+                                </tbody>
 
 
 
 
-                        </table>
+                            </table>
 
+                        </div>
                     </div>
+
+
+                    <div class="row mt-2">
+                        <div class="col c-12">
+                            <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                                <p class="mt-1 d-flex">
+                                    <span style="font-weight:normal;margin-right: 75px;">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Tôi xin cam
+                                        đoan những lời
+                                        khai trên là đúng sự
+                                        thật.
+                                        Nếu có gì sai trái, tôi xin chịu trách
+                                        nhiệm và bị xử lý theo Quy chế tuyển sinh hiện hành của Bộ Giáo dục và Đào tạo.
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col c-12">
+                            <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
+                                <p class="mt-1">
+                                    <span style="font-weight:normal;">
+                                        <div class="validation-parent"
+                                             style="width:40%;justify-content: center;display: flex;margin-right:75px">
+                                            <input type="text" id="" name="" style="font-size: 13px; width: 500%;"
+                                                   class="full-name-property ml-3">
+                                            <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
+                                            <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
+                                                   class="full-name-property ml-3">
+                                            <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
+                                            <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
+                                                   class="full-name-property ml-3">
+                                            <span style="margin-left: 10px;margin-top: 2px;">năm</span>
+                                            <input type="text" id="" name="" style="font-size: 13px;width:300%"
+                                                   class="full-name-property ml-3">
+                                        </div>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-
-                <div class="row mt-2">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span style="font-weight:normal;margin-right: 75px;">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Tôi xin cam
-                                    đoan những lời
-                                    khai trên là đúng sự
-                                    thật.
-                                    Nếu có gì sai trái, tôi xin chịu trách
-                                    nhiệm và bị xử lý theo Quy chế tuyển sinh hiện hành của Bộ Giáo dục và Đào tạo.
-                                </span>
+                <!-- xác nhận -->
+                <div class="confirm">
+                    <div class="row d-flex flex-center">
+                        <div class="col c-7 educate">
+                            <p class="educate-parent educate-child" style="position:relative">
+                                XÁC NHẬN CỦA UBND PHƯỜNG/XÃ<span style="color:red;font-size:12px;position: absolute;top:0;margin-left: 3px;">(**)</span>
+                            </p>
+                            <p class="educate-parent educate-child">HOẶC NƠI THÍ SINH ĐANG LÀM VIỆC/CÔNG TÁC</p>
+                            <p class="educate-parent" style="font-size:14px;font-style: italic;">
+                                (Đóng dấu
+                                mộc, ghi rõ họ tên,
+                                chức vụ,
+                                chữ ký của người xác
+                                nhận)
+                            </p>
+                        </div>
+                        <div class="col c-5 educate">
+                            <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
+                            <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                            <p class="educate-parent signature" style="margin-top: 50px;">
+                             @*//   Họ tên: <span>Phạm Trọng Trường</span>*@
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
-                            <p class="mt-1">
-                                <span style="font-weight:normal;">
-                                    <div class="validation-parent"
-                                         style="width:40%;justify-content: center;display: flex;margin-right:75px">
-                                        <input type="text" id="" name="" style="font-size: 13px; width: 500%;"
-                                               class="full-name-property ml-3">
-                                        <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
-                                               class="full-name-property ml-3">
-                                        <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
-                                               class="full-name-property ml-3">
-                                        <span style="margin-left: 10px;margin-top: 2px;">năm</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width:300%"
-                                               class="full-name-property ml-3">
-                                    </div>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
+
+                <!-- note -->
+                <div class="note" style="margin-left: 20px;margin-top: 20px;">
+                    <p style="font-size:11px;position: relative;">
+                        <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                        <span style="margin-left: 15px;">: Đóng dấu giáp lai trên ảnh; Ảnh chụp kiểu CMND. </span>
+                    </p>
+                    <p style="font-size:11px;position: relative;">
+                        <span style="color:red;position: absolute;top: -4px;">(**)</span>
+                        <span style="margin-left: 20px;">
+                            : Đóng dấu xác nhận của UBND phường, xã hoặc cơ quan/doanh nghiệp nơi
+                            thí sinh hiện đang làm việc/công tác.
+                        </span>
+                    </p>
                 </div>
-
+                <button class="btn btn-primary btn-sm" type="submit"> Lưu</button>
             </div>
 
-            <!-- xác nhận -->
-            <div class="confirm">
-                <div class="row d-flex flex-center">
-                    <div class="col c-7 educate">
-                        <p class="educate-parent educate-child" style="position:relative">
-                            XÁC NHẬN CỦA UBND PHƯỜNG/XÃ<span style="color:red;font-size:12px;position: absolute;top:0;margin-left: 3px;">(**)</span>
-                        </p>
-                        <p class="educate-parent educate-child">HOẶC NƠI THÍ SINH ĐANG LÀM VIỆC/CÔNG TÁC</p>
-                        <p class="educate-parent" style="font-size:14px;font-style: italic;">
-                            (Đóng dấu
-                            mộc, ghi rõ họ tên,
-                            chức vụ,
-                            chữ ký của người xác
-                            nhận)
-                        </p>
-                    </div>
-                    <div class="col c-5 educate">
-                        <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
-                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
-                        <p class="educate-parent signature" style="margin-top: 50px;">
-                            Họ tên: <span>Phạm Trọng Trường</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- note -->
-            <div class="note" style="margin-left: 20px;margin-top: 20px;">
-                <p style="font-size:11px;position: relative;">
-                    <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                    <span style="margin-left: 15px;">: Đóng dấu giáp lai trên ảnh; Ảnh chụp kiểu CMND. </span>
-                </p>
-                <p style="font-size:11px;position: relative;">
-                    <span style="color:red;position: absolute;top: -4px;">(**)</span>
-                    <span style="margin-left: 20px;">
-                        : Đóng dấu xác nhận của UBND phường, xã hoặc cơ quan/doanh nghiệp nơi
-                        thí sinh hiện đang làm việc/công tác.
-                    </span>
-                </p>
-            </div>
-            <button class="btn btn-primary btn-sm" type="submit"> Lưu </button>
-        </div>
-
-    </form>
+        </form>
 </body>
 </html>
 @section Scripts{
@@ -932,14 +931,32 @@
             try {
                 var mark = $(e).val()
                 var x = Number($(e).val())
-                alert(x)
-                if (x > 10 || x < 0) {
+
+                if (x > 0 && x < 11) {
+
+                }
+                else {
                     $(e).val("")
                 }
+
             } catch { $(e).val("") }
-
-
         }
+        function CheckCMND(e) {
+            try {
+                var mark = $(e).val()
+                var x = Number($(e).val())
+
+                console.log(mark);
+                if (x > 0 && (mark.length == 9 || mark.length == 12)) {
+
+                }
+                else {
+                    $(e).val("")
+                }
+
+            } catch { $(e).val("") }
+        }
+
         function Option(e) {
             console.log($(e).val())
             $(e).closest("tr").find("td:eq(1)").empty();
@@ -999,6 +1016,21 @@
 
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
+                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                var mobile = $("#teletephone").val();
+                if (mobile !== '') {
+                    if (vnf_regex.test(mobile) == false) {
+                        $("#livefail").text("Số điện thoại của bạn không đúng định dạng!")
+                        $("#livefail").toast("show");
+                        $("#teletephone").focus();
+                        return;
+                    }
+                } else {
+                    $("#livefail").text("Bạn chưa điền số điện thoại!")
+                    $("#livefail").toast("show");
+                    $("#teletephone").focus();
+                    return;
+                }
                     Profile.name = $("#full_name").val();
                 Profile.birthDay = $("#birthdate").val();
                 Profile.adress = $("#address").val();
@@ -1027,7 +1059,7 @@
                     }
 
                 });
-
+           
                 var input = $(".subject1")
                 Profile.inforMationProflies = [];
                 $.each(input, function (k, v) {
@@ -1051,8 +1083,7 @@
                 } else {
                     Profile.sex = 1;
                 }
-                //Profile.idAccount = token;
-                console.log(Profile)
+
                 if (Profile) {
                     $.ajax({
                         async: false,
@@ -1062,20 +1093,21 @@
                         data: { Profile: Profile, files: fileUrl },
 
                     }).done(function (data) {
-                        console.log(data)
                         if (data.success) {
                             profile = data.data
-                            window.location = "/Home/EditProfile/" + id
-                         //   var link = document.createelement("a");
-                            // if you don't know the name or want to use
+                 
+
+                            var link = document.createElement("a");
+                            // If you don't know the name or want to use
                             // the webserver default set name = ''
-                            @*$(link).attr({
+                            $(link).attr({
                                 target: '_blank',
-                                href: "https://localhost:44396/" + profile.url
+                                href: Url + Profile.url
                             });
                             link.click();
                             link.remove();
-                            $("#livetoast").toast("show");*@
+                            $("#livetoast").toast("show");
+                            window.location = "/Home/EditProfile/" + id
                         }
                         else {
                             $("#livefail").toast("show");
@@ -1202,7 +1234,7 @@
 
             $("#dateRange").val(Profile.dateRange.split('T')[0]);
             $("#noicap").val(Profile.adressRange);
-
+            $("#note").html(Profile.note);
             $("#nation").val(Profile.nation);
             $("#religion").val(Profile.religion);
             $("#fromBirthDay").val(Profile.fromBirthDay);
@@ -1229,21 +1261,32 @@
             $(img).append(let);
             var img1 = $('#file-upload-content');
             $.each(Profile.fileProfiles, function (k, v) {
-                console.log(v);
+            
                 if (v.url.endsWith("pdf")) {
-                    var let = `<div class="col-2">
+                    var let = `<div class="col-2  text-center">
 <a href ="${Url}/${v.url}" target="_blank" >
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-               </a> </div>`;
+       
+<span>${v.name}</span>
+        </a>
+</div>`;
                 }
                 else {
-                    var let = `<div class="col-2">
+                    var let = `<div class="col-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" >
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span>${v.name}</span>
+   </a>
                 </div>`;
                 }
 
                 $(img1).append(let);
             })
+            let = `<div class="col-2">
+<a href ="${Url}/${Profile.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+            $(img1).append(let);
             $.each(conscious, function (k, v) {
                 let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
                 $("#Consciou1").append(option)
@@ -1295,45 +1338,6 @@
 
             //    $("#teletephone").val(Profile.teletephone);
         }
-        function readAvataURL(input) {
-            var fileUpload = $("#filesAvt").get(0);
-            var files = fileUpload.files;
-            var img = $('#logo');
-            // Create  a FormData object
-            var fileData = new FormData();
-
-            // if there are multiple files , loop through each files
-            for (var i = 0; i < files.length; i++) {
-                fileData.append(files[i].name, files[i]);
-            }
-
-            // Adding more keys/values here if need
-            fileData.append('Test', "Test Object values");
-
-            $.ajax({
-                url: Url + "/File/AddReplyDetails",
-                type: "POST", //as we will be posting files and other method POST is used
-                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
-                contentType: false,
-                dataType: "json",
-                data: fileData,
-                success: function (result) {
-
-                    $(img).empty();
-                    $.each(result, function (k, v) {
-                        var let = `<div class="img">
-                    <img  class="the-img"  src="${Url}/${v}"   alt="...">
-                </div>`;
-
-                        Profile.imgavata = v
-                        $(img).append(let);
-                    });
-                },
-                error: function (err) {
-                    alert(err.statusText);
-                }
-            });
-        }
         function readURL(input) {
             var fileUpload = $("#files").get(0);
             var files = fileUpload.files;
@@ -1361,15 +1365,21 @@
                     $(img).empty();
                     $.each(result, function (k, v) {
 
-                        if (v.endsWith("pdf")) {
-                            var let = `<div class="col-2">
-<a href ="${Url}/${v}" target="_blank" >
+                        if (v.url.endsWith("pdf")) {
+                            var let = `<div class="col-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" >
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-               </a> </div>`;
+       
+<span>${v.name}</span>
+        </a>
+</div>`;
                         }
                         else {
-                            var let = `<div class="col-2">
-                    <img src="${Url}/${v}" class="img-thumbnail" alt="...">
+                            var let = `<div class="col-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span>${v.name}</span>
+   </a>
                 </div>`;
                         }
 
@@ -1382,5 +1392,45 @@
             });
         }
 
+        function readAvataURL(input) {
+            var fileUpload = $("#filesAvt").get(0);
+            var files = fileUpload.files;
+            var img = $('#logo');
+            // Create  a FormData object
+            var fileData = new FormData();
+
+            // if there are multiple files , loop through each files
+
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding more keys/values here if need
+            fileData.append('Test', "Test Object values");
+
+            $.ajax({
+                url: Url + "/File/AddReplyDetails",
+                type: "POST", //as we will be posting files and other method POST is used
+                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
+                contentType: false,
+                dataType: "json",
+                data: fileData,
+                success: function (result) {
+
+                    $(img).empty();
+                    $.each(result, function (k, v) {
+                        var let = `<div class="col-2">
+                    <img src="${Url}/${v.url}" width="130" height="160"  alt="...">
+                </div>`;
+
+                        Profile.imgavata = v.url
+                        $(img).append(let);
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
     </script>
 }

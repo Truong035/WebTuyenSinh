@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication;
 using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.IO.Compression;
 
 namespace WebTuyenSinhClient.Controllers
 {
@@ -41,13 +42,15 @@ namespace WebTuyenSinhClient.Controllers
 
         public IActionResult Index()
         {
-      
+            
+
             return View();
         }
 
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
+          
             Login login = new Login();
             login.ReturnUrl = returnUrl;
             return View(login);

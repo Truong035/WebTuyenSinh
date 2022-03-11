@@ -112,24 +112,39 @@ namespace WebTuyenSinh_Application.Repository
             try
             {
                 var Users = await _context.Users.ToListAsync();
-                var account = Users.Where(x => x.Email != null && x.Email.Trim().ToUpper().Equals(request.Email.ToUpper())).FirstOrDefault();
+                var account = Users.FirstOrDefault(x => x.Email.Trim() != null && x.Email.Trim().ToUpper().Equals(request.Email.ToUpper()));
                 if (account == null)
                 {
                     return new ApiResult() { Success = false, Message = "Email incorrest" };
                 }
                 else
                 {
-                    account = Users.Where(x => x.Email.Trim().ToUpper().Equals(request.Email.Trim().ToUpper()) && x.Pass.Trim().Equals(new MD5().GetMD5(request.Password.Trim()))).FirstOrDefault(); ;
+                    account = Users.FirstOrDefault(x => x.Email.Trim().ToUpper().Equals(request.Email.Trim().ToUpper()) && x.Pass.Trim().Equals(new MD5().GetMD5(request.Password.Trim()))); 
                     if (account == null)
                     {
                         return new ApiResult() { Success = false, Message = "Password incorrest" };
                     }
-                    return new ApiResult() { Success = true, Message = "Login success", Data = Users };
+                    var claims = new[] {
+                    new Claim("ID",account.id.ToString()),
+                new Claim(ClaimTypes.Email,account.Email),
+                new Claim(ClaimTypes.Name, account.UserName),
+                new Claim("idRole",account.idRole.ToString())
+            };
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                    var token = new JwtSecurityToken(_config["Tokens:Issuer"],
+                        _config["Tokens:Issuer"],
+                        claims,
+                        expires: DateTime.Now.AddHours(3),
+                        signingCredentials: creds);
+                    return new ApiResult() { Success = true, Message = "success", Data = (new JwtSecurityTokenHandler().WriteToken(token)) };
+                   
                 }
             }
-            catch
+            catch(Exception e)
             {
-                return new ApiResult() { Success = false, Message = "Server Internal", Data = null };
+                return new ApiResult() { Success = false, Message = "Server Internal"+e.Message, Data = null };
             }
         }
         public async Task<ApiResult> Register(RegisterRequest request)
