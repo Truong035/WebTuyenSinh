@@ -30,23 +30,68 @@ namespace WebTuyenSinhClinet.Controllers
         }
         public async Task<IActionResult> ProfileDetail(long? id)
         {
+            string uid = _httpContextAccessor.HttpContext.Session.GetString("ID");
+            if (uid == null || id == null)
+            {
+                return RedirectToAction("Index");
+            }
             try
             {
-                if (id == null)
-                {
-                    return View("Error");
-                }
                 ApiResult result = await _service.GetByProfile(id);
                 ProfileView view = (ProfileView)result.Data;
                 result = await _service.GetByID(view.Data.idAdmisstion);
                 Admisstion Admisstion = (Admisstion)result.Data;
                 ViewBag.data = Admisstion;
-                return View(view);
+                if (view.Data.Statust == 3 || ((view.Data.CloseTime != null) && (view.Data.CloseTime.Value > DateTime.Now)))
+                {
+                    if (Admisstion.Type == 1)
+                    {
+                        return View("FormCapacityEdit", view);
+                    }
+                    else
+                    {
+                        return View(view);
+                    }
+                }
+                if (view.Data.Statust == 0)
+                {
+                    if (Admisstion.Type == 1)
+                    {
+                        return View("UpdateFormCapacity", view);
+                    }
+                    else
+                    {
+                        return View("UpdateProfile", view);
+                    }
+                }
+                if (Admisstion.Type == 1)
+                {
+                    return View("FormCapacityDetail", view);
+                }
+                return View("ProfileDetail", view);
             }
             catch (Exception e)
             {
                 return View("Error");
             }
+
+            //try
+            //{
+            //    if (id == null)
+            //    {
+            //        return View("Error");
+            //    }
+            //    ApiResult result = await _service.GetByProfile(id);
+            //    ProfileView view = (ProfileView)result.Data;
+            //    result = await _service.GetByID(view.Data.idAdmisstion);
+            //    Admisstion Admisstion = (Admisstion)result.Data;
+            //    ViewBag.data = Admisstion;
+            //    return View(view);
+            //}
+            //catch (Exception e)
+            //{
+            //    return View("Error");
+            //}
         }
         public IActionResult ResultProfile(long id)
         {
@@ -60,7 +105,7 @@ namespace WebTuyenSinhClinet.Controllers
 
         public async Task<IActionResult> Addmission()
         {
-            ApiResult result = await _service.GetAll(4);
+            ApiResult result = await _service.GetAll(5);
             List<Admisstion> Admisstion = (List<Admisstion>)result.Data;
             return View(Admisstion);
         }
@@ -80,7 +125,7 @@ namespace WebTuyenSinhClinet.Controllers
                 result = await _service.GetByID(view.Data.idAdmisstion);
                 Admisstion Admisstion = (Admisstion)result.Data;
                 ViewBag.data = Admisstion;
-                if (view.Data.Statust == 2 || ((view.Data.CloseTime != null) && (view.Data.CloseTime.Value > DateTime.Now)))
+                if (view.Data.Statust == 3 || ((view.Data.CloseTime != null) && (view.Data.CloseTime.Value > DateTime.Now)))
                 {
                     if (Admisstion.Type == 1)
                     {
@@ -91,7 +136,17 @@ namespace WebTuyenSinhClinet.Controllers
                         return View(view);
                     }
                 }
-
+                if (view.Data.Statust == 0)
+                {
+                    if (Admisstion.Type == 1)
+                    {
+                        return View("UpdateFormCapacity", view);
+                    }
+                    else
+                    {
+                        return View("UpdateProfile", view);
+                    }
+                }
                 if (Admisstion.Type == 1)
                 {
                     return View("FormCapacityDetail", view);
@@ -110,9 +165,26 @@ namespace WebTuyenSinhClinet.Controllers
         }
         public async Task<IActionResult> CreateProfile(long? id)
         {
-            ApiResult result = await _service.CreateProfile(id);
-
-            return Ok(result);
+            ApiResult result = new ApiResult();
+            string uid = _httpContextAccessor.HttpContext.Session.GetString("ID");
+            if (uid == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            try
+            {  result = await _service.CheckProFile(id.Value, uid);
+                if (!result.Success && result.Data!=null && ((ProfileStudent)result.Data).Statust==0)
+                {
+                    result = await _service.GetByProfile(((ProfileStudent)result.Data).id);
+                    return Ok(result);
+                }
+                result = await _service.CreateProfile(id);
+                return Ok(result);
+            }
+            catch(Exception e){
+                return Ok(result);
+            }
+              
         }
         [HttpPost]
         public async Task<IActionResult> CreateProfile(ProfileStudent id, List<FileProfileView> files)
@@ -157,11 +229,12 @@ namespace WebTuyenSinhClinet.Controllers
             }
             try {
                 ApiResult result = await _service.CheckProFile(id, uid);
-                //if (result.Success)
-                //{
+                if (result.Success || (result.Data != null && ((ProfileStudent)result.Data).Statust == 0))
+                {
                      result = await _service.GetByID(id);
                     Admisstion admisstion = (Admisstion)result.Data;
-                    if (admisstion.Statust == 1) {
+                if(admisstion==null) return View();
+                if (admisstion.Statust == 1) {
                         if (admisstion.Type == 1)
                         {
                             return View("FormCapacity");
@@ -171,9 +244,12 @@ namespace WebTuyenSinhClinet.Controllers
                     else
                     {
                         return View("expireAdmisstion");
-                    }                
-               // }
-                ViewBag.Url = "/Home/EditProfile/"+(long)result.Data;
+                    }
+                }
+                if (!result.Success && result.Data != null && ((ProfileStudent)result.Data).Statust !=0 )
+                {
+                    ViewBag.Url = "/Home/EditProfile/" + ((ProfileStudent)result.Data).id;
+                }  
             }
             catch
             {

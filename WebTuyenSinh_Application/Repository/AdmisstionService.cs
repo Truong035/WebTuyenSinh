@@ -10,6 +10,7 @@ using WebTuyenSinh_Application.ViewApi;
 using WebTuyenSinh.Data.Entityes;
 using WebTuyenSinh_Application.System;
 using System.IO;
+using System.IO.Compression;
 
 namespace WebTuyenSinh_Application.Repository
 {
@@ -257,7 +258,7 @@ namespace WebTuyenSinh_Application.Repository
             try
             {
                 await Checkupdate();
-                List<Admisstion> admisstions = await _context.Admisstions.Where(x => x.Delete != true && x.Statust < status).OrderByDescending(x => x.id).ToListAsync();
+                List<Admisstion> admisstions = await _context.Admisstions.Where(x => x.Delete != true && x.Statust < status && x.Statust!=0).OrderByDescending(x => x.id).ToListAsync();
                 if (status == 2)
                 {
                     admisstions= admisstions.Where(x => x.Delete != true && x.Statust == 1).OrderByDescending(x => x.id).ToList();
@@ -853,11 +854,15 @@ namespace WebTuyenSinh_Application.Repository
                 profileStudent = await _context.ProfileStudents.FindAsync(profile.id);
                 profileStudent.Updatedate = DateTime.Now;
                 var InforMationProflies = _context.InforMationProflies.Where(x => x.idProfile == profile.id);
-                    if (profile.Statust == 2)
+                    if (profile.Statust >1)
                     {
-                        profileStudent.CloseTime = DateTime.Now;
+                        if (profile.Statust == 3)
+                        {
+                            profileStudent.CloseTime = DateTime.Now;
+                        }
+                        profile.Statust = 4;
                     }
-                    profile.Statust = 3;
+                   
                 inforMations = inforMations.OrderBy(X => X.STT).ToList();
                 if (InforMationProflies != null)
                 {
@@ -873,6 +878,11 @@ namespace WebTuyenSinh_Application.Repository
                 profile.Statust = 0;
                 
             }
+            if (profile.Statust == 1)
+                {
+
+                    profile.CreateDate = DateTime.Now;
+                }
             profileStudent.idAccount = profile.idAccount;
             profileStudent.idAdmisstion = profile.idAdmisstion;
             profileStudent.Name = profile.Name;
@@ -889,7 +899,7 @@ namespace WebTuyenSinh_Application.Repository
             profileStudent.FromBirthDay = profile.FromBirthDay;
             profileStudent.Teletephone = profile.Teletephone;
             profileStudent.FromTelePhone = profile.FromTelePhone;
-            profileStudent.imgavata = profile.imgavata;
+            profileStudent.imgavata = "";
             profileStudent.Sex = profile.Sex;
             profileStudent.idAccount = profile.idAccount;
             profileStudent.Shoo1 = profile.Shoo1;
@@ -926,7 +936,6 @@ namespace WebTuyenSinh_Application.Repository
                             File.SetAttributes(file, FileAttributes.Normal);
                             File.Delete(file);
                         }
-
                         Directory.Delete(path1);
                     }
                     Directory.CreateDirectory(path1);
@@ -1145,7 +1154,7 @@ namespace WebTuyenSinh_Application.Repository
             var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.idAccount.Trim().Equals(uid.Trim())).ToListAsync();
             if(Profile.Count > 0)
             {
-                return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = Profile.FirstOrDefault().id };
+                return new ApiResult() { Success = false, Message = "Tìm tìm thấy", Data = Profile.FirstOrDefault()};
             }
 
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data =null };
@@ -1196,9 +1205,49 @@ namespace WebTuyenSinh_Application.Repository
             return new ApiResult() { Message = "Xóa thành công", Data = null, Success = true };
         }
 
-        public Task<ApiResult> DowloadFile(long? id, int type)
+        public async  Task<ApiResult> DowloadFile(long? id, int type)
         {
-            throw new NotImplementedException();
+            string inputDir = "";
+            Admisstion admisstion = await _context.Admisstions.FindAsync(id);
+            if (type == 1)
+            {
+                if (admisstion == null)
+                {
+                    return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = null };
+                }
+                inputDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Admisstion",admisstion.id.ToString());
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\dowload\\data.rar");
+                if (File.Exists(path))
+                {
+                    await Task.Run(() => File.Delete(path));
+                }
+
+                // File đầu ra sau khi nén thư mục trên.
+                string zipPath = path;
+                ZipFile.CreateFromDirectory(inputDir, zipPath, CompressionLevel.Fastest, true);
+                return new ApiResult() { Success = true, Message = ""+admisstion.id+ ".rar", Data = "/dowload/data.rar" };
+            }
+            else
+            {
+                var Profile = await _context.ProfileStudents.FindAsync(id);
+                if (Profile == null)
+                {
+                    return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = null };
+                }
+                inputDir = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/Admisstion/{Profile.idAdmisstion}/{Profile.CMND.Trim()}");
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\dowload\\data.rar");
+                if (File.Exists(path))
+                {
+                    await Task.Run(() => File.Delete(path));
+                }
+
+                // File đầu ra sau khi nén thư mục trên.
+                string zipPath = path;
+                ZipFile.CreateFromDirectory(inputDir, zipPath, CompressionLevel.Fastest, true);
+                return new ApiResult() { Success = true, Message = "" + Profile.CMND.Trim()+".rar", Data = "/dowload/data.rar" };
+            }
+
+          
         }
     }
 }

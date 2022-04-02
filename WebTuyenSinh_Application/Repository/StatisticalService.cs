@@ -20,19 +20,17 @@ namespace WebTuyenSinh_Application.Repository
 
         public  async Task<Statistical> Statistical(DateTime? fromDate, DateTime? toDate, int? Type, string idMajor)
         {
-            var admisstion = await _context.Admisstions.Where(x => x.CreateDate != null && x.Delete != true).ToListAsync();
+            var admisstion = await _context.Admisstions.Where(x => x.CreateDate != null && x.Delete != true && x.Statust != 0).ToListAsync();
 
             if (fromDate !=null && toDate != null) admisstion = admisstion.Where(x => x.CreateDate.Value.Date >= fromDate.Value.Date && x.CreateDate.Value.Date <= toDate.Value.Date).ToList();
 
             if (Type != null) admisstion= admisstion.Where(x => x.Type==Type).ToList();
-            var admisstionInfo = await _context.Admisstion_Major.ToListAsync();
+            
             var ProfileInfor = await _context.InforMationProflies.ToListAsync();
             if (idMajor != null && idMajor.Length > 0) {
-                admisstionInfo = admisstionInfo.Where(x => x.idMajor.Equals(idMajor)).ToList();
+            
                 ProfileInfor = ProfileInfor.Where(x => x.idMajor.Trim().Equals(idMajor.Trim())).ToList();
-                    };
-
-           
+                    }
             var Profile = await _context.ProfileStudents.ToListAsync();
             var Major = await _context.Majors.ToListAsync();
             var data = (from ad in admisstion
@@ -167,7 +165,7 @@ namespace WebTuyenSinh_Application.Repository
 
         public async Task<StatisticalHome> StatisticalHome(long? idAdmisstion)
         {
-            var admisstion = await _context.Admisstions.Where(x=>x.CreateDate!=null &&x.Delete!=true).ToListAsync();
+            var admisstion = await _context.Admisstions.Where(x=>x.CreateDate!=null &&x.Delete!=true && x.Statust!=0).ToListAsync();
             var admisstionInfo = await _context.Admisstion_Major.ToListAsync();
             var ProfileInfor = await _context.InforMationProflies.ToListAsync();
             if (idAdmisstion == null)
@@ -194,7 +192,7 @@ namespace WebTuyenSinh_Application.Repository
                         }).ToList();
                        ;
             StatisticalHome home = new StatisticalHome();
-            home.Message = " " + admisstion.Where(x=>x.id==idAdmisstion).FirstOrDefault().Name;
+            home.Message = " " + admisstion.FirstOrDefault(x=>x.id==idAdmisstion)?.Name;
             home.AdmisstionValue = admisstion.Select(x => new AdmissisionValue() {Value=x.id,Name=x.Name}).Distinct().ToList();
             home.TopMajors = (from c in data
                               group data by new { c.idMajor, c.Name } into g

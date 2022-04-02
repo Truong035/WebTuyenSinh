@@ -25,21 +25,7 @@ namespace WebTuyenSinhAdmin.Controllers
 
         public IActionResult Index()
         {
-         //   // Thư mục sẽ được nén.
-         ////   var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Profile");
-         //   string inputDir =Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Profile");
-         //   var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data.zip");
-         //   // File đầu ra sau khi nén thư mục trên.
-         //   string zipPath = path;
-
-         //   // Giải nén file zip ra một thư mục.
-         //   string extractPath = "D:/outputdir";
-
-         //   // Tạo ra file zip bằng cách nén một thư mục.
-         //   ZipFile.CreateFromDirectory(inputDir, zipPath, CompressionLevel.Fastest, true);
-
-         //   // Giải nén file zip ra một thư mục.
-         //   ZipFile.ExtractToDirectory(zipPath, extractPath);
+    
             Response.Cookies.Delete("Token");
             return View();
         }

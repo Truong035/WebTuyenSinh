@@ -46,10 +46,13 @@
             <!-- form-title -->
             <div class="form-title justify-content-end d-flex justify-content-between">
                 <div class="col c-3 ">
-                    <div class="student-avatar " id="logo" onclick="$('.adAvt').trigger( 'click' )">
+                    <div class="student-avatar " id="logo">
+
+                        <!--<img src="data:image/jpeg;base64,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" width="130" height="160" alt="...">-->
                         <p class="student-avatar-size">Ảnh 3x4</p>
                         <p class="student-avatar-note">(Chụp kiểu CMND, không quá 6 tháng)</p>
                     </div>
+
                 </div>
                 <div class="col c-8" style="margin-top:50px;">
                     <h6>PHIẾU ĐĂNG KÝ XÉT TUYỂN <span>ĐẠI HỌC CHÍNH QUY</span></h6>
@@ -151,7 +154,7 @@
                             </span>
                             <div class="validation-parent">
                                 <input required type="text" id="noicap" name="noicap" class="full-name-property ml-3"
-                                       placeholder="Hà Nội">
+                                       placeholder="">
                             </div>
                         </div>
                     </div>
@@ -187,7 +190,7 @@
                             </p>
                             <div class="validation-parent">
                                 <input required type="text" id="address" name="dantoc" class="full-name-property ml-3"
-                                       value="11e liên khu 25 quận 9">
+                                       value="">
                             </div>
                         </div>
                     </div>
@@ -347,10 +350,10 @@
                                 <span> Khu vực:  </span>
                             </span>
                             <select id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
-                                <option value="KV1"> KV1</option>
-                                <option value="KV2"> KV2</option>
-                                <option value="KV3"> KV3</option>
-                                <option value="KV4"> 2NT</option>
+                                <option value="1"> 1</option>
+                                <option value="2"> 2</option>
+                                <option value="3"> 3</option>
+                                <option value="2NT"> 2NT</option>
                             </select>
 
                         </div>
@@ -538,7 +541,7 @@
 
             <div class="container mt-5 text-center">
                 @*<button class="btn btn-primary ml-auto" type="submit">Xem Trước </button>*@
-                <button class="btn btn-primary ml-auto" type="submit">Đăng ký </button>
+                <button class="btn btn-primary ml-auto" type="submit">Xem Trước</button>
             </div>
 
         </div>
@@ -661,29 +664,6 @@
             let id = window.location.href.split('/').pop();
             $.ajax({
                 async: false,
-                url: "/Home/CreateProfile/" + id,
-                type: 'GET',
-
-            }).done(
-                function (res) {
-                    if (res.success) {
-                        console.log(res.data)
-                        conscious = res.data.conscious;
-                        console.log(conscious);
-                        district = res.data.district
-                        console.log(district);
-                        sChool = res.data.sChool;
-                        console.log(sChool);
-                        Profile = res.data.data
-
-                      LoadProfile();
-                    }
-
-                }
-            );
-
-            $.ajax({
-                async: false,
                 url: "/Home/GetAdmisstionInfo/" + id,
                 type: 'GET',
             }).done(function (res) {
@@ -693,6 +673,31 @@
 
                 }
             });
+            LoadData()
+            $.ajax({
+                async: false,
+                url: "/Home/CreateProfile/" + id,
+                type: 'GET',
+
+            }).done(
+                function (res) {
+                    if (res.success) {
+                        console.log(res.data)
+                        conscious = res.data.conscious;
+
+                        district = res.data.district
+     
+                        sChool = res.data.sChool;
+    
+                        Profile = res.data.data
+
+                      LoadProfile();
+                    }
+
+                }
+            );
+
+      
 
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
@@ -770,19 +775,13 @@
                 }
                 Profile.idAccount = token;
                 console.log(Profile)
-                if (Profile.imgavata == null ) {
-                    $("#livefail").text("Vui lòng upload ảnh 3X4")
-                    $("#livefail").toast("show");
-                    $("#logo").addClass("border-danger")
-                    return;
-                }
-                if (fileUrl.length == 0) {
-
-
+       
+                if (fileUrl.length == 0 && Profile.id === 0) {
                     $("#livefail").text("Vui lòng upload các giấy tờ cần thiết")
                     $("#livefail").toast("show");
                 } else {
                     if (Profile) {
+                        $('#particles1').show();
                         $.ajax({
                             async: false,
                             url: Url + "/Admisstion/CreateProfile",
@@ -791,7 +790,9 @@
                             data: { Profile: Profile, files: fileUrl },
 
                         }).done(function (data) {
+                           
                             if (data.success) {
+                                $('#particles1').hide();
                                 Profile = data.data
                                 var link = document.createElement("a");
                                 // If you don't know the name or want to use
@@ -806,12 +807,13 @@
                                 setTimeout(myGreeting, 2000);
                             }
                             else {
+                                $('#particles1').hide();
                                 $("#livefail").text("Quá trình đăng ký thất bại")
                                 $("#livefail").toast("show");
                             }
 
                         }).fail(function () {
-
+                            $('#particles1').hide();
                             $("#livefail").text("Quá trình đăng ký thất bại")
                             $("#livefail").toast("show");
                           
@@ -923,7 +925,7 @@
                 $("#Consciou3").val($("#School3").val().split('/').pop())
                 $("#district3").val($("#School3").val().split('/')[1] + "/" + $("#School3").val().split('/').pop())
             })
-            LoadData()
+        
             $(document).on('click', "button[name = 'Delete']", function () {
                 $(this).closest('tr').remove();
                 if ($(".subject1").length == 0) {
@@ -956,6 +958,177 @@
                 $("#Consciou2").append(option)
                 $("#Consciou3").append(option)
             })
+
+            if (Profile.id !== 0) {
+                $("#full_name").val(Profile.name);
+                $("#birthdate").val(Profile.birthDay.split('T')[0]);
+                $("#address").val(Profile.adress);
+                $("#cmnd").val(Profile.cmnd);
+
+                $("#dateRange").val(Profile.dateRange.split('T')[0]);
+                $("#noicap").val(Profile.adressRange);
+
+                $("#nation").val(Profile.nation);
+                $("#religion").val(Profile.religion);
+                $("#fromBirthDay").val(Profile.fromBirthDay);
+                $("#fromTelePhone").val(Profile.fromTelePhone);
+                $("#teletephone").val(Profile.teletephone);
+                $("#Email").val(Profile.email);
+                $("#year").val(Profile.year);
+                $("#areas").val(Profile.areas);
+                $("#priority_object").val(Profile.priority_object);
+                if (Profile.sex === 0) {
+
+                    $("#checknam").prop("checked", true);
+                }
+                else {
+                    $("#checknu").prop("checked", true);
+                }
+                var img = $('#logo');
+                img.empty();
+                var let = `<div class="img">
+                    <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
+                </div>`;
+
+
+                $(img).append(let);
+                var img1 = $('#file-upload-content');
+                $.each(Profile.fileProfiles, function (k, v) {
+                    if (v.url.endsWith("pdf")) {
+                        var let = `<div class="col-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span>${v.name}</span>
+        </a>
+</div>`;
+                    }
+                    else {
+                        var let = `<div class="col-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span>${v.name}</span>
+   </a>
+                </div>`;
+                    }
+
+
+                    $(img1).append(let);
+                })
+                let = `<div class="col-2">
+<a href ="${Url}/${Profile.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+                $(img1).append(let);
+                $.each(conscious, function (k, v) {
+                    let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
+                    $("#Consciou1").append(option)
+                    $("#Consciou2").append(option)
+                    $("#Consciou3").append(option)
+                })
+                $.each(district, function (k, v) {
+                    let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                    $("#district1").append(option)
+                    $("#district2").append(option)
+                    $("#district3").append(option)
+                })
+
+                let idshoo1 = "";
+                let idshoo2 = "";
+                let idshoo3 = "";
+                $.each(sChool, function (k, v) {
+
+                    let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                    $("#School1").append(option)
+                    $("#School2").append(option)
+                    $("#School3").append(option)
+                    if (Profile.shoo1 == v.id) {
+                        idshoo1 = v.idSchool
+                        $("#district1").val(v.idDistrict)
+                        $("#Consciou1").val(v.idConscious)
+                    }
+                    if (Profile.shoo2 == v.id) {
+                        idshoo2 = v.idSchool
+                        $("#district2").val(v.idDistrict)
+                        $("#Consciou2").val(v.idConscious)
+                    }
+                    if (Profile.shoo3 == v.id) {
+                        idshoo3 = v.idSchool
+                        $("#district3").val(v.idDistrict)
+                        $("#Consciou3").val(v.idConscious)
+                    }
+                })
+
+                $("#School1").val(idshoo1)
+                $("#School2").val(idshoo2)
+                $("#School3").val(idshoo3)
+                $("#tbbody").empty("")
+                for (var i = 0; i < Profile.inforMationProflies.length; i++) {
+                    let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+     <option value="">Chọn Ngành</option>`
+                    let selectblock = ` <select class=" form-select form-select-sm block"  required aria-label=".form-select-sm example">
+                   `
+                    $.each(majors, function (k, v) {
+                        if (v.idMajor.trim() === Profile.inforMationProflies[i].idMajor) {
+                
+                            selectmajor += ` <option selected value="${v.idMajor}">${v.name}</option>`
+                            $.each(v.block, function (index, value) {
+                                if (value.trim() === Profile.inforMationProflies[i].idBlock.trim()) {
+                                    selectblock += ` selected <option value="${value}">${value}</option>`
+                                }
+                                else {
+                                    selectblock += ` <option value="${value}">${value}</option>`
+                                }
+                              
+                            })
+                        }
+                        else {
+                            selectmajor += ` <option  value="${v.idMajor}">${v.name}</option>`
+                        }
+                    });
+                    selectmajor += `</select>`
+
+
+
+                  
+                    selectblock += `</select>`
+                  
+
+                    let tr = `  <tr>
+
+                                                    <td>
+                                                      ${selectmajor}
+                                                    </td>
+                                                    <td>
+                                                       ${selectblock}
+                                                    </td>
+                                                    <td><input type="text" value=${ Profile.inforMationProflies[i].subject1}  onchange="CheckMart(this)" class="subject1" required value="" /></td>
+                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject2} onchange="CheckMart(this)" class="subject2" required value="" /></td>
+                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject3}  onchange="CheckMart(this)" class="subject3" required value="" /></td>
+                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject4}  onchange="CheckMart(this)" class="subject4" required value="" /></td>
+                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject5}  onchange="CheckMart(this)" class="subject5" required value="" /></td>
+                                                <td><input type="text"  value=${ Profile.inforMationProflies[i].subject6} onchange="CheckMart(this)" class="subject6" required value="" /></td>
+                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject7}  onchange="CheckMart(this)" class="subject7" required value="" /></td>
+                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject8}  onchange="CheckMart(this)" class="subject8" required value="" /></td>
+                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject9}  onchange="CheckMart(this)" class="subject9" required value="" /></td>
+                                                <td>
+                                                    <div class="form-button-action">
+
+                                                        <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <i class="ti-close"> x</i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+
+                                                </tr>`
+
+                    $("#tbbody").append(tr)
+                
+                }
+            
+            }
+      
+       
         }
         function readURL(input) {
             var fileUpload = $("#files").get(0);
@@ -1052,7 +1225,7 @@
             });
         }
         function myGreeting() {
-            window.location = "/Home/ResultProfile/" + Profile.id
+            window.location = "/Home/ProfileDetail/" + Profile.id
         }
     </script>
 }

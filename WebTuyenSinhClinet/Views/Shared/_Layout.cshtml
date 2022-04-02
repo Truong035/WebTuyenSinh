@@ -26,8 +26,30 @@
     <!-- custom css -->
 
     <link href="~/css/site.css" rel="stylesheet" />
+    <style>
+        #particles1 {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            overflow: hidden;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            overflow: hidden;
+            text-align: center;
+            position: fixed;
+        }
+    </style>
+
 </head>
 <body>
+    <div id="particles1">
+        <div style="margin-top:15%">
+
+            <img src="~/5.gif" />
+        </div>
+    </div>
 
     <!-- go to top button -->
     <div class="btn-gototop">
@@ -129,7 +151,7 @@
                         @*@{Html.RenderPartial("Use", "Home");};*@
                         <partial name="_User" />
                         <!-- Icon -->
-                   
+
                     </div>
                     <!-- Left links -->
                 </div>
@@ -245,28 +267,26 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="~/js/sweetalert/sweetalert.min.js"></script>
     <script>
-    // const Url = "https://utc2.tk"
-   const Url = "https://localhost:44396"
-    $("document").ready(function () {
-    $(".btn-gototop").hide()
-
-    $(window).scroll(function () {
-    if ($(this).scrollTop() >= 100) {
-    $(".btn-gototop").show("slow")
-    }
-    else {
-    $(".btn-gototop").hide("slow")
-    }
-
-    })
-    $(".btn-gototop").click(function () {
-    $("html,body").animate({
-    scrollTop: 0
-    }, 500)
-    })
-    })
-
-    AOS.init();
+       const Url = "https://utc2.tk"
+      //  const Url = "https://localhost:44396"
+        $("document").ready(function () {
+            $(".btn-gototop").hide()
+            $(window).scroll(function () {
+                if ($(this).scrollTop() >= 100) {
+                    $(".btn-gototop").show("slow")
+                }
+                else {
+                    $(".btn-gototop").hide("slow")
+                }
+            })
+            $(".btn-gototop").click(function () {
+                $("html,body").animate({
+                    scrollTop: 0
+                }, 500)
+            })
+        })
+        $('#particles1').hide();
+        AOS.init();
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

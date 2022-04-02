@@ -81,7 +81,7 @@ namespace WebTuyenSinhAdmin.Controllers
         public async Task<IActionResult> Dowload(long? id , int Type)
         {
 
-            ApiResult result = await _service.DowloadFile(id);
+            ApiResult result = await _service.DowloadFile(id, Type);
 
             return Ok(result);
         }

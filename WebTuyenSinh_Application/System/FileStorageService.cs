@@ -359,11 +359,11 @@ font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
 
 
 
-            page.Canvas.DrawString(""+ school.idDistrict[0],
+            page.Canvas.DrawString(""+ school.idConscious[0],
  font2,
     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
     370, height);
-            page.Canvas.DrawString(""+ school.idDistrict[1],
+            page.Canvas.DrawString(""+ school.idConscious[1],
  font2,
     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
     395, height);
@@ -417,11 +417,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             page.Canvas.DrawLine(pen, new PointF(440, height), new PointF(515, height));
             height += 2;
 
-            page.Canvas.DrawString("" + school.idDistrict[0],
+            page.Canvas.DrawString("" + school.idConscious[0],
  font2,
     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
     370, height);
-            page.Canvas.DrawString("" + school.idDistrict[1],
+            page.Canvas.DrawString("" + school.idConscious[1],
  font2,
     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
     395, height);
@@ -473,11 +473,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             page.Canvas.DrawLine(pen, new PointF(440, height), new PointF(515, height));
             height += 2;
 
-            page.Canvas.DrawString("" + school.idDistrict[0],
+            page.Canvas.DrawString("" + school.idConscious[0],
  font2,
     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
     370, height);
-            page.Canvas.DrawString("" + school.idDistrict[1],
+            page.Canvas.DrawString("" + school.idConscious[1],
  font2,
     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
     395, height);
@@ -1710,8 +1710,6 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                     }
                     return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = "/" + fileName };
                 }
-
-
             }
             catch (Exception e)
             {

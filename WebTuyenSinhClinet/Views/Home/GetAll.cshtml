@@ -110,28 +110,28 @@
                                                             @item.CloseTime.ToString();
                                                         </td>
                                                         <td>
-                                                            @if (item.Statust == 0)
+                                                            @if (item.Statust == 1)
                                                             {
                                                                 <button name="status" id="@item.id" style="background:rgb(7 153 210 / 0.88)" class="badge border-0 badge badge-info">
                                                                     Chưa duyệt
 
                                                                 </button>
                                                             }
-                                                            @if (item.Statust == 1)
+                                                            @if (item.Statust == 2)
                                                             {
                                                                 <button name="status" id="@item.id" style="background:rgb(33 182 4 / 0.88)" class="badge border-0 badge badge-success">
                                                                     Đã duyệt
 
                                                                 </button>
                                                             }
-                                                            @if (item.Statust == 2)
+                                                            @if (item.Statust == 3)
                                                             {
                                                                 <button name="status" id="@item.id" class="badge border-0 badge badge-warning" style="background:rgb(253 138 56 / 0.86)">
                                                                     Yêu Cầu Chỉnh Sửa
 
                                                                 </button>
                                                             }
-                                                            @if (item.Statust == 3)
+                                                            @if (item.Statust == 4)
                                                             {
                                                                 <button name="status" id="@item.id" class="badge border-0" style="background:rgb(239 207 48 / 0.88)">
                                                                     Đã cập nhật
@@ -140,7 +140,7 @@
                                                             }
                                                         </td>
                                                         <td>
-                                                            @if (item.Statust == 2)
+                                                            @if (item.Statust == 3)
                                                             {
                                                                 <a href="/Home/EditProfile/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
                                                                     Edit

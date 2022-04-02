@@ -193,7 +193,7 @@
                             </p>
                             <div class="validation-parent">
                                 <input disabled required type="text" id="address" name="dantoc" class="full-name-property ml-3"
-                                       value="11e liên khu 25 quận 9">
+                                       value="">
                             </div>
                         </div>
                     </div>
@@ -270,7 +270,7 @@
                         <div class=" d-flex mobile-column" style="width:100%">
                             <div class="d-flex day-of-birth full-name-box c-7 mobile-column">
                                 <span class=" d-flex student-avatar-note full-name-box">
-                                    <span> Năm lớp 10:  </span>
+                                    <span> Năm lớp 12:  </span>
                                 </span>
                                 <div class="ml-2 d-flex justify-content-between mobile-width-select">
                                     <select disabled class="ml-4 form-select form-select-sm" id="Consciou1" aria-label=".form-select-sm example">
@@ -353,10 +353,10 @@
                                 <span> Khu vực:  </span>
                             </span>
                             <select disabled id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
-                                <option value="KV1"> KV1</option>
-                                <option value="KV2"> KV2</option>
-                                <option value="KV3"> KV3</option>
-                                <option value="KV4"> 2NT</option>
+                                <option value="1"> 1</option>
+                                <option value="2"> 2</option>
+                                <option value="3"> 3</option>
+                                <option value="2NT"> 2NT</option>
                             </select>
 
                         </div>
@@ -682,15 +682,13 @@
             else {
                 $("#checknu").prop("checked", true);
             }
-            var img = $('#logo');
-            img.empty();
-            var let = `<div class="img">
-                    <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
+            //var img = $('#logo');
+            //img.empty();
+            //var let = `<div class="img">
+            //        <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
 
-                </div>`;
-
-
-            $(img).append(let);
+            //    </div>`;
+            //$(img).append(let);
             var img1 = $('#file-upload-content');
             $.each(Profile.fileProfiles, function (k, v) {
    
@@ -744,17 +742,17 @@
                 $("#School3").append(option)
                 if (Profile.shoo1 == v.id) {
                     idshoo1 = v.idSchool
-                    $("#district1").val(v.idDistrict)
+                    $("#district1").val(v.idDistrict.trim())
                     $("#Consciou1").val(v.idConscious)
                 }
                 if (Profile.shoo2 == v.id) {
                     idshoo2 = v.idSchool
-                    $("#district2").append(v.idDistrict)
+                    $("#district2").val(v.idDistrict)
                     $("#Consciou2").val(v.idConscious)
                 }
                 if (Profile.shoo3 == v.id) {
                     idshoo3 = v.idSchool
-                    $("#district3").append(v.idDistrict)
+                    $("#district3").val(v.idDistrict)
                     $("#Consciou3").val(v.idConscious)
                 }
             })

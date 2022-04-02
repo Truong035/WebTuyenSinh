@@ -366,13 +366,12 @@
                             <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Khu vực:  </span>
                             </span>
-                            <select disabled  id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
-                                <option value="KV1"> KV1</option>
-                                <option value="KV2"> KV2</option>
-                                <option value="KV3"> KV3</option>
-                                <option value="KV4"> 2NT</option>
+                            <select disabled id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
+                                <option value="1"> 1</option>
+                                <option value="2"> 2</option>
+                                <option value="3"> 3</option>
+                                <option value="2NT"> 2NT</option>
                             </select>
-
                         </div>
 
                         <div class="d-flex day-of-birth full-name-box mobile-column-full" style="">
@@ -755,14 +754,14 @@
             else {
                 $("#checknu").prop("checked", true);
             }
-            var img = $('#logo');
-            img.empty();
-            var let = `<div class="img">
-                        <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
-                    </div>`;
+            //var img = $('#logo');
+            //img.empty();
+            //var let = `<div class="img">
+            //            <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
+            //        </div>`;
 
 
-            $(img).append(let);
+            //$(img).append(let);
             var img1 = $('#file-upload-content');
             $.each(Profile.fileProfiles, function (k, v) {
                 if (v.url.endsWith("pdf")) {
@@ -820,12 +819,12 @@
                 }
                 if (Profile.shoo2 == v.id) {
                     idshoo2 = v.idSchool
-                    $("#district2").append(v.idDistrict)
+                    $("#district2").val(v.idDistrict)
                     $("#Consciou2").val(v.idConscious)
                 }
                 if (Profile.shoo3 == v.id) {
                     idshoo3 = v.idSchool
-                    $("#district3").append(v.idDistrict)
+                    $("#district3").val(v.idDistrict)
                     $("#Consciou3").val(v.idConscious)
                 }
             })

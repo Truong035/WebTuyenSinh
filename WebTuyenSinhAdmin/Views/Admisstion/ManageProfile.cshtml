@@ -138,6 +138,13 @@
                     type: 'POST',
                     data: { id: id, type:1}
                 }).done(function (res) {
+                    if (res.success) {
+                        var link = document.createElement('a');
+                        link.href = res.data;
+                        link.download = `${res.message}`;
+                        link.click();
+                        link.remove();
+                    }
 
                 })
          
