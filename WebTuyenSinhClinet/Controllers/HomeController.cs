@@ -231,7 +231,7 @@ namespace WebTuyenSinhClinet.Controllers
                 ApiResult result = await _service.CheckProFile(id, uid);
                 if (result.Success || (result.Data != null && ((ProfileStudent)result.Data).Statust == 0))
                 {
-                     result = await _service.GetByID(id);
+                   // ApiResult result = await _service.GetByID(id);
                     Admisstion admisstion = (Admisstion)result.Data;
                 if(admisstion==null) return View();
                 if (admisstion.Statust == 1) {
@@ -244,12 +244,12 @@ namespace WebTuyenSinhClinet.Controllers
                     else
                     {
                         return View("expireAdmisstion");
-                    }
+                  }
                 }
-                if (!result.Success && result.Data != null && ((ProfileStudent)result.Data).Statust !=0 )
+                if (!result.Success && result.Data != null && ((ProfileStudent)result.Data).Statust != 0)
                 {
                     ViewBag.Url = "/Home/EditProfile/" + ((ProfileStudent)result.Data).id;
-                }  
+                }
             }
             catch
             {
