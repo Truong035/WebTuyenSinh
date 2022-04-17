@@ -17,9 +17,9 @@
             </div>
             <div class="modal-body">
                 <select class="form-select" id="txtstatus" onchange="handleChange()" aria-label="Default select example">
-                    <option value="0">Chưa duyệt</option>
-                    <option value="1">Đã duyệt</option>
-                    <option value="2">Yêu cầu chỉnh sửa</option>
+                    <option value="1">Chưa duyệt</option>
+                    <option value="2">Đã duyệt</option>
+                    <option value="3">Yêu cầu chỉnh sửa</option>
                 </select>
                 <div class="mb-3" id="frmbody">
 
@@ -116,31 +116,31 @@
                                                         @item.Quantity
                                                     </td>
                                                     <td>
-                                                        @item.CreateDate.ToString();
+                                                        @(item?.CreateDate.Value.ToString("dd/MM/yyyy  HH:mm tt") ?? "")
                                                     </td>
                                                     <td>
-                                                        @if (item.Statust == 0)
+                                                        @if (item.Statust == 1)
                                                         {
                                                             <button name="status" id="@item.id" class="badge border-0 badge badge-info">
                                                                 Chưa duyệt
 
                                                             </button>
                                                         }
-                                                        @if (item.Statust == 1)
+                                                        @if (item.Statust == 2)
                                                         {
                                                             <button name="status" id="@item.id" class="badge border-0 badge badge-success">
                                                                 Đã duyệt
 
                                                             </button>
                                                         }
-                                                        @if (item.Statust == 2)
+                                                        @if (item.Statust == 3)
                                                         {
                                                             <button name="status" id="@item.id" class="badge border-0 badge badge-warning">
                                                                 Đang cập nhật
 
                                                             </button>
                                                         }
-                                                        @if (item.Statust == 3)
+                                                        @if (item.Statust == 4)
                                                         {
                                                             <button name="status" id="@item.id" class="badge border-0" style="background:rgb(239 207 48 / 0.88)">
                                                                 Đã cập nhật
@@ -189,7 +189,7 @@
         let button;
         function handleChange() {
             var a = $("#txtstatus").val();
-            if (a === "2") {
+            if (a === "3") {
                 $("#frmbody").show();
 
                 $(".modal-dialog").addClass("modal-xl  modal-dialog-scrollable");
@@ -231,18 +231,18 @@
                                 $("#liveToast").empty();
                                 $("#liveToast").append(res.message);
                                 $("#liveToast").toast("show");
-                                if (a === "0") {
+                                if (a === "1") {
                                     $(button).text("Chưa duyệt")
                                     $(button).removeClass("badge-success badge-warning")
                                     $(button).addClass("badge badge-info");
                                 }
-                                if (a === "1") {
+                                if (a === "2") {
                                     $(button).text(" Đã duyệt")
                                     $(button).removeClass("badge-info badge-warning")
                                     $(button).addClass("badge badge-success");
 
                                 }
-                                if (a === "2") {
+                                if (a === "3") {
                                     $(button).removeClass("badge-info badge-warning")
                                     $(button).text("Đang cập nhật")
                                     $(button).addClass("badge-warning");

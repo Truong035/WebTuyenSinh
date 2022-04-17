@@ -100,7 +100,7 @@
                                                         @item.block
                                                     </td>
                                                     <td>
-                                                        @item.CreateDate.ToString();
+                                                        @item?.CreateDate.Value.ToString("dd/MM/yyyy  HH:mm tt") 
                                                     </td>
                                                     <td>
                                                         @if (item.Statust == 1)

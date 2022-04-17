@@ -106,8 +106,8 @@
                                                             @item.Quantity
                                                         </td>
                                                         <td>
-                                                            @item.CreateDate.ToString();
-                                                            @item.CloseTime.ToString();
+                                                            @item.CreateDate.Value.ToString("dd/MM/yyyy")
+                                                       
                                                         </td>
                                                         <td>
                                                             @if (item.Statust == 1)
@@ -143,14 +143,14 @@
                                                             @if (item.Statust == 3)
                                                             {
                                                                 <a href="/Home/EditProfile/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
-                                                                    Edit
+                                                                   Chỉnh sửa
                                                                 </a>
                                                             }
                                                             else if ((item.CloseTime!=null) && item.CloseTime.Value > DateTime.Now)
                                                             {
-                                                                <a href="/Home/EditProfile/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
-                                                                    Edit
-                                                                </a>
+                                                        <a href="/Home/EditProfile/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                            Chỉnh sửa
+                                                        </a>
                                                             }
                                                             else
                                                             {

@@ -21,35 +21,14 @@ namespace WebTuyenSinhAdmin.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IStatisticalService _statistical;
-        private static readonly string[] Scopes = new[] { DriveService.Scope.DriveFile, DriveService.Scope.Drive };
-        private static Google.Apis.Drive.v3.DriveService driveService;
+
         public HomeController(ILogger<HomeController> logger , IStatisticalService statistical)
         {
             _logger = logger;
             _statistical = statistical;
 
         }
-        private UserCredential GetCredentials()
-        {
-            UserCredential credential;
-
-            using (var stream = new FileStream("code_secret_client.json", FileMode.Open, FileAccess.Read))
-            {
-                string credPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
-
-                credPath = Path.Combine(credPath, "code_secret_client.json");
-
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-              
-            }
-
-            return credential;
-        }
+        
         public async Task<IActionResult> Index(int? id)
         {
 

@@ -25,6 +25,10 @@
             text-align: center;
             border:none !important
         }
+        .form-title div:first-child {
+            max-width: 100%;
+            margin-right: 20px;
+        }
         </style>
 </head>
 <body>
@@ -46,8 +50,8 @@
             <!-- header-top -->
             <div class="row d-flex flex-center">
                 <div class="col c-6 educate">
-                    <p class="educate-parent">BỘ GIÁO DỤC VÀ ĐÀO TẠO</p>
-                    <p class="educate-parent educate-child">TRƯỜNG ĐẠI HỌC GTVT PH TP.HCM</p>
+                    <p class="educate-parent educate-child">TRƯỜNG ĐẠI HỌC GIAO THÔNG VẬN TẢI</p>
+                    <p class="educate-parent educate-child">PHÂN HIỆU TẠI TP.HỒ CHÍ MINH</p>
                     <i class="line-head-one"></i>
                 </div>
                 <div class="col c-6 educate">
@@ -56,18 +60,18 @@
                     <i class="line-head-one line-head-custom"></i>
                 </div>
             </div>
-            <input class="adAvt" multiple id="filesAvt" hidden type='file' onchange="readAvataURL(this);" accept="application/pdf,image/*" />
+          
             <!-- form-title -->
-            <div class="row form-title justify-content-end d-flex justify-content-between">
-                <div class="col c-3 ">
-                    <div class="student-avatar " id="logo">
+            <div class="row form-title justify-content-between">
+                <!--<div class="col c-3 ">-->
+                    <!--<div class="student-avatar " id="logo">-->
 
                         <!--<img src="data:image/jpeg;base64,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" width="130" height="160" alt="...">-->
-                        <p class="student-avatar-size">Ảnh 3x4</p>
-                        <p class="student-avatar-note">(Chụp kiểu CMND, không quá 6 tháng)</p>
-                    </div>
-                </div>
-                <div class="col c-8" style="margin-top:50px;">
+                        <!--<p class="student-avatar-size">Ảnh 3x4</p>
+                        <p class="student-avatar-note">(Chụp kiểu CMND, không quá 6 tháng)</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="col-12 text-center"  style="margin-top:20px;">
                     <h6>PHIẾU XÉT TUYỂN ĐẠI HỌC CHÍNH QUY NĂM @DateTime.Now.Year</h6>
                     <span style="font-size:small">(Dành cho xét tuyển bằng kết quả thi đánh giá năng lực của Đại học Quốc gia Tp. Hồ Chí Minh)</span>
                 </div>
@@ -406,7 +410,7 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <div class="col c-5">
+                    <div class="col c-8">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
                                 <span> Số báo danh (*): </span>
@@ -416,7 +420,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col c-4">
+                    @*<div class="col c-4">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
                                 <span>  Tổ hợp môn (*): </span>
@@ -426,7 +430,7 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                     <div class="col c-2">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
@@ -503,13 +507,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4 ">
+                <div class="row mt-4 mr-auto ">
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
-                                    <div class="validation-parent"
-                                         style="width:40%;justify-content: center;display: flex;margin-right:75px">
+                                    <div class="validation-parent" style="width:20%;justify-content: center;display: flex;margin-right:75px">
                                         <input type="text" id="" name="" style="font-size: 13px; width: 500%;"
                                                class="full-name-property ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
@@ -617,14 +620,15 @@
                 var mark = $(e).val()
                 var x = Number($(e).val())
 
-                if (x > 0 && x < 31) {
-
+                if (x > 0 && x < 1201) {
+                    return;
                 }
                 else {
                     $("#livefail").empty();
                     $("#livefail").text("Vui lòng nhập đúng dữ liệu")
                     $("#livefail").toast("show");
                     $(e).val("")
+                    return;
                 }
 
             } catch {
@@ -652,13 +656,16 @@
         }
 
        function LoadData() {
-            console.log(blocks[Number($("#block").val())])
+          
             let selectmajor = `<select class="full-name-property form-select form-select-sm ms-2 major" style="width:300px ;margin-left:2%" onchange="Option(this)" required aria-label=".form-select-sm example">
              <option value="">Chọn Ngành</option>`
-            cout++;
-            $.each(blocks[Number($("#block").val())].majors, function (k, v) {
-                selectmajor += ` <option value="${v.id}">${v.name}</option>`
-            });
+           cout++;
+           for (var i = 0; i < blocks.length; i++) {
+               $.each(blocks[i].majors, function (k, v) {
+                   selectmajor += ` <option value="${v.id}">${v.name}</option>`
+               });
+           }
+           
             selectmajor += `</select>`
             let tr = `          <tr>
                                         <th width="60%">
@@ -729,6 +736,7 @@
                         Profile = res.data.data
                         blocks = res.data.block
                         LoadProfile();
+                        LoadData()
                     }
                 }
             );
@@ -744,11 +752,11 @@
 
                 }
             });
-            $("#block").change(function (e) {
-                $("#tbbody").empty();
-                 cout = 0;
-                LoadData()
-            })
+            //$("#block").change(function (e) {
+            //    $("#tbbody").empty();
+            //     cout = 0;
+            //    LoadData()
+            //})
 
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
@@ -874,46 +882,52 @@
             });
             $("#Consciou1").change(function () {
                 $("#district1").empty()
+                let   option = `<option value="">Vui lòng chọn</option>`
+                $("#district1").append(option)
                 $.each(district, function (k, v) {
                     if (v.idConscious == $("#Consciou1").val()) {
-                        let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                         option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
                         $("#district1").append(option)
                     }
                 })
                 $("#School1").empty()
+                option = `<option value="">Vui lòng chọn</option>`
+                $("#School1").append(option)
                 $.each(sChool, function (k, v) {
 
                     if (v.idConscious == $("#Consciou1").val()) {
-                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                         option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
                         $("#School1").append(option)
                     }
                 })
             })
             $("#district1").change(function () {
-
                 $("#School1").empty()
                 $("#Consciou1").val($("#district1").val().split('/').pop())
+                let option = `<option value="">Vui lòng chọn</option>`
+                $("#School1").append(option)
                 $.each(sChool, function (k, v) {
 
                     if (v.idDistrict == $("#district1").val()) {
-                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                         option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
                         $("#School1").append(option)
                     }
                 })
             })
-            $("#School1").change(function () {
-                $("#Consciou1").val($("#School1").val().split('/').pop())
-                $("#district1").val($("#School1").val().split('/')[1] + "/" + $("#School1").val().split('/').pop())
-            })
+      
             $("#Consciou2").change(function () {
                 $("#district2").empty()
+                let option = `<option value="">Vui lòng chọn</option>`
+                $("#district2").append(option)
                 $.each(district, function (k, v) {
                     if (v.idConscious == $("#Consciou2").val()) {
-                        let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                         option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
                         $("#district2").append(option)
                     }
                 })
                 $("#School2").empty()
+                option = `<option value="">Vui lòng chọn</option>`
+                $("#School2").append(option)
                 $.each(sChool, function (k, v) {
 
                     if (v.idConscious == $("#Consciou2").val()) {
@@ -926,32 +940,34 @@
 
                 $("#School2").empty()
                 $("#Consciou2").val($("#district2").val().split('/').pop())
+                let  option = `<option value="">Vui lòng chọn</option>`
+                $("#School2").append(option)
                 $.each(sChool, function (k, v) {
 
                     if (v.idDistrict == $("#district2").val()) {
-                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                         option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
                         $("#School2").append(option)
                     }
                 })
             })
-            $("#School2").change(function () {
-                $("#Consciou2").val($("#School2").val().split('/').pop())
-                $("#district2").val($("#School2").val().split('/')[1] + "/" + $("#School2").val().split('/').pop())
-            })
             $("#Consciou3").change(function () {
                 $("#district3").empty()
+                let option = `<option value="">Vui lòng chọn</option>`
+                $("#district3").append(option)
                 $.each(district, function (k, v) {
                     if (v.idConscious == $("#Consciou3").val()) {
-                        let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                         option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
                         $("#district3").append(option)
                     }
 
                 })
                 $("#School3").empty()
+                option = `<option value="">Vui lòng chọn</option>`
+                $("#School3").append(option)
                 $.each(sChool, function (k, v) {
 
                     if (v.idConscious == $("#Consciou3").val()) {
-                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                         option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
                         $("#School3").append(option)
                     }
                 })
@@ -961,20 +977,37 @@
             $("#district3").change(function () {
                 $("#School3").empty()
                 $("#Consciou3").val($("#district3").val().split('/').pop())
+                let  option = `<option value="">Vui lòng chọn</option>`
+                $("#School3").append(option)
                 $.each(sChool, function (k, v) {
 
                     if (v.idDistrict == $("#district3").val()) {
-                        let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                         option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
                         $("#School3").append(option)
                     }
                 })
 
 
             })
-            $("#School3").change(function () {
-                $("#Consciou3").val($("#School3").val().split('/').pop())
-                $("#district3").val($("#School3").val().split('/')[1] + "/" + $("#School3").val().split('/').pop())
+            $("#School1").change(function () {
+                if ($("#School1").val().length > 0) {
+                    $("#Consciou1").val($("#School1").val().split('/').pop())
+                    $("#district1").val($("#School1").val().split('/')[1] + "/" + $("#School1").val().split('/').pop())
+                }
             })
+            $("#School2").change(function () {
+                if ($("#School2").val().length > 0) {
+                    $("#Consciou2").val($("#School2").val().split('/').pop())
+                    $("#district2").val($("#School2").val().split('/')[1] + "/" + $("#School2").val().split('/').pop())
+                }
+            })
+            $("#School3").change(function () {
+                if ($("#School3").val().length > 0) {
+                    $("#Consciou3").val($("#School3").val().split('/').pop())
+                    $("#district3").val($("#School3").val().split('/')[1] + "/" + $("#School3").val().split('/').pop())
+                }
+            })
+
 
             $(document).on('click', "button[name = 'Delete']", function () {
                 $(this).closest('tr').remove();
@@ -988,12 +1021,12 @@
 
             $(document).on('click', "button[name = 'add']", function () {
               
-                if (cout >= blocks[Number($("#block").val())].majors.length) {
-                    $("#livefail").empty();
-                    $("#livefail").text("Đã hết ngành đăng ký")
-                    $("#livefail").toast("show");
-                    return
-                }
+                //if (cout >= blocks[Number($("#block").val())].majors.length) {
+                //    $("#livefail").empty();
+                //    $("#livefail").text("Đã hết ngành đăng ký")
+                //    $("#livefail").toast("show");
+                //    return
+                //}
                 $(this).closest('tr').remove();
 
                 $(this).hide();
@@ -1067,14 +1100,14 @@
                 else {
                     $("#checknu").prop("checked", true);
                 }
-                var img = $('#logo');
-                img.empty();
-                var let = `<div class="img">
-                        <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
-                    </div>`;
+                //var img = $('#logo');
+                //img.empty();
+                //var let = `<div class="img">
+                //        <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
+                //    </div>`;
 
 
-                $(img).append(let);
+                //$(img).append(let);
                 var img1 = $('#file-upload-content');
                 $.each(Profile.fileProfiles, function (k, v) {
 

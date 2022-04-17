@@ -165,9 +165,10 @@ namespace WebTuyenSinh_Application.Repository
 
         public async Task<StatisticalHome> StatisticalHome(long? idAdmisstion)
         {
-            var admisstion = await _context.Admisstions.Where(x=>x.CreateDate!=null &&x.Delete!=true && x.Statust!=0).ToListAsync();
+            var admisstion = await _context.Admisstions.Where(x=>x.CreateDate!=null &&x.Delete!=true && x.Statust!=0).OrderByDescending(x=>x.id).ToListAsync();
             var admisstionInfo = await _context.Admisstion_Major.ToListAsync();
             var ProfileInfor = await _context.InforMationProflies.ToListAsync();
+            var ProfileStudents = await _context.ProfileStudents.Where(x=>x.Statust!=0 && x.idAdmisstion==idAdmisstion).ToListAsync();
             if (idAdmisstion == null)
             {
                 idAdmisstion = (admisstion.FirstOrDefault() != null ? admisstion.FirstOrDefault().id : 0);
@@ -183,7 +184,8 @@ namespace WebTuyenSinh_Application.Repository
                         from adi in admisstionInfo 
                         join M in Major on adi.idMajor equals M.id
                         join PI in ProfileInfor on M.id.Trim() equals PI.idMajor
-                        where adi.idAdmisstion== idAdmisstion
+                        join PR in ProfileStudents on PI.idProfile equals PR.id
+                        where adi.idAdmisstion== idAdmisstion 
                         select new
                         {
                             adi.idMajor,

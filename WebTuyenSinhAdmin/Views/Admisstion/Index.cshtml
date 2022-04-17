@@ -65,10 +65,10 @@
                                                     @(item?.Type==1?"Đánh giá năng lực":"Đánh giá học bạ")
                                                 </td>
                                                 <td>
-                                                    @(item.OpenTime!=null? item.OpenTime.ToString(): "Chưa cập nhật")
+                                                    @(item.OpenTime!=null? item.OpenTime.Value.ToString("dd/MM/yyyy  HH:mm tt") : "Chưa cập nhật")
                                                 </td>
                                                 <td>
-                                                    @(item.CloseTime!=null? item.CloseTime.ToString(): "Chưa cập nhật")
+                                                    @(item.CloseTime!=null? item.CloseTime.Value.ToString("dd/MM/yyyy  HH:mm tt") : "Chưa cập nhật")
                                                 </td>
                                                 <td>
                                                     @if (item.Statust == 0)

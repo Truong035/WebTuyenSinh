@@ -102,7 +102,7 @@ namespace WebTuyenSinhAdmin.Controllers
             return Ok(new ApiResult() { Message = "Bạn không đc admin cấp quyền", Data = null, Success = false });
        
         }
-
+        
         public async Task<IActionResult> DeleteRole(long id)
         {
             string cookie = Request.Cookies[UserContant.UseToken];
@@ -120,6 +120,25 @@ namespace WebTuyenSinhAdmin.Controllers
             return Ok(new ApiResult() { Message = "Bạn không đc admin cấp quyền", Data = null, Success = false });
 
         }
+        
+          public async Task<IActionResult> ResetPass(long id)
+        {
+            string cookie = Request.Cookies[UserContant.UseToken];
+            if (cookie == null || cookie.Length == 0)
+            {
+                return Ok(new ApiResult() { Message = "Vui lòng đăng nhập", Data = null, Success = false });
+
+            }
+            var check = await _IValidateTokenService.ValidateToken(cookie, new List<long>() { PermisstionConTant.QL_TK });
+            if (check)
+            {
+                return Ok(await service.ResetPassUse(id));
+
+            }
+            return Ok(new ApiResult() { Message = "Bạn không đc admin cấp quyền", Data = null, Success = false });
+
+        }
+
         public async Task<IActionResult> DeleteUse(long id)
         {
             string cookie = Request.Cookies[UserContant.UseToken];

@@ -19,5 +19,6 @@ namespace WebTuyenSinh_Application.Interface
 
         Task<ApiResult> DeleteRole(long id);
         Task<ApiResult> DeleteUse(long id);
+        Task<ApiResult> ResetPassUse(long id);
     }
 }

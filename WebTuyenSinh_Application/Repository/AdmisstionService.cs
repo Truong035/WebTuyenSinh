@@ -306,7 +306,7 @@ namespace WebTuyenSinh_Application.Repository
 
            var Admisstion_Major = await _context.Admisstion_Major.Where(x => x.Delete != true && x.idAdmisstion == admisstion.id
                 ).ToListAsync();
-                var Proifile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id).ToListAsync();
+                var Proifile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust!=0).ToListAsync();
                 var Info = await _context.InforMationProflies.ToListAsync();
                 var InfoProFile = (from p in Proifile
                                    join i in Info on p.id equals i.idProfile
@@ -321,7 +321,7 @@ namespace WebTuyenSinh_Application.Repository
                 var Major_Blocl = await _context.Addmisstion_Major_Block.ToListAsync();
                 var Major = await _context.Majors.ToListAsync();
                 admisstion.Admisstion_Major = (from m in Admisstion_Major
-                                               select new Admisstion_Major()
+                                                                                                                                  select new Admisstion_Major()
                                                {
                                                    id=m.id,
                                                    CloseTime=m.CloseTime,
@@ -329,7 +329,7 @@ namespace WebTuyenSinh_Application.Repository
                                                    Count= InfoProFile.Where(x=>x.idMajor.Trim().Equals(m.idMajor.Trim())&& x.idAdmisstion==m.idAdmisstion).ToList().Count,
                                                    Addmisstion_Major_Block= Major_Blocl.Where(x=>x.idAdmisstion==m.id).ToList(),
                                                    idMajor=m.idMajor,
-                                                   Quantity=m.Quantity,
+                                                   Quantity=InfoProFile.Where(x=>x.idMajor.Trim()==m.idMajor && x.idBlock.Trim().Equals(m.idMajor)).Count(),
                                                    Statust=m.Statust,
                                                    Delete=m.Delete,
                                                   
@@ -539,7 +539,7 @@ namespace WebTuyenSinh_Application.Repository
             try
             {
             
-                var profile = _context.ProfileStudents.Where(x => x.idAdmisstion == admisstion.idAdmisstion).ToList();
+                var profile = _context.ProfileStudents.Where(x => x.idAdmisstion == admisstion.idAdmisstion && x.Statust!=0).ToList();
                 var infor = _context.InforMationProflies.Where(x=>x.idMajor==admisstion.idMajor).ToList();
                 List<Addmisstion_Major_Block> Blocks = _context.Addmisstion_Major_Block.Where(x => x.idAdmisstion == admisstion.id).ToList();
                 var listinfor = (from s in profile
@@ -665,7 +665,7 @@ namespace WebTuyenSinh_Application.Repository
             }
             try
             {
-                var profile = _context.ProfileStudents.Where(x => x.idAdmisstion == id).ToList();
+                var profile = _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust>0).ToList();
              
                 var listinfor = (from s in profile
                                  orderby s.CreateDate
@@ -821,6 +821,8 @@ namespace WebTuyenSinh_Application.Repository
             ProfileStudent profileStudent = new ProfileStudent();
 
             Admisstion admisstion = _context.Admisstions.Where(x => x.id == profile.idAdmisstion).FirstOrDefault();
+
+
             if (admisstion == null)
             {
                 return new ApiResult() { Success = false, Message = "Không Tìm Thấy Đợt Tuyển Sinh", Data = profileStudent };
@@ -854,16 +856,13 @@ namespace WebTuyenSinh_Application.Repository
                 profileStudent = await _context.ProfileStudents.FindAsync(profile.id);
                 profileStudent.Updatedate = DateTime.Now;
                 var InforMationProflies = _context.InforMationProflies.Where(x => x.idProfile == profile.id);
-                    if (profile.Statust >1)
-                    {
                         if (profile.Statust == 3)
                         {
                             profileStudent.CloseTime = DateTime.Now;
+                            profile.Statust = 4;
                         }
-                        profile.Statust = 4;
-                    }
-                   
-                inforMations = inforMations.OrderBy(X => X.STT).ToList();
+             
+                        inforMations = inforMations.OrderBy(X => X.STT).ToList();
                 if (InforMationProflies != null)
                 {
                     _context.InforMationProflies.RemoveRange(InforMationProflies);
@@ -1087,7 +1086,7 @@ namespace WebTuyenSinh_Application.Repository
         public  async Task<ApiResult> GetProfiles(long? id)
         {
             try {
-                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust == 1).ToListAsync();
+                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust == 2).ToListAsync();
                 return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = Profile };
             } catch (Exception e) {
                 return new ApiResult() { Success = false, Message = "Lỗi server "+e.Message, Data = null };
@@ -1151,7 +1150,15 @@ namespace WebTuyenSinh_Application.Repository
             {
                 return new ApiResult() { Success = false, Message = "ID không đc bỏ trống ", Data = null };
             }
-            var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.idAccount.Trim().Equals(uid.Trim())).ToListAsync();
+            var Admisstion= await _context.Admisstions.Where(x => x.id == id)?.FirstOrDefaultAsync();
+
+
+            if (Admisstion==null)
+            {
+                return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = null };
+            }
+
+            var Profile = await _context.ProfileStudents.Where(x=> x.idAccount.Trim().Equals(uid.Trim()) && x.idAdmisstion==id).OrderByDescending(x=>x.id).ToListAsync();
             if(Profile.Count > 0)
             {
                 return new ApiResult() { Success = false, Message = "Tìm tìm thấy", Data = Profile.FirstOrDefault()};
@@ -1168,7 +1175,7 @@ namespace WebTuyenSinh_Application.Repository
                 return new ApiResult() { Success = false, Message = "ID không đc bỏ trống ", Data = null };
             }
           await  CheckProFile();
-            var profile = _context.ProfileStudents.Where(x => x.idAccount.Trim().Equals(uid.Trim())).ToList();
+            var profile = _context.ProfileStudents.Where(x => x.idAccount.Trim().Equals(uid.Trim()) && x.Statust!=0).ToList();
            
 
             var listinfor = (from s in profile

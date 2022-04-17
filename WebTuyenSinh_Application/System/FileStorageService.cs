@@ -886,8 +886,8 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                   join I in ProfileInfor on p.id equals I.idProfile
                                   select new
                                   {
-                                      STT = (i = i + 1),
-                                      So_BD = "GSA" + I.id,
+                                      STT = (++i),
+                                      So_BD = "",
                                       SO_CMND = p.CMND,
                                       HO_TEN = p.Name.ToLower(),
                                       NGAY_SINH = p.BirthDay.Value.ToShortDateString(),
@@ -915,11 +915,12 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                    join I in ProfileInfor on p.id equals I.idProfile
                                    select new
                                    {
-                                       STT = (i = i + 1),
-                                       So_BD = "GSA" + I.id,
+                           
+                                       STT = (++i),
+                                       So_BD = "",
                                        SO_CMND = p.CMND,
                                        HO_TEN = p.Name.ToLower(),
-                                       NGAY_SINH = p.BirthDay.Value.ToShortDateString(),
+                                       NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
                                        KHU_VUC = p.Areas,
                                        DOI_TUONG = "",
 
@@ -987,16 +988,17 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                   
                                   select new
                                   {
-                                      SO_CMND = p.CMND,
+                                      STT = (++i),
+                                      So_BD = p?.Identification,
+                                      SO_CMND=p.CMND,
                                       HO_TEN = p.Name.ToLower(),
-                                      NGAY_SINH = p.BirthDay.Value.ToShortDateString(),
+                                      GIOI_TINH=(p.Sex==0? "Nam" : "Nữ"),
+                                      NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
                                       KHU_VUC = p.Areas,
                                       DOI_TUONG = (p.Priority_object != null ? p.Priority_object : ""),
                                       THUTU_NV = I.STT,
                                       MA_NGANH = I.idMajor,
                                       TEN_NGANH = Major.FirstOrDefault(x => x.id.Trim().Equals(I.idMajor)).Name,
-                                      MA_TOHOPMON = p.IdBlock,
-                                      TEN_TOHOPMON = Block.FirstOrDefault(x=>x.id.Trim().Equals(p.IdBlock.Trim())).Desscription,
                                       DIEM_THI = p.Mark
                                   }). ToList();
                     try
@@ -1587,9 +1589,9 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             {
                 string fileName = "Profile/DS_Tuyen_Sinh.xlsx";
                 Admisstion admisstion = _context.Admisstions.Where(x => x.id == id).FirstOrDefault();
-                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id).ToListAsync();
+                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust!=0).ToListAsync();
                 var ProfileInfor = await _context.InforMationProflies.ToListAsync();
-                var School = await _context.Schools.ToListAsync();
+              //  var School = await _context.Schools.ToListAsync();
                 var Major = await _context.Majors.ToListAsync();
                 var Block = await _context.Blocks.ToListAsync();
                 int i = 0;
@@ -1599,13 +1601,13 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                   join I in ProfileInfor on p.id equals I.idProfile
                                   select new
                                   {
-                                      STT = (i = i + 1),
-                                      So_BD = "GSA" + I.id,
+                                      STT = (++i),
+                                      So_BD = "",
                                       HO_TEN = p.Name.ToLower(),
-                                      NGAY_SINH = p.BirthDay.Value.ToShortDateString(),
+                                      NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy")??""),
                                       Gioi_Tinh=(p.Sex==1?"Name":"Nữ"),
                                       SO_CMND = p.CMND,
-                                      NGAY_CAP=p.DateRange,
+                                      NGAY_CAP=(p?.DateRange.Value.ToString("dd/MM/yyyy")??""),
                                       DAN_TOC=p.Nation,
                                       SĐT =p.Teletephone,
                                       EMAIL=p.Email,
@@ -1665,13 +1667,13 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
 
                                   select new
                                   {
-                                      STT = (i = i + 1),
+                                      STT = (++i),
                                       So_BD = p.Identification,
                                       HO_TEN = p.Name.ToLower(),
-                                      NGAY_SINH = p.BirthDay.Value.ToShortDateString(),
+                                      NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
                                       Gioi_Tinh = (p.Sex == 1 ? "Name" : "Nữ"),
                                       SO_CMND = p.CMND,
-                                      NGAY_CAP = p.DateRange,
+                                      NGAY_CAP = (p?.DateRange.Value.ToString("dd/MM/yyyy") ?? ""),
                                       DAN_TOC = p.Nation,
                                       SĐT = p.Teletephone,
                                       EMAIL = p.Email,

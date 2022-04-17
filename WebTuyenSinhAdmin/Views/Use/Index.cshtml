@@ -23,8 +23,8 @@
                         <input required type="text" class="form-control" id="UserName" placeholder="Username">
                     </div>
                     <div class="form-group">
-                        <label for="Email">Email</label>
-                        <input required type="email" class="form-control" id="Email" placeholder="Email">
+                        <label for="Email">Tên đăng nhập</label>
+                        <input required type="text" class="form-control" id="Email" placeholder="Email">
                     </div>
 
                     <div class="form-group">
@@ -83,7 +83,7 @@
                                                     Tên
                                                 </th>
                                                 <th>
-                                                    Email
+                                                    Tên đăng nhập
                                                 </th>
                                                 <th>
                                                     Chức vụ
@@ -119,6 +119,10 @@
                                                             <button name="Delete" class="btn  btn-icon-text text-danger">
                                                                 <i class="ti-close"></i>
                                                             </button>
+                                                            <button name="Reload" class="btn  btn-icon-text text-info">
+                                                                <i class="ti-reload"></i>
+                                                            </button>
+                                                            
                                                         </div>
                                                     </td>
 
@@ -170,8 +174,7 @@
                         $("#liveToast").empty();
                         $("#liveToast").append(res.message);
                         $("#liveToast").toast("show");
-                        setTimeout( myGreeting, 2000);
-                       
+                        setTimeout( myGreeting, 2000);                   
                     }
                     else {
                         $("#livefail").empty();
@@ -191,6 +194,57 @@
             $("#UserName").val($(this).closest('tr').find("td:eq(1)").text().trim());
             $("#Email").val($(this).closest('tr').find("td:eq(2)").text().trim());
             $("#exampleModal").modal("show")
+        });
+        
+        $(document).on('click', "button[name = 'Reload']", function () {
+            let id = $(this).closest('tr').find("td:eq(0)").text().trim();
+            let tr = $(this).closest('tr');
+            swal({
+                title: 'Bạn có chắn reset lại mật khẩu của tài khoản này không ?',
+                text: "Nếu bạn reset mật khẩu của tài khoản này là 123456",
+                type: 'warning',
+                buttons: {
+                    cancel: {
+                        visible: true,
+                        text: 'Hủy bỏ',
+                        className: 'btn btn-danger'
+                    },
+                    confirm: {
+                        text: 'Đồng ý',
+                        className: 'btn btn-success'
+                    }
+                }
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        async: false,
+                        url: "/Use/ResetPass/" + id,
+                        type: 'GET',
+                    }).done(function (res) {
+                        if (res.success) {
+                            swal("Reset thành công", {
+                                icon: "success",
+                                buttons: {
+                                    confirm: {
+                                        className: 'btn btn-success'
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            swal("Thất bại!", res.message, {
+                                icon: "error",
+                                buttons: {
+                                    confirm: {
+                                        className: 'btn btn-success'
+                                    }
+                                },
+                            });
+                        }
+                    });
+                }
+            });
+
         });
         $(document).on('click', "button[name = 'Delete']", function () {
             let id = $(this).closest('tr').find("td:eq(0)").text().trim();

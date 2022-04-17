@@ -85,9 +85,7 @@
                                                 <th style="width:10px">
                                                     Số Nguyện Vọng
                                                 </th>
-                                                <th>
-                                                    Ngày Nộp
-                                                </th>
+                                      
                                                 <th>
                                                    File
                                                     
@@ -169,19 +167,14 @@
                         link.click();
                         link.remove();
                     }
-
-
                 }).fail(function () {
                 });
             }
             )
-
-
         });
         function LoadData(data) {
             console.log(data)
-            $('#data-table').dataTable().fnDeleteRow();
-          
+            $('#data-table').dataTable().fnDeleteRow();  
             $.each(data, function (k, v) {
                 try {
                     $('#data-table').dataTable().fnAddData([
@@ -191,18 +184,12 @@
                         v.teletephone,
                         v.cmnd,
                         v.quantity,
-                        v.createDate,
                         `<a href="${v.url}" target="_blank">${v.name}.pdf</a>`
                       
                     ]); } catch {}
-              
-            
-            })
-         
-            
+                       
+            })       
           //  $("#data-table").dataTable();
         }
-
-
     </script>
 }
