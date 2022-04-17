@@ -370,7 +370,7 @@
                             <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Khu vực:  </span>
                             </span>
-                            <select disabled id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
+                            <select  id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
                                 <option value="1"> 1</option>
                                 <option value="2"> 2</option>
                                 <option value="3"> 3</option>
@@ -413,7 +413,7 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <div class="col c-5">
+                    <div class="col c-8">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
                                 <span> Số báo danh (*): </span>
@@ -423,17 +423,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col c-4">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>  Tổ hợp môn (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:40%">
-                                <select id="block" class="full-name-property form-select form-select-sm" style="width:100px ;margin-left:2%">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+            
                     <div class="col c-2">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
@@ -620,12 +610,14 @@
 @section Scripts{
     <script>
         let cout = 0;
+        let countMajo = 0;
         let conscious = [];
         let district = [];
         let sChool = [];
         let Profile;
-        let blocks = [];
+        let admisstion_Major = [];
         let majors = [];
+        let fileUrl = [];
         function CheckMart(e) {
             try {
                 var mark = $(e).val()
@@ -635,28 +627,62 @@
 
                 }
                 else {
+                    $("#livefail").empty();
+                    $("#livefail").text("Vui lòng nhập đúng dữ liệu")
+                    $("#livefail").toast("show");
                     $(e).val("")
                 }
 
-            } catch { $(e).val("") }
+            } catch {
+                $("#livefail").empty();
+                $("#livefail").text("Vui lòng nhập đúng dữ liệu")
+                $("#livefail").toast("show"); $(e).val("")
+            }
         }
         function CheckCMND(e) {
             try {
                 var mark = $(e).val()
                 var x = Number($(e).val())
-
-                console.log(mark);
                 if (x > 0 && (mark.length == 9 || mark.length == 12)) {
 
                 }
                 else {
+                    $("#livefail").empty();
+                    $("#livefail").text("Bạn nhập sai định dạng CMND/CCCD")
+                    $("#livefail").toast("show");
                     $(e).val("")
                 }
 
-            } catch { $(e).val("") }
+            } catch {
+                $("#livefail").empty();
+                $("#livefail").text("Bạn nhập sai định dạng CMND/CCCD")
+                $("#livefail").toast("show"); $(e).val("")
+            }
+        }
+
+        function CheckSum(e) {
+            try {
+                var mark = $(e).val()
+                var x = Number($(e).val())
+
+                if (x > 0 && x < 1201) {
+                    return;
+                }
+                else {
+                    $("#livefail").empty();
+                    $("#livefail").text("Vui lòng nhập đúng dữ liệu")
+                    $("#livefail").toast("show");
+                    $(e).val("")
+                    return;
+                }
+
+            } catch {
+                $("#livefail").empty();
+                $("#livefail").text("Vui lòng nhập đúng dữ liệu")
+                $("#livefail").toast("show"); $(e).val("")
+            }
         }
         function Option(e) {
-
             $(e).closest("tr").find("td:eq(1)").empty();
             var input = $(e).closest("tr").find("input:eq(0)").empty();
             $(input).val($(e).val().trim());
@@ -664,7 +690,7 @@
                 if (v.idMajor.trim() === $(e).val().trim()) {
 
                     let selectblock = ` <select class=" form-select form-select-sm block"  required aria-label=".form-select-sm example">
-                                   `
+                       `
                     $.each(v.block, function (index, value) {
                         selectblock += ` <option value="${value}">${value}</option>`
                     })
@@ -676,66 +702,68 @@
         }
 
         function LoadData() {
-            console.log(blocks[Number($("#block").val())])
+
             let selectmajor = `<select class="full-name-property form-select form-select-sm ms-2 major" style="width:300px ;margin-left:2%" onchange="Option(this)" required aria-label=".form-select-sm example">
-                 <option value="">Chọn Ngành</option>`
-
-
+             <option value="">Chọn Ngành</option>`
             cout++;
-            $.each(blocks[Number($("#block").val())].majors, function (k, v) {
-                selectmajor += ` <option value="${v.id}">${v.name}</option>`
+
+            $.each(majors, function (k, v) {
+                selectmajor += ` <option value="${v.idMajor}">${v.name}</option>`
             });
+
+
             selectmajor += `</select>`
-            let tr = `    <tr>   <th width="55%">
-                                                <div class="d-flex  full-name-box ">
+            let tr = `          <tr>
+                                        <th width="60%">
+                                              <div class="d-flex  full-name-box ">
                                                     <span class="mt-2 d-flex ">
                                                         <span> Tên Ngành :  </span>
                                                     </span>
-                                                    <div class="validation-parent">
-
-                                                           ${selectmajor}
-                                                    </div>
-
+                                                    <div class=" mt-2  validation-parent">
+                                                       ${selectmajor}
                                                 </div>
-                                            </th>
-                                            <th  width="35%">
-                                                <div class="d-flex  full-name-box ">
-                                                    <span class="mt-2 d-flex student-avatar-note full-name-box">
-                                                        <span> Mã Ngành:  </span>
-                                                    </span>
-                                                    <div class="validation-parent">
 
-                                                        <input style="width:100%" required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3">
-                                                    </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="d-flex  full-name-box ">
+                                                <span class="mt-2 d-flex student-avatar-note full-name-box">
+                                                    <span> Mã Ngành:  </span>
+                                                </span>
+                                                <div class="validation-parent">
 
+                                                    <input style="width:80%" required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3">
                                                 </div>
-                                            </th>
-                                            <th  width="10%">
-                                                <div class="form-button-action">
 
-                                                    <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                        <i class="ti-close"> </i>
-                                                    </button>
-                                                </div>
-                                            </th>
+                                            </div>
+                                        </th>
+                                        <th width="10%">
+                                            <div class="form-button-action">
 
-                                        </tr>
+                                                <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                    <i class="ti-close"> </i>
+                                                </button>
+                                            </div>
+                                        </th>
+
+                                    </tr>
 `;
             $("#tbbody").append(tr)
             tr = ` <tr>
-                                            <th class="text-center">
+                                        <th class="text-center">
 
-                                                <button type="button" id="" name="add" data-toggle="tooltip" title="" class="  mt-2 btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                    <i class="ti-plus"></i> 
-                                                </button>
-                                            </th>
-                                            <th>
+                                            <button type="button" id="" name="add" data-toggle="tooltip" title="" class="  mt-2 btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                <i class="ti-plus"></i> +
+                                            </button>
+                                        </th>
+                                        <th>
 
-                                            </th>
-                                        </tr>`;
+                                        </th>
+                                    </tr>`;
 
             $("#tbbody").append(tr)
         }
+
             function LoadProfile() {
                 cout = Profile.inforMationProflies.length
             $("#full_name").val(Profile.name);
@@ -758,7 +786,7 @@
             $('#sign').text(Profile.name);
 
             $("#Identification").val(Profile.identification);
-            Profile.mark = $("#mark").val(Profile.mark);
+              $("#mark").val(Profile.mark);
 
             //   Profile.idBlock = blocks[Number($("#block").val())].id
 
@@ -844,12 +872,7 @@
             $("#School1").val(idshoo1)
             $("#School2").val(idshoo2)
             $("#School3").val(idshoo3)
-            //    $("#teletephone").val(Profile.teletephone);
-            $.each(blocks, function (k, v) {
-                option = `<option value="${k}">${v.id.trim()}</option>`
-                $("#block").append(option)
-
-            })
+ 
         }
         $(document).ready(function () {
             let id = window.location.href.split('/').pop();
@@ -865,7 +888,7 @@
                         district = res.data.district
                         sChool = res.data.sChool;
                         Profile = res.data.data
-                        blocks = res.data.block
+                      //  blocks = res.data.block
                         LoadProfile();
                     }
 
@@ -1026,8 +1049,10 @@
                 }
             })
 
+
             $(document).on('click', "button[name = 'add']", function () {
-                if (cout >= blocks[Number($("#block").val())].majors.length) {
+
+                if (cout >= majors.length) {
                     $("#livefail").empty();
                     $("#livefail").text("Đã hết ngành đăng ký")
                     $("#livefail").toast("show");
@@ -1039,11 +1064,7 @@
                 LoadData()
 
             });
-            $("#block").change(function (e) {
-                $("#tbbody").empty();
-                cout = 0;
-                LoadData()
-            })
+       
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
                 var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
@@ -1079,7 +1100,7 @@
                 Profile.priority_object = $("#priority_object").val();
                 Profile.identification = $("#Identification").val();
                 Profile.mark = $("#mark").val();
-                Profile.idBlock = blocks[Number($("#block").val())].id
+                //ofile.idBlock = blocks[Number($("#block").val())].id
                 Profile.statust = 2;
                 $.each(sChool, function (k, v) {
 
@@ -1099,7 +1120,7 @@
                 Profile.inforMationProflies = [];
                 $.each(input, function (k, v) {
                     Profile.inforMationProflies.push({
-                        idBlock: blocks[Number($("#block").val())].id,
+                        idBlock:"",
                         idMajor: $(v).closest("tr").find("select:eq(0)").val().trim(),
                         subject2: 0,
                         subject3: 0,
@@ -1116,9 +1137,10 @@
                 } else {
                     Profile.sex = 1;
                 }
-                console.log(Profile)
+              
              
-                    if (Profile) {
+                if (Profile) {
+                    console.log(Profile)
                         $.ajax({
                             async: false,
                             url: "/Admisstion/CreateProfile",

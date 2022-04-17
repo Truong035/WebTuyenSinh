@@ -1485,7 +1485,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
           0, height);
             height += 22;
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 12f, FontStyle.Italic), true);
-            string text = $"\t Số báo danh thi đánh giá năng lực:{profile.Identification} 	Điểm thi:\t {Math.Round(profile.Mark.Value, 2)} \t Tổ hợp môn:\t {profile.IdBlock}";
+            string text = $"\t Số báo danh thi đánh giá năng lực:{profile.Identification} 	\t Điểm thi:\t {Math.Round(profile.Mark.Value, 2)}";
             PdfStringFormat format1 = new PdfStringFormat(PdfTextAlignment.Left);
             page.Canvas.DrawString(text, font1, new PdfSolidBrush(Color.FromArgb(25, 25, 112)), new RectangleF(0, height, 500, height), format1);
             height += 22;
@@ -1618,8 +1618,8 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                       THUTU_NV = I.STT,
                                       MA_NGANH = I.idMajor,
                                       TEN_NGANH = Major.FirstOrDefault(x => x.id.Trim().Equals(I.idMajor)).Name,
-                                      MA_TOHOPMON = I.idBlock,
-                                      TEN_TOHOPMON = Block.FirstOrDefault(x => x.id.Trim().Equals(I.idBlock.Trim())).Desscription,
+                                      MA_TOHOPMON = (I?.idBlock??""),
+                                      TEN_TOHOPMON = Block.FirstOrDefault(x => x.id.Trim().Equals(I.idBlock.Trim()))?.Desscription??"",
                                       L10_Mon1 = I.subject1,
                                       L10_Mon2 = I.subject2,
                                       L10_Mon3 = I.subject3,
@@ -1684,8 +1684,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                       THUTU_NV = I.STT,
                                       MA_NGANH = I.idMajor,
                                       TEN_NGANH = Major.FirstOrDefault(x => x.id.Trim().Equals(I.idMajor)).Name,
-                                      MA_TOHOPMON = I.idBlock,
-                                      TEN_TOHOPMON = Block.FirstOrDefault(x => x.id.Trim().Equals(I.idBlock.Trim())).Desscription,
+                            
                                      TONG_DIEM=p.Mark
                                   }).ToList();
                     try

@@ -340,7 +340,13 @@
                                 <span> Năm tốt nghiệp:  </span>
                             </span>
                             <div class="validation-parent">
-                                <input type="text" id="year" name="cmnd" class="full-name-property ml-1">
+                                <select required class="ml-1 form-select form-select-sm" id="year" aria-label="full-name-property ml-3 form-select-sm example">
+                                    @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
+                                    {
+                                        <option value="@i"> @i</option>
+                                    }
+                                </select>
+                               
                             </div>
                         </div>
                         <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:30%">
