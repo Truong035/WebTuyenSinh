@@ -40,6 +40,138 @@
             text-align: center;
             position: fixed;
         }
+
+        .img-name {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 13ch;
+        }
+
+        .img-content{
+            max-width:100px;
+        }
+
+        .validation-parent input:nth-child(2){
+            width: 40px !important;
+        }
+        
+        .full-name-property-1:first-child{
+            width:200px;
+        }
+
+        .full-name-property-1 {
+            border: none;
+            width: 70px;
+            border-bottom: 1px dotted #004174;
+            text-align: center;
+            font-weight:bold;
+            text-transform:uppercase;
+        }
+
+        .full-name-property-1{
+            font-size:17px !important;
+        }
+
+        td > input{
+            text-align:center;
+        }
+
+        .camdoan {
+            margin-right: 0;
+            text-align: justify;
+        }
+        .identification-number{
+            width:50%;
+        }
+
+        input[type="date"]::before {
+            content: attr(placeholder);
+            position: absolute;
+            color: #004174;
+        }
+
+        input[type="date"] {
+            color: #ffffff;
+        }
+
+        input[type="date"]:focus,
+        input[type="date"]:valid {
+            color: #004174;
+            text-transform: lowercase !important;
+        }
+
+        input[type="date"]:focus::before,
+        input[type="date"]:valid::before {
+            content: "";
+        }
+
+
+        @@media only screen and (max-width: 576px) {
+            .img-name {
+                max-width: 11ch;
+            }
+            .talel-regis tr th:first-child {
+                width: auto !important;
+            }
+            .delete-school{
+                width:30px;
+            }
+            .validation-parent input.custom:first-child{
+                width:60px !important;
+            }
+            .full-name-property-1{
+                width:20px;
+                font-size:14px !important;
+            }
+            .full-name-property-1-year{
+                width:35px;
+            }
+            .full-name-property-1:first-child{
+                min-width:80px;
+            }
+
+
+            .selection-majors {
+                flex-direction: column;
+                gap:5px;
+            }
+            .validation-parent-custom{
+                margin-left:0;
+            }
+
+            .major{
+                margin-left:0 !important;
+                width:95% !important;
+            }
+            .selection-code-majors{
+                display:none;
+            }
+            .selection-majors{
+                width:100%;
+            }
+            .ti-close{
+                font-size:20px;
+            }
+            .form-button-action-delete {
+                margin-top: 15px;
+            }
+            .infor-register{
+                display:flex;
+                flex-direction:column;
+                flex-wrap:nowrap;
+            }
+            .identification-number {
+                width: 100%;
+            }
+        }
+
+
+
+        .login-register-input{
+            height:38px !important;
+        }
     </style>
 
 </head>

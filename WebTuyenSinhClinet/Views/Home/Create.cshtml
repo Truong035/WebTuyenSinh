@@ -404,19 +404,18 @@
                 </div>
                 <div class="row mt-1 mobile-table">
                     <div class="col c-12 moible-table-width">
-
-                        <table class="" disabled style="width:100%" dislayble>
+                        
+                        <table class="talel-regis" disabled style="width:100%" dislayble>
                             <tr>
 
-                                <th rowspan="4" style="width:20%">
+                                <th rowspan="4">
                                     Ngành xét tuyển
                                 </th>
                                 <th rowspan="4" style="width:12%">
                                     Tổ
                                     hợp
                                     xét
-                                    tuyể
-                                    n
+                                    tuyển
                                 </th>
                             </tr>
                             <tr>
@@ -498,19 +497,19 @@
                         <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
-                                    <div class="validation-parent"
-                                         style="width:40%;justify-content: center;display: flex">
-                                        <input type="text" id="" name="" style="font-size: 13px; width: 400%;"
-                                               class="full-name-property ml-3">
+                                    <div class="validation-parent custom"
+                                         style="width:40%;justify-content: end;display: flex">
+                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width: 50%;"
-                                               class="full-name-property ml-3">
+                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width: 50%;"
-                                               class="full-name-property ml-3">
+                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">năm</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width:100%"
-                                               class="full-name-property ml-3">
+                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 full-name-property-1-year ml-3">
                                     </div>
                                 </span>
                             </p>
@@ -637,10 +636,10 @@
                                                 <td><input type="text"  onchange="CheckMart(this)" class="subject7" required value="" /></td>
                                                 <td><input type="text"  onchange="CheckMart(this)" class="subject8" required value="" /></td>
                                                 <td><input type="text"  onchange="CheckMart(this)" class="subject9" required value="" /></td>
-                                                <td>
+                                                <td class="delete-school">
                                                     <div class="form-button-action">
 
-                                                        <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                        <button hef="/DeleteShool" style="border:none ;width:20ox;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
                                                             <i class="ti-close"> x</i>
                                                         </button>
                                                     </div>
@@ -1018,19 +1017,19 @@
                 var img1 = $('#file-upload-content');
                 $.each(Profile.fileProfiles, function (k, v) {
                     if (v.url.endsWith("pdf")) {
-                        var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                        var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
        
-<span>${v.name}</span>
+<span class="img-name" >${v.name}</span>
         </a>
 </div>`;
                     }
                     else {
-                        var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                        var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
+<span class="img-name" >${v.name}</span>
    </a>
                 </div>`;
                     }
@@ -1038,8 +1037,8 @@
 
                     $(img1).append(let);
                 })
-                let = `<div class="col-2">
-<a href ="${Url}/${Profile.url}" target="_blank" >
+                var let = `<div class="col-4 col-sm-2 text-center">
+<a href =${Url}/${Profile.url}" target="_blank" class="img-content">
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
                </a> </div>`;
                 $(img1).append(let);
@@ -1181,19 +1180,19 @@
                     $.each(result, function (k, v) {
                  
                         if (v.url.endsWith("pdf")) {
-                            var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
        
-<span>${v.name}</span>
+<span class="img-name">${v.name}</span>
         </a>
 </div>`;
-                        }
+                      }
                         else {
-                            var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
+    <span class="img-name">${v.name}</span>
    </a>
                 </div>`;
                         }

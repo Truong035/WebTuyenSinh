@@ -110,7 +110,7 @@ a {
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 576px) {
     .row-content {
         height: 800px;
     }
@@ -496,7 +496,10 @@ div.full-name-box > div.validation-parent > input.full-name-property {
 }
 
 .selected-gender {
-    justify-content: space-around;
+    margin-left:20px;
+    justify-content: start;
+    transform:translateY(5px);
+    gap:20px;
 }
 
 .ml-7 {
@@ -517,7 +520,7 @@ div.full-name-box > div.validation-parent > input.full-name-property {
     margin-right: 75px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 576px) {
     body div.a4-size {
         width: auto;
     }
@@ -537,6 +540,7 @@ div.full-name-box > div.validation-parent > input.full-name-property {
 
     .mobile-container {
         padding: 10px !important;
+        padding-right:0 !important;
     }
 
     .form-title div:first-child {
@@ -586,10 +590,10 @@ div.full-name-box > div.validation-parent > input.full-name-property {
     }
 
     .selected-gender {
-        justify-content: flex-start !important;
+        justify-content: start !important;
         gap: 20px;
-        margin-left: 10px;
-        transform: translateY(5px);
+        transform: translateY(0px) !important;
+        margin-left:10px;
     }
 
     .c-5, .c-7 {

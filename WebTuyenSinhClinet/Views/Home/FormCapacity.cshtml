@@ -122,7 +122,7 @@
                             <p class="mt-1 d-flex">
                                 <span>3. Ngày sinh (*): </span>
                             </p>
-                            <div class="validation-parent">
+                            <div class="validation-parent text-lowercase">
                                 <input required type="date" value="20" id="birthdate" name="birthdate" class="full-name-property ml-3">
                             </div>
                         </div>
@@ -409,13 +409,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col c-8">
+                <div class="row mt-2 infor-register">
+                    <div class="col col-sm-8 col-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
                                 <span> Số báo danh (*): </span>
                             </p>
-                            <div class="validation-parent" style="width: 50%;">
+                            <div class="validation-parent identification-number">
                                 <input required type="tel" id="Identification" name="cmnd" class="full-name-property ml-3">
                             </div>
                         </div>
@@ -431,7 +431,7 @@
                             </div>
                         </div>
                     </div>*@
-                    <div class="col c-2">
+                    <div class="col col-sm-4 col-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
                                 <span> Điểm thi (*): </span>
@@ -499,7 +499,7 @@
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
-                                <span style="font-weight:normal;margin-right: 75px;">
+                                <span style="font-weight:normal;text-align:justify">
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     Tôi xin cam đoan những lời khai trên là đúng sự thật. Nếu sai, tôi xin chịu xử lý theo quy định.
                                 </span>
@@ -512,18 +512,18 @@
                         <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
-                                    <div class="validation-parent" style="width:20%;justify-content: center;display: flex;margin-right:75px">
-                                        <input type="text" id="" name="" style="font-size: 13px; width: 500%;"
-                                               class="full-name-property ml-3">
+                                    <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
+                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
-                                               value="@DateTime.Now.Day" class="full-name-property ml-3">
+                                        <input type="text" id="" name="" style="font-size: 13px"
+                                               value="@DateTime.Now.Day" class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
-                                        <input value="@DateTime.Now.Month" type="text" id="" name="" style="font-size: 13px;width: 200%;"
-                                               class="full-name-property ml-3">
+                                        <input value="@DateTime.Now.Month" type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">năm</span>
-                                        <input value="@DateTime.Now.Year" type="text" id="" name="" style="font-size: 13px;width:300%"
-                                               class="full-name-property ml-3">
+                                        <input value="@DateTime.Now.Year" type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 full-name-property-1-year ml-3">
                                     </div>
                                 </span>
                             </p>
@@ -667,23 +667,22 @@
            }
            
             selectmajor += `</select>`
-            let tr = `          <tr>
-                                        <th width="60%">
-                                            <div class="d-flex  full-name-box ">
+            let tr = `          <tr class="selection">
+                                        <th class="selection-majors">
+                                            <div class="d-flex  full-name-box selection-majors">
                                                 <span class="mt-2 d-flex student-avatar-note full-name-box">
-                                                    <span> Tên Ngành :  </span>
+                                                    <span>Tên Ngành: </span>
                                                 </span>
-                                                <div class="validation-parent">
-
+                                                <div class="validation-parent validation-parent-custom">
                                                        ${selectmajor}
                                                 </div>
 
                                             </div>
                                         </th>
-                                        <th>
+                                        <th class="selection-code-majors">
                                             <div class="d-flex  full-name-box ">
                                                 <span class="mt-2 d-flex student-avatar-note full-name-box">
-                                                    <span> Mã Ngành:  </span>
+                                                    <span>Mã Ngành: </span>
                                                 </span>
                                                 <div class="validation-parent">
 
@@ -693,8 +692,7 @@
                                             </div>
                                         </th>
                                         <th width="10%">
-                                            <div class="form-button-action">
-
+                                            <div class="form-button-action form-button-action-delete">
                                                 <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
                                                     <i class="ti-close"> x</i>
                                                 </button>
@@ -1279,19 +1277,19 @@
                     $.each(result, function (k, v) {
 
                         if (v.url.endsWith("pdf")) {
-                            var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                            var let = `<div class="col-4 col-sm-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
 
-<span>${v.name}</span>
+<span class="img-name">${v.name}</span>
         </a>
 </div>`;
                         }
                         else {
-                            var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                            var let = `<div class="col-4 col-sm-2  text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content" >
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
+<span class="img-name">${v.name}</span>
    </a>
                 </div>`;
                         }

@@ -21,45 +21,46 @@
      aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header" style="background-color: #FFFDE7 ;">
+            @*<div class="modal-header" style="background-color: #FFFDE7 ;">
 
                 <img class="modal-title" id="exampleModalLabel" style="width: 30%; display: block; margin-left: 35%;" src="https://utc2.edu.vn/upload/company/favicon-15725981454.ico" />
 
-            </div>
+            </div>*@
+
             <div class="modal-body" style="background-color:#FAFAFA;">
                 <div class="text-danger" asp-validation-summary="All"></div>
 
                 <form asp-action="Register" method="post">
-
-                    <div class="form-group">
+                    <h2 class="font-weight-bold text-center text-uppercase">Đăng ký</h2>
+                    <div class="form-group mt-2">
                         <label asp-for="Email"></label>
-                        <input asp-for="Email" class="form-control" />
+                        <input asp-for="Email" class="form-control login-register-input" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="UseName"></label>
-                        <input asp-for="UseName" class="form-control" />
+                        <input asp-for="UseName" class="form-control login-register-input" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="Telephone"></label>
-                        <input asp-for="Telephone" class="form-control" />
+                        <input asp-for="Telephone" class="form-control login-register-input" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="Password"></label>
-                        <input asp-for="Password" class="form-control" />
+                        <input asp-for="Password" class="form-control login-register-input" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="ConfirmPassword"></label>
-                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <input asp-for="ConfirmPassword" class="form-control login-register-input" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="Adress"></label>
-                        <input asp-for="Adress" class="form-control" />
+                        <input asp-for="Adress" class="form-control login-register-input" />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label asp-for="BrithDay"></label>
-                        <input asp-for="BrithDay" type="date" class="form-control" />
+                        <input asp-for="BrithDay" type="date" class="form-control login-register-input" />
                     </div>
-                  
+
                     <button type="submit" class="btn btn-success btn-block mb-4 mt-2"> Đăng Ký</button>
                 </form>
 
