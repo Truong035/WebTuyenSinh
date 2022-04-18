@@ -353,14 +353,22 @@
                                 <span> Năm tốt nghiệp:  </span>
                             </span>
                             <div class="validation-parent">
-                                <input type="text" id="year" name="cmnd" class="full-name-property ml-1">
+                                <select required class="ml-1 form-select form-select-sm" id="year" aria-label="full-name-property ml-3 form-select-sm example">
+                                    <option value="">Mời chọn</option>
+                                    @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
+                                    {
+                                        <option value="@i"> @i</option>
+                                    }
+                                </select>
+
                             </div>
                         </div>
                         <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:30%">
                             <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Khu vực:  </span>
                             </span>
-                            <select id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
+                            <select required id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
+                                <option value="">Mời chọn</option>
                                 <option value="1"> 1</option>
                                 <option value="2"> 2</option>
                                 <option value="3"> 3</option>
@@ -375,8 +383,9 @@
                             </span>
                             <div class="validation-parent" style="margin-top: 4px;">
 
-                                <select id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
-                                    <option value="1"> 0</option>
+                                <select required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+                                    <option value="">Mời chọn</option>
+                                    <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
@@ -392,7 +401,6 @@
 
                     </div>
                 </div>
-
                 <div class="row mt-2">
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
@@ -427,8 +435,7 @@
                                     Tổ
                                     hợp
                                     xét
-                                    tuyể
-                                    n
+                                    tuyển
                                 </th>
                             </tr>
                             <tr>
@@ -535,24 +542,24 @@
 
                     </div>
                 </div>
-                <div class="row mt-4">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
-                                    <span style="font-size:13px;position: relative;  ">
-                                        <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                                        <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
-                                    </span>
-                                    <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
-                                </div>
-
-                                <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
-
-                            </div>
+                @*<div class="row mt-4">
+            <div class="col c-12">
+                <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                    <div class=" form-group ml-2">
+                        <div class="mr-3">
+                            <span style="font-size:13px;position: relative;  ">
+                                <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                                <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
+                            </span>
+                            <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
                         </div>
+
+                        <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
+
                     </div>
                 </div>
+            </div>
+        </div>*@
                 <div class=" mt-2 form-group ml-5">
                     <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
@@ -799,7 +806,7 @@
             $.each(Profile.fileProfiles, function (k, v) {
                 if (v.url.endsWith("pdf")) {
                     var let = `<div class="col-2  text-center">
-<a href ="$/${v.url}" target="_blank" >
+<a href ="${Url +v.url}" target="_blank" >
                             <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
 
 <span>${v.name}</span>
@@ -808,7 +815,7 @@
                 }
                 else {
                     var let = `<div class="col-2  text-center">
-<a href ="$/${v.url}" target="_blank" >
+<a href ="${Url}/${v.url}" target="_blank" >
                             <img src="/${v.url}"  class="img-thumbnail" alt="...">
 <span>${v.name}</span>
            </a>
@@ -817,7 +824,7 @@
                 $(img1).append(let);
             })
             let = `<div class="col-2">
-<a href ="$/${Profile.url}" target="_blank" >
+<a href ="${Url+Profile.url}" target="_blank" >
                                 <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
                            </a> </div>`;
             $(img1).append(let);
@@ -969,6 +976,27 @@
                     });
                 }
             });
+            $("#Consciou1").change(function () {
+                $("#district1").empty()
+                let option = `<option value="">Vui lòng chọn</option>`
+                $("#district1").append(option)
+                $.each(district, function (k, v) {
+                    if (v.idConscious == $("#Consciou1").val()) {
+                        option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                        $("#district1").append(option)
+                    }
+                })
+                $("#School1").empty()
+                option = `<option value="">Vui lòng chọn</option>`
+                $("#School1").append(option)
+                $.each(sChool, function (k, v) {
+
+                    if (v.idConscious == $("#Consciou1").val()) {
+                        option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                        $("#School1").append(option)
+                    }
+                })
+            })
             $("#district1").change(function () {
                 $("#School1").empty()
                 $("#Consciou1").val($("#district1").val().split('/').pop())

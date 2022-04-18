@@ -733,24 +733,24 @@ namespace WebTuyenSinh_Application.Repository
                                  idDistrict = g.Key.idDistrict.Trim()+"/" + g.Key.idConscious.Trim(),
                                  idConscious= g.Key.idConscious.Trim()
                              });
-            var block = _context.Addmisstion_Major_Block.Select(X => new { X.id, X.idBlock, X.idAdmisstion }).ToList();
+            //var block = _context.Addmisstion_Major_Block.Select(X => new { X.id, X.idBlock, X.idAdmisstion }).ToList();
             var Majors = _context.Majors.Where(x => x.delete != true).Select(X => new { X.id, X.Name }).ToList();
             var Admisstion_Major = await _context.Admisstion_Major.Where(x => x.idAdmisstion == student.idAdmisstion).ToListAsync();
-            var Block = (from c in Admisstion_Major
-                         join b in block on c.id equals b.idAdmisstion
-                         join m in Majors on c.idMajor equals m.id
-                         group m by new { b.idBlock } into g
-                         select new
-                         {
-                             id = g.Key.idBlock,
-                             Majors = g
-                         }).ToList();
+            var MajorsData = (from c in Admisstion_Major
+
+                              join m in Majors on c.idMajor equals m.id
+
+                              select new
+                              {
+                                  id = m.id,
+                                  Name = m.Name,
+                              }).ToList();
 
             ProfileView view = new ProfileView();
             view.Conscious = Conscious.ToList();
             view.District = District.ToList();
             view.SChool = Shool1.ToList();
-            view.Block = Block;
+            view.Majors = MajorsData;
             view.Data = student;
 
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = view };
@@ -797,20 +797,21 @@ namespace WebTuyenSinh_Application.Repository
             var block = _context.Addmisstion_Major_Block.Select(X => new { X.id, X.idBlock, X.idAdmisstion }).ToList();
             var Majors = _context.Majors.Where(x => x.delete != true).Select(X => new { X.id, X.Name }).ToList();
             var Admisstion_Major = await _context.Admisstion_Major.Where(x => x.idAdmisstion == id).ToListAsync();
-            var Block = (from c in Admisstion_Major
-                         join b in block on c.id equals b.idAdmisstion
+
+            var MajorsData = (from c in Admisstion_Major
+                       
                          join m in Majors on c.idMajor equals m.id
-                         group m by new { b.idBlock } into g
+                       
                          select new
                          {
-                             id = g.Key.idBlock,
-                             Majors = g
+                             id = m.id,
+                             Name = m.Name,
                          }).ToList();
             ProfileView view = new ProfileView();
             view.Conscious = Conscious.ToList();
             view.District = District.ToList();
             view.SChool = Shool1.ToList();
-            view.Block = Block;
+            view.Majors = MajorsData;
             view.Data = student;
 
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = view };
@@ -832,7 +833,7 @@ namespace WebTuyenSinh_Application.Repository
             List<InforMationProflie> inforMations = new List<InforMationProflie>();
             foreach (var item in profile.InforMationProflies)
             {
-                if (!inforMations.Exists(x => x.idMajor.Trim().Equals(item.idMajor.Trim()) && x.idBlock.Trim().Equals(item.idBlock.Trim())))
+                if (!inforMations.Exists(x => x.idMajor.Trim().Equals(item.idMajor.Trim()) && (admisstion.Type==1 ||x.idBlock.Trim().Equals(item.idBlock.Trim()))))
                 { 
                     inforMations.Add(new InforMationProflie() { 
                     idBlock=item.idBlock,
@@ -1059,27 +1060,36 @@ namespace WebTuyenSinh_Application.Repository
                                 idDistrict = g.Key.idDistrict.Trim() + "/" + g.Key.idConscious.Trim(),
                                 idConscious = g.Key.idConscious.Trim()
                             });
-            var block = _context.Addmisstion_Major_Block.Select(X => new { X.id, X.idBlock,X.idAdmisstion}).ToList();
+            //var block = _context.Addmisstion_Major_Block.Select(X => new { X.id, X.idBlock,X.idAdmisstion}).ToList();
             var Majors = _context.Majors.Where(x => x.delete != true).Select(X => new { X.id,X.Name}).ToList();
             var Admisstion_Major = await _context.Admisstion_Major.Where(x => x.idAdmisstion == id).ToListAsync();
-            var Block = (from c in Admisstion_Major
-                                  join b in block on c.id equals b.idAdmisstion
-                                  join m in Majors on c.idMajor equals m.id
-                                  group m by new {  b.idBlock } into g
-                                  select new
-                                  {
-                                      id = g.Key.idBlock,
-                                      Majors = g
-                                  }).ToList();
+            //var Major = (from c in Admisstion_Major
+            //                     // join b in block on c.id equals b.idAdmisstion
+            //                      join m in Majors on c.idMajor equals m.id
+            //                    //  group m by new {  b.idBlock } into g
+            //                      select new
+            //                      {
+            //                          id = g.Key.idBlock,
+            //                          Majors = g
+            //                      }).ToList();
 
+            var MajorsData = (from c in Admisstion_Major
 
+                              join m in Majors on c.idMajor equals m.id
+
+                              select new
+                              {
+                                  id = m.id,
+                                  Name = m.Name,
+                              }).ToList();
             ProfileStudent student = new ProfileStudent();
             ProfileView view = new ProfileView();
             view.Conscious = Conscious.ToList();
             view.District = District.ToList();
             view.SChool = Shool1.ToList();
             view.Data = student;
-            view.Block = Block;
+            view.Majors = MajorsData;
+            view.CountMajo = Admisstion_Major.Count;
             return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = view };
         }
 

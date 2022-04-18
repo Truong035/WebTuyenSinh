@@ -355,17 +355,23 @@
 
                     </div>
                 </div>
-                <div class="row  mt-1">
+                <div class="row  mt-1" style="width: 100%;">
                     <div class="col c-12 d-flex justify-content-between mobile-column gap-2" style="width:100%">
                         <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:30%">
                             <span class="mt-2 d-flex student-avatar-note full-name-box" style="margin-right:10px">
                                 <span> Năm tốt nghiệp:  </span>
                             </span>
                             <div class="validation-parent">
-                                <input disabled type="text" id="year" name="cmnd" class="full-name-property ml-1">
+                                <select disabled required class="ml-1 form-select form-select-sm" id="year" aria-label="full-name-property ml-3 form-select-sm example">
+                                    @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
+                                    {
+                                        <option value="@i"> @i</option>
+                                    }
+                                </select>
+
                             </div>
                         </div>
-                        <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:20%">
+                        <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:30%">
                             <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Khu vực:  </span>
                             </span>
@@ -375,16 +381,17 @@
                                 <option value="3"> 3</option>
                                 <option value="2NT"> 2NT</option>
                             </select>
+
                         </div>
 
-                        <div class="d-flex day-of-birth full-name-box mobile-column-full" style="">
+                        <div class="d-flex day-of-birth full-name-box mobile-column-full c-4" style=" width:40%">
                             <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Đối tượng ưu tiên (nếu có):  </span>
                             </span>
-                            <div class="validation-parent" style="width: 30%;">
+                            <div class="validation-parent" style="margin-top: 4px;">
 
-                                <select disabled id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm" style="width:150px ;margin-left:2%">
-                                    <option value="1"> 0</option>
+                                <select id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+                                    <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
@@ -400,7 +407,6 @@
 
                     </div>
                 </div>
-
                 <div class="row mt-2">
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
@@ -411,7 +417,7 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <div class="col c-5">
+                    <div class="col c-8">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
                                 <span> Số báo danh (*): </span>
@@ -421,17 +427,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col c-4">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>  Tổ hợp môn (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:40%">
-                                <select disabled id="block" class="full-name-property form-select form-select-sm" style="width:100px ;margin-left:2%">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col c-2">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
@@ -464,57 +460,57 @@
 
                                     foreach (var item in Model.Data.InforMationProflies)
                                     {
-                                        <tr>
-                                            <td width="55%">
-                                                <div class="d-flex  full-name-box ">
-                                                    <span class="mt-2 d-flex ">
-                                                        <span> Tên Ngành :  </span>
-                                                    </span>
-                                                    <div class=" mt-2  validation-parent">
-                                                        <select disabled class="full-name-property form-select form-select-sm ms-2 major" style="width:300px ;margin-left:2%" onchange="Option(this)" required aria-label=".form-select-sm example">
-                                                            @foreach (var item1 in data.Admisstion_Major)
-                                                            {
-                                                                if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
-                                                                {
-                                                                    <option value="@item.idMajor" selected>@item1.Major.Name</option>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <option value="@item.idMajor">@item1.Major.Name</option>
-                                                                }
+                                                                <tr class="selection">
+                                                                                                    <th class="selection-majors">
+                                                                                                        <div class="d-flex  full-name-box ">
+                                                                                                            <span class="mt-2 d-flex ">
+                                                                                                                <span> Tên Ngành :  </span>
+                                                                                                            </span>
+                                                                                                            <div class=" mt-2  validation-parent">
+                                                                                                                <select disabled class="full-name-property form-select form-select-sm ms-2 major" style="width:300px ;margin-left:2%" onchange="Option(this)" required aria-label=".form-select-sm example">
+                                                                                                                    @foreach (var item1 in data.Admisstion_Major)
+                                                                                                                    {
+                                                                                                                        if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
+                                                                                                                        {
+                                                                                                                            <option value="@item.idMajor" selected>@item1.Major.Name</option>
+                                                                                                                        }
+                                                                                                                        else
+                                                                                                                        {
+                                                                                                                            <option value="@item.idMajor">@item1.Major.Name</option>
+                                                                                                                        }
 
-                                                            }
+                                                                                                                    }
 
 
-                                                        </select>
-                                                    </div>
+                                                                                                                </select>
+                                                                                                            </div>
 
-                                                </div>
-                                            </td>
-                                            <td width="35%">
-                                                <div class="d-flex  full-name-box ">
-                                                    <span class="mt-2 d-flex student-avatar-note full-name-box">
-                                                        <span> Mã Ngành:  </span>
-                                                    </span>
-                                                    <div class="validation-parent">
+                                                                                                        </div>
+                                                                                                    </th>
+                                                                                                    <th width="35%">
+                                                                                                        <div class="d-flex  full-name-box ">
+                                                                                                            <span class="mt-2 d-flex student-avatar-note full-name-box">
+                                                                                                                <span> Mã Ngành:  </span>
+                                                                                                            </span>
+                                                                                                            <div class="validation-parent">
 
-                                                        <input disabled value="@item.idMajor.Trim()" style="width:80%" required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3">
-                                                    </div>
+                                                                                                                <input disabled value="@item.idMajor.Trim()" style="width:80%" required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3">
+                                                                                                            </div>
 
-                                                </div>
-                                            </td>
-                                            <td width="15%">
-                                                <div class="d-flex  full-name-box">
-                                                    <span class="d-flex student-avatar-note full-name-box">
-                                                        <span> NV:  </span>
-                                                    </span>
-                                                    <div class="validation-parent ms-2">
-                                                        <input disabled class="full-name-property" type="number" style="width:100%" required value="@item.STT" />
-                                                    </div>
-                                                </div>
-                                            </td>
+                                                                                                        </div>
+                                                                                                    </th>
+                                                                                                    <th width="15%">
+                                                                                                        <div class="d-flex  full-name-box">
+                                                                                                            <span class="d-flex student-avatar-note full-name-box">
+                                                                                                                <span> NV:  </span>
+                                                                                                            </span>
+                                                                                                            <div class="validation-parent ms-2">
+                                                                                                                <input disabled class="full-name-property" type="number" style="width:100%" required value="@item.STT" />
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </th>
 
-                                        </tr>
+                                                                </tr>
                                     } }
 
 

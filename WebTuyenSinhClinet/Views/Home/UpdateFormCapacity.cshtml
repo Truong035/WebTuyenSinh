@@ -350,21 +350,27 @@
 
                     </div>
                 </div>
-                <div class="row  mt-1">
+                <div class="row  mt-1" style="width: 100%;">
                     <div class="col c-12 d-flex justify-content-between mobile-column gap-2" style="width:100%">
                         <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:30%">
                             <span class="mt-2 d-flex student-avatar-note full-name-box" style="margin-right:10px">
                                 <span> Năm tốt nghiệp:  </span>
                             </span>
                             <div class="validation-parent">
-                                <input type="text" id="year" name="cmnd" class="full-name-property ml-1">
+                                <select required class="ml-1 form-select form-select-sm" id="year" aria-label="full-name-property ml-3 form-select-sm example">
+                                    @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
+                                    {
+                                        <option value="@i"> @i</option>
+                                    }
+                                </select>
+
                             </div>
                         </div>
-                        <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:20%">
+                        <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:30%">
                             <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Khu vực:  </span>
                             </span>
-                            <select id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
+                            <select required id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
                                 <option value="1"> 1</option>
                                 <option value="2"> 2</option>
                                 <option value="3"> 3</option>
@@ -373,14 +379,14 @@
 
                         </div>
 
-                        <div class="d-flex day-of-birth full-name-box mobile-column-full" style="">
+                        <div class="d-flex day-of-birth full-name-box mobile-column-full c-4" style=" width:40%">
                             <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Đối tượng ưu tiên (nếu có):  </span>
                             </span>
-                            <div class="validation-parent" style="width: 30%;">
+                            <div class="validation-parent" style="margin-top: 4px;">
 
-                                <select id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm" style="width:150px ;margin-left:2%">
-                                    <option value="1"> 0</option>
+                                <select required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+                                    <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
@@ -396,7 +402,6 @@
 
                     </div>
                 </div>
-
                 <div class="row mt-2">
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
@@ -407,7 +412,7 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <div class="col c-5">
+                    <div class="col c-8">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
                                 <span> Số báo danh (*): </span>
@@ -417,17 +422,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col c-4">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>  Tổ hợp môn (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:40%">
-                                <select id="block" class="full-name-property form-select form-select-sm" style="width:100px ;margin-left:2%">
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col c-2">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
@@ -460,11 +455,11 @@
 
                                     foreach (var item in Model.Data.InforMationProflies)
                                     {
-                                        <tr>
-                                            <td width="55%">
-                                                <div class="d-flex  full-name-box ">
-                                                    <span class="mt-2 d-flex ">
-                                                        <span> Tên Ngành :  </span>
+                                        <tr class="selection">
+                                            <th class="selection-majors">
+                                                <div class="d-flex  full-name-box selection-majors">
+                                                    <span class="mt-2 d-flex student-avatar-note full-name-box">
+                                                        <span>Tên Ngành: </span>
                                                     </span>
                                                     <div class=" mt-2  validation-parent">
                                                         <select class="full-name-property form-select form-select-sm ms-2 major" style="width:300px ;margin-left:2%" onchange="Option(this)" required aria-label=".form-select-sm example">
@@ -486,11 +481,11 @@
                                                     </div>
 
                                                 </div>
-                                            </td>
-                                            <td width="35%">
+                                            </th>
+                                            <th class="selection-code-majors">
                                                 <div class="d-flex  full-name-box ">
                                                     <span class="mt-2 d-flex student-avatar-note full-name-box">
-                                                        <span> Mã Ngành:  </span>
+                                                        <span>Mã Ngành: </span>
                                                     </span>
                                                     <div class="validation-parent">
 
@@ -498,7 +493,7 @@
                                                     </div>
 
                                                 </div>
-                                            </td>
+                                            </th>
                                             <td width="15%">
                                                 <div class="d-flex  full-name-box">
                                                     <span class="d-flex student-avatar-note full-name-box">
@@ -558,24 +553,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row mt-4 mr-auto ">
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
-                                    <div class="validation-parent"
-                                         style="width:40%;justify-content: center;display: flex;margin-right:75px">
-                                        <input type="text" id="" name="" style="font-size: 13px; width: 500%;"
-                                               class="full-name-property ml-3">
+                                    <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
+                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width: 200%;"
-                                               value="@DateTime.Now.Day" class="full-name-property ml-3">
+                                        <input type="text" id="" name="" style="font-size: 13px"
+                                               value="@DateTime.Now.Day" class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
-                                        <input value="@DateTime.Now.Month" type="text" id="" name="" style="font-size: 13px;width: 200%;"
-                                               class="full-name-property ml-3">
+                                        <input value="@DateTime.Now.Month" type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">năm</span>
-                                        <input value="@DateTime.Now.Year" type="text" id="" name="" style="font-size: 13px;width:300%"
-                                               class="full-name-property ml-3">
+                                        <input value="@DateTime.Now.Year" type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 full-name-property-1-year ml-3">
                                     </div>
                                 </span>
                             </p>
@@ -618,6 +612,7 @@
     <script>
         let cout = 0;
         let conscious = [];
+
         let district = [];
         let sChool = [];
         let Profile;
@@ -709,73 +704,76 @@
             });
         }
 
+
         function LoadData() {
-            console.log(blocks[Number($("#block").val())])
+
             let selectmajor = `<select class="full-name-property form-select form-select-sm ms-2 major" style="width:300px ;margin-left:2%" onchange="Option(this)" required aria-label=".form-select-sm example">
-                 <option value="">Chọn Ngành</option>`
-
-
+             <option value="">Chọn Ngành</option>`
             cout++;
-            $.each(blocks[Number($("#block").val())].majors, function (k, v) {
-                selectmajor += ` <option value="${v.id}">${v.name}</option>`
-            });
+            for (var i = 0; i < blocks.length; i++) {
+                $.each(blocks[i].majors, function (k, v) {
+                    selectmajor += ` <option value="${v.id}">${v.name}</option>`
+                });
+            }
+
             selectmajor += `</select>`
-            let tr = `    <tr>   <th width="60%">
-                                                <div class="d-flex  full-name-box ">
-                                                    <span class="mt-2 d-flex student-avatar-note full-name-box">
-                                                        <span> Tên Ngành :  </span>
-                                                    </span>
-                                                    <div class="validation-parent">
+            let tr = `          <tr>
+                                        <th width="60%">
+                                            <div class="d-flex  full-name-box ">
+                                                <span class="mt-2 d-flex student-avatar-note full-name-box">
+                                                    <span> Tên Ngành :  </span>
+                                                </span>
+                                                <div class="validation-parent">
 
-                                                           ${selectmajor}
-                                                    </div>
-
+                                                       ${selectmajor}
                                                 </div>
-                                            </th>
-                                            <th>
-                                                <div class="d-flex  full-name-box ">
-                                                    <span class="mt-2 d-flex student-avatar-note full-name-box">
-                                                        <span> Mã Ngành:  </span>
-                                                    </span>
-                                                    <div class="validation-parent">
 
-                                                        <input style="width:100%" required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3">
-                                                    </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="d-flex  full-name-box ">
+                                                <span class="mt-2 d-flex student-avatar-note full-name-box">
+                                                    <span> Mã Ngành:  </span>
+                                                </span>
+                                                <div class="validation-parent">
 
+                                                    <input style="width:100%" required type="tel" id="teletephone" name="cmnd" class="full-name-property ml-3">
                                                 </div>
-                                            </th>
-                                            <th>
-                                                <div class="form-button-action">
 
-                                                    <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                        <i class="ti-close"> x</i>
-                                                    </button>
-                                                </div>
-                                            </th>
+                                            </div>
+                                        </th>
+                                        <th width="10%">
+                                            <div class="form-button-action">
 
-                                        </tr>
+                                                <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                    <i class="ti-close"> x</i>
+                                                </button>
+                                            </div>
+                                        </th>
+
+                                    </tr>
 `;
             $("#tbbody").append(tr)
             tr = ` <tr>
-                                            <th class="text-center">
+                                        <th class="text-center">
 
-                                                <button type="button" id="" name="add" data-toggle="tooltip" title="" class="  mt-2 btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                    <i class="ti-plus"></i> +
-                                                </button>
-                                            </th>
-                                            <th>
+                                            <button type="button" id="" name="add" data-toggle="tooltip" title="" class="  mt-2 btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                <i class="ti-plus"></i> +
+                                            </button>
+                                        </th>
+                                        <th>
 
-                                            </th>
-                                        </tr>`;
+                                        </th>
+                                    </tr>`;
 
             $("#tbbody").append(tr)
         }
-
 
         $(document).ready(function () {
 
             let id = window.location.href.split('/').pop();
 
+      
             $.ajax({
                 async: false,
                 url: "/Home/GETProfile/" + id,
@@ -793,29 +791,31 @@
                         Profile = res.data.data
                         blocks = res.data.block
                         LoadProfile();
+
+                      //  LoadData()
                     }
 
                 }
             );
-
             $.ajax({
                 async: false,
                 url: "/Home/GetAdmisstionInfo/" + Profile.idAdmisstion,
                 type: 'GET',
             }).done(function (res) {
-             
+
                 if (res.success) {
                     majors = res.data;
 
                 }
             });
 
-            $("#block").change(function (e) {
+
+            //$("#block").change(function (e) {
       
-                $("#tbbody").empty();
-                cout = 0;
-                LoadData()
-            })
+            //    $("#tbbody").empty();
+            //    cout = 0;
+            //    LoadData()
+            //})
 
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
@@ -871,7 +871,7 @@
                 Profile.inforMationProflies = [];
                 $.each(input, function (k, v) {
                     Profile.inforMationProflies.push({
-                        idBlock: blocks[Number($("#block").val())].id,
+                        idBlock: '',
                         idMajor: $(v).closest("tr").find("select:eq(0)").val().trim(),
                         subject2: 0,
                         subject3: 0,
@@ -881,7 +881,6 @@
                         subject7: 0,
                         subject8: 0,
                         subject9: 0,
-                        stt: $(v).closest("tr").find("input:eq(1)").val().trim(),
                     })
                 })
                 if ($("#checknam").prop("checked")) {
@@ -1103,19 +1102,21 @@
                 }
             })
 
-            $(document).on('click', "button[name = 'add']", function () {
-                if (cout >= blocks[Number($("#block").val())].majors.length) {
-                    $("#livefail").empty();
-                    $("#livefail").text("Đã hết ngành đăng ký")
-                    $("#livefail").toast("show");
-                    return
-                }
-                $(this).closest('tr').remove();
+            //$(document).on('click', "button[name = 'add']", function () {
+              
+            //    if (cout >= countMajo) {
+            //        $("#livefail").empty();
+            //        $("#livefail").text("Đã hết ngành đăng ký")
+            //        $("#livefail").toast("show");
+            //        return
+            //    }
+            //    $(this).closest('tr').remove();
 
-                $(this).hide();
-                LoadData()
+            //    $(this).hide();
+            //    LoadData()
 
-            });
+            //});
+
 
 
         });
@@ -1243,7 +1244,6 @@
             $("#Identification").val(Profile.identification);
             Profile.mark = $("#mark").val(Profile.mark);
 
-            //   Profile.idBlock = blocks[Number($("#block").val())].id
 
             if (Profile.sex === 0) {
 
@@ -1323,12 +1323,7 @@
             $("#School1").val(idshoo1)
             $("#School2").val(idshoo2)
             $("#School3").val(idshoo3)
-            //    $("#teletephone").val(Profile.teletephone);
-            $.each(blocks, function (k, v) {
-                option = `<option value="${k}">${v.id.trim()}</option>`
-                $("#block").append(option)
-
-            })
+     
         }
     </script>
 }

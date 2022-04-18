@@ -122,9 +122,9 @@
                             </a>
                         </div>
                     </li>
-                    
+
                 </ul>
-             
+
             </div>
         </nav>
         <!-- partial -->
@@ -148,7 +148,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <!-- partial -->
             <!-- partial:partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -186,16 +186,16 @@
                             </ul>
                         </div>
                     </li>
- 
+
                     <li class="nav-item">
-                        <a class="nav-link"  href="/Statistical/Index" aria-expanded="false" aria-controls="charts">
+                        <a class="nav-link" href="/Statistical/Index" aria-expanded="false" aria-controls="charts">
                             <i class="icon-bar-graph menu-icon"></i>
                             <span class="menu-title">Thống kê</span>
                             <i class="menu-arrow"></i>
                         </a>
-                       
+
                     </li>
-      
+
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                             <i class="icon-head menu-icon"></i>
@@ -209,7 +209,7 @@
                             </ul>
                         </div>
                     </li>
-      
+
                 </ul>
             </nav>
             <!-- partial -->
@@ -257,7 +257,10 @@
     <script src="~/js/plugin/sweetalert/sweetalert.min.js"></script>
     <!-- Datatables -->
     <script src="~/js/plugin/datatables/datatables.min.js"></script>
+
     <script>
+        const Url = "https://utc2.tk"
+       // const Url = "https://localhost:44396"
         $('#data-table').dataTable({
             "order": [[0, "desc"]]
         })

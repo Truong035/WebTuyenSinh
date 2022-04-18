@@ -345,30 +345,32 @@
 
                     </div>
                 </div>
-                <div class="row  mt-1">
-                    <div class="row" style="width:100%">
-                        <div class="d-flex day-of-birth full-name-box" style=" width:30%">
-                            <span class="mt-2 d-flex student-avatar-note full-name-box" style="width:200px">
+                <div class="row  mt-1" style="width: 100%;">
+                    <div class="col c-12 d-flex justify-content-between mobile-column gap-2" style="width:100%">
+                        <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:30%">
+                            <span class="mt-2 d-flex student-avatar-note full-name-box" style="margin-right:10px">
                                 <span> Năm tốt nghiệp:  </span>
                             </span>
                             <div class="validation-parent">
-                                <input type="text" id="year" name="cmnd" class="full-name-property ml-1" style="width:70px"
-                                       placeholder="">
+                                <select required class="ml-1 form-select form-select-sm" id="year" aria-label="full-name-property ml-3 form-select-sm example">
+                                    @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
+                                    {
+                                        <option value="@i"> @i</option>
+                                    }
+                                </select>
+
                             </div>
                         </div>
-                        <div class="d-flex day-of-birth full-name-box" style=" width:26%">
-                            <span class="mt-2 d-flex student-avatar-note full-name-box" style=" width: 70px">
+                        <div class="d-flex day-of-birth full-name-box mobile-column-full" style=" width:30%">
+                            <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Khu vực:  </span>
                             </span>
-                            <div class="validation-parent">
-
-                                <select id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
-                                    <option value="1"> 1</option>
-                                    <option value="2"> 2</option>
-                                    <option value="3"> 3</option>
-                                    <option value="2NT"> 2NT</option>
-                                </select>
-                            </div>
+                            <select  required id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
+                                <option value="1"> 1</option>
+                                <option value="2"> 2</option>
+                                <option value="3"> 3</option>
+                                <option value="2NT"> 2NT</option>
+                            </select>
 
                         </div>
 
@@ -378,8 +380,8 @@
                             </span>
                             <div class="validation-parent" style="margin-top: 4px;">
 
-                                <select id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
-                                    <option value="1"> 0</option>
+                                <select  required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+                                    <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
@@ -395,8 +397,6 @@
 
                     </div>
                 </div>
-
-
                 <div class="row mt-2">
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
@@ -419,23 +419,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-1">
-                    <div class="col c-12">
+                <div class="row mt-1 mobile-table">
+                    <div class="col c-12 moible-table-width">
 
-                        <table class="" disabled style="width:100%" dislayble>
+                        <table class="talel-regis" disabled style="width:100%" dislayble>
                             <tr>
 
-                                <th rowspan="4" style="width:20%">
-                                    Ngành/ Nhóm ngành/
-                                    Chuyên ngành/ Nhóm
-                                    chuyên ngành xét tuyển
+                                <th rowspan="4">
+                                    Ngành xét tuyển
                                 </th>
                                 <th rowspan="4" style="width:12%">
                                     Tổ
                                     hợp
                                     xét
-                                    tuyể
-                                    n
+                                    tuyển
                                 </th>
                             </tr>
                             <tr>
@@ -445,20 +442,20 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3">Môn 1</th>
-                                <th colspan="3">Môn 1</th>
-                                <th colspan="3">Môn 1</th>
+                                <th colspan="3">Lớp 10 </th>
+                                <th colspan="3">Lớp 11</th>
+                                <th colspan="3">Lớp 12</th>
                             </tr>
                             <tr>
                                 <th>Môn 1</th>
+                                <th>Môn 2</th>
+                                <th>Môn 3</th>
                                 <th>Môn 1</th>
+                                <th>Môn 2</th>
+                                <th>Môn 3</th>
                                 <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
-                                <th>Môn 1</th>
+                                <th>Môn 2</th>
+                                <th>Môn 3</th>
                             </tr>
 
                             <tbody id="tbbody">
@@ -583,31 +580,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row mt-4 mr-auto ">
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
-                                    <div class="validation-parent"
-                                         style="width:40%;justify-content: center;display: flex">
-                                        <input type="text" id="" name="" style="font-size: 13px; width: 400%;"
-                                               class="full-name-property ml-3">
+                                    <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
+                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width: 50%;"
-                                               class="full-name-property ml-3">
+                                        <input type="text" id="" name="" style="font-size: 13px"
+                                               value="@DateTime.Now.Day" class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width: 50%;"
-                                               class="full-name-property ml-3">
+                                        <input value="@DateTime.Now.Month" type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">năm</span>
-                                        <input type="text" id="" name="" style="font-size: 13px;width:100%"
-                                               class="full-name-property ml-3">
+                                        <input value="@DateTime.Now.Year" type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 full-name-property-1-year ml-3">
                                     </div>
                                 </span>
                             </p>
                         </div>
                     </div>
-                </div>
-
+                </div>  
             </div>
 
             <!-- xác nhận -->
@@ -735,7 +730,7 @@
 
             $("#tbbody").append(tr)
             tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                                        <i class="ti-plus"></i> Thêm
+                                                                        <i class="ti-plus">+</i> 
                                                                     </button>
                                                             </td>
                                                         </tr>`
@@ -1094,30 +1089,30 @@
             var img1 = $('#file-upload-content');
             $.each(Profile.fileProfiles, function (k, v) {
                 if (v.url.endsWith("pdf")) {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-
-<span>${v.name}</span>
-            </a>
+                    var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name" >${v.name}</span>
+        </a>
 </div>`;
                 }
                 else {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                        <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
-       </a>
-                    </div>`;
+                    var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span class="img-name" >${v.name}</span>
+   </a>
+                </div>`;
                 }
 
 
                 $(img1).append(let);
             })
-            let = `<div class="col-2">
-<a href ="${Url}/${Profile.url}" target="_blank" >
-                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-                   </a> </div>`;
+            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
             $(img1).append(let);
             $.each(conscious, function (k, v) {
                 let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
@@ -1196,24 +1191,24 @@
                     fileUrl = result;
                     $(img).empty();
                     $.each(result, function (k, v) {
-                        if (v.url.endsWith("pdf")) {
-                            var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
 
-<span>${v.name}</span>
-            </a>
+                        if (v.url.endsWith("pdf")) {
+                            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name">${v.name}</span>
+        </a>
 </div>`;
                         }
                         else {
-                            var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                        <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
-       </a>
-                    </div>`;
+                            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+    <span class="img-name">${v.name}</span>
+   </a>
+                </div>`;
                         }
-
 
                         $(img).append(let);
                     });
@@ -1252,8 +1247,8 @@
                     $(img).empty();
                     $.each(result, function (k, v) {
                         var let = `<div class="col-2">
-                        <img src="${Url}/${v.url}" width="130" height="160"  alt="...">
-                    </div>`;
+                    <img src="${Url}/${v.url}" width="130" height="160"  alt="...">
+                </div>`;
 
                         Profile.imgavata = v.url
                         $(img).append(let);
@@ -1269,4 +1264,4 @@
         }
     </script>
 }
-</html>
+
