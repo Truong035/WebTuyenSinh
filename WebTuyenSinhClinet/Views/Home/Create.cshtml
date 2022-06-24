@@ -4,6 +4,7 @@
 
 }
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,12 +12,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form</title>
-  <style>
-      .form-title div:first-child {
-          max-width: 100%;
-          margin-right: 20px;
-      }
-  </style>
+    <style>
+        .form-title div:first-child {
+            max-width: 100%;
+            margin-right: 20px;
+        }
+
+        input {
+            Text-transform: capitalize !important
+        }
+    </style>
 </head>
 
 <body>
@@ -47,10 +52,10 @@
                     <i class="line-head-one line-head-custom"></i>
                 </div>
             </div>
-      
+
             <!-- form-title -->
             <div class="form-title  d-flex justify-content-between">
-       
+
                 <div class="col-12 text-center" style="margin-top:10px;">
                     <h6>PHIẾU ĐĂNG KÝ XÉT TUYỂN <span>ĐẠI HỌC CHÍNH QUY</span></h6>
                     <span style="font-size:14px">(Dành cho xét tuyển bằng học bạ)</span>
@@ -344,7 +349,7 @@
                                     <option value="">Mời chọn</option>
                                     @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
                                     {
-                                        <option value="@i"> @i</option>
+                                    <option value="@i"> @i</option>
                                     }
                                 </select>
 
@@ -377,8 +382,8 @@
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
                                     <option value="4"> 4</option>
-                                    <option value="6"> 5</option>
-                                    <option value="7"> 6</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
 
                                 </select>
                             </div>
@@ -404,12 +409,20 @@
                             <span class="student-avatar-note">
                                 <span>
                                     Sau khi đã đọc và hiểu rõ các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi đăng ký xét
-                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành/ Chuyên ngành/ Nhóm chuyên ngành theo thứ tự ưu
+                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành theo thứ tự ưu
                                     tiên như bảng sau:
                                 </span>
+
                             </span>
+
                         </div>
+
                     </div>
+                    <br />
+                    <span class="mt-2 mb-2" style="font-size:14px;position: relative;  ">
+                        <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                        <span style="margin-left: 15px">Điểm trung bình học kỳ từng môn trong tổ hợp xét tuyển không có môn nào dưới 5.50 điểm </span>
+                    </span>
                 </div>
                 <div class="row mt-1 mobile-table">
                     <div class="col c-12 moible-table-width">
@@ -417,10 +430,10 @@
                         <table class="talel-regis" disabled style="width:100%" dislayble>
                             <tr>
 
-                                <th rowspan="4">
+                                <th rowspan="5">
                                     Ngành xét tuyển
                                 </th>
-                                <th rowspan="4" style="width:12%">
+                                <th rowspan="5" style="width:12%">
                                     Tổ
                                     hợp
                                     xét
@@ -434,20 +447,20 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3">Lớp 10 </th>
-                                <th colspan="3">Lớp 11</th>
-                                <th colspan="3">Lớp 12</th>
+                                <th colspan="3">Môn 1 </th>
+                                <th colspan="3">Môn 2</th>
+                                <th colspan="3">Môn 3</th>
                             </tr>
                             <tr>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
                             </tr>
 
                             <tbody id="tbbody">
@@ -461,15 +474,15 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col c-12">
+                    <div class="c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
+                            <div class=" form-group ">
+                                <div class="">
                                     <span style="font-size:13px;position: relative;  ">
                                         <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                                        <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
+                                        <span style="margin-left: 15px;">: Chọn file ảnh hay file scan Phiếu đăng ký xét tuyển, Học bạ THPT, Các giấy tờ minh chứng được hưởng chế độ ưu tiên (nếu có)                         <button class="btn-primary ml-1" style="border:none" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button></span>
                                     </span>
-                                    <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
+
                                 </div>
 
                                 <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
@@ -478,7 +491,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" mt-2 form-group ml-5">
+                <div class=" mt-4 form-group ml-5">
                     <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
 
@@ -507,7 +520,7 @@
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
                                     <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
-                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                        <input type="text" value="TP.HỒ CHÍ MINH" id="" name="" style="font-size: 13px;"
                                                class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
                                         <input type="text" id="" name="" style="font-size: 13px"
@@ -535,7 +548,7 @@
                     </div>
                     <div class="col c-5 educate">
                         <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
-                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                        @*<p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>*@
                         <p class="educate-parent signature" style="margin-top: 50px;">
 
                         </p>
@@ -546,7 +559,7 @@
 
             <div class="container mt-5 text-center">
                 @*<button class="btn btn-primary ml-auto" type="submit">Xem Trước </button>*@
-                <button class="btn btn-primary ml-auto" type="submit">Xem Trước</button>
+                <button class="btn btn-primary ml-auto" type="submit">Đăng Ký</button>
             </div>
 
         </div>
@@ -559,7 +572,7 @@
         let token = "";
         token = `@HttpContextAccessor.HttpContext.Session.GetString("ID")`
 
-       </script>
+    </script>
     <script>
         let conscious = [];
         let district = [];
@@ -574,7 +587,7 @@
                 var x = Number($(e).val())
 
                 if (x > 0 && x < 11) {
-              
+
                 }
                 else {
                     $(e).val("")
@@ -588,7 +601,7 @@
                 var x = Number($(e).val())
 
                 console.log(mark);
-                if (x > 0 && (mark.length == 9 || mark.length == 12) ) {
+                if (x > 0 && (mark.length == 9 || mark.length == 12)) {
 
                 }
                 else {
@@ -605,7 +618,7 @@
                 if (v.idMajor.trim() === $(e).val().trim()) {
 
                     let selectblock = ` <select class=" form-select form-select-sm block"  required aria-label=".form-select-sm example">
-                   `
+                       `
                     $.each(v.block, function (index, value) {
                         selectblock += ` <option value="${value}">${value}</option>`
                     })
@@ -619,48 +632,48 @@
         function LoadData() {
 
             let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
-     <option value="">Chọn Ngành</option>`
+         <option value="">Chọn Ngành</option>`
             $.each(majors, function (k, v) {
                 selectmajor += ` <option value="${v.idMajor}">${v.name}</option>`
             });
             selectmajor += `</select>`
             let selectblock = ` <select class=" form-select form-select-sm block" aria-label=".form-select-sm example">
-<option value="">Tổ Hợp </option>`
+<option value="">Mời chọn </option>`
             selectblock += `</select>`
             let tr = `  <tr>
 
-                                                    <td>
-                                                      ${selectmajor}
-                                                    </td>
-                                                    <td>
-                                                       ${selectblock}
-                                                    </td>
-                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject1" required value="" /></td>
-                                                <td><input type="text"  onchange="CheckMart(this)" class="subject2" required value="" /></td>
-                                                <td><input type="text"  onchange="CheckMart(this)" class="subject3" required value="" /></td>
-                                                <td><input type="text"  onchange="CheckMart(this)" class="subject4" required value="" /></td>
-                                                <td><input type="text"  onchange="CheckMart(this)" class="subject5" required value="" /></td>
-                                                <td><input type="text"  onchange="CheckMart(this)" class="subject6" required value="" /></td>
-                                                <td><input type="text"  onchange="CheckMart(this)" class="subject7" required value="" /></td>
-                                                <td><input type="text"  onchange="CheckMart(this)" class="subject8" required value="" /></td>
-                                                <td><input type="text"  onchange="CheckMart(this)" class="subject9" required value="" /></td>
-                                                <td class="delete-school">
-                                                    <div class="form-button-action">
+                                                        <td>
+                                                          ${selectmajor}
+                                                        </td>
+                                                        <td>
+                                                           ${selectblock}
+                                                        </td>
+                                                        <td><input type="text"  onchange="CheckMart(this)" class="subject1" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject2" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject3" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject4" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject5" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject6" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject7" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject8" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject9" required value="" /></td>
+                                                    <td class="delete-school">
+                                                        <div class="form-button-action">
 
-                                                        <button hef="/DeleteShool" style="border:none ;width:20ox;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                            <i class="ti-close"> x</i>
-                                                        </button>
-                                                    </div>
-                                                </td>
+                                                            <button hef="/DeleteShool" style="border:none ;width:20ox;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"> x</i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
 
-                                                </tr>`
+                                                    </tr>`
 
             $("#tbbody").append(tr)
             tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                                <i class="ti-plus"></i> +
-                                                            </button>
-                                                    </td>
-                                                </tr>`
+                                                                    <i class="ti-plus"></i> +
+                                                                </button>
+                                                        </td>
+                                                    </tr>`
             $("#tbbody").append(tr)
         }
 
@@ -678,7 +691,7 @@
 
                 }
             });
-            LoadData()
+        
             $.ajax({
                 async: false,
                 url: "/Home/CreateProfile/" + id,
@@ -691,18 +704,32 @@
                         conscious = res.data.conscious;
 
                         district = res.data.district
-     
-                        sChool = res.data.sChool;
-    
-                        Profile = res.data.data
 
-                      LoadProfile();
+                        sChool = res.data.sChool;
+
+                        Profile = res.data.data
+                        LoadProfile();
+                        if (Profile.id > 0) {
+
+
+                            tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                    <i class="ti-plus"></i> +
+                                                                </button>
+                                                        </td>
+                                                    </tr>`
+                            $("#tbbody").append(tr)
+                        }
+                        else {
+                            LoadData();
+                        }
+
+                    
                     }
 
                 }
             );
 
-      
+
 
             $('#student-form').on('submit', function (e) {
                 e.preventDefault(); // Now nothing will happen
@@ -723,7 +750,7 @@
                 }
 
                 Profile.idAdmisstion = id,
-                Profile.name = $("#full_name").val();
+                    Profile.name = $("#full_name").val();
                 Profile.birthDay = $("#birthdate").val();
                 Profile.adress = $("#address").val();
                 Profile.cmnd = $("#cmnd").val();
@@ -779,7 +806,7 @@
                     Profile.sex = 1;
                 }
                 Profile.idAccount = token;
-       
+
                 if (fileUrl.length == 0 && Profile.id === 0) {
                     $("#livefail").text("Vui lòng upload các giấy tờ cần thiết")
                     $("#livefail").toast("show");
@@ -794,9 +821,9 @@
                             data: { Profile: Profile, files: fileUrl },
 
                         }).done(function (data) {
-                           
+
                             if (data.success) {
-                                $('#particles1').hide();
+
                                 Profile = data.data
                                 var link = document.createElement("a");
                                 // If you don't know the name or want to use
@@ -812,7 +839,7 @@
                             }
                             else {
                                 $('#particles1').hide();
-                                $("#livefail").text("Quá trình đăng ký thất bại")
+                                $("#livefail").text(data.message)
                                 $("#livefail").toast("show");
                             }
 
@@ -820,11 +847,11 @@
                             $('#particles1').hide();
                             $("#livefail").text("Quá trình đăng ký thất bại")
                             $("#livefail").toast("show");
-                          
+
                         });
                     }
                 }
-              
+
             });
             $("#Consciou1").change(function () {
                 $("#district1").empty()
@@ -955,7 +982,7 @@
                 }
             })
 
-        
+
             $(document).on('click', "button[name = 'Delete']", function () {
                 $(this).closest('tr').remove();
                 if ($(".subject1").length == 0) {
@@ -983,7 +1010,7 @@
             $("#Consciou2").append(option)
             $("#Consciou3").append(option)
             $.each(conscious, function (k, v) {
-                 option = `<option value="${v.idConscious}">${v.nameConscious.trim()}</option>`
+                option = `<option value="${v.idConscious}">${v.nameConscious.trim()}</option>`
                 $("#Consciou1").append(option)
                 $("#Consciou2").append(option)
                 $("#Consciou3").append(option)
@@ -1027,19 +1054,19 @@
                     if (v.url.endsWith("pdf")) {
                         var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${v.url}" target="_blank" class="img-content">
-                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-       
+                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+
 <span class="img-name" >${v.name}</span>
-        </a>
+            </a>
 </div>`;
                     }
                     else {
                         var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${v.url}" target="_blank" class="img-content">
-                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+                        <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
 <span class="img-name" >${v.name}</span>
-   </a>
-                </div>`;
+       </a>
+                    </div>`;
                     }
 
 
@@ -1047,8 +1074,8 @@
                 })
                 var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
-                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-               </a> </div>`;
+                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+                   </a> </div>`;
                 $(img1).append(let);
                 $.each(conscious, function (k, v) {
                     let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
@@ -1095,21 +1122,24 @@
                 $("#tbbody").empty("")
                 for (var i = 0; i < Profile.inforMationProflies.length; i++) {
                     let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
-     <option value="">Chọn Ngành</option>`
+         <option value="">Chọn Ngành</option>`
                     let selectblock = ` <select class=" form-select form-select-sm block"  required aria-label=".form-select-sm example">
-                   `
+
+                       `
                     $.each(majors, function (k, v) {
                         if (v.idMajor.trim() === Profile.inforMationProflies[i].idMajor) {
-                
+
                             selectmajor += ` <option selected value="${v.idMajor}">${v.name}</option>`
                             $.each(v.block, function (index, value) {
-                                if (value.trim() === Profile.inforMationProflies[i].idBlock.trim()) {
-                                    selectblock += ` selected <option value="${value}">${value}</option>`
+                             
+                                if (value.trim() == Profile.inforMationProflies[i].idBlock.trim()) {
+                                    console.log(value)
+                                    selectblock += `  <option selected value="${value}">${value}</option>`
                                 }
                                 else {
                                     selectblock += ` <option value="${value}">${value}</option>`
                                 }
-                              
+
                             })
                         }
                         else {
@@ -1120,45 +1150,45 @@
 
 
 
-                  
+
                     selectblock += `</select>`
-                  
+
 
                     let tr = `  <tr>
 
+                                                        <td>
+                                                          ${selectmajor}
+                                                        </td>
+                                                        <td>
+                                                           ${selectblock}
+                                                        </td>
+                                                        <td><input type="text" value=${Profile.inforMationProflies[i].subject1}  onchange="CheckMart(this)" class="subject1" required value="" /></td>
+                                                    <td><input type="text" value=${Profile.inforMationProflies[i].subject2} onchange="CheckMart(this)" class="subject2" required value="" /></td>
+                                                    <td><input type="text" value=${Profile.inforMationProflies[i].subject3}  onchange="CheckMart(this)" class="subject3" required value="" /></td>
+                                                    <td><input type="text" value=${Profile.inforMationProflies[i].subject4}  onchange="CheckMart(this)" class="subject4" required value="" /></td>
+                                                    <td><input type="text" value=${Profile.inforMationProflies[i].subject5}  onchange="CheckMart(this)" class="subject5" required value="" /></td>
+                                                    <td><input type="text"  value=${Profile.inforMationProflies[i].subject6} onchange="CheckMart(this)" class="subject6" required value="" /></td>
+                                                    <td><input type="text" value=${Profile.inforMationProflies[i].subject7}  onchange="CheckMart(this)" class="subject7" required value="" /></td>
+                                                    <td><input type="text" value=${Profile.inforMationProflies[i].subject8}  onchange="CheckMart(this)" class="subject8" required value="" /></td>
+                                                    <td><input type="text" value=${Profile.inforMationProflies[i].subject9}  onchange="CheckMart(this)" class="subject9" required value="" /></td>
                                                     <td>
-                                                      ${selectmajor}
-                                                    </td>
-                                                    <td>
-                                                       ${selectblock}
-                                                    </td>
-                                                    <td><input type="text" value=${ Profile.inforMationProflies[i].subject1}  onchange="CheckMart(this)" class="subject1" required value="" /></td>
-                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject2} onchange="CheckMart(this)" class="subject2" required value="" /></td>
-                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject3}  onchange="CheckMart(this)" class="subject3" required value="" /></td>
-                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject4}  onchange="CheckMart(this)" class="subject4" required value="" /></td>
-                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject5}  onchange="CheckMart(this)" class="subject5" required value="" /></td>
-                                                <td><input type="text"  value=${ Profile.inforMationProflies[i].subject6} onchange="CheckMart(this)" class="subject6" required value="" /></td>
-                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject7}  onchange="CheckMart(this)" class="subject7" required value="" /></td>
-                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject8}  onchange="CheckMart(this)" class="subject8" required value="" /></td>
-                                                <td><input type="text" value=${ Profile.inforMationProflies[i].subject9}  onchange="CheckMart(this)" class="subject9" required value="" /></td>
-                                                <td>
-                                                    <div class="form-button-action">
+                                                        <div class="form-button-action">
 
-                                                        <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                            <i class="ti-close"> x</i>
-                                                        </button>
-                                                    </div>
-                                                </td>
+                                                            <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"> x</i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
 
-                                                </tr>`
+                                                    </tr>`
 
                     $("#tbbody").append(tr)
-                
+
                 }
-            
+
             }
-      
-       
+
+
         }
         function readURL(input) {
             var fileUpload = $("#files").get(0);
@@ -1183,26 +1213,28 @@
                 dataType: "json",
                 data: fileData,
                 success: function (result) {
-                    fileUrl = result;
-                    $(img).empty();
+                    if (fileUrl.length == 0) {
+                        $(img).empty();
+                    }
+                    fileUrl = fileUrl.concat(result);
                     $.each(result, function (k, v) {
-                 
+
                         if (v.url.endsWith("pdf")) {
                             var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${v.url}" target="_blank" class="img-content">
-                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-       
+                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+
 <span class="img-name">${v.name}</span>
-        </a>
+            </a>
 </div>`;
-                      }
+                        }
                         else {
                             var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${v.url}" target="_blank" class="img-content">
-                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-    <span class="img-name">${v.name}</span>
-   </a>
-                </div>`;
+                        <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+        <span class="img-name">${v.name}</span>
+       </a>
+                    </div>`;
                         }
 
                         $(img).append(let);
@@ -1222,7 +1254,7 @@
             var fileData = new FormData();
 
             // if there are multiple files , loop through each files
-            
+
             for (var i = 0; i < files.length; i++) {
                 fileData.append(files[i].name, files[i]);
             }
@@ -1238,12 +1270,12 @@
                 dataType: "json",
                 data: fileData,
                 success: function (result) {
-                 
+
                     $(img).empty();
                     $.each(result, function (k, v) {
-                            var let = `<div class="col-2">
-                    <img src="${Url}/${v.url}" width="130" height="160"  alt="...">
-                </div>`;
+                        var let = `<div class="col-2">
+                        <img src="${Url}/${v.url}" width="130" height="160"  alt="...">
+                    </div>`;
 
                         Profile.imgavata = v.url
                         $(img).append(let);

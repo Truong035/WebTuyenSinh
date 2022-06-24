@@ -100,17 +100,15 @@ namespace WebTuyenSinhClinet.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Addmission");
         }
 
         public async Task<IActionResult> Addmission()
         {
-            ApiResult result = await _service.GetAll(5);
+            ApiResult result = await _service.GetAll(4);
             List<Admisstion> Admisstion = (List<Admisstion>)result.Data;
-            return View(Admisstion);
+            return View(Admisstion.OrderByDescending(X=>X?.OpenTime).ToList());
         }
-       
-
         public async Task<IActionResult> EditProfile(long? id)
         {
             string uid = _httpContextAccessor.HttpContext.Session.GetString("ID");

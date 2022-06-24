@@ -359,7 +359,7 @@
                             <span class="mt-2 d-flex student-avatar-note full-name-box" style="margin-right:10px">
                                 <span> Năm tốt nghiệp:  </span>
                             </span>
-                            <div  required class="validation-parent">
+                            <div required class="validation-parent">
                                 <select required class="ml-1 form-select form-select-sm" id="year" aria-label="full-name-property ml-3 form-select-sm example">
                                     @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
                                     {
@@ -389,13 +389,14 @@
                             <div class="validation-parent" style="margin-top: 4px;">
 
                                 <select required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+
                                     <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
                                     <option value="4"> 4</option>
-                                    <option value="6"> 5</option>
-                                    <option value="7"> 6</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
 
                                 </select>
                             </div>
@@ -522,15 +523,15 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col c-12">
+                    <div class="c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
+                            <div class=" form-group ">
+                                <div class="">
                                     <span style="font-size:13px;position: relative;  ">
                                         <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                                        <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
+                                        <span style="margin-left: 15px;">: Chọn file ảnh hay file scan Phiếu đăng ký xét tuyển, Giấy báo điểm thi ĐGNL ĐHQG TP.HCM năm @(DateTime.Now.Year), Các giấy tờ minh chứng được hưởng chế độ ưu tiên (nếu có)                         <button class="btn-primary ml-1" style="border:none" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button></span>
                                     </span>
-                                    <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
+
                                 </div>
 
                                 <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
@@ -563,16 +564,16 @@
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
                                     <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
-                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                        <input type="text" value="TP.HỒ CHÍ MINH" id="" name="" style="font-size: 13px;"
                                                class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
                                         <input type="text" id="" name="" style="font-size: 13px"
-                                               value="@DateTime.Now.Day" class="full-name-property-1 ml-3">
+                                               value="@Model?.Data?.CreateDate.Value.Day" class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
-                                        <input value="@DateTime.Now.Month" type="text" id="" name="" style="font-size: 13px;"
+                                        <input value="@Model?.Data?.CreateDate.Value.Month" type="text" id="" name="" style="font-size: 13px;"
                                                class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">năm</span>
-                                        <input value="@DateTime.Now.Year" type="text" id="" name="" style="font-size: 13px;"
+                                        <input value="@Model?.Data?.CreateDate.Value.Year" type="text" id="" name="" style="font-size: 13px;"
                                                class="full-name-property-1 full-name-property-1-year ml-3">
                                     </div>
                                 </span>
@@ -591,7 +592,7 @@
                     </div>
                     <div class="col c-5 educate">
                         <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
-                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                        @*<p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>*@
                         <p class="educate-parent signature" style="margin-top: 50px;">
 
                         </p>
@@ -630,7 +631,7 @@
                 var mark = $(e).val()
                 var x = Number($(e).val())
 
-                if (x > 0 && x < 11) {
+                if (x > 0 && x <= 1200) {
 
                 }
                 else {
@@ -892,7 +893,7 @@
                 }
                 Profile.idAccount = token;
   
-                if (fileUrl.length == 0 && Profile.id === 0) {
+                if (fileUrl.length == 0) {
                     $("#livefail").empty();
                     $("#livefail").text("Vui lòng upload các giấy tờ cần thiết")
                     $("#livefail").toast("show");
@@ -926,7 +927,7 @@
                             }
                             else {
                                 $('#particles1').hide();
-                                $("#livefail").text("Quá trình đăng ký thất bại")
+                                $("#livefail").text(data.message)
                                 $("#livefail").toast("show");
                             }
 
@@ -1094,8 +1095,54 @@
 
             });
 
+            $(document).on('click', "button[name = 'deleteImg']", function () {
+
+                let index = $(this).closest('button').attr("id")
+                console.log(index)
+                var filtered = fileUrl.filter(function (value, i, arr) {
+                    return i != index;
+                });
+
+                fileUrl = filtered;
+                console.log(fileUrl)
+
+                var img = $('#file-upload-content');
+                img.empty();
+                var let = `<div class="col-4 col-sm-2  text-center">
+<a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+                $(img).append(let);
+                $.each(fileUrl, function (k, v) {
+
+                    if (v.url.endsWith("pdf")) {
+
+                        var let = `<div class="col-4 col-sm-2  text-center">
+ <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name">${v.name}</span>
+        </a>
+</div>`;
+                    }
+                    else {
+                        var let = `<div class="col-4 col-sm-2   text-center">
+ <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span class="img-name" >${v.name}</span>
+   </a>
+                </div>`;
+                    }
+
+                    $(img).append(let);
+                });
+
+            });
 
         });
+
         function readURL(input) {
             var fileUpload = $("#files").get(0);
             var files = fileUpload.files;
@@ -1119,29 +1166,33 @@
                 dataType: "json",
                 data: fileData,
                 success: function (result) {
-                    fileUrl = result;
-                    $(img).empty();
+                    let sl = fileUrl.length
+
+                    fileUrl = fileUrl.concat(result);
+
                     $.each(result, function (k, v) {
 
                         if (v.url.endsWith("pdf")) {
-                            var let = `<div class="col-2  text-center">
+
+                            var let = `<div class="col-4 col-sm-2 text-center">
+ <button name="deleteImg" id='${k + sl}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
 <a href ="${Url}/${v.url}" target="_blank" >
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
        
-<span>${v.name}</span>
+<span class="img-name">${v.name}</span>
         </a>
 </div>`;
                         }
                         else {
-                            var let = `<div class="col-2  text-center">
+                            var let = `<div class="col-4 col-sm-2 text-center">
+ <button name="deleteImg" id='${k + sl}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
 <a href ="${Url}/${v.url}" target="_blank" >
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
+<span class="img-name">${v.name}</span>
    </a>
                 </div>`;
                         }
 
-
                         $(img).append(let);
                     });
                 },
@@ -1151,168 +1202,169 @@
             });
         }
 
-        function readAvataURL(input) {
-            var fileUpload = $("#filesAvt").get(0);
-            var files = fileUpload.files;
-            var img = $('#logo');
-            // Create  a FormData object
-            var fileData = new FormData();
 
-            // if there are multiple files , loop through each files
-
-            for (var i = 0; i < files.length; i++) {
-                fileData.append(files[i].name, files[i]);
-            }
-
-            // Adding more keys/values here if need
-            fileData.append('Test', "Test Object values");
-
-            $.ajax({
-                url: Url + "/File/AddReplyDetails",
-                type: "POST", //as we will be posting files and other method POST is used
-                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
-                contentType: false,
-                dataType: "json",
-                data: fileData,
-                success: function (result) {
-
-                    $(img).empty();
-                    $.each(result, function (k, v) {
-                        var let = `<div class="col-2">
-                    <img src="${Url}/${v.url}" width="130" height="160"  alt="...">
-                </div>`;
-
-                        Profile.imgavata = v.url
-                        $(img).append(let);
-                    });
-                },
-                error: function (err) {
-                    alert(err.statusText);
-                }
-            });
-        }
-       
         function myGreeting() {
             window.location = "/Home/ResultProfile/" + Profile.id
         }
 
-    
         function LoadProfile() {
-            $("#full_name").val(Profile.name);
-            $("#birthdate").val(Profile.birthDay.split('T')[0]);
-            $("#address").val(Profile.adress);
-            $("#cmnd").val(Profile.cmnd);
-            $("#note").html(Profile.note);
-            $("#dateRange").val(Profile.dateRange.split('T')[0]);
-            $("#noicap").val(Profile.adressRange);
 
-            $("#nation").val(Profile.nation);
-            $("#religion").val(Profile.religion);
-            $("#fromBirthDay").val(Profile.fromBirthDay);
-            $("#fromTelePhone").val(Profile.fromTelePhone);
-            $("#teletephone").val(Profile.teletephone);
-            $("#Email").val(Profile.email);
-            $("#year").val(Profile.year);
-            $("#areas").val(Profile.areas);
-            $("#priority_object").val(Profile.priority_object);
-            $('#sign').text(Profile.name);
+            let option = `<option value="">Mời chọn</option>`
+            $("#Consciou1").append(option)
+            $("#Consciou2").append(option)
+            $("#Consciou3").append(option)
+            // $("#block").append(option)
 
-            $("#Identification").val(Profile.identification);
-            Profile.mark = $("#mark").val(Profile.mark);
-
-            //   Profile.idBlock = blocks[Number($("#block").val())].id
-
-            if (Profile.sex === 0) {
-
-                $("#checknam").prop("checked", true);
-            }
-            else {
-                $("#checknu").prop("checked", true);
-            }
-            //var img = $('#logo');
-            //img.empty();
-            //var let = `<div class="img">
-            //            <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
-            //        </div>`;
-
-
-            //$(img).append(let);
-            var img1 = $('#file-upload-content');
-            $.each(Profile.fileProfiles, function (k, v) {
-               
-                if (v.url.endsWith("pdf")) {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-       
-<span>${v.name}</span>
-        </a>
-</div>`;
-                }
-                else {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
-   </a>
-                </div>`;
-                }
-
-
-                $(img1).append(let);
-            })
-            let = `<div class="col-2">
-<a href ="${Url}/${Profile.url}" target="_blank" >
-                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-                   </a> </div>`;
-            $(img1).append(let);
             $.each(conscious, function (k, v) {
-                let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
+                option = `<option value="${v.idConscious}">${v.nameConscious.trim()}</option>`
                 $("#Consciou1").append(option)
                 $("#Consciou2").append(option)
                 $("#Consciou3").append(option)
             })
-            $.each(district, function (k, v) {
-                let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
-                $("#district1").append(option)
-                $("#district2").append(option)
-                $("#district3").append(option)
-            })
+            //$.each(admisstion_Major, function (k, v) {
 
-            let idshoo1 = "";
-            let idshoo2 = "";
-            let idshoo3 = "";
-            $.each(sChool, function (k, v) {
+            //        option = `<option value="${k}">${v.id.trim()}</option>`
+            //    $("#block").append(option);
 
-                let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
-                $("#School1").append(option)
-                $("#School2").append(option)
-                $("#School3").append(option)
-                if (Profile.shoo1 == v.id) {
-                    idshoo1 = v.idSchool
-                    $("#district1").val(v.idDistrict)
-                    $("#Consciou1").val(v.idConscious)
-                }
-                if (Profile.shoo2 == v.id) {
-                    idshoo2 = v.idSchool
-                    $("#district2").val(v.idDistrict)
-                    $("#Consciou2").val(v.idConscious)
-                }
-                if (Profile.shoo3 == v.id) {
-                    idshoo3 = v.idSchool
-                    $("#district3").val(v.idDistrict)
-                    $("#Consciou3").val(v.idConscious)
-                }
-            })
-            $("#School1").val(idshoo1)
-            $("#School2").val(idshoo2)
-            $("#School3").val(idshoo3)
-            //    $("#teletephone").val(Profile.teletephone);
-            $.each(blocks, function (k, v) {
-                option = `<option value="${k}">${v.id.trim()}</option>`
-                $("#block").append(option)
+            //})
 
-            })
+            if (Profile.id !== 0) {
+                //$("#block").empty();
+                //$.each(admisstion_Major, function (k, v) {
+                //    if (Profile.idBlock.trim() === v.id.trim()) {
+                //        option = `<option selected value="${k}">${v.id.trim()}</option>`
+                //        $("#block").append(option)
+                //    }
+                //    else {
+                //        option = `<option value="${k}">${v.id.trim()}</option>`
+                //        $("#block").append(option)
+                //    }
+                //})
+                $("#full_name").val(Profile.name);
+                $("#birthdate").val(Profile.birthDay.split('T')[0]);
+                $("#address").val(Profile.adress);
+                $("#cmnd").val(Profile.cmnd);
+
+                $("#dateRange").val(Profile.dateRange.split('T')[0]);
+                $("#noicap").val(Profile.adressRange);
+
+                $("#nation").val(Profile.nation);
+                $("#religion").val(Profile.religion);
+                $("#fromBirthDay").val(Profile.fromBirthDay);
+                $("#fromTelePhone").val(Profile.fromTelePhone);
+                $("#teletephone").val(Profile.teletephone);
+                $("#Email").val(Profile.email);
+                $("#year").val(Profile.year);
+                $("#areas").val(Profile.areas);
+                $("#priority_object").val(Profile.priority_object);
+                $('#sign').text(Profile.name);
+
+                $("#Identification").val(Profile.identification);
+                Profile.mark = $("#mark").val(Profile.mark);
+
+                // Profile.idBlock = admisstion_Major[Number($("#block").val())].id
+
+                if (Profile.sex === 0) {
+
+                    $("#checknam").prop("checked", true);
+                }
+                else {
+                    $("#checknu").prop("checked", true);
+                }
+                //var img = $('#logo');
+                //img.empty();
+                //var let = `<div class="img">
+                //        <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
+                //    </div>`;
+
+
+                //$(img).append(let);
+                var img1 = $('#file-upload-content');
+                var let = `<div class="col-4 mt-3 col-sm-2 text-center">
+<a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+                $(img1).append(let);
+
+                $.each(Profile.fileProfiles, function (k, v) {
+                    fileUrl.push({
+                        url: v.url,
+                        name: v.name
+                    });
+                    if (v.url.endsWith("pdf")) {
+                        var let = `<div class="col-4 col-sm-2 text-center">
+        <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name" >${v.name}</span>
+        </a>
+</div>`;
+                    }
+                    else {
+                        var let = `<div class="col-4 col-sm-2 text-center">
+    <button name="deleteImg"  id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span class="img-name" >${v.name}</span>
+   </a> 
+                </div>`;
+                    }
+
+
+                    $(img1).append(let);
+                })
+    
+
+
+                $("#teletephone").val(Profile.teletephone);
+                $.each(conscious, function (k, v) {
+                    let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
+                    $("#Consciou1").append(option)
+                    $("#Consciou2").append(option)
+                    $("#Consciou3").append(option)
+                })
+                $.each(district, function (k, v) {
+                    let option = `<option value="${v.idDistrict}">${v.nameDistrict}</option>`
+                    $("#district1").append(option)
+                    $("#district2").append(option)
+                    $("#district3").append(option)
+                })
+
+                let idshoo1 = "";
+                let idshoo2 = "";
+                let idshoo3 = "";
+                $.each(sChool, function (k, v) {
+
+                    let option = `<option value="${v.idSchool}">${v.nameSchool}</option>`
+                    $("#School1").append(option)
+                    $("#School2").append(option)
+                    $("#School3").append(option)
+                    if (Profile.shoo1 == v.id) {
+                        idshoo1 = v.idSchool
+                        $("#district1").val(v.idDistrict)
+                        $("#Consciou1").val(v.idConscious)
+                    }
+                    if (Profile.shoo2 == v.id) {
+                        idshoo2 = v.idSchool
+                        $("#district2").val(v.idDistrict)
+                        $("#Consciou2").val(v.idConscious)
+                    }
+                    if (Profile.shoo3 == v.id) {
+                        idshoo3 = v.idSchool
+                        $("#district3").val(v.idDistrict)
+                        $("#Consciou3").val(v.idConscious)
+                    }
+                })
+                $("#School1").val(idshoo1)
+                $("#School2").val(idshoo2)
+                $("#School3").val(idshoo3)
+               
+            }
+
         }
+      
     </script>
 }

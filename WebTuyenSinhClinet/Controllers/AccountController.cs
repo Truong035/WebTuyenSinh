@@ -215,21 +215,31 @@ namespace WebTuyenSinhClient.Controllers
                 return View(email);
 
             var user = await userManager.FindByEmailAsync(email);
-            if (user == null)
-                return RedirectToAction(nameof(ForgotPasswordConfirmation));
-
-            var token = await userManager.GeneratePasswordResetTokenAsync(user);
-            var link = Url.Action("ResetPassword", "Account", new { token, email = user.Email }, Request.Scheme);
-
-            EmailHelper emailHelper = new EmailHelper();
-            bool emailResponse = emailHelper.SendEmailPasswordReset(user.Email, link);
-
-            if (emailResponse)
-                return RedirectToAction("ForgotPasswordConfirmation");
-            else
+           
+            ApiResult ApiResult = await _login.ForgetPassWord(email);
+            if (ApiResult.Success)
             {
-                // log email failed 
+
+                var token = (string)ApiResult.Data;
+                var link = Url.Action("ResetPassword", "Account", new { token, email = email }, Request.Scheme);
+                var body = "<p>Chào bạn </p>"+
+    "<p> Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu của bạn </p>"+
+
+      "<a href ="+ link +" > Click để thay đổi mật khẩu </a>"+
+           "<p> Nếu bạn không yêu cầu điều này, bạn không cần thực hiện hành động nào - vui lòng bỏ qua email này.</p> ";
+
+                EmailHelper emailHelper = new EmailHelper();
+                bool emailResponse = emailHelper.SendEmailPasswordReset(email, body);
+
+                if (emailResponse)
+                    return RedirectToAction("ForgotPasswordConfirmation");
+                else
+                {
+                    // log email failed 
+                }           
+                return RedirectToAction("Index", "Home");
             }
+            
             return View(email);
         }
 
@@ -275,34 +285,38 @@ namespace WebTuyenSinhClient.Controllers
             return principal ;
         }
 
-        //[AllowAnonymous]
-        //public IActionResult ResetPassword(string token, string email)
-        //{
-        //    var model = new ResetPassword { Token = token, Email = email };
-        //    return View(model);
-        //}
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([Required] string token, [Required] string email)
+        {
+            ApiResult apiResult = await _login.CheckToken(token, email);
+            if (apiResult.Success)
+            {
+                var model = new ResetPassword { Email = email, Password = "", ConfirmPassword = "" };
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> ResetPassword(ResetPassword resetPassword)
-        //{
-        //    if (!ModelState.IsValid)
-        //        return View(resetPassword);
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPassword resetPassword)
+        {
+            if (!ModelState.IsValid)
+                return View(resetPassword);
+            else
+            {
+                ApiResult apiResult = await _login.ResetPassWord(resetPassword);
+                if (apiResult.Success)
+                {
+                    await saveToken(apiResult);
 
-        //    var user = await userManager.FindByEmailAsync(resetPassword.Email);
-        //    if (user == null)
-        //        RedirectToAction("ResetPasswordConfirmation");
-
-        //    var resetPassResult = await userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
-        //    if (!resetPassResult.Succeeded)
-        //    {
-        //        foreach (var error in resetPassResult.Errors)
-        //            ModelState.AddModelError(error.Code, error.Description);
-        //        return View();
-        //    }
-
-        //    return RedirectToAction("ResetPasswordConfirmation");
-        //}
+                    return RedirectToAction("ResetPasswordConfirmation");
+                }
+                ModelState.AddModelError("Eroll", apiResult.Message);
+                return View(resetPassword);
+            }       
+            
+        }
 
         [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()

@@ -35,7 +35,8 @@ namespace WebTuyenSinh_Application.Modell
         public WishOne WishOne { get; set; } = new WishOne();
         public WishTwo WishTwo { get; set; } = new WishTwo();
         public WishThree WishThree { get; set; } = new WishThree();
-       public StatisticalWish StatisticalWish { get; set; }= new StatisticalWish();
+        public WishFor WishFor { get; set; } = new WishFor();
+        public StatisticalWish StatisticalWish { get; set; }= new StatisticalWish();
     }
 
     public class StatisticalDate
@@ -49,6 +50,11 @@ namespace WebTuyenSinh_Application.Modell
         public List<int> Values { get; set; } = new List<int>();
     }
     public class WishOne
+    {
+        public List<string> Name { get; set; } = new List<string>();
+        public List<int> Values { get; set; } = new List<int>();
+    }
+    public class WishFor
     {
         public List<string> Name { get; set; } = new List<string>();
         public List<int> Values { get; set; } = new List<int>();

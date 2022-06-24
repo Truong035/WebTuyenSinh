@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using WebTuyenSinh_Application.Interface;
+using WebTuyenSinh_Application.Modell;
 using WebTuyenSinhAdmin.Contan;
 using WebTuyenSinhAdmin.Models;
 
@@ -21,14 +22,15 @@ namespace WebTuyenSinhAdmin.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IStatisticalService _statistical;
-
-        public HomeController(ILogger<HomeController> logger , IStatisticalService statistical)
+        private readonly IValidateTokenService _IValidateTokenService;
+        public HomeController(ILogger<HomeController> logger , IStatisticalService statistical, IValidateTokenService IValidateTokenService)
         {
             _logger = logger;
             _statistical = statistical;
+            _IValidateTokenService = IValidateTokenService;
 
         }
-        
+     
         public async Task<IActionResult> Index(int? id)
         {
 
@@ -37,7 +39,8 @@ namespace WebTuyenSinhAdmin.Controllers
             {
                 return RedirectToAction("Index", "Account");
             }
-
+            ResetPassword resetPassword = await _IValidateTokenService.ValidateToken(cookie);
+            ViewBag.UseName = resetPassword.UseName;
             //var credential = GetCredentials();
             //driveService = new Google.Apis.Drive.v3.DriveService(new BaseClientService.Initializer()
             //{

@@ -16,7 +16,7 @@ namespace WebTuyenSinhAdmin.Contan
         public const int QL_NG = 7;
         public const int QL_TS = 8;
         public const int QL_THM = 9;
-
+        public const int QL_FILE = 10;
     }
     public static class UserContant {
 

@@ -69,17 +69,13 @@
                 <div class="card">
                     <div class="m-3 border-bottom pb-3">
                         <div class="d-flex align-items-center">
-                            <h4 class="card-title">Danh Sách Các Ngành</h4>
+                            <h4 class="card-title">Danh Sách Chức Vụ</h4>
                             <div class="ml-auto">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <i class="ti-plus"></i>
                                     Thêm Mới
                                 </button>
-                                <button id="btnNhan" onclick="$('#txtFile').trigger( 'click' )" class="btn btn-primary btn-round ml-auto" data-target="#addRowModal">
-                                    <i class="ti-export"></i>
-                                    Tải File
-                                </button>
-                                <input id="txtFile" onchange="readURL(this);" hidden type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                              
                             </div>
                         </div>
                     </div>
@@ -211,7 +207,7 @@
                 let tr = $(this).closest('tr');
                 swal({
                     title: 'Bạn có chắn chắn xóa hay không ?',
-                    text: "Nếu bạn xóa hồ sợ của đợt tuyển sinh này sẽ bị xóa đi!",
+                    text: "",
                     type: 'warning',
                     buttons: {
                         cancel: {

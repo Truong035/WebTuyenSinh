@@ -394,14 +394,14 @@
                             <div class="validation-parent" style="margin-top: 4px;">
 
                                 <select required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
-                                    <option value="">Mời chọn</option>
+                                 
                                     <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
                                     <option value="4"> 4</option>
-                                    <option value="6"> 5</option>
-                                    <option value="7"> 6</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
 
                                 </select>
                             </div>
@@ -818,7 +818,7 @@
                 $.each(Profile.fileProfiles, function (k, v) {
                     if (v.url.endsWith("pdf")) {
                         var let = `<div class="col-2  text-center">
-<a href ="${Url + v.url}" target="_blank" >
+<a ="${Url}/${v.url}" target="_blank" >
                             <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
 
 <span>${v.name}</span>

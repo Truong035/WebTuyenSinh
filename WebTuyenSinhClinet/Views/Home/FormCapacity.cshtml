@@ -397,8 +397,8 @@
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
                                     <option value="4"> 4</option>
-                                    <option value="6"> 5</option>
-                                    <option value="7"> 6</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
 
                                 </select>
                             </div>
@@ -429,16 +429,16 @@
                         </div>
                     </div>
                     @*<div class="col c-4">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <p class="mt-1 d-flex">
-                                <span>  Tổ hợp môn (*): </span>
-                            </p>
-                            <div class="validation-parent" style="width:40%">
-                                <select id="block" class="full-name-property form-select form-select-sm" style="width:100px ;margin-left:2%">
-                                </select>
-                            </div>
-                        </div>
-                    </div>*@
+                <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                    <p class="mt-1 d-flex">
+                        <span>  Tổ hợp môn (*): </span>
+                    </p>
+                    <div class="validation-parent" style="width:40%">
+                        <select id="block" class="full-name-property form-select form-select-sm" style="width:100px ;margin-left:2%">
+                        </select>
+                    </div>
+                </div>
+            </div>*@
                     <div class="col col-sm-4 col-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
                             <p class="mt-1 d-flex">
@@ -478,17 +478,16 @@
 
                     </div>
                 </div>
-
                 <div class="row mt-4">
-                    <div class="col c-12">
+                    <div class="c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
+                            <div class=" form-group ">
+                                <div class="">
                                     <span style="font-size:13px;position: relative;  ">
                                         <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                                        <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
+                                        <span style="margin-left: 15px;">: Chọn file ảnh hay file scan Phiếu đăng ký xét tuyển, Giấy báo điểm thi ĐGNL ĐHQG TP.HCM năm @(DateTime.Now.Year), Các giấy tờ minh chứng được hưởng chế độ ưu tiên (nếu có)                         <button class="btn-primary ml-1" style="border:none" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button></span>
                                     </span>
-                                    <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
+
                                 </div>
 
                                 <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
@@ -497,7 +496,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" mt-2 form-group ml-5">
+                <div class=" mt-4 form-group ml-5">
                     <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
 
@@ -521,7 +520,7 @@
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
                                     <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
-                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                        <input type="text" value="TP.HỒ CHÍ MINH" id="" name="" style="font-size: 13px;"
                                                class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
                                         <input type="text" id="" name="" style="font-size: 13px"
@@ -549,7 +548,7 @@
                     </div>
                     <div class="col c-5 educate">
                         <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
-                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                        @*<p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>*@
                         <p class="educate-parent signature" style="margin-top: 50px;">
 
                         </p>
@@ -876,10 +875,10 @@
                                 //link.remove();
                                 $("#livetoast").toast("show");
                                 setTimeout(myGreeting, 2000);
-                                $('#particles1').hide();
+                              /*  $('#particles1').hide();*/
                             }
                             else {
-                                $("#livefail").text("Quá trình xử lý thất bại")
+                                $("#livefail").text(data.message)
                                 $("#livefail").toast("show");
                                 $('#particles1').hide();
                             }
@@ -1124,21 +1123,20 @@
                 //$(img).append(let);
                 var img1 = $('#file-upload-content');
                 $.each(Profile.fileProfiles, function (k, v) {
-
                     if (v.url.endsWith("pdf")) {
-                        var let = `<div class="col-4 col-sm-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" class="img-content" >
+                        var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-
-<span>${v.name}</span>
+       
+<span class="img-name" >${v.name}</span>
         </a>
 </div>`;
                     }
                     else {
-                        var let = `<div class="col-4 col-sm-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" class="img-content" >
+                        var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
+<span class="img-name" >${v.name}</span>
    </a>
                 </div>`;
                     }
@@ -1146,13 +1144,11 @@
 
                     $(img1).append(let);
                 })
-
-               var let = `<div class="col-4 col-sm-2  text-center" >
-                <a href="${Url}/${Profile.url}" target="_blank" class="img-content" >
-                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-                   </a> </div>`;
+                var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
                 $(img1).append(let);
-
 
 
                 $("#teletephone").val(Profile.teletephone);
@@ -1202,6 +1198,7 @@
                     let selectmajor = `<select class="full-name-property form-select form-select-sm ms-2 major" style="width:300px ;margin-left:2%" onchange="Option(this)" required aria-label=".form-select-sm example">
              <option value="">Chọn Ngành</option>`
                     cout++;
+                   
                     $.each(majors, function (k, v) {
 
                         if (v.idMajor.trim() === Profile.inforMationProflies[i].idMajor) {
@@ -1233,7 +1230,7 @@
                                                 </span>
                                                 <div class="validation-parent">
 
-                                                    <input style="width:100%"  type="tel" id="teletephone1" name="cmnd1" class="full-name-property ml-3">
+                                                    <input style="width:100%" value="${Profile.inforMationProflies[i].idMajor}"  type="tel" id="teletephone1" name="cmnd1" class="full-name-property ml-3">
                                                 </div>
 
                                             </div>
@@ -1275,6 +1272,7 @@
             var img = $('#file-upload-content');
             // Create  a FormData object
             var fileData = new FormData();
+
             // if there are multiple files , loop through each files
             for (var i = 0; i < files.length; i++) {
                 fileData.append(files[i].name, files[i]);
@@ -1291,28 +1289,29 @@
                 dataType: "json",
                 data: fileData,
                 success: function (result) {
-                    fileUrl = result;
-                    $(img).empty();
+                    if (fileUrl.length == 0) {
+                        $(img).empty();
+                    }
+                    fileUrl = fileUrl.concat(result);
                     $.each(result, function (k, v) {
 
                         if (v.url.endsWith("pdf")) {
-                            var let = `<div class="col-4 col-sm-2  text-center">
+                            var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-
+       
 <span class="img-name">${v.name}</span>
         </a>
 </div>`;
                         }
                         else {
-                            var let = `<div class="col-4 col-sm-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" class="img-content" >
+                            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span class="img-name">${v.name}</span>
+    <span class="img-name">${v.name}</span>
    </a>
                 </div>`;
                         }
-
 
                         $(img).append(let);
                     });
@@ -1322,6 +1321,7 @@
                 }
             });
         }
+
 
        
         function myGreeting() {

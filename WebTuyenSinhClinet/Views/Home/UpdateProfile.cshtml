@@ -365,7 +365,7 @@
                             <span class="mt-2 d-flex student-avatar-note full-name-box align-items-center" style="margin-right: 10px;">
                                 <span> Khu vực:  </span>
                             </span>
-                            <select  required id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
+                            <select required id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
                                 <option value="1"> 1</option>
                                 <option value="2"> 2</option>
                                 <option value="3"> 3</option>
@@ -380,14 +380,15 @@
                             </span>
                             <div class="validation-parent" style="margin-top: 4px;">
 
-                                <select  required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+                                <select required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+                                  
                                     <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
                                     <option value="4"> 4</option>
-                                    <option value="6"> 5</option>
-                                    <option value="7"> 6</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
 
                                 </select>
                             </div>
@@ -412,12 +413,20 @@
                             <span class="student-avatar-note">
                                 <span>
                                     Sau khi đã đọc và hiểu rõ các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi đăng ký xét
-                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành/ Chuyên ngành/ Nhóm chuyên ngành theo thứ tự ưu
+                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành theo thứ tự ưu
                                     tiên như bảng sau:
                                 </span>
+
                             </span>
+
                         </div>
+
                     </div>
+                    <br />
+                    <span class="mt-2 mb-2" style="font-size:14px;position: relative;  ">
+                        <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                        <span style="margin-left: 15px">Điểm trung bình học kỳ từng môn trong tổ hợp xét tuyển không có môn nào dưới 5.50 điểm </span>
+                    </span>
                 </div>
                 <div class="row mt-1 mobile-table">
                     <div class="col c-12 moible-table-width">
@@ -425,10 +434,10 @@
                         <table class="talel-regis" disabled style="width:100%" dislayble>
                             <tr>
 
-                                <th rowspan="4">
+                                <th rowspan="5">
                                     Ngành xét tuyển
                                 </th>
-                                <th rowspan="4" style="width:12%">
+                                <th rowspan="5" style="width:12%">
                                     Tổ
                                     hợp
                                     xét
@@ -442,53 +451,52 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3">Lớp 10 </th>
-                                <th colspan="3">Lớp 11</th>
-                                <th colspan="3">Lớp 12</th>
+                                <th colspan="3">Môn 1 </th>
+                                <th colspan="3">Môn 2</th>
+                                <th colspan="3">Môn 3</th>
                             </tr>
                             <tr>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
                             </tr>
-
                             <tbody id="tbbody">
                                 @{
 
                                     foreach (var item in Model.Data.InforMationProflies)
                                     {
-                                        <tr>
+                                    <tr>
 
-                                            <td>
+                                        <td>
 
-                                                <select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
-                                                    <option value="">Chọn Ngành</option>
-                                                    @foreach (var item1 in data.Admisstion_Major)
+                                            <select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+                                                <option value="">Chọn Ngành</option>
+                                                @foreach (var item1 in data.Admisstion_Major)
                                                     {
                                                         if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
                                                         {
-                                                            <option value="@item.idMajor" selected>@item1.Major.Name</option>
+                                                <option value="@item.idMajor" selected>@item1.Major.Name</option>
                                                         }
                                                         else
                                                         {
-                                                            <option value="@item.idMajor">@item1.Major.Name</option>
+                                                <option value="@item.idMajor">@item1.Major.Name</option>
                                                         }
 
                                                     }
 
 
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
 
-                                                    @foreach (var item1 in data.Admisstion_Major)
+                                                @foreach (var item1 in data.Admisstion_Major)
                                                     {
                                                         if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
                                                         {
@@ -496,11 +504,11 @@
                                                             {
                                                                 if (item.idBlock.Trim().Equals(item2.idBlock.Trim()))
                                                                 {
-                                                                    <option value="@item.idBlock" selected>@item.idBlock</option>
+                                                <option value="@item.idBlock" selected>@item.idBlock</option>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <option value="@item2.idBlock">@item2.idBlock</option>
+                                                <option value="@item2.idBlock">@item2.idBlock</option>
                                                                 }
                                                             }
 
@@ -508,27 +516,27 @@
 
                                                     }
 
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
-                                            <td><input type="text" class="subject2" required value="@item.subject2" /></td>
-                                            <td><input type="text" class="subject3" required value="@item.subject3" /></td>
-                                            <td><input type="text" class="subject4" required value="@item.subject4" /></td>
-                                            <td><input type="text" class="subject5" required value="@item.subject5" /></td>
-                                            <td><input type="text" class="subject6" required value="@item.subject5" /></td>
-                                            <td><input type="text" class="subject7" required value="@item.subject7" /></td>
-                                            <td><input type="text" class="subject8" required value="@item.subject8" /></td>
-                                            <td><input type="text" class="subject9" required value="@item.subject9" /></td>
-                                            <td>
-                                                <div class="form-button-action">
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
+                                        <td><input type="text" class="subject2" required value="@item.subject2" /></td>
+                                        <td><input type="text" class="subject3" required value="@item.subject3" /></td>
+                                        <td><input type="text" class="subject4" required value="@item.subject4" /></td>
+                                        <td><input type="text" class="subject5" required value="@item.subject5" /></td>
+                                        <td><input type="text" class="subject6" required value="@item.subject6" /></td>
+                                        <td><input type="text" class="subject7" required value="@item.subject7" /></td>
+                                        <td><input type="text" class="subject8" required value="@item.subject8" /></td>
+                                        <td><input type="text" class="subject9" required value="@item.subject9" /></td>
+                                        <td>
+                                            <div class="form-button-action">
 
-                                                    <button style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                        <i class="ti-close"></i>x
-                                                    </button>
-                                                </div>
-                                            </td>
+                                                <button style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                    <i class="ti-close"></i>x
+                                                </button>
+                                            </div>
+                                        </td>
 
-                                        </tr>
+                                    </tr>
                                     } }
 
                             </tbody>
@@ -540,15 +548,15 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col c-12">
+                    <div class="c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
+                            <div class=" form-group ">
+                                <div class="">
                                     <span style="font-size:13px;position: relative;  ">
                                         <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                                        <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
+                                        <span style="margin-left: 15px;">: Chọn file ảnh hay file scan Phiếu đăng ký xét tuyển, Học bạ THPT, Các giấy tờ minh chứng được hưởng chế độ ưu tiên (nếu có)                         <button class="btn-primary ml-1" style="border:none" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button></span>
                                     </span>
-                                    <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
+
                                 </div>
 
                                 <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
@@ -557,7 +565,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" mt-2 form-group ml-5">
+                <div class=" mt-4 form-group ml-5">
                     <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
 
@@ -586,7 +594,7 @@
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
                                     <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
-                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                        <input type="text" value="TP.HỒ CHÍ MINH" id="" name="" style="font-size: 13px;"
                                                class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
                                         <input type="text" id="" name="" style="font-size: 13px"
@@ -602,7 +610,7 @@
                             </p>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
 
             <!-- xác nhận -->
@@ -613,7 +621,7 @@
                     </div>
                     <div class="col c-5 educate">
                         <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
-                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                        @*<p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>*@
                         <p class="educate-parent signature" style="margin-top: 50px;">
 
                         </p>
@@ -698,7 +706,7 @@
             });
             selectmajor += `</select>`
             let selectblock = ` <select class=" form-select form-select-sm block" aria-label=".form-select-sm example">
-<option value="">Tổ Hợp </option>`
+<option value="">Mời chọn</option>`
             selectblock += `</select>`
             let tr = `  <tr>
 
@@ -874,7 +882,7 @@
 
                                 if (data.success) {
                                     Profile = data.data
-                                    $('#particles1').hide();
+                                   
                                     var link = document.createElement("a");
                                     // If you don't know the name or want to use
                                     // the webserver default set name = ''
@@ -1188,10 +1196,11 @@
                 dataType: "json",
                 data: fileData,
                 success: function (result) {
-                    fileUrl = result;
-                    $(img).empty();
                     $.each(result, function (k, v) {
-
+                        if (fileUrl.length == 0) {
+                            $(img).empty();
+                        }
+                        fileUrl = fileUrl.concat(result);
                         if (v.url.endsWith("pdf")) {
                             var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${v.url}" target="_blank" class="img-content">
@@ -1243,8 +1252,7 @@
                 dataType: "json",
                 data: fileData,
                 success: function (result) {
-
-                    $(img).empty();
+           
                     $.each(result, function (k, v) {
                         var let = `<div class="col-2">
                     <img src="${Url}/${v.url}" width="130" height="160"  alt="...">

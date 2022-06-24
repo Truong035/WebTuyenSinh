@@ -27,16 +27,23 @@ namespace WebTuyenSinhAdmin.Controllers
             List<FileProfileView> url = new List<FileProfileView>();
                 foreach (IFormFile photo in files)
                 {
-                string name = GetUniqueFileName(photo.FileName);
+                if(photo.FileName.Contains(".pdf") || photo.FileName.Contains(".jpeg")
+                    || photo.FileName.Contains(".jpg") || photo.FileName.Contains(".png") ||
+                     photo.FileName.Contains(".tiff") | photo.FileName.Contains(".gif")
+                    )
+                {
+                    string name = GetUniqueFileName(photo.FileName);
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Profile", name);
                     var stream = new FileStream(path, FileMode.Create);
-                   await photo.CopyToAsync(stream);
-                url.Add(new FileProfileView()
-                {
-                    Url = "Profile/" + name,
-                    Name = photo.FileName
-                }) ;
+                    await photo.CopyToAsync(stream);
+                    url.Add(new FileProfileView()
+                    {
+                        Url = "Profile/" + name,
+                        Name = photo.FileName
+                    });
                 }
+            }
+              
             return Ok(url);
         }
         private string GetUniqueFileName(string fileName)

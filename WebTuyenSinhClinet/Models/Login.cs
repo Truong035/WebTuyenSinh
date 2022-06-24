@@ -12,4 +12,7 @@ namespace WebTuyenSinhClient.Models
 
         public string ReturnUrl { get; set; }
     }
+
+
+
 }

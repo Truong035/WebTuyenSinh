@@ -1,4 +1,4 @@
-﻿@model List<ProfileStudentsView>
+﻿@model IEnumerable<ProfileStudentsView>
 @{
 
 }
@@ -20,11 +20,14 @@
                     <option value="1">Chưa duyệt</option>
                     <option value="2">Đã duyệt</option>
                     <option value="3">Yêu cầu chỉnh sửa</option>
+                    <option value="5">Loại</option>
                 </select>
                 <div class="mb-3" id="frmbody">
 
                     <label for="exampleFormControlTextarea1" class="form-label">Thời gian nôp</label>
                     <input type="datetime-local" class="form-control" id="textstart" />
+                    <span id="idfail" class="text-danger"> </span>
+                    <br />
                     <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
                     <textarea class="form-control" id="txtcom" rows="15"></textarea>
 
@@ -58,12 +61,21 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-                                <div class="table-responsive">
-                                    <table id="data-table" class="display expandable-table" style="width:100%">
+                                <form method="get" asp-controller="Admisstion" asp-action="ListAll">
+                                    <div class="d-flex align-items-center ">
+                                        <div class="ml-auto">
+                                            <input type="text" value="@ViewBag.Search" name="ShoolName" class="form-control" placeholder="Tim kiếm" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="table-responsive mt-1">
+
+                                    <table id="" class="display expandable-table" style="width:100%">
                                         <thead class="text-center">
                                             <tr>
                                                 <th>
-                                                    ID
+                                                    STT
                                                 </th>
                                                 <th>
                                                     Họ Tên
@@ -92,78 +104,161 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @{
+                                                int STT = ((ViewBag.numberPage- ViewBag.pageCurrent+1) * 10)+1;
+                                                if (STT < 10)
+                                                {
+                                                    STT = Model.Count()+1;
+                                                }
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @(--STT)
+                                                        </td>
+                                                        <td>
+                                                            @item.Name
+                                                        </td>
+                                                        <td>
+                                                            @item.Email
+                                                        </td>
+                                                        <td>
+                                                            @item.Teletephone
 
-                                            @foreach (var item in Model)
-                                            {
-                                                <tr>
-                                                    <td>
-                                                        @item.id
-                                                    </td>
-                                                    <td>
-                                                        @item.Name
-                                                    </td>
-                                                    <td>
-                                                        @item.Email
-                                                    </td>
-                                                    <td>
-                                                        @item.Teletephone
+                                                        </td>
+                                                        <td>
+                                                            @item.CMND
+                                                        </td>
+                                                        <td>
+                                                            @item.Quantity
+                                                        </td>
+                                                        <td>
+                                                            @(item?.CreateDate.Value.ToString("dd/MM/yyyy  HH:mm tt") ?? "")
+                                                        </td>
+                                                        <td>
+                                                            @if (item.Statust == 1)
+                                                            {
+                                                                <button name="status" id="@item.id" class="badge border-0 badge badge-info">
+                                                                    Chưa duyệt
 
-                                                    </td>
-                                                    <td>
-                                                        @item.CMND
-                                                    </td>
-                                                    <td>
-                                                        @item.Quantity
-                                                    </td>
-                                                    <td>
-                                                        @(item?.CreateDate.Value.ToString("dd/MM/yyyy  HH:mm tt") ?? "")
-                                                    </td>
-                                                    <td>
-                                                        @if (item.Statust == 1)
-                                                        {
-                                                            <button name="status" id="@item.id" class="badge border-0 badge badge-info">
-                                                                Chưa duyệt
+                                                                </button>
+                                                            }
+                                                            @if (item.Statust == 2)
+                                                            {
+                                                                <button type="button" name="status" id="@item.id" class="badge border-0 badge badge-success">
+                                                                    Đã duyệt
 
-                                                            </button>
-                                                        }
-                                                        @if (item.Statust == 2)
-                                                        {
-                                                            <button name="status" id="@item.id" class="badge border-0 badge badge-success">
-                                                                Đã duyệt
+                                                                </button>
+                                                            }
+                                                            @if (item.Statust == 3)
+                                                            {
+                                                                <button type="button" name="status" id="@item.id" class="badge border-0 badge badge-warning">
+                                                                    Đang cập nhật
 
-                                                            </button>
-                                                        }
-                                                        @if (item.Statust == 3)
-                                                        {
-                                                            <button name="status" id="@item.id" class="badge border-0 badge badge-warning">
-                                                                Đang cập nhật
+                                                                </button>
+                                                            }
+                                                            @if (item.Statust == 4)
+                                                            {
+                                                                <button type="button" name="status" id="@item.id" class="badge border-0 badge-default ">
+                                                                    Đã cập nhật
 
-                                                            </button>
-                                                        }
-                                                        @if (item.Statust == 4)
-                                                        {
-                                                            <button name="status" id="@item.id" class="badge border-0" style="background:rgb(239 207 48 / 0.88)">
-                                                                Đã cập nhật
+                                                                </button>
+                                                            }
+                                                            @if (item.Statust == 5)
+                                                            {
+                                                                <button type="button" name="status" id="@item.id" class="badge border-0 badge-danger">
+                                                                    Đã loại
 
-                                                            </button>
-                                                        }
-                                                    </td>
-                                                    <td>
+                                                                </button>
+                                                            }
+                                                        </td>
+                                                        <td>
 
-                                                        <a href="/Admisstion/ProfileDetail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
-                                                            <i class="ti-pencil-alt"></i>
-                                                        </a>
-                                                        <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
-                                                            <i class="ti-close"></i>
-                                                        </a>
+                                                            <a href="/Admisstion/ProfileDetail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                <i class="ti-pencil-alt"></i>
+                                                            </a>
+                                                            <a hef="/DeleteShool" data-toggle="tooltip" title="" class="btn  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"></i>
+                                                            </a>
 
-                                                    </td>
+                                                        </td>
 
-                                                </tr>
+                                                    </tr>
+                                                }
                                             }
+
                                         </tbody>
                                     </table>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="ml-auto">
+                                            <ul class="pagination">
+
+                                                @{
+                                                    int numberPage = ViewBag.numberPage;
+                                                    int pageCurrent = ViewBag.pageCurrent;
+                                                    int offset = 2;//number display page
+
+
+                                                    //config FirstLink
+
+                                                    int prevPage = pageCurrent - 1;
+                                                    var PrevLink = new Dictionary<string, string> { { "page", "0" } };
+                                                    <li><a asp-controller="Admisstion" asp-action="ListAll" asp-all-route-data="PrevLink">Prev Link</a></li>
+
+
+                                                    int from = pageCurrent - offset;
+                                                    int to = pageCurrent + offset;
+                                                    if (from <= 0)
+                                                    {
+                                                        from = 1;
+                                                        to = offset * 2;
+                                                    }
+
+
+                                                    if (to > numberPage)
+                                                    {
+                                                        to = numberPage;
+                                                    }
+
+                                                    int i;
+                                                    for (i = from; i <= to + 1; i++)
+                                                    {
+                                                        var parms = new Dictionary<string, string>
+                                                                                                                                                                                                                                                                                            {
+                        { "page",i.ToString()},{"ShoolName",ViewBag.Search}
+                            };
+                                                        if (pageCurrent == i)
+                                                        {
+                                                            <li class="active"><a asp-controller="Admisstion" asp-action="ListAll" asp-all-route-data="parms">@i</a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li><a asp-controller="Admisstion" asp-action="ListAll" asp-all-route-data="parms">@i</a></li>
+                                                        }
+
+                                                    }
+
+
+
+
+                                                    if (pageCurrent < numberPage)
+                                                    {
+                                                        int nextPage = pageCurrent + 1;
+                                                        var NextLink = new Dictionary<string, string> { { "page", nextPage.ToString() } };
+                                                        <li><a asp-controller="Admisstion" asp-action="ListAll" asp-all-route-data="NextLink">Next Link</a></li>
+                                                    }
+
+                                                    var LastLink = new Dictionary<string, string> { { "page", (numberPage + 1).ToString() } };
+                                                    <li><a asp-controller="Admisstion" asp-action="ListAll" asp-all-route-data="LastLink">Last Link</a></li>
+
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -189,7 +284,7 @@
         let button;
         function handleChange() {
             var a = $("#txtstatus").val();
-            if (a === "3") {
+            if (a !== "1") {
                 $("#frmbody").show();
 
                 $(".modal-dialog").addClass("modal-xl  modal-dialog-scrollable");
@@ -211,6 +306,7 @@
                 $(".modal-dialog").removeClass("modal-xl modal-dialog-scrollable");
                 $("#frmbody").hide();
                 $("#frmbody").hide();
+         
                 $("#staticBackdrop").modal("show");
                 $(".modal-dialog").removeClass("modal-xl");
                 button = this;
@@ -221,31 +317,43 @@
                 let comment = $("#txtcom").val();
                 var a = $("#txtstatus").val();
                 var date = $("#textstart").val();
+                if (a === "3" && date.length==0) {
+                    $("#idfail").empty();
+                    $("#idfail").text("Vui lòng chọn thời gian nộp");
+                  
+                    return;
+                }
                 if (a) {
                     $.ajax({
                         url: "/Admisstion/UpdateProfile/" + id,
                         type: 'POST',
                         data: { comment: comment, date: date, status: a },
                         success: function (res) {
+                            $("#idfail").empty();
                             if (res.success) {
                                 $("#liveToast").empty();
                                 $("#liveToast").append(res.message);
                                 $("#liveToast").toast("show");
                                 if (a === "1") {
                                     $(button).text("Chưa duyệt")
-                                    $(button).removeClass("badge-success badge-warning")
+                                    $(button).removeClass(" badge-danger badge-success badge-warning")
                                     $(button).addClass("badge badge-info");
                                 }
                                 if (a === "2") {
                                     $(button).text(" Đã duyệt")
-                                    $(button).removeClass("badge-info badge-warning")
+                                    $(button).removeClass(" badge-danger badge-info badge-warning")
                                     $(button).addClass("badge badge-success");
 
                                 }
                                 if (a === "3") {
-                                    $(button).removeClass("badge-info badge-warning")
+                                    $(button).removeClass("badge-danger badge-info badge-warning")
                                     $(button).text("Đang cập nhật")
                                     $(button).addClass("badge-warning");
+                                }
+                                if (a === "5") {
+                                    $(button).removeClass("badge-warning badge-info badge-warning")
+                                    $(button).text("Đã loại")
+                                    $(button).addClass("badge badge-danger");
                                 }
 
                             }

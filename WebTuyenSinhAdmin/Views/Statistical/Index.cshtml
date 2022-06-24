@@ -54,29 +54,39 @@
 
     </div>
     <div class="row mb-4">
-        <div class="col-lg-4 grid-margin grid-margin-lg-0 stretch-card">
+        <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Nguyện Vọng 1</h4>
-                    <canvas id="doughnutChart"></canvas>
+                    <div id="piechartOne"  style="height:300px"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 grid-margin grid-margin-lg-0 stretch-card">
+        <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Nguyện Vọng 2</h4>
-                    <canvas id="pieChart"></canvas>
+                    <div id="piechartTwo"  style="height:300px"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 grid-margin grid-margin-lg-0 stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Nguyện Vọng 3</h4>
-                    <canvas id="pieChartThree"></canvas>
 
-                </div>
+        <div class="col-lg-6 mt-3 ">
+            <div class="card">
+
+                <h4 class="card-title p-2">Nguyện Vọng 3</h4>
+                <div id="piechartThree"  style="height:300px"></div>
+                @*<canvas id="pieChartThree"></canvas>*@
+        </div>
+    </div>
+        <div class="col-lg-6 mt-3 ">
+            <div class="card">
+              
+                    <h4 class="card-title p-2">Nguyện Vọng 4</h4>
+                    <div id="piechartwishFor" style="height:300px"></div>
+                    @*<canvas id="pieChartThree"></canvas>*@
+
+              
             </div>
         </div>
     </div>
@@ -130,7 +140,7 @@
                         <div class="table-responsive mb-3 mb-md-0 mt-3" style="height:300px">
                             <table id="tbMajor" class="table table-borderless report-table">
 
-                                
+
                                 <tr hidden>
                                     <td>"sss"</td>
                                     <td class="w-100 px-0">
@@ -205,7 +215,94 @@
 
 </div>
 
-<script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+    let Data;
+    function drawChart() {
+            var textfrom = getParameterByName('textfrom'); // "lorem"
+        var textTo = getParameterByName('textTo'); // "" (present with empty value)
+        var txtType = getParameterByName('txtType'); // "" (present with no value)
+        var idMajor = getParameterByName('major');
+
+
+        $.ajax({
+            async: false,
+            url: "/Statistical/Statistical",
+            type: 'GET',
+            data: { fromDate: textfrom, toDate: textTo, Type: txtType, idMajor: idMajor }
+        }).done(function (res) {
+            // console.log(res)
+            //  LoadData(res)
+            Data= res;
+        });
+
+
+        $.ajax({
+            async: false,
+            url: "/Major/GETALL",
+            type: 'GET',
+        }).done(function (res) {
+            if (res.success) {
+                //  LoadMajor(res.data);
+            }
+
+        });
+        console.log(Data);
+        $("#textfrom").val(textfrom);
+        $("#textTo").val(textTo);
+        $("#txtType").val(txtType);
+        $("#major").val(idMajor);
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Pizza');
+        data.addColumn('number', 'Populartiy');
+        $.each(Data.wishOne.name, function (k, v) {
+            data.addRows([[v, Data.wishOne.values[k]]]);
+        });
+        var options = {
+            is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechartOne'));
+        chart.draw(data, options);
+        options = {
+            pieHole: 0.4,
+
+           // is3D: true,
+        };
+        data = new google.visualization.DataTable();
+        data.addColumn('string', 'Pizza');
+        data.addColumn('number', 'Populartiy');
+        $.each(Data.wishTwo.name, function (k, v) {
+            data.addRows([[v, Data.wishTwo.values[k]]]);
+        });
+        var chart = new google.visualization.PieChart(document.getElementById('piechartTwo'));
+        chart.draw(data, options);
+        options = {
+
+        };
+        data = new google.visualization.DataTable();
+        data.addColumn('string', 'Pizza');
+        data.addColumn('number', 'Populartiy');
+        $.each(Data.wishThree.name, function (k, v) {
+            data.addRows([[v, Data.wishThree.values[k]]]);
+        });
+        var chart = new google.visualization.PieChart(document.getElementById('piechartThree'));
+        chart.draw(data, options);
+        data = new google.visualization.DataTable();
+        data.addColumn('string', 'Pizza');
+        data.addColumn('number', 'Populartiy');
+        $.each(Data.wishFor.name, function (k, v) {
+            data.addRows([[v, Data.wishFor.values[k]]]);
+        });
+        var chart = new google.visualization.PieChart(document.getElementById('piechartwishFor'));
+        chart.draw(data, options);
+        LoadData(Data);
+    }
+</script>
+<script type="text/javascript">
+
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
@@ -216,53 +313,20 @@
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
     function LoadMajor(data) {
- 
+
         $.each(data, function (k, v) {
             $("#major").append(`<option value="${v.id.trim()}">${v.name}</option>`)
         });
     }
-    $(document).ready(function () {
-        var textfrom = getParameterByName('textfrom'); // "lorem"
-        var textTo = getParameterByName('textTo'); // "" (present with empty value)
-        var txtType = getParameterByName('txtType'); // "" (present with no value)
-        var idMajor = getParameterByName('major');
-   
-      
-        $.ajax({
-            async: false,
-            url: "/Statistical/Statistical",
-            type: 'GET',
-            data: { fromDate: textfrom, toDate: textTo, Type: txtType, idMajor: idMajor }
-        }).done(function (res) {
-           // console.log(res)
-            LoadData(res)
-         
-        });
-  
 
-        $.ajax({
-            async: false,
-            url: "/Major/GETALL",
-            type: 'GET',
-        }).done(function (res) {
-            if (res.success) {
-                LoadMajor(res.data);
-            }
-
-        });    
-        $("#textfrom").val(textfrom);
-        $("#textTo").val(textTo);
-        $("#txtType").val(txtType);
-        $("#major").val(idMajor);
-    })
-   function LoadData (res) {
+    function LoadData(res) {
         /* ChartJS
          * -------
          * Data and config for chartjs
          */
-  
-       $.each(res.statisticalAdmisstion.data, function (k, v) {
-           $("#tbAdmisstion").append(`<tr>
+
+        $.each(res.statisticalAdmisstion.data, function (k, v) {
+            $("#tbAdmisstion").append(`<tr>
                                     <td >${v.name}</td>
                                     <td class="w-100 px-0">
                                         <div class="progress progress-md mx-4">
@@ -272,9 +336,9 @@
                                     </td>
                                     <td><h5 class="font-weight-bold mb-0">${v.value}</h5></td>
                                 </tr>`)
-       })
-       $.each(res.statisticalMajor.data, function (k, v) {
-           $("#tbMajor").append(`<tr>
+        })
+        $.each(res.statisticalMajor.data, function (k, v) {
+            $("#tbMajor").append(`<tr>
                                     <td >${v.name}</td>
                                     <td class="w-100 px-0">
                                         <div class="progress progress-md mx-4">
@@ -284,7 +348,7 @@
                                     </td>
                                     <td><h5 class="font-weight-bold mb-0">${v.value}</h5></td>
                                 </tr>`)
-       })
+        })
 
         'use strict';
         var data = {
@@ -292,109 +356,112 @@
             datasets: [{
                 label: 'Lượt đăng ký ',
                 data: res.statisticalYear.values,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                //backgroundColor: [
+                //    'rgba(255, 99, 132, 0.2)',
+                //    'rgba(54, 162, 235, 0.2)',
+                //    'rgba(255, 206, 86, 0.2)',
+                //    'rgba(75, 192, 192, 0.2)',
+                //    'rgba(153, 102, 255, 0.2)',
+                //    'rgba(255, 159, 64, 0.2)'
+                //],
+                //borderColor: [
+                //    'rgba(255,99,132,1)',
+                //    'rgba(54, 162, 235, 1)',
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //    'rgba(153, 102, 255, 1)',
+                //    'rgba(255, 159, 64, 1)'
+                //],
+                borderWidth: 1,
+                /* fill: false*/
+            }]
+        };
+        var dataMonth = {
+            labels: res.statisticalMonth.name,
+            datasets: [{
+                label: 'Lượt đăng ký ',
+                data: res.statisticalMonth.values,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgb(23, 125, 255)',
+                //backgroundColor: [
+                //    'rgba(255, 206, 86, 0.2)',
+                //    'rgba(75, 192, 192, 0.2)',
+                //    'rgba(153, 102, 255, 0.2)',
+                //    'rgba(255, 159, 64, 0.2)',
+                //    'rgba(255, 99, 132, 0.2)',
+                //    'rgba(54, 162, 235, 0.2)',
+                //],
+                //borderColor: [
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //    'rgba(153, 102, 255, 1)',
+                //    'rgba(255, 159, 64, 1)',
+                //    'rgba(255,99,132,1)',
+                //    'rgba(54, 162, 235, 1)',
+                //],
                 borderWidth: 1,
                 fill: false
             }]
-       };
-       var dataMonth = {
-           labels: res.statisticalMonth.name,
-           datasets: [{
-               label: 'Lượt đăng ký ',
-               data: res.statisticalMonth.values,
-             //  backgroundColor: 'rgb(23, 125, 255)',
-            //   borderColor: 'rgb(23, 125, 255)',
-               backgroundColor: [
-                   'rgba(255, 206, 86, 0.2)',
-                   'rgba(75, 192, 192, 0.2)',
-                   'rgba(153, 102, 255, 0.2)',
-                   'rgba(255, 159, 64, 0.2)',
-                   'rgba(255, 99, 132, 0.2)',
-                   'rgba(54, 162, 235, 0.2)',
-               ],
-               borderColor: [
-                   'rgba(255, 206, 86, 1)',
-                   'rgba(75, 192, 192, 1)',
-                   'rgba(153, 102, 255, 1)',
-                   'rgba(255, 159, 64, 1)',
-                   'rgba(255,99,132,1)',
-                   'rgba(54, 162, 235, 1)',
-               ],
-               borderWidth: 1,
-               fill: false
-           }]
-       };
-       var dataWishs = {
-           labels: res.statisticalWish.name,
-           datasets: [{
-               label: 'Lượt đăng ký ',
-               data: res.statisticalWish.values,
-               //  backgroundColor: 'rgb(23, 125, 255)',
-               //   borderColor: 'rgb(23, 125, 255)',
-               backgroundColor: [
-                   'rgba(255, 206, 86, 0.2)',
-                   'rgba(75, 192, 192, 0.2)',
-                   'rgba(153, 102, 255, 0.2)',
-                   'rgba(255, 159, 64, 0.2)',
-                   'rgba(255, 99, 132, 0.2)',
-                   'rgba(54, 162, 235, 0.2)',
-               ],
-               borderColor: [
-                   'rgba(255, 206, 86, 1)',
-                   'rgba(75, 192, 192, 1)',
-                   'rgba(153, 102, 255, 1)',
-                   'rgba(255, 159, 64, 1)',
-                   'rgba(255,99,132,1)',
-                   'rgba(54, 162, 235, 1)',
-               ],
-               borderWidth: 1,
-               fill: false
-           }]
-       };
-       var dataAdmisstion = {
-           labels: res.statisticalAdmisstion.name,
-           datasets: [{
-               label: 'Số lượng hồ sơ',
-               data: res.statisticalAdmisstion.values,
-               backgroundColor: [
-                  
-                 
-                   'rgba(153, 102, 255, 0.2)',
-                   'rgba(255, 159, 64, 0.2)',
-                   'rgba(255, 99, 132, 0.2)',
-                   'rgba(54, 162, 235, 0.2)',
-                   'rgba(255, 206, 86, 0.2)',
-                   'rgba(75, 192, 192, 0.2)',
-               ],
-               borderColor: [
-               
-                   'rgba(153, 102, 255, 1)',
-                   'rgba(255, 159, 64, 1)',
-                   'rgba(255,99,132,1)',
-                   'rgba(54, 162, 235, 1)',
-                   'rgba(255, 206, 86, 1)',
-                   'rgba(75, 192, 192, 1)',
-               ],
-               borderWidth: 2,
-               fill: false
-           }]
-       };
-        
+        };
+        var dataWishs = {
+            labels: res.statisticalWish.name,
+            datasets: [{
+                label: 'Lượt đăng ký ',
+                data: res.statisticalWish.values,
+                backgroundColor: 'rgba(75, 192, 192, 1)',
+                borderColor: 'rgb(23, 125, 255)',
+                //backgroundColor: [
+                //    'rgba(255, 206, 86, 0.2)',
+                //    'rgba(75, 192, 192, 0.2)',
+                //    'rgba(153, 102, 255, 0.2)',
+                //    'rgba(255, 159, 64, 0.2)',
+                //    'rgba(255, 99, 132, 0.2)',
+                //    'rgba(54, 162, 235, 0.2)',
+                //],
+                //borderColor: [
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //    'rgba(153, 102, 255, 1)',
+                //    'rgba(255, 159, 64, 1)',
+                //    'rgba(255,99,132,1)',
+                //    'rgba(54, 162, 235, 1)',
+                //],
+                borderWidth: 1,
+                fill: false
+            }]
+        };
+        var dataAdmisstion = {
+            labels: res.statisticalAdmisstion.name,
+            datasets: [{
+                label: 'Số lượng hồ sơ',
+                data: res.statisticalAdmisstion.values,
+                backgroundColor: 'rgba(75, 192, 192, 1)',
+                borderColor: 'rgb(23, 125, 255)',
+                //backgroundColor: [
+
+
+                //    'rgba(153, 102, 255, 0.2)',
+                //    'rgba(255, 159, 64, 0.2)',
+                //    'rgba(255, 99, 132, 0.2)',
+                //    'rgba(54, 162, 235, 0.2)',
+                //    'rgba(255, 206, 86, 0.2)',
+                //    'rgba(75, 192, 192, 0.2)',
+                //],
+                //borderColor: [
+
+                //    'rgba(153, 102, 255, 1)',
+                //    'rgba(255, 159, 64, 1)',
+                //    'rgba(255,99,132,1)',
+                //    'rgba(54, 162, 235, 1)',
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //],
+                borderWidth: 2,
+                fill: false
+            }]
+        };
+
         var options = {
             scales: {
                 yAxes: [{
@@ -416,81 +483,87 @@
         var doughnutOne = {
             datasets: [{
                 data: res.wishOne.values,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(255, 206, 86, 0.5)',
-                    'rgba(75, 192, 192, 0.5)',
-                    'rgba(153, 102, 255, 0.5)',
-                    'rgba(255, 159, 64, 0.5)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: 'rgb(23, 125, 255)',
+                borderColor: 'rgb(23, 125, 255)',
+                /*     backgroundColor: 'rgb(23, 125, 255)',*/
+                /*    borderColor: 'rgb(23, 125, 255)',*/
+                //backgroundColor: [
+                //    'rgba(255, 99, 132, 0.5)',
+                //    'rgba(54, 162, 235, 0.5)',
+                //    'rgba(255, 206, 86, 0.5)',
+                //    'rgba(75, 192, 192, 0.5)',
+                //    'rgba(153, 102, 255, 0.5)',
+                //    'rgba(255, 159, 64, 0.5)'
+                //],
+                //borderColor: [
+                //    'rgba(255,99,132,1)',
+                //    'rgba(54, 162, 235, 1)',
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //    'rgba(153, 102, 255, 1)',
+                //    'rgba(255, 159, 64, 1)'
+                //],
             }],
 
             // These labels appear in the legend and in the tooltips when hovering different arcs
             labels: res.wishOne.name
-       };
-       var doughnutTwo = {
-           datasets: [{
-               data: res.wishTwo.values,
-               backgroundColor: [
-                   
-                   'rgba(54, 162, 235, 0.5)',
-                   'rgba(255, 206, 86, 0.5)',
-                   'rgba(75, 192, 192, 0.5)',
-                   'rgba(153, 102, 255, 0.5)',
-                   'rgba(255, 159, 64, 0.5)',
-                   `rgba(255, 99, 132, 0.5)`
-               ],
-               borderColor: [
-                
-                   'rgba(54, 162, 235, 1)',
-                   'rgba(255, 206, 86, 1)',
-                   'rgba(75, 192, 192, 1)',
-                   'rgba(153, 102, 255, 1)',
-                   'rgba(255, 159, 64, 1)',
-                   'rgba(255,99,132,1)',
-               ],
-           }],
+        };
+        var doughnutTwo = {
+            datasets: [{
+                data: res.wishTwo.values,
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgb(23, 125, 255)',
+                //backgroundColor: [
 
-           // These labels appear in the legend and in the tooltips when hovering different arcs
-           labels: res.wishTwo.name
-       };
-       var doughnutThree = {
-           datasets: [{
-               data: res.wishThree.values,
-               backgroundColor: [
-             
-             
-                   'rgba(255, 206, 86, 0.5)',
-                   'rgba(75, 192, 192, 0.5)',
-                   'rgba(153, 102, 255, 0.5)',
-                   'rgba(255, 159, 64, 0.5)',
-                   'rgba(255, 99, 132, 0.5)',
-                   'rgba(54, 162, 235, 0.5)'
-               ],
-               borderColor: [
-               
-              
-                   'rgba(255, 206, 86, 1)',
-                   'rgba(75, 192, 192, 1)',
-                   'rgba(153, 102, 255, 1)',
-                   'rgba(255, 159, 64, 1)',
-                   'rgba(255,99,132,1)',
-                   'rgba(54, 162, 235, 1)'
-               ],
-           }],
+                //    'rgba(54, 162, 235, 0.5)',
+                //    'rgba(255, 206, 86, 0.5)',
+                //    'rgba(75, 192, 192, 0.5)',
+                //    'rgba(153, 102, 255, 0.5)',
+                //    'rgba(255, 159, 64, 0.5)',
+                //    `rgba(255, 99, 132, 0.5)`
+                //],
+                //borderColor: [
 
-           // These labels appear in the legend and in the tooltips when hovering different arcs
-           labels: res.wishThree.name
-       };
+                //    'rgba(54, 162, 235, 1)',
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //    'rgba(153, 102, 255, 1)',
+                //    'rgba(255, 159, 64, 1)',
+                //    'rgba(255,99,132,1)',
+                //],
+            }],
+
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: res.wishTwo.name
+        };
+        var doughnutThree = {
+            datasets: [{
+                data: res.wishThree.values,
+                backgroundColor: 'rgba(255, 206, 86, 0.5)',
+                borderColor: 'rgb(23, 125, 255)',
+                //backgroundColor: [
+                //    'rgba(255, 206, 86, 0.5)',
+                //    'rgba(75, 192, 192, 0.5)',
+                //    'rgba(153, 102, 255, 0.5)',
+                //    'rgba(255, 159, 64, 0.5)',
+                //    'rgba(255, 99, 132, 0.5)',
+                //    'rgba(54, 162, 235, 0.5)'
+                //],
+                //borderColor: [
+
+
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //    'rgba(153, 102, 255, 1)',
+                //    'rgba(255, 159, 64, 1)',
+                //    'rgba(255,99,132,1)',
+                //    'rgba(54, 162, 235, 1)'
+                //],
+            }],
+
+            // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: res.wishThree.name
+        };
         var doughnutPieOptions = {
             responsive: true,
             animation: {
@@ -503,53 +576,57 @@
             datasets: [{
                 label: '# Biểu đồ thống kê theo ngành',
                 data: res.statisticalMajor.values,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: 'rgba(255, 206, 86, 0.5)',
+                borderColor: 'rgb(23, 125, 255)',
+                //backgroundColor: [
+                //    'rgba(255, 99, 132, 0.2)',
+                //    'rgba(54, 162, 235, 0.2)',
+                //    'rgba(255, 206, 86, 0.2)',
+                //    'rgba(75, 192, 192, 0.2)',
+                //    'rgba(153, 102, 255, 0.2)',
+                //    'rgba(255, 159, 64, 0.2)'
+                //],
+                //borderColor: [
+                //    'rgba(255,99,132,1)',
+                //    'rgba(54, 162, 235, 1)',
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //    'rgba(153, 102, 255, 1)',
+                //    'rgba(255, 159, 64, 1)'
+                //],
                 borderWidth: 1,
                 fill: true, // 3: no fill
             }]
         };
-       var areaDataDate = {
-           labels: res.statisticalDate.name,
-           datasets: [{
-               label: '# Biểu đồ thống kê theo ngày',
-               data: res.statisticalDate.values,
-               backgroundColor: [
-        
-                   'rgba(255, 159, 64, 0.2)',
-                   'rgba(255, 99, 132, 0.2)',
-                   'rgba(54, 162, 235, 0.2)',
-                   'rgba(255, 206, 86, 0.2)',
-                   'rgba(75, 192, 192, 0.2)',
-                   'rgba(153, 102, 255, 0.2)',
-               ],
-               borderColor: [
-             
-                   'rgba(255, 159, 64, 1)',
-                   'rgba(255,99,132,1)',
-                   'rgba(54, 162, 235, 1)',
-                   'rgba(255, 206, 86, 1)',
-                   'rgba(75, 192, 192, 1)',
-                   'rgba(153, 102, 255, 1)',
-               ],
-               borderWidth: 1,
-               fill: true, // 3: no fill
-           }]
-       };
+        var areaDataDate = {
+            labels: res.statisticalDate.name,
+            datasets: [{
+                label: '# Biểu đồ thống kê theo ngày',
+                data: res.statisticalDate.values,
+                backgroundColor: 'rgba(255, 206, 86, 0.5)',
+                borderColor: 'rgb(23, 125, 255)',
+                //backgroundColor: [
+
+                //    'rgba(255, 159, 64, 0.2)',
+                //    'rgba(255, 99, 132, 0.2)',
+                //    'rgba(54, 162, 235, 0.2)',
+                //    'rgba(255, 206, 86, 0.2)',
+                //    'rgba(75, 192, 192, 0.2)',
+                //    'rgba(153, 102, 255, 0.2)',
+                //],
+                //borderColor: [
+
+                //    'rgba(255, 159, 64, 1)',
+                //    'rgba(255,99,132,1)',
+                //    'rgba(54, 162, 235, 1)',
+                //    'rgba(255, 206, 86, 1)',
+                //    'rgba(75, 192, 192, 1)',
+                //    'rgba(153, 102, 255, 1)',
+                //],
+                borderWidth: 1,
+                fill: true, // 3: no fill
+            }]
+        };
 
         var areaOptions = {
             plugins: {
@@ -557,7 +634,7 @@
                     propagate: true
                 }
             },
-          
+
         }
 
 
@@ -627,8 +704,8 @@
                 }]
             }
         }
-       // Get context with jQuery - using jQuery's .get() method
- 
+        // Get context with jQuery - using jQuery's .get() method
+
         if ($("#barChart").length) {
             var barChartCanvas = $("#barChart").get(0).getContext("2d");
             // This will get the first returned node in the jQuery collection.
@@ -637,26 +714,26 @@
                 data: data,
                 options: options
             });
-       }
-       if ($("#barChart1").length) {
-           var barChartCanvas = $("#barChart1").get(0).getContext("2d");
-           // This will get the first returned node in the jQuery collection.
-           var barChart = new Chart(barChartCanvas, {
-               type: 'bar',
-               data: dataMonth,
-               options: options
-           });
-       }
-       if ($("#barChart2").length) {
-           var barChartCanvas = $("#barChart2").get(0).getContext("2d");
-           // This will get the first returned node in the jQuery collection.
-           var barChart = new Chart(barChartCanvas, {
-               type: 'bar',
-               data: dataWishs,
-               options: options
-           });
-       }
-       
+        }
+        if ($("#barChart1").length) {
+            var barChartCanvas = $("#barChart1").get(0).getContext("2d");
+            // This will get the first returned node in the jQuery collection.
+            var barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: dataMonth,
+                options: options
+            });
+        }
+        if ($("#barChart2").length) {
+            var barChartCanvas = $("#barChart2").get(0).getContext("2d");
+            // This will get the first returned node in the jQuery collection.
+            var barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: dataWishs,
+                options: options
+            });
+        }
+
 
         if ($("#lineChart").length) {
             var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
@@ -679,7 +756,7 @@
         if ($("#areachart").length) {
             var multiAreaCanvas = $("#areachart").get(0).getContext("2d");
             var multiAreaChart = new Chart(multiAreaCanvas, {
-            //    type: 'line',
+                //    type: 'line',
                 type: 'bar',
                 data: dataAdmisstion,
                 options: options
@@ -702,16 +779,16 @@
                 data: doughnutTwo,
                 options: doughnutPieOptions
             });
-       }
-       if ($("#pieChartThree").length) {
-           var pieChartCanvas = $("#pieChartThree").get(0).getContext("2d");
-           var pieChart = new Chart(pieChartCanvas, {
-               type: 'doughnut',
-               data: doughnutThree,
-               options: doughnutPieOptions
-           });
-       }
-       
+        }
+        if ($("#pieChartThree").length) {
+            var pieChartCanvas = $("#pieChartThree").get(0).getContext("2d");
+            var pieChart = new Chart(pieChartCanvas, {
+                type: 'doughnut',
+                data: doughnutThree,
+                options: doughnutPieOptions
+            });
+        }
+
 
         if ($("#areaChart1").length) {
             var areaChartCanvas = $("#areaChart1").get(0).getContext("2d");
@@ -720,16 +797,16 @@
                 data: areaDataDate,
                 options: areaOptions
             });
-       }
-      if ($("#areaChart").length) {
-           var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
-           var areaChart = new Chart(areaChartCanvas, {
-               type: 'bar',
-               data: areaData,
-               options: options
-           });
-       }
-       
+        }
+        if ($("#areaChart").length) {
+            var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
+            var areaChart = new Chart(areaChartCanvas, {
+                type: 'bar',
+                data: areaData,
+                options: options
+            });
+        }
+
 
         if ($("#scatterChart").length) {
             var scatterChartCanvas = $("#scatterChart").get(0).getContext("2d");
@@ -741,4 +818,7 @@
         }
 
 
-    };</script>
+    };
+
+
+</script>

@@ -35,10 +35,10 @@ namespace WebTuyenSinh_Application.Interface
         public Task<ApiResult> CreateProfile(long? id);
         public Task<ApiResult> GetAdmisstionInfo(long? id);
         public Task<ApiResult> GetProfiles(long? id);
-        public Task<ApiResult> ExportExcell(long? id);
         public Task<ApiResult> CheckProFile(long id, string uid);
         public Task<ApiResult> GetAllProFileStudent(string uid);
         public Task<ApiResult> DowloadFile(long? id,int type);
-        
+        public Task<ApiResult> ImportExcel(long? id, List<ImPortExcelTypeOne>  imPort);
+
     }
 }

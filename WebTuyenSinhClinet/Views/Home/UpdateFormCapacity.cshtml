@@ -386,13 +386,14 @@
                             <div class="validation-parent" style="margin-top: 4px;">
 
                                 <select required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+                                
                                     <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
                                     <option value="4"> 4</option>
-                                    <option value="6"> 5</option>
-                                    <option value="7"> 6</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
 
                                 </select>
                             </div>
@@ -518,15 +519,15 @@
                 </div>
 
                 <div class="row mt-4">
-                    <div class="col c-12">
+                    <div class="c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
+                            <div class=" form-group ">
+                                <div class="">
                                     <span style="font-size:13px;position: relative;  ">
                                         <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                                        <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
+                                        <span style="margin-left: 15px;">: Chọn file ảnh hay file scan Phiếu đăng ký xét tuyển, Giấy báo điểm thi ĐGNL ĐHQG TP.HCM năm @(DateTime.Now.Year), Các giấy tờ minh chứng được hưởng chế độ ưu tiên (nếu có)                         <button class="btn-primary ml-1" style="border:none" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button></span>
                                     </span>
-                                    <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
+
                                 </div>
 
                                 <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
@@ -535,7 +536,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" mt-4 form-group ms-4">
+                <div class=" mt-4 form-group ml-5">
                     <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
 
@@ -559,7 +560,7 @@
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
                                     <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
-                                        <input type="text" id="" name="" style="font-size: 13px;"
+                                        <input  type="text" value="TP.HỒ CHÍ MINH" id="" name="" style="font-size: 13px;"
                                                class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
                                         <input type="text" id="" name="" style="font-size: 13px"
@@ -576,7 +577,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <!-- xác nhận -->
@@ -587,7 +587,7 @@
                     </div>
                     <div class="col c-5 educate">
                         <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
-                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                        @*<p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>*@
                         <p class="educate-parent signature" style="margin-top: 50px;">
 
                         </p>
@@ -791,6 +791,21 @@
                         Profile = res.data.data
                         blocks = res.data.block
                         LoadProfile();
+                        if (Profile.id > 0) {
+                            tr = ` <tr>
+                                        <th class="text-center">
+
+                                            <button type="button" id="" name="add" data-toggle="tooltip" title="" class="  mt-2 btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                <i class="ti-plus"></i> +
+                                            </button>
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                    </tr>`;
+
+                            $("#tbbody").append(tr)
+                        }
 
                       //  LoadData()
                     }
@@ -927,7 +942,7 @@
 
                                     if (data.success) {
                                         Profile = data.data
-                                        $('#particles1').hide();
+                                      
                                         var link = document.createElement("a");
                                         // If you don't know the name or want to use
                                         // the webserver default set name = ''
@@ -943,7 +958,7 @@
                                     }
                                     else {
                                         $('#particles1').hide();
-                                        $("#livefail").text("Quá trình đăng ký thất bại")
+                                        $("#livefail").text(data.message)
                                         $("#livefail").toast("show");
                                     }
 
@@ -1120,61 +1135,6 @@
 
 
         });
-        function readURL(input) {
-            var fileUpload = $("#files").get(0);
-            var files = fileUpload.files;
-            var img = $('#file-upload-content');
-            // Create  a FormData object
-            var fileData = new FormData();
-
-            // if there are multiple files , loop through each files
-            for (var i = 0; i < files.length; i++) {
-                fileData.append(files[i].name, files[i]);
-            }
-
-            // Adding more keys/values here if need
-            fileData.append('Test', "Test Object values");
-
-            $.ajax({
-                url: Url + "/File/AddReplyDetails",
-                type: "POST", //as we will be posting files and other method POST is used
-                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
-                contentType: false,
-                dataType: "json",
-                data: fileData,
-                success: function (result) {
-                    fileUrl = result;
-                    $(img).empty();
-                    $.each(result, function (k, v) {
-
-                        if (v.url.endsWith("pdf")) {
-                            var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-
-<span>${v.name}</span>
-        </a>
-</div>`;
-                        }
-                        else {
-                            var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
-   </a>
-                </div>`;
-                        }
-
-
-                        $(img).append(let);
-                    });
-                },
-                error: function (err) {
-                    alert(err.statusText);
-                }
-            });
-        }
-
         function readAvataURL(input) {
             var fileUpload = $("#filesAvt").get(0);
             var files = fileUpload.files;
@@ -1215,6 +1175,102 @@
                 }
             });
         }
+        function readAvataURL(input) {
+            var fileUpload = $("#filesAvt").get(0);
+            var files = fileUpload.files;
+            var img = $('#logo');
+            // Create  a FormData object
+            var fileData = new FormData();
+
+            // if there are multiple files , loop through each files
+
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding more keys/values here if need
+            fileData.append('Test', "Test Object values");
+
+            $.ajax({
+                url: Url + "/File/AddReplyDetails",
+                type: "POST", //as we will be posting files and other method POST is used
+                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
+                contentType: false,
+                dataType: "json",
+                data: fileData,
+                success: function (result) {
+
+                    $(img).empty();
+                    $.each(result, function (k, v) {
+                        var let = `<div class="col-2">
+                    <img src="${Url}/${v.url}" width="130" height="160"  alt="...">
+                </div>`;
+
+                        Profile.imgavata = v.url
+                        $(img).append(let);
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+        function readURL(input) {
+            var fileUpload = $("#files").get(0);
+            var files = fileUpload.files;
+            var img = $('#file-upload-content');
+            // Create  a FormData object
+            var fileData = new FormData();
+
+            // if there are multiple files , loop through each files
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding more keys/values here if need
+            fileData.append('Test', "Test Object values");
+
+            $.ajax({
+                url: Url + "/File/AddReplyDetails",
+                type: "POST", //as we will be posting files and other method POST is used
+                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
+                contentType: false,
+                dataType: "json",
+                data: fileData,
+                success: function (result) {
+                    if (fileUrl.length == 0) {
+                        $(img).empty();
+                    }
+                    fileUrl = fileUrl.concat(result);
+                    $.each(result, function (k, v) {
+
+                        if (v.url.endsWith("pdf")) {
+                            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name">${v.name}</span>
+        </a>
+</div>`;
+                        }
+                        else {
+                            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+    <span class="img-name">${v.name}</span>
+   </a>
+                </div>`;
+                        }
+
+                        $(img).append(let);
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+
 
         function myGreeting() {
             window.location = "/Home/ResultProfile/" + Profile.id
@@ -1252,24 +1308,22 @@
             else {
                 $("#checknu").prop("checked", true);
             }
-        
             var img1 = $('#file-upload-content');
             $.each(Profile.fileProfiles, function (k, v) {
-
                 if (v.url.endsWith("pdf")) {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                    var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-
-<span>${v.name}</span>
+       
+<span class="img-name" >${v.name}</span>
         </a>
 </div>`;
                 }
                 else {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                    var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
+<span class="img-name" >${v.name}</span>
    </a>
                 </div>`;
                 }
@@ -1277,11 +1331,12 @@
 
                 $(img1).append(let);
             })
-            let = `<div class="col-2">
-<a href ="${Url}/${Profile.url}" target="_blank" >
-                        <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-                   </a> </div>`;
+            var let = `<div class="col-4 col-sm-2 text-center">
+<a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
             $(img1).append(let);
+
             $.each(conscious, function (k, v) {
                 let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
                 $("#Consciou1").append(option)

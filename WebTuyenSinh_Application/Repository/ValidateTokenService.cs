@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using WebTuyenSinh.Data.Entityes;
 using WebTuyenSinh_Application.Interface;
 using Microsoft.EntityFrameworkCore;
+using WebTuyenSinh_Application.Modell;
+
 namespace WebTuyenSinh_Application.Repository
 {
     public class ValidateTokenService : IValidateTokenService
@@ -46,6 +48,37 @@ namespace WebTuyenSinh_Application.Repository
             } catch { return false; }
             return false;
         
+        }
+
+        public async Task<ResetPassword> ValidateToken(string Token)
+        {
+            try
+            {
+                IdentityModelEventSource.ShowPII = true;
+
+                SecurityToken validatedToken;
+                TokenValidationParameters validationParameters = new TokenValidationParameters();
+
+                validationParameters.ValidateLifetime = true;
+
+                validationParameters.ValidAudience = _configuration["Tokens:Issuer"];
+                validationParameters.ValidIssuer = _configuration["Tokens:Issuer"];
+                validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
+
+                ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(Token, validationParameters, out validatedToken);
+                var id = principal.Claims.SingleOrDefault(x => x.Type == "ID");
+                var Users = await _context.Users.FirstOrDefaultAsync(x=>x.id.ToString()==id.Value);
+                return new ResetPassword()
+                {
+                    Password = "",
+                    Email = Users.Email,
+                    ConfirmPassword = "",
+                    UseName = Users.UserName,
+                    
+                };
+            }
+            catch { return null; }
+         
         }
     }
 }

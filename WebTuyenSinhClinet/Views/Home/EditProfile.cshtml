@@ -361,7 +361,7 @@
                                 <span> Khu vực:  </span>
                             </span>
                             <select required id="areas" name="cmnd" class="full-name-property form-select form-select-sm" style="width:88px;height:27px;margin-top: 4px;">
-                         
+
                                 <option value="1"> 1</option>
                                 <option value="2"> 2</option>
                                 <option value="3"> 3</option>
@@ -377,14 +377,15 @@
                             <div class="validation-parent" style="margin-top: 4px;">
 
                                 <select required id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
-                             
+
+                                   
                                     <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
                                     <option value="4"> 4</option>
-                                    <option value="6"> 5</option>
-                                    <option value="7"> 6</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
 
                                 </select>
                             </div>
@@ -409,28 +410,35 @@
                             <span class="student-avatar-note">
                                 <span>
                                     Sau khi đã đọc và hiểu rõ các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi đăng ký xét
-                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành/ Chuyên ngành/ Nhóm chuyên ngành theo thứ tự ưu
+                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành theo thứ tự ưu
                                     tiên như bảng sau:
                                 </span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-1">
-                    <div class="col c-12">
 
-                        <table class="" disabled style="width:100%" dislayble>
+                            </span>
+
+                        </div>
+
+                    </div>
+                    <br />
+                    <span class="mt-2 mb-2" style="font-size:14px;position: relative;  ">
+                        <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                        <span style="margin-left: 15px">Điểm trung bình học kỳ từng môn trong tổ hợp xét tuyển không có môn nào dưới 5.50 điểm </span>
+                    </span>
+                </div>
+                <div class="row mt-1 mobile-table">
+                    <div class="col c-12 moible-table-width">
+
+                        <table class="talel-regis" disabled style="width:100%" dislayble>
                             <tr>
 
-                                <th rowspan="4" style="width:20%">
+                                <th rowspan="5">
                                     Ngành xét tuyển
                                 </th>
-                                <th rowspan="4" style="width:12%">
+                                <th rowspan="5" style="width:12%">
                                     Tổ
                                     hợp
                                     xét
-                                    tuyể
-                                    n
+                                    tuyển
                                 </th>
                             </tr>
                             <tr>
@@ -440,54 +448,53 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3">Lớp 10 </th>
-                                <th colspan="3">Lớp 11</th>
-                                <th colspan="3">Lớp 12</th>
+                                <th colspan="3">Môn 1 </th>
+                                <th colspan="3">Môn 2</th>
+                                <th colspan="3">Môn 3</th>
                             </tr>
                             <tr>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                               
                             </tr>
-
-
                             <tbody id="tbbody">
                                 @{
 
                                     foreach (var item in Model.Data.InforMationProflies)
                                     {
-                                        <tr>
+                                    <tr>
 
-                                            <td>
+                                        <td>
 
-                                                <select disabled class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
-                                                    <option value="">Chọn Ngành</option>
-                                                    @foreach (var item1 in data.Admisstion_Major)
+                                            <select disabled class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+                                                <option value="">Chọn Ngành</option>
+                                                @foreach (var item1 in data.Admisstion_Major)
                                                     {
                                                         if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
                                                         {
-                                                            <option value="@item.idMajor" selected>@item1.Major.Name</option>
+                                                <option value="@item.idMajor" selected>@item1.Major.Name</option>
                                                         }
                                                         else
                                                         {
-                                                            <option value="@item.idMajor">@item1.Major.Name</option>
+                                                <option value="@item.idMajor">@item1.Major.Name</option>
                                                         }
 
                                                     }
 
 
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
 
-                                                    @foreach (var item1 in data.Admisstion_Major)
+                                                @foreach (var item1 in data.Admisstion_Major)
                                                     {
                                                         if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
                                                         {
@@ -495,11 +502,11 @@
                                                             {
                                                                 if (item.idBlock.Trim().Equals(item2.idBlock.Trim()))
                                                                 {
-                                                                    <option value="@item.idBlock" selected>@item.idBlock</option>
+                                                <option value="@item.idBlock" selected>@item.idBlock</option>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <option value="@item2.idBlock">@item2.idBlock</option>
+                                                <option value="@item2.idBlock">@item2.idBlock</option>
                                                                 }
                                                             }
 
@@ -507,24 +514,24 @@
 
                                                     }
 
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
-                                            <td><input type="text" class="subject2" onchange="CheckMart(this)" required value="@item.subject2" /></td>
-                                            <td><input type="text" class="subject3" onchange="CheckMart(this)" required value="@item.subject3" /></td>
-                                            <td><input type="text" class="subject4" onchange="CheckMart(this)" required value="@item.subject4" /></td>
-                                            <td><input type="text" class="subject5" onchange="CheckMart(this)" required value="@item.subject5" /></td>
-                                            <td><input type="text" class="subject6" onchange="CheckMart(this)" required value="@item.subject5" /></td>
-                                            <td><input type="text" class="subject7" onchange="CheckMart(this)" required value="@item.subject7" /></td>
-                                            <td><input type="text" class="subject8" onchange="CheckMart(this)" required value="@item.subject8" /></td>
-                                            <td><input type="text" class="subject9" onchange="CheckMart(this)" required value="@item.subject9" /></td>
-                                            <td>
-                                                <div class="form-button-action">
-                                                    <input type="number" required value="@item.STT" />
-                                                </div>
-                                            </td>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
+                                        <td><input type="text" class="subject2" onchange="CheckMart(this)" required value="@item.subject2" /></td>
+                                        <td><input type="text" class="subject3" onchange="CheckMart(this)" required value="@item.subject3" /></td>
+                                        <td><input type="text" class="subject4" onchange="CheckMart(this)" required value="@item.subject4" /></td>
+                                        <td><input type="text" class="subject5" onchange="CheckMart(this)" required value="@item.subject5" /></td>
+                                        <td><input type="text" class="subject6" onchange="CheckMart(this)" required value="@item.subject6" /></td>
+                                        <td><input type="text" class="subject7" onchange="CheckMart(this)" required value="@item.subject7" /></td>
+                                        <td><input type="text" class="subject8" onchange="CheckMart(this)" required value="@item.subject8" /></td>
+                                        <td><input type="text" class="subject9" onchange="CheckMart(this)" required value="@item.subject9" /></td>
+                                        <td>
+                                            <div class="form-button-action">
+                                                <input type="number" required value="@item.STT" />
+                                            </div>
+                                        </td>
 
-                                        </tr>
+                                    </tr>
                                     } }
 
                             </tbody>
@@ -537,15 +544,15 @@
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="col c-12">
+                    <div class="c-12">
                         <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
+                            <div class=" form-group ">
+                                <div class="">
                                     <span style="font-size:13px;position: relative;  ">
                                         <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                                        <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
+                                        <span style="margin-left: 15px;">: Chọn file ảnh hay file scan Phiếu đăng ký xét tuyển, Học bạ THPT, Các giấy tờ minh chứng được hưởng chế độ ưu tiên (nếu có)                         <button class="btn-primary ml-1" style="border:none" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button></span>
                                     </span>
-                                    <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
+                                   
                                 </div>
 
                                 <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
@@ -554,7 +561,7 @@
                         </div>
                     </div>
                 </div>
-                <div class=" mt-2 form-group ml-5">
+                <div class=" mt-4 form-group ml-5">
                     <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
 
@@ -577,24 +584,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row mt-4 mr-auto ">
                     <div class="col c-12">
                         <div class="day-of-birth full-name-box d-flex justify-content-end" style="width:100%">
                             <p class="mt-1">
                                 <span style="font-weight:normal;">
-                                    <div class="validation-parent "
-                                         style="width:100px;justify-content: center;display: flex">
-                                        <input type="text" id="" name="" style="font-size: 13px; width: 10%;"
-                                               class="full-name-property ml-3">
+                                    <div class="validation-parent" style="width:20%;justify-content: end;display: flex">
+                                        <input type="text" value="TP.HỒ CHÍ MINH" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">ngày</span>
-                                        <input type="text" id="" name="" value="@Model.Data.CreateDate.Value.Day" style="font-size: 13px;width: 50%;"
-                                               class="full-name-property ml-3">
+                                        <input type="text" id="" name="" style="font-size: 13px"
+                                               value="@Model?.Data?.CreateDate.Value.Day" class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">tháng</span>
-                                        <input type="text" id="" name="" value="@Model.Data.CreateDate.Value.Month" style="font-size: 13px;width: 50%;"
-                                               class="full-name-property ml-3">
+                                        <input value="@Model?.Data?.CreateDate.Value.Month" type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 ml-3">
                                         <span style="margin-left: 10px;margin-top: 2px;">năm</span>
-                                        <input type="text" id="" name="" value="@Model.Data.CreateDate.Value.Year" style="font-size: 13px;width:100%"
-                                               class="full-name-property ml-3">
+                                        <input value="@Model?.Data?.CreateDate.Value.Year" type="text" id="" name="" style="font-size: 13px;"
+                                               class="full-name-property-1 full-name-property-1-year ml-3">
                                     </div>
                                 </span>
                             </p>
@@ -612,7 +618,7 @@
                     </div>
                     <div class="col c-5 educate">
                         <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
-                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                        @*<p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>*@
                         <p class="educate-parent signature" style="margin-top: 50px;">
                             @Model.Data.Name
                         </p>
@@ -793,7 +799,11 @@
                 } else {
                     Profile.sex = 1;
                 }
-
+                if (fileUrl.length == 0) {
+                    $("#livefail").text("Vui lòng upload các giấy tờ cần thiết")
+                    $("#livefail").toast("show");
+                    return;
+                }
                 if (Profile) {
                     $('#particles1').show();
                     $.ajax({
@@ -807,8 +817,6 @@
   
                         if (data.success) {
                             profile = data.data
-                            $('#particles1').hide();
-
                             var link = document.createElement("a");
                             // If you don't know the name or want to use
                             // the webserver default set name = ''
@@ -823,7 +831,7 @@
                         }
                         else {
                             $('#particles1').hide();
-                            $("#livefail").text("Quá trình đăng ký thất bại")
+                            $("#livefail").text(data.message)
                             $("#livefail").toast("show");
                         }
 
@@ -965,6 +973,53 @@
             })
 
 
+            $(document).on('click', "button[name = 'deleteImg']", function () {
+
+                let index = $(this).closest('button').attr("id")
+                console.log(index)
+                var filtered = fileUrl.filter(function (value, i, arr) {
+                    return i != index;
+                });
+
+                fileUrl = filtered;
+                console.log(fileUrl)
+           
+                var img = $('#file-upload-content');
+                img.empty();
+                var let = `<div class="col-4 col-sm-2  text-center">
+<a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+                $(img).append(let);
+                $.each(fileUrl, function (k, v) {
+
+                    if (v.url.endsWith("pdf")) {
+
+                        var let = `<div class="col-4 col-sm-2  text-center">
+ <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name">${v.name}</span>
+        </a>
+</div>`;
+                    }
+                    else {
+                        var let = `<div class="col-4 col-sm-2   text-center">
+ <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" >
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span class="img-name" >${v.name}</span>
+   </a>
+                </div>`;
+                    }
+
+                    $(img).append(let);
+                });
+          
+             
+             
+            });
         });
 
 
@@ -994,42 +1049,45 @@
             else {
                 $("#checknu").prop("checked", true);
             }
-            //var img = $('#logo');
-            //img.empty();
-            //var let = `<div class="img">
-            //        <img  class="the-img" src="${Url}/${Profile.imgavata}"   alt="...">
-            //    </div>`;
-
-
-            //$(img).append(let);
             var img1 = $('#file-upload-content');
+            var let = `<div class="col-4 mt-3 col-sm-2 text-center">
+<a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+            $(img1).append(let);
+       
+    
             $.each(Profile.fileProfiles, function (k, v) {
-            
+                fileUrl.push({
+                    url: v.url,
+                    name: v.name
+                });
                 if (v.url.endsWith("pdf")) {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                    var let = `<div class="col-4 col-sm-2 text-center">
+        <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
        
-<span>${v.name}</span>
+<span class="img-name" >${v.name}</span>
         </a>
 </div>`;
                 }
                 else {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
+                    var let = `<div class="col-4 col-sm-2 text-center">
+    <button name="deleteImg"  id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
-   </a>
+<span class="img-name" >${v.name}</span>
+   </a> 
                 </div>`;
                 }
 
+
                 $(img1).append(let);
             })
-            let = `<div class="col-2">
-<a href ="${Url}/${Profile.url}" target="_blank" >
-                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
-               </a> </div>`;
-            $(img1).append(let);
+      
             $.each(conscious, function (k, v) {
                 let option = `<option value="${v.idConscious}">${v.nameConscious}</option>`
                 $("#Consciou1").append(option)
@@ -1076,9 +1134,6 @@
             $("#School2").val(idshoo2)
             $("#School3").val(idshoo3)
 
-
-
-
             //    $("#teletephone").val(Profile.teletephone);
         }
         function readURL(input) {
@@ -1104,24 +1159,29 @@
                 dataType: "json",
                 data: fileData,
                 success: function (result) {
-                    fileUrl = result;
-                    $(img).empty();
-                    $.each(result, function (k, v) {
+                    let sl = fileUrl.length
 
+                    fileUrl = fileUrl.concat(result);
+                   
+                    $.each(result, function (k, v) {
+                        
                         if (v.url.endsWith("pdf")) {
-                            var let = `<div class="col-2  text-center">
+
+                            var let = `<div class="col-4 col-sm-2 text-center">
+ <button name="deleteImg" id='${k+sl}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
 <a href ="${Url}/${v.url}" target="_blank" >
                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
        
-<span>${v.name}</span>
+<span class="img-name">${v.name}</span>
         </a>
 </div>`;
                         }
                         else {
-                            var let = `<div class="col-2  text-center">
+                            var let = `<div class="col-4 col-sm-2 text-center">
+ <button name="deleteImg" id='${k + sl}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
 <a href ="${Url}/${v.url}" target="_blank" >
                     <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
+<span class="img-name">${v.name}</span>
    </a>
                 </div>`;
                         }

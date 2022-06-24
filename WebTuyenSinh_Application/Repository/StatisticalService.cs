@@ -22,16 +22,19 @@ namespace WebTuyenSinh_Application.Repository
         {
             var admisstion = await _context.Admisstions.Where(x => x.CreateDate != null && x.Delete != true && x.Statust != 0).ToListAsync();
 
-            if (fromDate !=null && toDate != null) admisstion = admisstion.Where(x => x.CreateDate.Value.Date >= fromDate.Value.Date && x.CreateDate.Value.Date <= toDate.Value.Date).ToList();
+     
 
             if (Type != null) admisstion= admisstion.Where(x => x.Type==Type).ToList();
             
+
             var ProfileInfor = await _context.InforMationProflies.ToListAsync();
             if (idMajor != null && idMajor.Length > 0) {
             
                 ProfileInfor = ProfileInfor.Where(x => x.idMajor.Trim().Equals(idMajor.Trim())).ToList();
                     }
             var Profile = await _context.ProfileStudents.ToListAsync();
+
+            if (fromDate != null && toDate != null) Profile = Profile.Where(x => x.CreateDate.Value.Date >= fromDate.Value.Date && x.CreateDate.Value.Date <= toDate.Value.Date && x.Statust>0).ToList();
             var Major = await _context.Majors.ToListAsync();
             var data = (from ad in admisstion
                         join p in Profile on ad.id equals p.idAdmisstion 
@@ -116,6 +119,12 @@ namespace WebTuyenSinh_Application.Repository
                 Values = grWish.Where(x => x.STT == 3).Select(x => x.value).ToList(),
                 Name = grWish.Where(x => x.STT == 3).Select(x => x.name).ToList(),
             };
+            statistical.WishFor = new WishFor()
+            {
+                Values = grWish.Where(x => x.STT == 4).Select(x => x.value).ToList(),
+                Name = grWish.Where(x => x.STT == 4).Select(x => x.name).ToList(),
+            };
+
 
             statistical.StatisticalMajor = new StatisticalMajor()
             {
@@ -190,21 +199,20 @@ namespace WebTuyenSinh_Application.Repository
                         {
                             adi.idMajor,
                             M.Name,
-                            PI.STT,
                         }).ToList();
                        ;
             StatisticalHome home = new StatisticalHome();
             home.Message = " " + admisstion.FirstOrDefault(x=>x.id==idAdmisstion)?.Name;
             home.AdmisstionValue = admisstion.Select(x => new AdmissisionValue() {Value=x.id,Name=x.Name}).Distinct().ToList();
             home.TopMajors = (from c in data
-                              group data by new { c.idMajor, c.Name } into g
+                              group data by new { c.idMajor, c.Name} into g
                               select new TopMajor
                               {
                                   id = g.Key.idMajor,
                                   Name = g.Key.Name.Trim(),
                                   NumberProfile = g.Count(),
                                   Number= Math.Round(((double)g.Count() / (double)data.Count) * (double)100,2),
-                              }).Take(4).OrderBy(x=>x.Wish).ToList();
+                              }).Take(4).OrderByDescending(x=>x.Number).ToList();
             home.Majors=(from c in data
                         group data by new { c.idMajor, c.Name } into g
                         select new MajorStatistical

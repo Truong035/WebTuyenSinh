@@ -27,6 +27,7 @@
 
     <link href="~/css/site.css" rel="stylesheet" />
     <style>
+     
         #particles1 {
             width: 100%;
             height: 100%;
@@ -40,7 +41,10 @@
             text-align: center;
             position: fixed;
         }
-
+        .delete-school {
+            width: 40px;
+        }
+     
         .img-name {
             display: inline-block;
             white-space: nowrap;
@@ -182,7 +186,7 @@
             <img src="~/5.gif" />
         </div>
     </div>
-
+    
     <!-- go to top button -->
     <div class="btn-gototop">
         <button type="button" class="btn btn-outline-warning" data-mdb-ripple-color="dark">
@@ -272,15 +276,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Khoa học - Công nghệ</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hợp tác</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Đảng - Đoàn thể</a>
-                        </li>
+                   
+                 
                     </ul>
                     <div class="d-flex align-items-center" style="margin-left:-10%">
-                        @*@{Html.RenderPartial("Use", "Home");};*@
+                       
                         <partial name="_User" />
                         <!-- Icon -->
 
@@ -371,10 +371,10 @@
 
                         <p>
                             <i class="fas fa-envelope me-3"></i>
-                            UTC2@st.utc2.edu.vn
+                            tuyensinh@utc2.edu.vn
                         </p>
-                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                        <p><i class="fas fa-phone me-3"></i> + 028.3896.2819 </p>
+                        <p><i class="fas fa-print me-3"></i> + 028.3896.4736</p>
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -398,9 +398,10 @@
             crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="~/js/sweetalert/sweetalert.min.js"></script>
-    <script>
-       const Url = "https://utc2.tk"
-      ///const Url = "https://localhost:44396"
+    <script type="text/javascript" language="javascript">
+    const Url = "https://admintuyensinh.utc2.edu.vn";
+      //const Url = "https://utc2.tk"
+  // const Url = "https://localhost:44396"
         $("document").ready(function () {
             $(".btn-gototop").hide()
             $(window).scroll(function () {

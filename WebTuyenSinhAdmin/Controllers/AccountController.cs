@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,51 @@ namespace WebTuyenSinhAdmin.Controllers
     {
         private ILoginService _login;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public AccountController(ILoginService login, IHttpContextAccessor httpContextAccessor)
+        private readonly IValidateTokenService _IValidateTokenService;
+        public AccountController(ILoginService login, IHttpContextAccessor httpContextAccessor, IValidateTokenService validateTokenService)
         {
             _login = login;
             this._httpContextAccessor = httpContextAccessor;
+            _IValidateTokenService = validateTokenService;
         }
+      
+       
+        public async Task<IActionResult> ResetPassword()
+        {
+            string cookie = Request.Cookies[UserContant.UseToken];
+            if (cookie == null || cookie.Length == 0)
+            {
+                return RedirectToAction("Index", "Account");
+            }
+            ResetPassword resetPassword =  await _IValidateTokenService.ValidateToken(cookie);
+            if (resetPassword != null)
+            {
+                return View(resetPassword);
+            }
 
+
+            return RedirectToAction("Index", "Account");
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword(ResetPassword resetPassword)
+        {
+            if (!ModelState.IsValid)
+                return View(resetPassword);
+            else
+            {
+                ApiResult apiResult = await _login.ResetPassWordUse(resetPassword);
+                if (apiResult.Success)
+                {
+
+                    return RedirectToAction("Index", "Account");
+                   
+                }
+                ModelState.AddModelError("Eroll", apiResult.Message);
+                return View(resetPassword);
+            }
+
+        }
         public IActionResult Index()
         {
     

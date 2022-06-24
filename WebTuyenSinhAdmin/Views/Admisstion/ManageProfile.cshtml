@@ -132,6 +132,14 @@
         $(document).ready(function () {
             $(document).on('click', "button[name = 'Dowload']", function () {
                 let id = $(this).attr("id")
+                swal("Vui lòng chờ trong giây lát và đừng chuyển tab", {
+                    icon: "success",
+                    buttons: {
+                        confirm: {
+                            className: 'btn btn-success'
+                        }
+                    }
+                });
                 $.ajax({
                     async: false,
                     url: "/Admisstion/Dowload/" + id,

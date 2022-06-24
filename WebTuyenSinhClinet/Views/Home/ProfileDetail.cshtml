@@ -1,6 +1,7 @@
 ﻿@model ProfileView
 @{
     Admisstion data = (Admisstion)ViewBag.data;
+
 }
 
 @using WebTuyenSinh_Application.Modell;
@@ -36,6 +37,14 @@
         </div>
     </div>
 
+    @if (Model?.Data.Statust == 5 || Model?.Data.Statust==2)
+    {
+    <div id="note" class="a4-size bg-white">
+        
+        @Html.Raw(Model?.Data.Note) 
+
+    </div>
+    }
     <form action="" id="student-form" style="width:100%">
         <div class="a4-size bg-white mobile-container">
             <!-- header-top -->
@@ -373,13 +382,14 @@
                             <div class="validation-parent" style="margin-top: 4px;">
 
                                 <select id="priority_object" name="cmnd" class="full-name-property form-select form-select-sm">
+                                  
                                     <option value="0"> 0</option>
                                     <option value="1"> 1</option>
                                     <option value="2"> 2</option>
                                     <option value="3"> 3</option>
                                     <option value="4"> 4</option>
-                                    <option value="6"> 5</option>
-                                    <option value="7"> 6</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
 
                                 </select>
                             </div>
@@ -405,28 +415,35 @@
                             <span class="student-avatar-note">
                                 <span>
                                     Sau khi đã đọc và hiểu rõ các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi đăng ký xét
-                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành/ Chuyên ngành/ Nhóm chuyên ngành theo thứ tự ưu
+                                    tuyển vào trình độ Đại học các Ngành/ Nhóm ngành theo thứ tự ưu
                                     tiên như bảng sau:
                                 </span>
+
                             </span>
+
                         </div>
+
                     </div>
+                    <br />
+                    <span class="mt-2 mb-2" style="font-size:14px;position: relative;  ">
+                        <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                        <span style="margin-left: 15px">Điểm trung bình học kỳ từng môn trong tổ hợp xét tuyển không có môn nào dưới 5.50 điểm </span>
+                    </span>
                 </div>
                 <div class="row mt-1 mobile-table">
                     <div class="col c-12 moible-table-width">
 
-                        <table class="" disabled style="width:100%" dislayble>
+                        <table class="talel-regis" disabled style="width:100%" dislayble>
                             <tr>
 
-                                <th rowspan="4" style="width:20%">
+                                <th rowspan="5">
                                     Ngành xét tuyển
                                 </th>
-                                <th rowspan="4" style="width:12%">
+                                <th rowspan="5" style="width:12%">
                                     Tổ
                                     hợp
                                     xét
-                                    tuyể
-                                    n
+                                    tuyển
                                 </th>
                             </tr>
                             <tr>
@@ -436,22 +453,21 @@
                             </tr>
 
                             <tr>
-                                <th colspan="3">Lớp 10 </th>
-                                <th colspan="3">Lớp 11</th>
-                                <th colspan="3">Lớp 12</th>
+                                <th colspan="3">Môn 1 </th>
+                                <th colspan="3">Môn 2</th>
+                                <th colspan="3">Môn 3</th>
                             </tr>
                             <tr>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
-                                <th>Môn 1</th>
-                                <th>Môn 2</th>
-                                <th>Môn 3</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
+                                <th>Lớp 10</th>
+                                <th>Lớp 11</th>
+                                <th>HK I Lớp 12</th>
                             </tr>
-
                             <tbody id="tbbody">
                                 @{
 
@@ -509,7 +525,7 @@
                                             <td><input disabled type="text" class="subject3" required value="@item.subject3" /></td>
                                             <td><input disabled type="text" class="subject4" required value="@item.subject4" /></td>
                                             <td><input disabled type="text" class="subject5" required value="@item.subject5" /></td>
-                                            <td><input disabled type="text" class="subject6" required value="@item.subject5" /></td>
+                                            <td><input disabled type="text" class="subject6" required value="@item.subject6" /></td>
                                             <td><input disabled type="text" class="subject7" required value="@item.subject7" /></td>
                                             <td><input disabled type="text" class="subject8" required value="@item.subject8" /></td>
                                             <td><input disabled type="text" class="subject9" required value="@item.subject9" /></td>
@@ -590,7 +606,7 @@
                     </div>
                     <div class="col c-5 educate">
                         <p class="educate-parent educate-child">NGƯỜI ĐĂNG KÝ HỌC</p>
-                        <p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>
+                        @*<p class="educate-parent" style="font-style: italic">(Ký tên, ghi rõ họ tên)</p>*@
                         <p class="educate-parent signature" id="sign" style="margin-top: 50px;">
 
                         </p>

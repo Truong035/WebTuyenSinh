@@ -14,7 +14,7 @@ namespace WebTuyenSinh_Application.ViewApi
 
         public string CMND { get; set; }
         public string Email { get; set; }
-
+        public string AdmisstionName { get; set; }
         public string Name { get; set; }
         public string FromCMND { get; set; }
         public string Adress { get; set; }

@@ -123,7 +123,7 @@ namespace WebTuyenSinh_Application.System
             page.Canvas.DrawString("PHIẾU ĐĂNG KÝ XÉT TUYỂN ĐẠI HỌC CHÍNH QUY ",
                            font1,
                               new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                              110, height);
+                              95, height);
 
 
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 10f, FontStyle.Italic), true);
@@ -131,65 +131,65 @@ namespace WebTuyenSinh_Application.System
             page.Canvas.DrawString("(Dành cho thí sinh xét tuyển bằng học bạ)",
                            font1,
                               new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                              220, height - 5);
+                              210, height - 5);
 
 
             height = 60;
-            page.Canvas.DrawLine(pen, new PointF(18, 28), new PointF(200, 28));
-            pen = new PdfPen(Color.Black, 0.3f);
-            page.Canvas.DrawRectangle(pen, new Rectangle(new Point(5, 45), new Size(80, 100)));
+            //page.Canvas.DrawLine(pen, new PointF(18, 28), new PointF(200, 28));
+            //pen = new PdfPen(Color.Black, 0.3f);
+            //page.Canvas.DrawRectangle(pen, new Rectangle(new Point(5, 45), new Size(80, 100)));
 
 
-            page.Canvas.DrawString("Ảnh chụp",
-                       font1,
-                          new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                          24, height);
+            //page.Canvas.DrawString("Ảnh chụp",
+            //           font1,
+            //              new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //              24, height);
             height += 11;
-            page.Canvas.DrawString("kiểu CMND,",
+            //page.Canvas.DrawString("kiểu CMND,",
 
-                     font1,
-                        new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                        18, height);
+            //         font1,
+            //            new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //            18, height);
             height += 11;
-            page.Canvas.DrawString("không quá 6",
-                  font1,
-                     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                     18, height);
+            //page.Canvas.DrawString("không quá 6",
+            //      font1,
+            //         new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //         18, height);
             height += 11;
-            page.Canvas.DrawString("tháng .",
-                  font1,
-                     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                     18, height);
+            //page.Canvas.DrawString("tháng .",
+            //      font1,
+            //         new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //         18, height);
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 10f, FontStyle.Bold), true);
 
-            page.Canvas.DrawString("Đóng",
-                 font1,
-                    new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                    43, height);
+            //page.Canvas.DrawString("Đóng",
+            //     font1,
+            //        new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //        43, height);
             height += 11;
 
-            page.Canvas.DrawString("dấu giáp lai",
-               font1,
-                  new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                  18, height);
+            //page.Canvas.DrawString("dấu giáp lai",
+            //   font1,
+            //      new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //      18, height);
             height += 10;
-            page.Canvas.DrawString("lên ảnh",
-             font1,
-                new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                18, height);
+                //page.Canvas.DrawString("lên ảnh",
+                // font1,
+                //    new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+                //    18, height);
 
-            page.Canvas.DrawString("\t\t\t\t(*)",
-            font1,
-               new PdfSolidBrush(Color.FromArgb(245, 44, 44)),
-               14, height);
+                //page.Canvas.DrawString("\t\t\t\t(*)",
+                //font1,
+                //   new PdfSolidBrush(Color.FromArgb(245, 44, 44)),
+                //   14, height);
 
 
-
-            font1 = new PdfTrueTypeFont(new Font("Times New Roman", 13f, FontStyle.Bold), true);
+                PdfStringFormat format1 = new PdfStringFormat(PdfTextAlignment.Left);
+                font1 = new PdfTrueTypeFont(new Font("Times New Roman", 13f, FontStyle.Bold), true);
                 PdfTrueTypeFont   font2 = new PdfTrueTypeFont(new Font("Times New Roman", 13f), true);
 
 
-            height += 40;
+            height += 30;
             page.Canvas.DrawString("Kính gửi:",
   font1,
      new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
@@ -246,11 +246,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             page.Canvas.DrawString("3. Nơi sinh: ",
 font1,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-310, height);
+200, height);
             page.Canvas.DrawString(profile.FromBirthDay.Trim(),
 font2,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-380, height);
+270, height);
 
             height += 22;
             page.Canvas.DrawString("4. Dân tộc:  ",
@@ -266,7 +266,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             page.Canvas.DrawString("5. Tôn giáo: ",
 font1,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-310, height);
+300, height);
             page.Canvas.DrawString(profile.Religion.Trim(),
 font2,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
@@ -312,11 +312,10 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
 
             height += 25;
 
-            page.Canvas.DrawString("Ngày cấp: "+profile.DateRange.Value.ToString("dd/MM/yyyy").Trim()+$"	\t\t\t\t\t\t Nơi cấp: {profile.AdressRange}	",
-   font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-      15, height);
+                page.Canvas.DrawString($"Ngày cấp:  {profile?.DateRange.Value.ToString("dd/MM/yyyy")}	\t\t Nơi cấp: {profile.AdressRange.Trim()}	",
+         font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)), new RectangleF(15, height, 470, height), format1);
 
-            height += 22;
+                height += 30;
             page.Canvas.DrawString("7. Hộ khẩu thường trú:",
        font1,
           new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
@@ -325,10 +324,8 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
 
             page.Canvas.DrawString(""+profile.Adress.Trim(),
      font2,
-        new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-       130, height);
-       
-            height += 22;
+       new PdfSolidBrush(Color.FromArgb(25, 25, 112)), new RectangleF(137, height, 390, height), format1);
+                height += 30;
             page.Canvas.DrawString("8. Nơi học THPT hoặc tương đương: ",
        font1,
           new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
@@ -528,28 +525,23 @@ font2,
             page.Canvas.DrawString("10. Email: ",
 font1,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-280, height);
+250, height);
             page.Canvas.DrawString(""+profile.Email.ToLower().Trim(),
 font2,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-340, height);
+310, height);
 
 
             height += 22;
-            page.Canvas.DrawString("11. Địa chỉ liên hệ:",
+            page.Canvas.DrawString($"11. Địa chỉ liên hệ:",
        font1,
           new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
           0, height);
 
 
-            page.Canvas.DrawString(" "+profile.FromTelePhone.Trim(),
-     font2,
-        new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-       130, height);
+                page.Canvas.DrawString(profile.FromTelePhone, font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)), new RectangleF(105, height, 405, height), format1);
 
-
-
-            height += 22;
+                height += 34;
 
             page.Canvas.DrawString("12. Năm tốt nghiệp: ",
        font1,
@@ -582,7 +574,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                 font1 = new PdfTrueTypeFont(new Font("Times New Roman", 12f, FontStyle.Bold), true);
 
                 string text = "\t Sau khi đã đọc và hiểu rõ các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi \t đăng ký xét tuyển vào trình độ Đại học các Ngành/Nhóm ngành theo thứ tự ưu tiên như bảng sau:";
-                PdfStringFormat format1  = new PdfStringFormat(PdfTextAlignment.Left);
+                 format1  = new PdfStringFormat(PdfTextAlignment.Left);
 
                 font2 = new PdfTrueTypeFont(new Font("Times New Roman", 13f), true);
                 height += 40;
@@ -848,11 +840,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                            font1,
                               new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                               350, height);
-            height += 15;
-            page.Canvas.DrawString("(Ký tên, ghi rõ họ tên)",
-                       font2,
-                          new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                          375, height);
+            //height += 15;
+            //page.Canvas.DrawString("(Ký tên, ghi rõ họ tên)",
+            //           font2,
+            //              new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //              375, height);
             height += 70;
 
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 12f), true);
@@ -874,7 +866,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             {
                 string fileName = "Profile/dulieu.xlsx";
                 Admisstion admisstion = _context.Admisstions.Where(x => x.id == id).FirstOrDefault();
-                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id).ToListAsync();
+                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust==2).ToListAsync();
                 var ProfileInfor = await _context.InforMationProflies.ToListAsync();
                 var School = await _context.Schools.ToListAsync();
                 var Major = await _context.Majors.ToListAsync();
@@ -898,14 +890,15 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                       MA_TOHOPMON = I.idBlock,
                                       TEN_TOHOPMON = Block.FirstOrDefault(x => x.id.Trim().Equals(I.idBlock.Trim())).Desscription,
                                       L10_Mon1 = I.subject1,
-                                      L10_Mon2 = I.subject2,
-                                      L10_Mon3 = I.subject3,
+                                      L10_Mon2 = I.subject4,
+                                      L10_Mon3 = I.subject7,
 
-                                      L11_Mon1 = I.subject4,
+                                      L11_Mon1 = I.subject2,
                                       L11_Mon2 = I.subject5,
-                                      L11_Mon3 = I.subject6,
-                                      L12_Mon1 = I.subject7,
-                                      L12_Mon2 = I.subject8,
+                                      L11_Mon3 = I.subject8,
+
+                                      L12_Mon1 = I.subject3,
+                                      L12_Mon2 = I.subject6,
                                       L12_Mon3 = I.subject9,
                                   }).ToList();
                     i = 0;
@@ -1082,65 +1075,65 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             page.Canvas.DrawString("ĐƠN XÉT TUYỂN ĐẠI HỌC CHÍNH QUY",
                            font1,
                               new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                              155, height);
+                              145, height);
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 9f, FontStyle.Italic), true);
             height += 27;
             page.Canvas.DrawString("(Dành cho xét tuyển bằng kết quả thi đánh giá năng lực của Đại học Quốc gia Tp. Hồ Chí Minh)",
                            font1,
                               new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                              115, height - 5);
+                              105, height - 5);
 
 
-            height = 60;
-            page.Canvas.DrawLine(pen, new PointF(18, 28), new PointF(200, 28));
-            pen = new PdfPen(Color.Black, 0.3f);
-            page.Canvas.DrawRectangle(pen, new Rectangle(new Point(5, 45), new Size(80, 100)));
+            height = 40;
+            //page.Canvas.DrawLine(pen, new PointF(18, 28), new PointF(200, 28));
+            //pen = new PdfPen(Color.Black, 0.3f);
+            //page.Canvas.DrawRectangle(pen, new Rectangle(new Point(5, 45), new Size(80, 100)));
 
-            font1 = new PdfTrueTypeFont(new Font("Times New Roman", 10f, FontStyle.Italic), true);
-            page.Canvas.DrawString("Ảnh chụp",
-                       font1,
-                          new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                          24, height);
+            //font1 = new PdfTrueTypeFont(new Font("Times New Roman", 10f, FontStyle.Italic), true);
+            //page.Canvas.DrawString("Ảnh chụp",
+            //           font1,
+            //              new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //              24, height);
             height += 11;
-            page.Canvas.DrawString("kiểu CMND,",
+            //page.Canvas.DrawString("kiểu CMND,",
 
-                     font1,
-                        new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                        18, height);
+            //         font1,
+            //            new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //            18, height);
             height += 11;
-            page.Canvas.DrawString("không quá 6",
-                  font1,
-                     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                     18, height);
+            //page.Canvas.DrawString("không quá 6",
+            //      font1,
+            //         new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //         18, height);
             height += 11;
-            page.Canvas.DrawString("tháng .",
-                  font1,
-                     new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                     18, height);
-            font1 = new PdfTrueTypeFont(new Font("Times New Roman", 10f, FontStyle.Bold), true);
+            //page.Canvas.DrawString("tháng .",
+            //      font1,
+            //         new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //         18, height);
+            //font1 = new PdfTrueTypeFont(new Font("Times New Roman", 10f, FontStyle.Bold), true);
 
-            page.Canvas.DrawString("Đóng",
-                 font1,
-                    new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                    43, height);
+            //page.Canvas.DrawString("Đóng",
+            //     font1,
+            //        new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //        43, height);
             height += 11;
 
-            page.Canvas.DrawString("dấu giáp lai",
-               font1,
-                  new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                  18, height);
+            //page.Canvas.DrawString("dấu giáp lai",
+            //   font1,
+            //      new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //      18, height);
             height += 10;
-            page.Canvas.DrawString("lên ảnh",
-             font1,
-                new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                18, height);
+            //page.Canvas.DrawString("lên ảnh",
+            // font1,
+            //    new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //    18, height);
 
-            page.Canvas.DrawString("\t\t\t\t(*)",
-            font1,
-               new PdfSolidBrush(Color.FromArgb(245, 44, 44)),
-               14, height);
+            //page.Canvas.DrawString("\t\t\t\t(*)",
+            //font1,
+            //   new PdfSolidBrush(Color.FromArgb(245, 44, 44)),
+            //   14, height);
 
-            height += 45;
+            height += 15;
 
 
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 13f, FontStyle.Bold), true);
@@ -1168,11 +1161,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             page.Canvas.DrawString("2. Nam/Nữ:",
 font1,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-300, height);
+280, height);
             page.Canvas.DrawString((profile?.Sex==0?"Nam":"Nữ"),
 font2,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-370, height);
+350, height);
 
             height += 22;
             page.Canvas.DrawString("3. Ngày sinh:",
@@ -1188,11 +1181,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             page.Canvas.DrawString("4. Nơi sinh: ",
 font1,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-300, height);
+220, height);
             page.Canvas.DrawString($"{profile.FromBirthDay.ToLower()}",
 font2,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-370, height);
+290, height);
 
             height += 22;
             page.Canvas.DrawString("5. Số CMND/CCCD : ",
@@ -1229,24 +1222,29 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
 
 
             height += 25;
-            
-            page.Canvas.DrawString($"Ngày cấp:  {profile?.DateRange.Value.ToString("dd/MM/yyyy")}	\t\t\t\t\t\t Nơi cấp: {profile.AdressRange.ToLower()}	",
-   font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-      15, height);
+            PdfStringFormat format1 = new PdfStringFormat(PdfTextAlignment.Left);
+            page.Canvas.DrawString($"Ngày cấp:  {profile?.DateRange.Value.ToString("dd/MM/yyyy")}	\t\t Nơi cấp: {profile.AdressRange.Trim()}	",
+   font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)), new RectangleF(15, height, 470, height), format1);
 
-            height += 22;
-            page.Canvas.DrawString("6. Địa chỉ liên hệ: ",
+            height += 30;
+            page.Canvas.DrawString($"6. Địa chỉ liên hệ:",
        font1,
           new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
           0, height);
+    
+            page.Canvas.DrawString(profile.FromTelePhone, font2, new PdfSolidBrush(Color.FromArgb(25, 25, 112)), new RectangleF(97, height, 405, height), format1);
 
-            page.Canvas.DrawString($" {profile.FromTelePhone} ",
-     font2,
-        new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-       100, height);
+     //       page.Canvas.DrawString($" {profile.FromTelePhone} ",
+     //font2,
+     //   new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+     //  95, height);
 
 
-            height += 22;
+            height += 35;
+            //if(profile.FromTelePhone.Split(" ").Count() > 18)
+            //{
+            //    height += 15;
+            //}
             page.Canvas.DrawString("7. Điện thoại di động:  ",
        font1,
           new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
@@ -1260,11 +1258,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             page.Canvas.DrawString("8. Email: ",
 font1,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-300, height);
+270, height);
             page.Canvas.DrawString($" {profile.Email.ToLower()} ",
 font2,
 new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-360, height);
+320, height);
 
 
 
@@ -1483,7 +1481,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             height += 22;
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 12f, FontStyle.Italic), true);
             string text = $"\t Số báo danh thi đánh giá năng lực:{profile.Identification} 	\t Điểm thi:\t {Math.Round(profile.Mark.Value, 2)}";
-            PdfStringFormat format1 = new PdfStringFormat(PdfTextAlignment.Left);
+             format1 = new PdfStringFormat(PdfTextAlignment.Left);
             page.Canvas.DrawString(text, font1, new PdfSolidBrush(Color.FromArgb(25, 25, 112)), new RectangleF(0, height, 500, height), format1);
             height += 22;
             text = " Sau khi tìm hiểu các quy định về tiêu chí và điều kiện xét tuyển của Nhà trường, tôi đăng ký xét tuyển vào trình độ Đại học: ";
@@ -1560,11 +1558,11 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                            font1,
                               new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                               350, height);
-            height += 15;
-            page.Canvas.DrawString("(Ký tên, ghi rõ họ tên)",
-                       font2,
-                          new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
-                          375, height);
+            //height += 15;
+            //page.Canvas.DrawString("(Ký tên, ghi rõ họ tên)",
+            //           font2,
+            //              new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
+            //              375, height);
             height += 55;
 
             font1 = new PdfTrueTypeFont(new Font("Times New Roman", 12f), true);
@@ -1591,40 +1589,58 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
               //  var School = await _context.Schools.ToListAsync();
                 var Major = await _context.Majors.ToListAsync();
                 var Block = await _context.Blocks.ToListAsync();
+                var School = await _context.Schools.ToListAsync();
                 int i = 0;
                 if (admisstion.Type == 2)
                 {
                     var result = (from p in Profile
                                   join I in ProfileInfor on p.id equals I.idProfile
+                                   
+                                  
                                   select new
                                   {
                                       STT = (++i),
                                       So_BD = "",
                                       HO_TEN = p.Name.ToLower(),
-                                      NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy")??""),
-                                      Gioi_Tinh=(p.Sex==1?"Name":"Nữ"),
+                                      NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
+                                      Gioi_Tinh = (p.Sex == 1 ? "Name" : "Nữ"),
                                       SO_CMND = p.CMND,
-                                      NGAY_CAP=(p?.DateRange.Value.ToString("dd/MM/yyyy")??""),
-                                      DAN_TOC=p.Nation,
-                                      SĐT =p.Teletephone,
-                                      EMAIL=p.Email,
-                                      DIA_CHI =p.Adress,
-                                      NOI_Sinh=p.FromBirthDay,
+                                      NGAY_CAP = (p?.DateRange.Value.ToString("dd/MM/yyyy") ?? ""),
+                                      DAN_TOC = p.Nation,
+                                      SĐT = p.Teletephone,
+                                      EMAIL = p.Email,
+                                      DIA_CHI = p.Adress,
+                                      NOI_Sinh = p.FromBirthDay,
                                       KHU_VUC = p.Areas,
-                                      DOI_TUONG = (p.Priority_object != null ? p.Priority_object : ""), 
+                                      LOP10= School.FirstOrDefault(x=>x.id==p.Shoo1)?.NameShool??"",
+                                      Ma_TruongLop10 = School.FirstOrDefault(x => x.id == p.Shoo1)?.idShool ?? "",
+                                      Ma_TinhLop10 = School.FirstOrDefault(x => x.id == p.Shoo1)?.idConscious ?? "",
+
+                                      LOP11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.NameShool ?? "",
+                                      Ma_TruongLop11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.idShool ?? "",
+                                      Ma_TinhLop11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.idConscious ?? "",
+
+                                      LOP12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.NameShool ?? "",
+                                      Ma_TruongLop12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.idShool ?? "",
+                                      Ma_TinhLop12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.idConscious ?? "",
+                                     
+                                      DOI_TUONG = (p.Priority_object != null ? p.Priority_object : ""),
                                       THUTU_NV = I.STT,
                                       MA_NGANH = I.idMajor,
                                       TEN_NGANH = Major.FirstOrDefault(x => x.id.Trim().Equals(I.idMajor)).Name,
-                                      MA_TOHOPMON = (I?.idBlock??""),
-                                      TEN_TOHOPMON = Block.FirstOrDefault(x => x.id.Trim().Equals(I.idBlock.Trim()))?.Desscription??"",
+                                      MA_TOHOPMON = (I?.idBlock ?? ""),
+                                      TEN_TOHOPMON = Block.FirstOrDefault(x => x.id.Trim().Equals(I.idBlock.Trim()))?.Desscription ?? "",
+                                      TINH_TRANG = (p.Statust == 1 ? "Chưa duyệt" : p.Statust == 2 ? "Đã duyệt" : p.Statust == 3 ? "Yêu cầu chỉnh sủa" : p.Statust == 4 ? "Đã cập nhật" : "Đã hủy"),
                                       L10_Mon1 = I.subject1,
-                                      L10_Mon2 = I.subject2,
-                                      L10_Mon3 = I.subject3,
-                                      L11_Mon1 = I.subject4,
+                                      L10_Mon2 = I.subject4,
+                                      L10_Mon3 = I.subject7,
+
+                                      L11_Mon1 = I.subject2,
                                       L11_Mon2 = I.subject5,
-                                      L11_Mon3 = I.subject6,
-                                      L12_Mon1 = I.subject7,
-                                      L12_Mon2 = I.subject8,
+                                      L11_Mon3 = I.subject8,
+
+                                      L12_Mon1 = I.subject3,
+                                      L12_Mon2 = I.subject6,
                                       L12_Mon3 = I.subject9,
                                   }).ToList();
                     i = 0;
@@ -1677,12 +1693,25 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                       DIA_CHI = p.Adress,
                                       NOI_Sinh = p.FromBirthDay,
                                       KHU_VUC = p.Areas,
+                                      LOP10 = School.FirstOrDefault(x => x.id == p.Shoo1)?.NameShool ?? "",
+                                      Ma_TruongLop10 = School.FirstOrDefault(x => x.id == p.Shoo1)?.idShool ?? "",
+                                      Ma_TinhLop10 = School.FirstOrDefault(x => x.id == p.Shoo1)?.idConscious ?? "",
+
+                                      LOP11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.NameShool ?? "",
+                                      Ma_TruongLop11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.idShool ?? "",
+                                      Ma_TinhLop11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.idConscious ?? "",
+
+                                      LOP12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.NameShool ?? "",
+                                      Ma_TruongLop12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.idShool ?? "",
+                                      Ma_TinhLop12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.idConscious ?? "",
+
                                       DOI_TUONG = (p.Priority_object != null ? p.Priority_object : ""),
                                       THUTU_NV = I.STT,
                                       MA_NGANH = I.idMajor,
                                       TEN_NGANH = Major.FirstOrDefault(x => x.id.Trim().Equals(I.idMajor)).Name,
-                            
-                                     TONG_DIEM=p.Mark
+                                      TINH_TRANG = (p.Statust == 1 ? "Chưa duyệt" : p.Statust == 2 ? "Đã duyệt" : p.Statust == 3 ? "Yêu cầu chỉnh sủa" : p.Statust == 4 ? "Đã cập nhật" : "Đã hủy"), 
+                                      TONG_DIEM =p.Mark
+                                      
                                   }).ToList();
                     try
                     {
@@ -1698,7 +1727,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                         ws.DefaultRowHeight = 12;
                         ws.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                         ws.Row(1).Style.Font.Bold = true;
-                        for (int j = 1; j < 10; j++)
+                        for (int j = 1; j < 18; j++)
                         {
                             ws.Column(j).Width = 18;
                         }

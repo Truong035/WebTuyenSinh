@@ -55,7 +55,7 @@ namespace WebTuyenSinhClient.Email
                 client.Send(mailMessage);
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 // log exception
             }

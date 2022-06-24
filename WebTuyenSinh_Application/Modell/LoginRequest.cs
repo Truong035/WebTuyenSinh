@@ -15,4 +15,6 @@ namespace WebTuyenSinh_Application.Modell
         public string Password { get; set; }
         public bool Remember { get; set; }
     }
+
+
 }
