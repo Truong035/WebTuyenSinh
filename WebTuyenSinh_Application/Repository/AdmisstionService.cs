@@ -155,21 +155,23 @@ namespace WebTuyenSinh_Application.Repository
                 {
                     return new ApiResult() { Success = false, Message = "Không tìm thấy", Data = null };
                 }
-                var Profile = _context.ProfileStudents.Where(x => x.idAdmisstion == id);
-                if (Profile.Count() > 0)
-                {
-                    return new ApiResult() { Success = false, Message = "Đợt tuyển sinh này đã có hồ sơ gửi vào không thể xóa ", Data = null };
-                }
+                //var Profile = _context.ProfileStudents.Where(x => x.idAdmisstion == id);
+                //if (Profile.Count() > 0)
+                //{
+                //    return new ApiResult() { Success = false, Message = "Đợt tuyển sinh này đã có hồ sơ gửi vào không thể xóa ", Data = null };
+                //}
 
-                // admisstion.Delete = true;
-                // await _context.SaveChangesAsync();
-                // var path1 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Admisstion/" + admisstion.id);
+                 admisstion.Delete = true;
+               await _context.SaveChangesAsync();
+                try { var path1 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Admisstion/" + admisstion.id); DirectoryInfo directory = new DirectoryInfo(path1);
 
-                // 2.Khai báo một thể hiện của lớp DirectoryInfo
-                //DirectoryInfo directory = new DirectoryInfo(path1);
+                    //  3.Xóa thư mục bằng cách sử dụng phương thức Delete
+                    directory.Delete(true);
+                } catch { }
+             
 
-                // 3.Xóa thư mục bằng cách sử dụng phương thức Delete
-                // directory.Delete(true);
+               // 2.Khai báo một thể hiện của lớp DirectoryInfo
+              
                 return new ApiResult() { Success = true, Message = "Xóa thành công", Data = admisstion };
             } catch (Exception e) {
                 return new ApiResult() { Success = false, Message = "Lỗi server"+e.Message, Data = admisstion };
@@ -697,7 +699,7 @@ namespace WebTuyenSinh_Application.Repository
                     ProfileStudents.CloseTime = DateTime.Now;
                 }
                 await _context.SaveChangesAsync();
-                if (status == 2 && comment!=null&&comment.Length>0)
+                if (( status == 2 || status==3) && comment!=null&&comment.Length>0)
                 {
                     mess=   new EmailHelper().SendEmail(ProfileStudents.Email, comment, "Thông Báo Từ Đại học giao thông vận tải");
                 }
@@ -895,7 +897,7 @@ namespace WebTuyenSinh_Application.Repository
                 List< InforMationProflie> inforMations = new List<InforMationProflie>();
             foreach (var item in profile.InforMationProflies)
             {
-                if (!inforMations.Exists(x => x.idMajor.Trim().Equals(item.idMajor.Trim()) && (admisstion.Type==1 ||x.idBlock.Trim().Equals(item.idBlock.Trim()))))
+                if (!inforMations.Exists(x => x.idMajor.Trim().Equals(item.idMajor.Trim()) && (x.idBlock.Trim().Equals(item.idBlock.Trim()))))
                 { 
                     inforMations.Add(new InforMationProflie() { 
                     idBlock=item.idBlock,
@@ -1388,42 +1390,177 @@ namespace WebTuyenSinh_Application.Repository
           
         }
 
-        public async Task<ApiResult> ImportExcel(long? id,List<ImPortExcelTypeOne> imPort)
+        public async Task<ApiResult> ImportExcel(long? id,List<ImPortExcel> imPort)
         {
-            string inputDir = "";
-          
-            var profile =await _context.ProfileStudents?.Where(x => x.idAdmisstion == id  )?.ToListAsync();
-            var ProfileInfo= await _context.InforMationProflies.ToListAsync();
-            var Majors = await _context.Majors.ToListAsync();
-            int i = 0;
-            var dataUpdate = (from I in ProfileInfo
-                              join E in imPort on I.idMajor.Trim() equals E.MA_NGANH.Trim()
-                              join p in profile on I.idProfile equals p.id
-                              join M in Majors on I.idMajor.Trim() equals M.id.Trim()
-                              select new
-                              {
-                                  I.id,
-                                  So_BD = p.Identification,
-                                  HO_TEN = p.Name.ToLower(),
-                                  NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
-                                  Gioi_Tinh = (p.Sex == 1 ? "Name" : "Nữ"),
-                                  SO_CMND = p.CMND,
-                                  NGAY_CAP = (p?.DateRange.Value.ToString("dd/MM/yyyy") ?? ""),
-                                  DAN_TOC = p.Nation,
-                                  SĐT = p.Teletephone,
-                                  EMAIL = p.Email,
-                                  DIA_CHI = p.Adress,
-                                  NOI_Sinh = p.FromBirthDay,
-                                  KHU_VUC = p.Areas,
-                                  DOI_TUONG = (p.Priority_object != null ? p.Priority_object : ""),
-                                  THUTU_NV = I.STT,
-                                  MA_NGANH = I.idMajor,
-                                  TEN_NGANH = M.Name,
-                                  DIEM =p.Mark
+            try {
+                Admisstion admisstion = await _context.Admisstions.FirstOrDefaultAsync(x=>x.id==id);
+                if (admisstion != null)
+                {
+                    var profile = await _context.ProfileStudents?.Where(x => x.idAdmisstion == id && imPort.Select(k=>k.CMND.Trim()).Contains(x.CMND.Trim()))?.ToListAsync();
+                    var ProfileInfo = await _context.InforMationProflies.ToListAsync();
+                    var Majors = await _context.Majors.ToListAsync();
+                    int i = 0;
+                    if (admisstion.Type == 1)
+                    {
+                        var dataUpdate = (from I in ProfileInfo
+                                          join E in imPort on I.idMajor.Trim() equals E.MA_NGANH.Trim()
+                                          join p in profile on I.idProfile equals p.id
 
-                              }).Distinct();                        
-                              ;
-            return new ApiResult() { Success = true, Message = "Không tìm thấy", Data = dataUpdate };
+                                          join M in Majors on I.idMajor.Trim() equals M.id.Trim()
+                                          select new
+                                          {
+                                              I.id,
+                                              So_BD = p.Identification,
+                                              HO_TEN = p.Name.ToLower(),
+                                              NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
+                                              Gioi_Tinh = (p.Sex == 1 ? "Name" : "Nữ"),
+                                              SO_CMND = p.CMND,
+                                              NGAY_CAP = (p?.DateRange.Value.ToString("dd/MM/yyyy") ?? ""),
+                                              DAN_TOC = p.Nation,
+                                              SĐT = p.Teletephone,
+                                              EMAIL = p.Email,
+                                              DIA_CHI = p.Adress,
+                                              NOI_Sinh = p.FromBirthDay,
+                                              KHU_VUC = p.Areas,
+                                              DOI_TUONG = (p.Priority_object != null ? p.Priority_object : ""),
+                                              THUTU_NV = I.STT,
+                                              MA_NGANH = I.idMajor,
+                                              TEN_NGANH = M.Name,
+                                              DIEM = p.Mark,
+                                                 MA_TOHOPMON = ""
+
+
+                                          }).Distinct();
+                        ;
+                        return new ApiResult() { Success = true, Message = "Thông tin trả về", Data = dataUpdate };
+                    }
+                    if (admisstion.Type == 2)
+                    {
+                        ProfileInfo = ProfileInfo.Where(x => x.idBlock != null).ToList();
+                        var dataUpdate = (from I in ProfileInfo
+                                          join E in imPort on I.idMajor.Trim() equals E.MA_NGANH.Trim()
+                                          join imPort1 in imPort on I.idBlock.Trim() equals imPort1.TO_HOP.Trim()
+
+                                          join p in profile on I.idProfile equals p.id
+                                          join M in Majors on I.idMajor.Trim() equals M.id.Trim()
+                                          select new
+                                          {
+                                              I.id,
+                                              So_BD ="",
+                                              HO_TEN = p.Name.ToLower(),
+                                              NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
+                                              Gioi_Tinh = (p.Sex == 1 ? "Name" : "Nữ"),
+                                              SO_CMND = p.CMND,
+                                              NGAY_CAP = (p?.DateRange.Value.ToString("dd/MM/yyyy") ?? ""),
+                                              DAN_TOC = p.Nation,
+                                              SĐT = p.Teletephone,
+                                              EMAIL = p.Email,
+                                              DIA_CHI = p.Adress,
+                                              NOI_Sinh = p.FromBirthDay,
+                                              KHU_VUC = p.Areas,
+                                              DOI_TUONG = (p.Priority_object != null ? p.Priority_object : ""),
+                                              THUTU_NV = I.STT,
+                                              MA_NGANH = I.idMajor,
+                                              TEN_NGANH = M.Name,
+                                              MA_TOHOPMON = I.idBlock.Trim()
+
+
+
+                                          }).Distinct();
+                        return new ApiResult() { Success = true, Message = "Thông tin trả về", Data = dataUpdate };
+                    }
+                    
+
+                }
+                return new ApiResult() { Success = false, Message = "Không tìm thấy đợt tuyển sinh ", Data = null };
+
+            } catch {
+                return new ApiResult() { Success = false, Message = "Lỗi server", Data = "" };
+            }
+          
+           
+        }
+
+        public async Task<ApiResult> SaveResultProFile(long id, List<long> ListId ,string link)
+        {
+            try
+            {
+                if (ListId != null)
+                {
+               
+                        var profile = await _context.ProfileStudents?.Where(x => x.idAdmisstion == id).ToListAsync();
+                        var Iprofile = await _context.InforMationProflies.Where(x=>x.idProfile!=null && profile.Select(x => x.id).Contains(x.idProfile.Value)).ToListAsync();
+                    List<string> Email = new List<string>();
+                        foreach (var item in Iprofile)
+                        {
+                        try {
+
+                            if (ListId.ToList().Contains(item.id))
+                            {
+                            
+                                    item.Statust = true;
+                                Email.Add(profile.FirstOrDefault(x => x.id == item.idProfile).Email);
+                            }
+                            else
+                            {
+                                item.Statust = false;
+                            }
+                        } catch { }
+                            
+
+                        };
+                        _context.SaveChanges();
+
+                    new EmailHelper().NotifyMail(Email.Distinct().ToList(), "<p>Bạn đã trúng tuyển và Trường Đại Học Giao Thông Vận Tại Phân Hiệu Tại TP.Hồ Chí Minh</p>" +
+                        "Vui lòng truy cập <a href =" + link + " > Click vào đây </a> để biết thông tin chi tiết " +
+                        " ", "Thông Báo Từ Đại học giao thông vận tải");
+                }
+           
+                return new ApiResult() { Success = true, Message = "Thành công", Data = "" };
+                
+            
+            } catch {
+                return new ApiResult() { Success = false, Message = "Lỗi server", Data = "" };
+    }
+}
+
+        public async Task<ApiResult> GetNotifyProfileSuccess(string uid)
+        {
+            if (uid == null)
+            {
+                return new ApiResult() { Success = false, Message = "ID không đc bỏ trống ", Data = null };
+            }
+            await CheckProFile();
+            var Admisstion = _context.Admisstions.Where(x => x.Delete != true).ToList();
+            var profile = _context.ProfileStudents.Where(x => x.idAccount.Trim().Equals(uid.Trim()) && x.Statust != 0).ToList();
+            var profileInfo = _context.InforMationProflies.Where(x =>  x.Statust ==true).ToList();
+            var Majors = _context.Majors.Where(x => x.delete!= true).ToList();
+            
+            var listinfor = (from s in profile
+                             join a in Admisstion on s.idAdmisstion equals a.id
+                             join i in profileInfo on s.id equals i.idProfile
+                             join M in Majors on i.idMajor.Trim() equals M.id.Trim()
+
+                             orderby s.CreateDate descending
+                          
+                             select new ProfileStudentsView
+                             {
+                                 id = s.id,
+                                 idAccount = s.idAccount,
+                                 idAdmisstion = s.idAdmisstion,
+                                 CreateDate = s.CreateDate,
+                                 Name = s.Name,
+                                 Email = s.Email,
+                                 Teletephone = s.Teletephone,
+                                 url = s.url,
+                                 CMND = s.CMND,
+                                 Statust = s.Statust,
+                                 Quantity = s.Quantity,
+                                 CloseTime = (s?.CloseTime),
+                                 AdmisstionName = a?.Name,
+                                 Major=M.Name,
+                             }).ToList();
+            return new ApiResult() { Success = true, Message = "Danh Sách Hồ Sơ", Data = listinfor };
         }
     }
 }

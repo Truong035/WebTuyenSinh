@@ -46,7 +46,7 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach (var item in Model)
+                                    @foreach (var item in Model.Where(X=>X.Statust!=3))
                                     {
                                     <tr>
 

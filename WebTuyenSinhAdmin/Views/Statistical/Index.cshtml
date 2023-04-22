@@ -1,8 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Admisstion>
 @{
+
 }
+@using WebTuyenSinh.Data.Entityes;
 <div class="content-wrapper">
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
@@ -45,6 +45,37 @@
                             </div>
 
                         </div>
+
+                        <div class="row d-flex">
+
+                            <div class=" col d-flex justify-content-center">
+                                <label for="staticEmail" class="col-form-label w-50">Đợt xét tuyển</label>
+                                <select id="idAdmisstion" name="idAdmisstion" class="form-control  form-control-sm">
+                                    <option value="">Tất cả</option>
+                                    @foreach (var item in Model)
+                                    {
+
+                                        <option value="@item.id">@item.Name</option>
+                                        
+                                    }
+
+                                </select>
+
+                            </div>
+                            <div class=" col  d-flex justify-content-center">
+                                <label for="staticEmail" class="col-form-label mr-2">Tình trạng</label>
+
+                                <select name="Statust"  class="col-6 form-control form-control-sm" id="Statust">
+                                    <option value="">Tất cả</option>
+                                    <option value="true">Đã trúng tuyển</option>
+                                    <option value="false">Chưa trúng tuyển</option>
+
+                                </select>
+
+
+                            </div>
+
+                        </div>
                     </form>
 
 
@@ -58,7 +89,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Nguyện Vọng 1</h4>
-                    <div id="piechartOne"  style="height:300px"></div>
+                    <div id="piechartOne" style="height:300px"></div>
                 </div>
             </div>
         </div>
@@ -66,7 +97,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Nguyện Vọng 2</h4>
-                    <div id="piechartTwo"  style="height:300px"></div>
+                    <div id="piechartTwo" style="height:300px"></div>
                 </div>
             </div>
         </div>
@@ -75,24 +106,24 @@
             <div class="card">
 
                 <h4 class="card-title p-2">Nguyện Vọng 3</h4>
-                <div id="piechartThree"  style="height:300px"></div>
+                <div id="piechartThree" style="height:300px"></div>
                 @*<canvas id="pieChartThree"></canvas>*@
+            </div>
         </div>
-    </div>
         <div class="col-lg-6 mt-3 ">
             <div class="card">
-              
-                    <h4 class="card-title p-2">Nguyện Vọng 4</h4>
-                    <div id="piechartwishFor" style="height:300px"></div>
-                    @*<canvas id="pieChartThree"></canvas>*@
 
-              
+                <h4 class="card-title p-2">Nguyện Vọng 4</h4>
+                <div id="piechartwishFor" style="height:300px"></div>
+                @*<canvas id="pieChartThree"></canvas>*@
+
+
             </div>
         </div>
     </div>
     <div class="card mb-3">
         <div class="row ">
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Thông kê theo đợt tuyển sinh</h4>
@@ -100,7 +131,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 grid-margin stretch-card">
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Thông kê theo đợt tuyển sinh</h4>
@@ -133,7 +164,17 @@
     </div>
     <div class="card mb-3">
         <div class="row ">
-            <div class="col-lg-5 grid-margin stretch-card">
+
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Thông kê theo ngành</h4>
+                        <canvas id="areaChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Thông kê theo ngành</h4>
@@ -158,15 +199,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-7 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Thông kê theo ngành</h4>
-                        <canvas id="areaChart"></canvas>
-                    </div>
-                </div>
-
             </div>
         </div>
 
@@ -221,21 +253,26 @@
     google.charts.setOnLoadCallback(drawChart);
     let Data;
     function drawChart() {
-            var textfrom = getParameterByName('textfrom'); // "lorem"
+        var textfrom = getParameterByName('textfrom'); // "lorem"
         var textTo = getParameterByName('textTo'); // "" (present with empty value)
         var txtType = getParameterByName('txtType'); // "" (present with no value)
         var idMajor = getParameterByName('major');
-
-
+        var idAdmisstion = getParameterByName('idAdmisstion');
+        var Statust = getParameterByName('Statust');
         $.ajax({
             async: false,
             url: "/Statistical/Statistical",
             type: 'GET',
-            data: { fromDate: textfrom, toDate: textTo, Type: txtType, idMajor: idMajor }
+            data: {
+                fromDate: textfrom, toDate: textTo, Type: txtType, idMajor: idMajor,
+                idAdmisstion: idAdmisstion,
+                Statust: Statust
+
+            }
         }).done(function (res) {
             // console.log(res)
             //  LoadData(res)
-            Data= res;
+            Data = res;
         });
 
 
@@ -245,15 +282,16 @@
             type: 'GET',
         }).done(function (res) {
             if (res.success) {
-                //  LoadMajor(res.data);
+                LoadMajor(res.data);
             }
-
         });
         console.log(Data);
         $("#textfrom").val(textfrom);
         $("#textTo").val(textTo);
         $("#txtType").val(txtType);
         $("#major").val(idMajor);
+        $("#idAdmisstion").val(idAdmisstion);
+        $("#Statust").val(Statust);
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Pizza');
         data.addColumn('number', 'Populartiy');
@@ -269,7 +307,7 @@
         options = {
             pieHole: 0.4,
 
-           // is3D: true,
+            // is3D: true,
         };
         data = new google.visualization.DataTable();
         data.addColumn('string', 'Pizza');

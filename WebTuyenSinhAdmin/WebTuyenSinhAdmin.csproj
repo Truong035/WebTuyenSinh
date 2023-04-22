@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Admisstion\" />
-    <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\Profile\" />
   </ItemGroup>
 

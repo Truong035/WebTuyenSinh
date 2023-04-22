@@ -38,7 +38,11 @@ namespace WebTuyenSinh_Application.Interface
         public Task<ApiResult> CheckProFile(long id, string uid);
         public Task<ApiResult> GetAllProFileStudent(string uid);
         public Task<ApiResult> DowloadFile(long? id,int type);
-        public Task<ApiResult> ImportExcel(long? id, List<ImPortExcelTypeOne>  imPort);
+        public Task<ApiResult> ImportExcel(long? id, List<ImPortExcel>  imPort);
+        public Task<ApiResult> SaveResultProFile(long id, List<long> ListId, string link);
+
+        public Task<ApiResult> GetNotifyProfileSuccess(string uid);
+
 
     }
 }

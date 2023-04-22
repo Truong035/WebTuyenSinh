@@ -18,10 +18,15 @@ namespace WebTuyenSinh_Application.Repository
             _context = context;
         }
 
-        public  async Task<Statistical> Statistical(DateTime? fromDate, DateTime? toDate, int? Type, string idMajor)
+        public  async Task<Statistical> Statistical(DateTime? fromDate, DateTime? toDate, int? Type, string idMajor,long? idAdmisstion, bool? Statust)
         {
             var admisstion = await _context.Admisstions.Where(x => x.CreateDate != null && x.Delete != true && x.Statust != 0).ToListAsync();
 
+            if (idAdmisstion != null)
+            {
+                admisstion= admisstion.Where(x => x.id == idAdmisstion).ToList();
+            }
+         
      
 
             if (Type != null) admisstion= admisstion.Where(x => x.Type==Type).ToList();
@@ -32,7 +37,11 @@ namespace WebTuyenSinh_Application.Repository
             
                 ProfileInfor = ProfileInfor.Where(x => x.idMajor.Trim().Equals(idMajor.Trim())).ToList();
                     }
-            var Profile = await _context.ProfileStudents.ToListAsync();
+            if (Statust != null)
+            {
+                ProfileInfor = ProfileInfor.Where(x => x.Statust== Statust).ToList();
+            }
+            var Profile = await _context.ProfileStudents.Where(x=>x.Statust!=0 ).ToListAsync();
 
             if (fromDate != null && toDate != null) Profile = Profile.Where(x => x.CreateDate.Value.Date >= fromDate.Value.Date && x.CreateDate.Value.Date <= toDate.Value.Date && x.Statust>0).ToList();
             var Major = await _context.Majors.ToListAsync();
@@ -63,7 +72,7 @@ namespace WebTuyenSinh_Application.Repository
                 Data= gr
             };
           var   grYear = (from c in data
-                      group data by new { c.Name, c.CreateDate.Value.Year } into g
+                      group data by new { c.CreateDate.Value.Year } into g
                       select new
                       {
                        name= ""+ g.Key.Year,
@@ -175,9 +184,7 @@ namespace WebTuyenSinh_Application.Repository
         public async Task<StatisticalHome> StatisticalHome(long? idAdmisstion)
         {
             var admisstion = await _context.Admisstions.Where(x=>x.CreateDate!=null &&x.Delete!=true && x.Statust!=0).OrderByDescending(x=>x.id).ToListAsync();
-            var admisstionInfo = await _context.Admisstion_Major.ToListAsync();
-            var ProfileInfor = await _context.InforMationProflies.ToListAsync();
-            var ProfileStudents = await _context.ProfileStudents.Where(x=>x.Statust!=0 && x.idAdmisstion==idAdmisstion).ToListAsync();
+           
             if (idAdmisstion == null)
             {
                 idAdmisstion = (admisstion.FirstOrDefault() != null ? admisstion.FirstOrDefault().id : 0);
@@ -187,6 +194,9 @@ namespace WebTuyenSinh_Application.Repository
                 return new StatisticalHome();
 
             }
+            var admisstionInfo = await _context.Admisstion_Major.ToListAsync();
+            var ProfileInfor = await _context.InforMationProflies.ToListAsync();
+            var ProfileStudents = await _context.ProfileStudents.Where(x => x.Statust != 0 && x.idAdmisstion == idAdmisstion).ToListAsync();
 
             var Major = await _context.Majors.ToListAsync();
             var data = (

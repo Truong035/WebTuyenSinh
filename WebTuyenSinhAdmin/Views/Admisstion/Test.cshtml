@@ -466,32 +466,32 @@
 
                                     foreach (var item in Model.Data.InforMationProflies)
                                     {
-                                        <tr>
+                                            <tr>
 
-                                            <td>
+                                                <td>
 
-                                                <select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
-                                                    <option value="">Chọn Ngành</option>
-                                                    @foreach (var item1 in data.Admisstion_Major)
+                                                    <select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+                                                        <option value="">Chọn Ngành</option>
+                                                        @foreach (var item1 in data.Admisstion_Major)
                                                     {
                                                         if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
                                                         {
-                                                            <option value="@item.idMajor" selected>@item1.Major.Name</option>
+                                                                <option value="@item.idMajor" selected>@item1.Major.Name</option>
                                                         }
                                                         else
                                                         {
-                                                            <option value="@item.idMajor">@item1.Major.Name</option>
+                                                                <option value="@item.idMajor">@item1.Major.Name</option>
                                                         }
 
                                                     }
 
 
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class=" form-select form-select-sm block" required aria-label=".form-select-sm example">
 
-                                                    @foreach (var item1 in data.Admisstion_Major)
+                                                        @foreach (var item1 in data.Admisstion_Major)
                                                     {
                                                         if (item.idMajor.Trim().Equals(item1.idMajor.Trim()))
                                                         {
@@ -499,11 +499,11 @@
                                                             {
                                                                 if (item.idBlock.Trim().Equals(item2.idBlock.Trim()))
                                                                 {
-                                                                    <option value="@item.idBlock" selected>@item.idBlock</option>
+                                                                        <option value="@item.idBlock" selected>@item.idBlock</option>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <option value="@item2.idBlock">@item2.idBlock</option>
+                                                                        <option value="@item2.idBlock">@item2.idBlock</option>
                                                                 }
                                                             }
 
@@ -511,27 +511,33 @@
 
                                                     }
 
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
-                                            <td><input type="text" class="subject2" required value="@item.subject2" /></td>
-                                            <td><input type="text" class="subject3" required value="@item.subject3" /></td>
-                                            <td><input type="text" class="subject4" required value="@item.subject4" /></td>
-                                            <td><input type="text" class="subject5" required value="@item.subject5" /></td>
-                                            <td><input type="text" class="subject6" required value="@item.subject6" /></td>
-                                            <td><input type="text" class="subject7" required value="@item.subject7" /></td>
-                                            <td><input type="text" class="subject8" required value="@item.subject8" /></td>
-                                            <td><input type="text" class="subject9" required value="@item.subject9" /></td>
-                                            <td>
+                                                    </select>
+                                                </td>
+                                                <td><input type="text" class="subject1" onchange="CheckMart(this)" required value="@item.subject1" /></td>
+                                                <td><input type="text" class="subject2" required value="@item.subject2" /></td>
+                                                <td><input type="text" class="subject3" required value="@item.subject3" /></td>
+                                                <td><input type="text" class="subject4" required value="@item.subject4" /></td>
+                                                <td><input type="text" class="subject5" required value="@item.subject5" /></td>
+                                                <td><input type="text" class="subject6" required value="@item.subject6" /></td>
+                                                <td><input type="text" class="subject7" required value="@item.subject7" /></td>
+                                                <td><input type="text" class="subject8" required value="@item.subject8" /></td>
+                                                <td><input type="text" class="subject9" required value="@item.subject9" /></td>
+                                                 <td>
                                                 <div class="form-button-action">
-
-                                                    <button style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
-                                                        <i class="ti-close"></i>
-                                                    </button>
+                                                    <input type="number" required value="@item.STT" />
                                                 </div>
                                             </td>
+                                                
+                                                <td>
+                                                    <div class="form-button-action">
 
-                                        </tr>
+                                                        <button style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                            <i class="ti-close"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
                                     } }
 
                             </tbody>
@@ -560,6 +566,24 @@
                             </div>
                         </div>
                     </div>*@
+                     <div class="row mt-4">
+                    <div class="c-12">
+                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
+                            <div class=" form-group ">
+                                <div class="">
+                                    <span style="font-size:13px;position: relative;  ">
+                                        <span style="color:red;position: absolute;top: -4px;">(*)</span>
+                                        <span style="margin-left: 15px;">: Chọn file ảnh hay file scan Phiếu đăng ký xét tuyển, Học bạ THPT, Các giấy tờ minh chứng được hưởng chế độ ưu tiên (nếu có)                         <button class="btn-primary ml-1" style="border:none" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button></span>
+                                    </span>
+                                   
+                                </div>
+
+                                <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class=" mt-2 form-group ml-5">
                     <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
@@ -634,6 +658,7 @@
     </form>
 </body>
 </html>
+
 @section Scripts{
     <script>
         let conscious = [];
@@ -641,7 +666,7 @@
         let sChool = [];
         let Profile;
         let blocks = [];
-        let majors = [];
+           let majors = []; let fileUrl = [];
         function CheckMart(e) {
             try {
                 var mark = $(e).val()
@@ -690,7 +715,17 @@
         }
 
         function LoadData() {
-            $("#admisstion0").select2();
+                var subject1 = $($('.subject1')[0]).val();
+            var subject2 = $($('.subject2')[0]).val();
+            var subject3 = $($('.subject3')[0]).val();
+            var subject4 = $($('.subject4')[0]).val();
+           var subject5 = $($('.subject5')[0]).val();
+           var subject6 = $($('.subject6')[0]).val();
+            var subject7 = $($('.subject7')[0]).val();
+             var subject8 = $($('.subject8')[0]).val();
+            var subject9 = $($('.subject9')[0]).val();
+            let tr = "";
+                  $("#admisstion0").select2();
             let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
                  <option value="">Chọn Ngành</option>`
             $.each(majors, function (k, v) {
@@ -700,7 +735,9 @@
             let selectblock = ` <select class=" form-select form-select-sm block" aria-label=".form-select-sm example">
 <option value="">Tổ Hợp </option>`
             selectblock += `</select>`
-            let tr = `  <tr>
+           if ((subject1 != undefined && subject1.length > 0) && (subject2 != undefined && subject2.length > 0) 
+            && (subject3 != undefined && subject3.length > 0) && (subject4 != undefined && subject4.length > 0)  ) {
+               tr = `  <tr>
 
                                                                 <td>
                                                                   ${selectmajor}
@@ -708,15 +745,21 @@
                                                                 <td>
                                                                    ${selectblock}
                                                                 </td>
-                                                                <td><input type="text" class="subject1" required value="" /></td>
-                                                            <td><input type="text" class="subject2" required value="" /></td>
-                                                            <td><input type="text" class="subject3" required value="" /></td>
-                                                            <td><input type="text" class="subject4" required value="" /></td>
-                                                            <td><input type="text" class="subject5" required value="" /></td>
-                                                            <td><input type="text" class="subject6" required value="" /></td>
-                                                            <td><input type="text" class="subject7" required value="" /></td>
-                                                            <td><input type="text" class="subject8" required value="" /></td>
-                                                            <td><input type="text" class="subject9" required value="" /></td>
+                                                           <td><input type="text"  onchange="CheckMart(this)" class="subject1" required value="`+subject1+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject2" required value="`+subject2+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject3" required value="`+subject3+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject4" required value="`+subject4+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject5" required value="`+subject5+`"/></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject6" required value="`+subject6+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject7" required value="`+subject7+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject8" required value="`+subject8+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject9" required value="`+subject9+`" /></td>
+                                                          
+                                                             <td>
+                                            <div class="form-button-action">
+                                                <input type="number" required value="1" />
+                                            </div>
+                                        </td>
                                                             <td>
                                                                 <div class="form-button-action">
 
@@ -728,6 +771,61 @@
 
                                                             </tr>`
 
+            
+            }
+
+       else if ($('.subject1').length == 0) { 
+                 let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+         <option value="">Chọn Ngành</option>`
+            $.each(majors, function (k, v) {
+                selectmajor += ` <option value="${v.idMajor}">${v.name}</option>`
+            });
+            selectmajor += `</select>`
+            let selectblock = ` <select class=" form-select form-select-sm block" aria-label=".form-select-sm example">
+<option value="">Mời chọn </option>`
+            selectblock += `</select>`
+           tr = `  <tr>
+
+                                                        <td>
+                                                          ${selectmajor}
+                                                        </td>
+                                                        <td>
+                                                           ${selectblock}
+                                                        </td>
+                                                        <td><input type="text"  onchange="CheckMart(this)" class="subject1" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject2" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject3" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject4" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject5" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject6" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject7" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject8" required value="" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject9" required value="" /></td>
+                                                    <td>
+                                            <div class="form-button-action">
+                                                <input type="number" required value="1" />
+                                            </div>
+                                        </td>
+                                                            <td>
+                                                                <div class="form-button-action">
+
+                                                                    <button hef="/DeleteShool" style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                                        <i class="ti-close"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+
+                                                    </tr>`
+
+            $("#tbbody").append(tr)
+            tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                    <i class="ti-plus"></i> +
+                                                                </button>
+                                                        </td>
+                                                    </tr>`
+            $("#tbbody").append(tr)
+                return;
+            }
             $("#tbbody").append(tr)
             tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
                                                                             <i class="ti-plus"></i>
@@ -803,28 +901,39 @@
                 }
             })
             var img1 = $('#file-upload-content');
-            $.each(Profile.fileProfiles, function (k, v) {
+             $.each(Profile.fileProfiles, function (k, v) {
+                fileUrl.push({
+                    url: v.url,
+                    name: v.name
+                });
                 if (v.url.endsWith("pdf")) {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                                <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+                    var let = `<div class="col-4 col-sm-2 text-center">
+        <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="/${v.url}" target="_blank" class="img-content">
 
-<span>${v.name}</span>
-                    </a>
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name" >${v.name}</span>
+        </a>
 </div>`;
                 }
                 else {
-                    var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                                <img src="/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
-               </a>
-                            </div>`;
+                    var let = `<div class="col-4 col-sm-2 text-center">
+    <button name="deleteImg"  id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="/${v.url}" target="_blank" class="img-content">
+
+                    <img src="/${v.url}"  class="img-thumbnail" alt="...">
+<span class="img-name" >${v.name}</span>
+   </a> 
+                </div>`;
                 }
+
+
                 $(img1).append(let);
             })
+      
             let = `<div class="col-2">
-<a href ="${Url + Profile.url}" target="_blank" >
+<a href ="${Profile.url}" target="_blank" >
                                     <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
                                </a> </div>`;
             $(img1).append(let);
@@ -835,6 +944,52 @@
         }
         $(document).ready(function () {
 
+                 $(document).on('click', "button[name = 'deleteImg']", function () {
+
+                let index = $(this).closest('button').attr("id")
+                console.log(index)
+                var filtered = fileUrl.filter(function (value, i, arr) {
+                    return i != index;
+                });
+
+                fileUrl = filtered;
+                console.log(fileUrl)
+           
+                var img = $('#file-upload-content');
+                img.empty();
+                var let = `<div class="col-4 col-sm-2  text-center">
+<a href ="/${Profile.url}" target="_blank" class="img-content">
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+               </a> </div>`;
+                $(img).append(let);
+                $.each(fileUrl, function (k, v) {
+
+                    if (v.url.endsWith("pdf")) {
+
+                        var let = `<div class="col-4 col-sm-2  text-center">
+ <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href =" /${v.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name">${v.name}</span>
+        </a>
+</div>`;
+                    }
+                    else {
+                        var let = `<div class="col-4 col-sm-2   text-center">
+ <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="/${v.url}" target="_blank" >
+                    <img src="/${v.url}"  class="img-thumbnail" alt="...">
+<span class="img-name" >${v.name}</span>
+   </a>
+                </div>`;
+                    }
+
+                    $(img).append(let);
+                });
+                       
+            });
+     
             let id = window.location.href.split('/').pop();
             $.ajax({
                 async: false,
@@ -934,6 +1089,7 @@
                         subject7: $(v).closest("tr").find("input:eq(6)").val().trim(),
                         subject8: $(v).closest("tr").find("input:eq(7)").val().trim(),
                         subject9: $(v).closest("tr").find("input:eq(8)").val().trim(),
+                         stt: $(v).closest("tr").find("input:eq(9)").val().trim(),
                     })
                 })
                 if ($("#checknam").prop("checked")) {
@@ -941,12 +1097,18 @@
                 } else {
                     Profile.sex = 1;
                 }
+                  if (fileUrl.length == 0) {
+                    $("#livefail").text("Vui lòng upload các giấy tờ cần thiết")
+                    $("#livefail").toast("show");
+                    return;
+                }
+
                 if (Profile) {
                     $.ajax({
                         async: false,
                         url: "/Admisstion/CreateProfile/",
                         type: 'POST',
-                        data: { Profile: Profile },
+                       data: { Profile: Profile, files: fileUrl },
 
                     }).done(function (data) {
                         console.log(data)
@@ -1131,6 +1293,65 @@
 
 
         });
+                function readURL(input) {
+            var fileUpload = $("#files").get(0);
+            var files = fileUpload.files;
+            var img = $('#file-upload-content');
+            // Create  a FormData object
+            var fileData = new FormData();
+
+            // if there are multiple files , loop through each files
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding more keys/values here if need
+      
+            $.ajax({
+                url: "/File/AddReplyDetails",
+                type: "POST", //as we will be posting files and other method POST is used
+                processData: false, //remember to set processData and ContentType to false, otherwise you may get an error
+                contentType: false,
+                dataType: "json",
+                data: fileData,
+                success: function (result) {
+                    let sl = fileUrl.length
+
+                    fileUrl = fileUrl.concat(result);
+                   
+                    $.each(result, function (k, v) {
+                        
+                        if (v.url.endsWith("pdf")) {
+
+                            var let = `<div class="col-4 col-sm-2 text-center">
+ <button name="deleteImg" id='${k+sl}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="/${v.url}" target="_blank" >
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name">${v.name}</span>
+        </a>
+</div>`;
+                        }
+                        else {
+                            var let = `<div class="col-4 col-sm-2 text-center">
+ <button name="deleteImg" id='${k + sl}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="/${v.url}" target="_blank" >
+                    <img src="/${v.url}"  class="img-thumbnail" alt="...">
+<span class="img-name">${v.name}</span>
+   </a>
+                </div>`;
+                        }
+
+                        $(img).append(let);
+                    });
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        }
+
+
         function myGreeting() {
             window.location = "/Admisstion/ListAll/" + Profile.idAdmisstion
         }

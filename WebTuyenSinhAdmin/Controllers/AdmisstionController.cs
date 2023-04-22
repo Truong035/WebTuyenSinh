@@ -587,10 +587,12 @@ namespace WebTuyenSinhAdmin.Controllers
                 if (check)
                 {
                     var data = JsonConvert.DeserializeObject<List
-                        <ImPortExcelTypeOne>>(str);
+                        <ImPortExcel>>(str);
 
+                   
                     var ApiResult = await _service.ImportExcel(id, data);
-                    return Ok(new ApiResult() { Data = ApiResult, Message = "Danh sách file import ", Success = true }); ;
+                    
+                    return Ok(new ApiResult() { Data = JsonConvert.SerializeObject(ApiResult), Message = "Danh sách file import ", Success = true }); ;
 
                 };
                 return Ok(new ApiResult() { Data = null, Message = "Bạn không được admin cấp quyền ", Success = false }); ;
@@ -599,6 +601,34 @@ namespace WebTuyenSinhAdmin.Controllers
             }
             catch (Exception e) { return Ok(new ApiResult() { Message = e.Message, Data = null, Success = false }); }
         }
-        
+        [HttpPost]
+        public async Task<IActionResult> SaveResultProFile(long id, List<long> ListId)
+        {
+            try
+            {
+                string cookie = Request.Cookies[UserContant.UseToken];
+                if (cookie == null || cookie.Length == 0)
+                {
+                    return RedirectToAction("Index", "Account");
+                }
+                var check = await _IValidateTokenService.ValidateToken(cookie, new List<long>() { PermisstionConTant.KD_HS, PermisstionConTant.QL_TS });
+                if (check)
+                {
+
+                    var link = "https://xettuyen.utc2.edu.vn/";
+                    var ApiResult = await _service.SaveResultProFile(id,ListId, link);
+
+                    return Ok(new ApiResult() { Data = ApiResult, Message = "Danh sách file import ", Success = true }); ;
+
+                };
+                return Ok(new ApiResult() { Data = null, Message = "Bạn không được admin cấp quyền ", Success = false }); ;
+
+
+            }
+            catch (Exception e) { return Ok(new ApiResult() { Message = e.Message, Data = null, Success = false }); }
+           
+        }
+            
+
     }
 }

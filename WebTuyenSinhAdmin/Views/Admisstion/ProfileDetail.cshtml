@@ -525,24 +525,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-4">
-                    <div class="col c-12">
-                        <div class="day-of-birth full-name-box d-flex" style="width:100%">
-                            <div class=" form-group ml-2">
-                                <div class="mr-3">
-                                    <span style="font-size:13px;position: relative;  ">
-                                        <span style="color:red;position: absolute;top: -4px;">(*)</span>
-                                        <span style="margin-left: 15px;">: Chỉ chọn file ảnh và file PDF </span>
-                                    </span>
-                                    <button class="btn btn-primary btn-sm btn-option ms-2" type="button" onclick="$('.addImg').trigger( 'click' )">Chọn FILE </button>
-                                </div>
-
-                                <input class="addImg" multiple id="files" hidden type='file' onchange="readURL(this);" accept="application/pdf,image/*" />
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class=" mt-4 form-group ms-4">
                     <div class=" card-body row file-upload-content" id="file-upload-content" name=btnanh style="margin-top:-2%">
 
@@ -815,26 +798,37 @@
 
            /* $(img).append(let)*/;
                 var img1 = $('#file-upload-content');
-                $.each(Profile.fileProfiles, function (k, v) {
-                    if (v.url.endsWith("pdf")) {
-                        var let = `<div class="col-2  text-center">
-<a ="${Url}/${v.url}" target="_blank" >
-                            <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+                 $.each(Profile.fileProfiles, function (k, v) {
+                fileUrl.push({
+                    url: v.url,
+                    name: v.name
+                });
+                if (v.url.endsWith("pdf")) {
+                    var let = `<div class="col-4 col-sm-2 text-center">
+        <button name="deleteImg" id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
 
-<span>${v.name}</span>
-                </a>
+                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+       
+<span class="img-name" >${v.name}</span>
+        </a>
 </div>`;
-                    }
-                    else {
-                        var let = `<div class="col-2  text-center">
-<a href ="${Url}/${v.url}" target="_blank" >
-                            <img src="/${v.url}"  class="img-thumbnail" alt="...">
-<span>${v.name}</span>
-           </a>
-                        </div>`;
-                    }
-                    $(img1).append(let);
-                })
+                }
+                else {
+                    var let = `<div class="col-4 col-sm-2 text-center">
+    <button name="deleteImg"  id='${k}' type="button" class="text-danger mr-auto" style="border:none"> X</button>
+<a href ="${Url}/${v.url}" target="_blank" class="img-content">
+
+                    <img src="${Url}/${v.url}"  class="img-thumbnail" alt="...">
+<span class="img-name" >${v.name}</span>
+   </a> 
+                </div>`;
+                }
+
+
+                $(img1).append(let);
+            })
+      
                 let = `<div class="col-2">
 <a href ="${Url + Profile.url}" target="_blank" >
                                 <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">

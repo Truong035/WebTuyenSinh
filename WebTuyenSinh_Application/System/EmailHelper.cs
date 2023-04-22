@@ -14,31 +14,63 @@ namespace WebTuyenSinh_Application.System
             MailMessage mailMessage = new MailMessage();
             mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
             mailMessage.To.Add(new MailAddress(userEmail));
-            mailMessage.Subject = Subject;
+
+            mailMessage.Subject = "Thông báo từ Trường Đại Học Giao Thông Vận Tải Phân Hiệu Tại TP.HCM";
             mailMessage.IsBodyHtml = true;
             mailMessage.Body = confirmationLink;
 
+            SmtpClient client = new SmtpClient();
+            client.Credentials = new NetworkCredential("info@rainpuddleslabradoodles.com", "Mydoodles!");
+            client.Host = "smtpout.secureserver.net";
+            client.Port = 80;
+
             try
             {
-                using (SmtpClient client = new SmtpClient("smtp.gmail.com"))
-                {
-                    client.Port = 587;
-                    // Tạo xác thực bằng địa chỉ gmail và password
-                    client.Credentials = new NetworkCredential("tmooquiz40@gmail.com", "0353573467");
-                    client.EnableSsl = true;
-                   client.Send(mailMessage);
-
-                }
-                return "";
+                client.Send(mailMessage);
+                return "Gửi mail thành công";
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.Message;
                 // log exception
+                return "Gửi mail thất bại";
             }
-          
 
         }
+
+
+        public string NotifyMail(List<string> userEmail, string confirmationLink, string Subject)
+        {
+       
+
+            try
+            {
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress("tmooquiz40@gmail.com");
+                foreach (var item in userEmail)
+                {
+                    mailMessage.To.Add(new MailAddress(item));
+
+                }
+
+                mailMessage.Subject = "Thông báo từ Trường Đại Học Giao Thông Vận Tải Phân Hiệu Tại TP.HCM";
+                mailMessage.IsBodyHtml = true;
+                mailMessage.Body = confirmationLink;
+
+                SmtpClient client = new SmtpClient();
+                client.Credentials = new NetworkCredential("info@rainpuddleslabradoodles.com", "Mydoodles!");
+                client.Host = "smtpout.secureserver.net";
+                client.Port = 80;
+                client.Send(mailMessage);
+                return "Gửi mail thành công";
+            }
+            catch
+            {
+                // log exception
+                return "Gửi mail thất bại";
+            }
+
+        }
+
 
 
         public bool SendEmailPasswordReset(string userEmail, string link)

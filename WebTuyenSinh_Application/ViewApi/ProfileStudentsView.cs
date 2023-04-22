@@ -47,5 +47,6 @@ namespace WebTuyenSinh_Application.ViewApi
         public string Dictrict3 { get; set; }
         public string Dictrict4 { get; set; }
         public string Dictrict5 { get; set; }
+        public string Major { get; set; }
     }
 }

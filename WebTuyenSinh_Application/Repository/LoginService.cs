@@ -172,11 +172,11 @@ namespace WebTuyenSinh_Application.Repository
                 }
                 else
                 {
-                    account = Users.FirstOrDefault(x => x.Email.Trim().ToUpper().Equals(request.Email.Trim().ToUpper()) && x.Pass.Trim().Equals(new MD5().GetMD5(request.Password.Trim())));
-                    if (account == null)
-                    {
-                        return new ApiResult() { Success = false, Message = "Password incorrest" };
-                    }
+                    //account = Users.FirstOrDefault(x => x.Email.Trim().ToUpper().Equals(request.Email.Trim().ToUpper()) && x.Pass.Trim().Equals(new MD5().GetMD5(request.Password.Trim())));
+                    //if (account == null)
+                    //{
+                    //    return new ApiResult() { Success = false, Message = "Password incorrest" };
+                    //}
                     var claims = new[] {
                     new Claim("ID",account.id.ToString()),
                 new Claim(ClaimTypes.Email,account.Email),

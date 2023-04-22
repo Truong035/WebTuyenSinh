@@ -697,26 +697,85 @@
             });
         }
 
-        function LoadData() {
-
+     function LoadData() {
+            let tr = "";
+            var subject1 = $($('.subject1')[0]).val();
+            var subject2 = $($('.subject2')[0]).val();
+            var subject3 = $($('.subject3')[0]).val();
+            var subject4 = $($('.subject4')[0]).val();
+           var subject5 = $($('.subject5')[0]).val();
+           var subject6 = $($('.subject6')[0]).val();
+            var subject7 = $($('.subject7')[0]).val();
+             var subject8 = $($('.subject8')[0]).val();
+                  var subject9 = $($('.subject9')[0]).val();
+            if ((subject1 != undefined && subject1.length > 0) && (subject2 != undefined && subject2.length > 0) 
+            && (subject3 != undefined && subject3.length > 0) && (subject4 != undefined && subject4.length > 0)  ) {
+                
             let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
-             <option value="">Chọn Ngành</option>`
+         <option value="">Chọn Ngành</option>`
             $.each(majors, function (k, v) {
                 selectmajor += ` <option value="${v.idMajor}">${v.name}</option>`
             });
             selectmajor += `</select>`
             let selectblock = ` <select class=" form-select form-select-sm block" aria-label=".form-select-sm example">
-<option value="">Mời chọn</option>`
+<option value="">Mời chọn </option>`
             selectblock += `</select>`
-            let tr = `  <tr>
+             tr = `  <tr>
 
-                                                            <td>
-                                                              ${selectmajor}
-                                                            </td>
-                                                            <td>
-                                                               ${selectblock}
-                                                            </td>
-                                                            <td><input type="text"  onchange="CheckMart(this)" class="subject1" required value="" /></td>
+                                                        <td>
+                                                          ${selectmajor}
+                                                        </td>
+                                                        <td>
+                                                           ${selectblock}
+                                                        </td>
+                                                        <td><input type="text"  onchange="CheckMart(this)" class="subject1" required value="`+subject1+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject2" required value="`+subject2+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject3" required value="`+subject3+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject4" required value="`+subject4+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject5" required value="`+subject5+`"/></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject6" required value="`+subject6+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject7" required value="`+subject7+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject8" required value="`+subject8+`" /></td>
+                                                    <td><input type="text"  onchange="CheckMart(this)" class="subject9" required value="`+subject9+`" /></td>
+                                                    <td class="delete-school">
+                                                        <div class="form-button-action">
+
+                                                            <button hef="/DeleteShool" style="border:none ;width:20ox;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"> x</i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+
+                                                    </tr>`
+
+            $("#tbbody").append(tr)
+            tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                    <i class="ti-plus"></i> +
+                                                                </button>
+                                                        </td>
+                                                    </tr>`
+            $("#tbbody").append(tr)
+                return;
+            }
+            else if ($('.subject1').length == 0) { 
+                 let selectmajor = `<select class=" form-select form-select-sm major" onchange="Option(this)" required aria-label=".form-select-sm example">
+         <option value="">Chọn Ngành</option>`
+            $.each(majors, function (k, v) {
+                selectmajor += ` <option value="${v.idMajor}">${v.name}</option>`
+            });
+            selectmajor += `</select>`
+            let selectblock = ` <select class=" form-select form-select-sm block" aria-label=".form-select-sm example">
+<option value="">Mời chọn </option>`
+            selectblock += `</select>`
+           tr = `  <tr>
+
+                                                        <td>
+                                                          ${selectmajor}
+                                                        </td>
+                                                        <td>
+                                                           ${selectblock}
+                                                        </td>
+                                                        <td><input type="text"  onchange="CheckMart(this)" class="subject1" required value="" /></td>
                                                     <td><input type="text"  onchange="CheckMart(this)" class="subject2" required value="" /></td>
                                                     <td><input type="text"  onchange="CheckMart(this)" class="subject3" required value="" /></td>
                                                     <td><input type="text"  onchange="CheckMart(this)" class="subject4" required value="" /></td>
@@ -725,24 +784,35 @@
                                                     <td><input type="text"  onchange="CheckMart(this)" class="subject7" required value="" /></td>
                                                     <td><input type="text"  onchange="CheckMart(this)" class="subject8" required value="" /></td>
                                                     <td><input type="text"  onchange="CheckMart(this)" class="subject9" required value="" /></td>
-                                                        <td>
+                                                    <td class="delete-school">
+                                                        <div class="form-button-action">
 
+                                                            <button hef="/DeleteShool" style="border:none ;width:20ox;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" data-original-title="Remove">
+                                                                <i class="ti-close"> x</i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
 
-                                                                <button  style="border:none ;height:20px;background-color:#ffffff" name="Delete" data-toggle="tooltip" title="" class="  btn-icon-text text-danger" >
-                                                                    <i class="ti-close"></i>x
-                                                                </button>
-
-                                                        </td>
-
-                                                        </tr>`
+                                                    </tr>`
 
             $("#tbbody").append(tr)
             tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
-                                                                        <i class="ti-plus">+</i> 
-                                                                    </button>
-                                                            </td>
-                                                        </tr>`
+                                                                    <i class="ti-plus"></i> +
+                                                                </button>
+                                                        </td>
+                                                    </tr>`
             $("#tbbody").append(tr)
+                return;
+            }
+                 tr = `  <tr>               <td>   <button type="button" id="" name="add" data-toggle="tooltip" title="" class="btn btn-sm  btn-icon-text text-primary  " data-original-title="Edit Task">
+                                                                    <i class="ti-plus"></i> +
+                                                                </button>
+                                                        </td>
+                                                    </tr>`
+            $("#tbbody").append(tr)
+                    $("#livefail").text("Vui lòng nhập đầy đủ thông tin nguyện vọng 1")
+                                $("#livefail").toast("show");
+
         }
 
         $(document).ready(function () {
@@ -1099,7 +1169,7 @@
                 if (v.url.endsWith("pdf")) {
                     var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${v.url}" target="_blank" class="img-content">
-                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+                    <img src="/unnamed.png" class="img-thumbnail" alt="...">
        
 <span class="img-name" >${v.name}</span>
         </a>
@@ -1119,7 +1189,7 @@
             })
             var let = `<div class="col-4 col-sm-2 text-center">
 <a href ="${Url}/${Profile.url}" target="_blank" class="img-content">
-                    <img src="https://play-lh.googleusercontent.com/9XKD5S7rwQ6FiPXSyp9SzLXfIue88ntf9sJ9K250IuHTL7pmn2-ZB0sngAX4A2Bw4w" class="img-thumbnail" alt="...">
+                    <img src="/unnamed.png" class="img-thumbnail" alt="...">
                </a> </div>`;
             $(img1).append(let);
             $.each(conscious, function (k, v) {

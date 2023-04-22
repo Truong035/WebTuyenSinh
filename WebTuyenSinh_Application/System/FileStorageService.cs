@@ -1584,7 +1584,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
             {
                 string fileName = "Profile/DS_Tuyen_Sinh.xlsx";
                 Admisstion admisstion = _context.Admisstions.Where(x => x.id == id).FirstOrDefault();
-                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust!=0).ToListAsync();
+                var Profile = await _context.ProfileStudents.Where(x => x.idAdmisstion == id && x.Statust!=0).OrderByDescending(x=>x.CreateDate).ToListAsync();
                 var ProfileInfor = await _context.InforMationProflies.ToListAsync();
               //  var School = await _context.Schools.ToListAsync();
                 var Major = await _context.Majors.ToListAsync();
@@ -1603,7 +1603,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                       So_BD = "",
                                       HO_TEN = p.Name.ToLower(),
                                       NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
-                                      Gioi_Tinh = (p.Sex == 1 ? "Name" : "Nữ"),
+                                      Gioi_Tinh = (p.Sex == 1 ? "Nữ" : "Nam"),
                                       SO_CMND = p.CMND,
                                       NGAY_CAP = (p?.DateRange.Value.ToString("dd/MM/yyyy") ?? ""),
                                       DAN_TOC = p.Nation,
@@ -1612,19 +1612,22 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                       DIA_CHI = p.Adress,
                                       NOI_Sinh = p.FromBirthDay,
                                       KHU_VUC = p.Areas,
+                                      NGAY_CAP_NHAT=(p.Updatedate!=null ? p.Updatedate.Value.ToString("dd/MM/yyyy") : ""),
                                       LOP10= School.FirstOrDefault(x=>x.id==p.Shoo1)?.NameShool??"",
                                       Ma_TruongLop10 = School.FirstOrDefault(x => x.id == p.Shoo1)?.idShool ?? "",
                                       Ma_TinhLop10 = School.FirstOrDefault(x => x.id == p.Shoo1)?.idConscious ?? "",
-
+                                      Ma_XaLop10 = School.FirstOrDefault(x => x.id == p.Shoo1)?.idDistrict ?? "",
                                       LOP11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.NameShool ?? "",
                                       Ma_TruongLop11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.idShool ?? "",
                                       Ma_TinhLop11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.idConscious ?? "",
-
+                                      Ma_XaLop11 = School.FirstOrDefault(x => x.id == p.Shoo2)?.idDistrict ?? "",
                                       LOP12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.NameShool ?? "",
                                       Ma_TruongLop12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.idShool ?? "",
                                       Ma_TinhLop12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.idConscious ?? "",
-                                     
+                                      Ma_XaLop12 = School.FirstOrDefault(x => x.id == p.Shoo3)?.idDistrict ?? "",
+
                                       DOI_TUONG = (p.Priority_object != null ? p.Priority_object : ""),
+                                      NAM_TOT_NGHIEP=p.Year,
                                       THUTU_NV = I.STT,
                                       MA_NGANH = I.idMajor,
                                       TEN_NGANH = Major.FirstOrDefault(x => x.id.Trim().Equals(I.idMajor)).Name,
@@ -1684,7 +1687,7 @@ new PdfSolidBrush(Color.FromArgb(25, 25, 112)),
                                       So_BD = p.Identification,
                                       HO_TEN = p.Name.ToLower(),
                                       NGAY_SINH = (p?.BirthDay.Value.ToString("dd/MM/yyyy") ?? ""),
-                                      Gioi_Tinh = (p.Sex == 1 ? "Name" : "Nữ"),
+                                      Gioi_Tinh = (p.Sex == 1 ? "Nữ" : "Nam"),
                                       SO_CMND = p.CMND,
                                       NGAY_CAP = (p?.DateRange.Value.ToString("dd/MM/yyyy") ?? ""),
                                       DAN_TOC = p.Nation,

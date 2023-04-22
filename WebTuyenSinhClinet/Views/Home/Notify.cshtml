@@ -1,0 +1,128 @@
+﻿@model List<ProfileStudentsView>
+@{
+
+}
+@using WebTuyenSinh_Application.ViewApi;
+
+<div class="m-5">
+    <div class="col-lg-12 grid-margin stretch-card" id="frm1">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table id="data-table" class="display expandable-table" style="width:100%">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    @*<th>
+                                                        ID
+                                                        </th>*@
+                                                    <th>
+                                                        Đợt Tuyển Sinh
+                                                    </th>
+
+                                                    <th>
+                                                        Họ Tên
+                                                    </th>
+                                                    @*<th>
+                                                            Email
+                                                        </th>*@
+                                                    <th>
+                                                        SĐT
+                                                    </th>
+                                                    <th>
+                                                        CMND
+                                                    </th>
+                                                    <th>
+                                                      Tên Ngành
+                                                    </th>
+                                                    <th>
+                                                        Ngày Nộp
+                                                    </th>
+                                                
+                                                    <th>
+                                                        #
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.AdmisstionName
+                                                        </td>
+                                                        <td>
+                                                            @item.Name
+                                                        </td>
+                                                        @*<td>
+                                                                @item.Email
+                                                            </td>*@
+                                                        <td>
+                                                            @item.Teletephone
+
+                                                        </td>
+                                                        <td>
+                                                            @item.CMND
+                                                        </td>
+                                                        <td>
+                                                            @item.Major
+                                                        </td>
+                                                        <td>
+                                                            @item.CreateDate.Value.ToString("dd/MM/yyyy")
+
+                                                        </td>
+                                                     
+                                                        <td>
+                                                            @{
+                                                                @if (item.Statust == 5)
+                                                                {
+                                                                    <a href="/Home/ProfileDetail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                        Xem
+                                                                    </a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    @if (item.Statust == 3)
+                                                                    {
+                                                                        <a href="/Home/EditProfile/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                            Chỉnh sửa
+                                                                        </a>
+                                                                    }
+                                                                    else if ((item.CloseTime != null) && item.CloseTime.Value > DateTime.Now)
+                                                                    {
+                                                                        <a href="/Home/EditProfile/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                            Chỉnh sửa
+                                                                        </a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a href="/Home/ProfileDetail/@item.id" data-toggle="tooltip" title="" class="btn  btn-icon-text text-success  " data-original-title="Edit Task">
+                                                                            Xem
+                                                                        </a>
+                                                                    }
+                                                                }
+                                                            }
+
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

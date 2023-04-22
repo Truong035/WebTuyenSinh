@@ -40,7 +40,10 @@
                                     Đọc file
                                 </button>
 
-
+                                <button type="button" id="btnSave" class="btn btn-sm btn-primary btn-round   " data-target="#addRowModal">
+                               
+                                    Lưu
+                                </button>
                             </div>
                         </form>
 
@@ -57,26 +60,34 @@
                             <thead>
                                 <tr>
                                     <th>
+                                        Id
+                                    </th>
+                                    <th>
+                                        CMND
+                                    </th>
+                                    <th>
+                                        SBD
+                                    </th>
+                                    <th>
+                                        Họ Tên
+                                    </th>
+                                    <th>
+                                        Ngày Sinh
+                                    </th>
+                                    <th>
                                         Mã Ngành
                                     </th>
                                     <th>
                                         Tên Ngành
                                     </th>
                                     <th>
-                                        Mô Tả
+                                        Mã Tổ Hợp
                                     </th>
                                     <th>
-                                        Mô Tả
+                                        Thứ Tự Nguyện Vọng
                                     </th>
                                     <th>
-                                        Mô Tả
-                                    </th>
-                                    <th>
-                                        Mô Tả
-                                    </th>
-
-                                    <th>
-                                        #
+                                        Khu Vực
                                     </th>
                                 </tr>
                             </thead>
@@ -94,8 +105,12 @@
 @section Scripts{
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
         <script>
-            let id = 0;
+                                    let id = 0;
+                                    let ListId = [];
             let button;
+
+
+
 
             $(document).ready(function () {
 
@@ -103,6 +118,71 @@
                     e.preventDefault(); // Now nothing will happen
                     readURL()
                 })
+                $('#btnSave').click(function () { // Now nothing will happen
+                    if (ListId.length > 0) {
+                        var admisstion = $("#selectAdmisstion").val().split("/");
+                        $.ajax({
+                            url: "/Admisstion/SaveResultProFile/" + admisstion[0],
+                            type: 'POST',
+                            async: false,
+                            data: { ListId: ListId },
+                            success: function (res) {
+                                if (res.success) {
+                                    swal("Đã lưu ", {
+                                        icon: "success",
+                                        buttons: {
+                                            confirm: {
+                                                className: 'btn btn-success'
+                                            }
+                                        },
+                                    });
+                                    ListId = [];
+                                    $('#data-table').DataTable({
+                                        data: [],
+                                        destroy: true,
+                                        //  searching: false,
+                                        columns: [
+
+                                            { data: "id" },
+                                            { data: "SO_CMND" },
+                                            { data: "So_BD" },
+
+                                            { data: "HO_TEN" },
+                                            { data: "NGAY_SINH" },
+                                            { data: "MA_NGANH" },
+                                            { data: "TEN_NGANH" },
+                                            { data: "MA_TOHOPMON" },
+                                            { data: "THUTU_NV" }, { data: "KHU_VUC" }
+                                        ]
+                                    });
+                                }
+                                else {
+                                    swal("Lưu thất bại ", {
+                                        icon: "error",
+                                        buttons: {
+                                            confirm: {
+                                                className: 'btn btn-success'
+                                            }
+                                        },
+                                    });
+                                }
+                                console.log(res);
+                            }
+                        });
+                    }
+                    else {
+                        swal("Chưa có dữ liệu", {
+                            icon: "error",
+                            buttons: {
+                                confirm: {
+                                    className: 'btn btn-success'
+                                }
+                            },
+                        });
+                    }
+                 
+                });
+                
             });
             function readURL(event) {
 
@@ -117,6 +197,7 @@
                     var workbook = XLSX.read(data, {
                         type: 'binary'
                     });
+                    let check = true;
                     workbook.SheetNames.forEach(function (sheetName) {
                         // Here is your object
                         var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
@@ -125,44 +206,63 @@
                         arr = [];
                         let cout = 0;
 
-
+                        Req = [];
                         var admisstion = $("#selectAdmisstion").val().split("/");
-                        if (admisstion[1]==1) {
-                            for (var i = 1; i < XL_row_object.length; i++) {
+                        if (check) {
+                            for (var i = 0; i < XL_row_object.length; i++) {
                                 arr.push(
                                     {
                                         So_BD: XL_row_object[i].So_BD,
-                                        MA_NGANH: XL_row_object[i].MA_NGANH
+                                        MA_NGANH: XL_row_object[i].MA_NGANH,
+                                        CMND: XL_row_object[i].SO_CMND,
+                                        TO_HOP: XL_row_object[i].MA_TOHOPMON
                                     }
                                 )
                             }
                             $.ajax({
-                                url: "/Admisstion/ImportExcel/"+admisstion[0],
+                                url: "/Admisstion/ImportExcel/" + admisstion[0],
                                 type: 'POST',
+                                async: false,
                                 data: { str: JSON.stringify(arr) },
-                                success: function (data) {
-                                  
+                                success: function (res) {
+                                    Req = JSON.parse(res.data)
+                                    console.log(Req.Data);
+                                    $('#data-table').DataTable({
+                                        data: Req.Data  ,
+                                        destroy: true,
+                                        //  searching: false,
+                                        columns: [
+
+                                            { data: "id" },
+                                            { data: "SO_CMND" },
+                                            { data: "So_BD" },
+
+                                            { data: "HO_TEN" },
+                                            { data: "NGAY_SINH" },
+                                            { data: "MA_NGANH" },
+                                            { data: "TEN_NGANH" },
+                                            { data: "MA_TOHOPMON" },
+                                            { data: "THUTU_NV" }, { data: "KHU_VUC" }
+                                        ]
+                                    });
+                                    if (Req.Data != null) {
+                                        ListId = Req.Data.map((x) => { return x.id })
+                                    }
+                                  //  console.log(Req.Data.map((x)=> { return x.id }));
                                 }
                             });
-
+                            console.log("ss")
+                            console.log(Req);
+                            check = false;
                         }
+                     //   if (admisstion[1]==1) {
+                          
 
-                           
-                        console.log(arr);
-                        //$('#data-table').DataTable({
-                        //    data: arr,
-                        //    destroy: true,
-                        //    searching: false,
-                        //    columns: [
-                        //        { data: "STT" },
-                        //        { data: "So_BD" },
+                        
 
-                        //        { data: "HO_TEN" },
-                        //        { data: "SO_CMND" },
-                        //        { data: "MA_NGANH" }, { data: "TEN_NGANH" }, { data: "DIEM_THI" }
-                        //    ]
-                        //});
+                      //  }
 
+                     //  ;
                     })
                     }
                     reader.onerror = function (ex) {

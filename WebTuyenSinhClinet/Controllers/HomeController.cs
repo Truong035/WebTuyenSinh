@@ -28,7 +28,26 @@ namespace WebTuyenSinhClinet.Controllers
             _service = service;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<IActionResult> ProfileDetail(long? id)
+        
+         public async Task<IActionResult> Notify(long? id)
+        {
+            string uid = _httpContextAccessor.HttpContext.Session.GetString("ID");
+            try
+            {
+                ApiResult result = await _service.GetNotifyProfileSuccess(uid);
+                if (result.Success)
+                {
+                    List<ProfileStudentsView> views = (List<ProfileStudentsView>)result.Data;
+                    return View(views);
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+            public async Task<IActionResult> ProfileDetail(long? id)
         {
             string uid = _httpContextAccessor.HttpContext.Session.GetString("ID");
             if (uid == null || id == null)
